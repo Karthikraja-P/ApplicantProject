@@ -1,62 +1,63 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Candidate Application - Quant Singularity</title>
+    <title>Candidate Application - TalentForge</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>TalentForge</h1>
-            <p>Join our innovative team in shaping the future</p>
-        </header>
+    <div class="container full-screen">
+        <div class="wizard-inner">
+            <header>
+                <h1>TalentForge Candidate Intake</h1>
+                <p>Minimal UX, single-step cards, higher conversion.</p>
+            </header>
 
-        <div class="progress-container">
-            <div class="progress-bar" id="progress-bar"></div>
-            <div class="progress-text">Application Progress: <span id="progress-text">0%</span></div>
-        </div>
-
-        <form id="application-form" action="{{ url_for('submit') }}" method="post" enctype="multipart/form-data">
-            <!-- Section 1: Personal Information -->
-            <div class="form-section" id="section-1">
-                <h2>1. Personal Information</h2>
-                <div class="form-group">
-                    <label for="full_name">Full Name <span class="required">*</span></label>
-                    <input type="text" id="full_name" name="full_name" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email Address <span class="required">*</span></label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="phone">Phone Number</label>
-                    <input type="tel" id="phone" name="phone" pattern="[\+]?[\d\s\-\(\)]+" maxlength="15">
-                </div>
-                <div class="form-group">
-                    <label for="location">Current Location (City, Country) <span class="required">*</span></label>
-                    <input type="text" id="location" name="location" required>
-                </div>
-                <div class="form-group">
-                    <label for="linkedin">LinkedIn Profile URL <span class="required">*</span></label>
-                    <input type="url" id="linkedin" name="linkedin" required>
-                </div>
+            <div class="progress-container wizard-progress">
+                <div class="progress-bar" id="progress-bar"></div>
+                <div class="progress-text">Step <span id="current-step">1</span> of <span id="total-steps">22</span></div>
             </div>
 
-            <!-- Section 2: Professional Snapshot -->
-            <div class="form-section" id="section-2">
-                <h2>2. Professional Snapshot</h2>
-                <div class="form-group">
-                    <label for="current_role">Current Role / Title <span class="required">*</span></label>
+            <form id="application-form" action="{{ url_for('submit') }}" method="post" enctype="multipart/form-data" novalidate>
+                <div class="wizard-card active" data-step="1">
+                    <div class="card-icon">🧑</div>
+                    <h2>Full Name <span class="required">*</span></h2>
+                    <input type="text" id="full_name" name="full_name" required>
+                </div>
+                <div class="wizard-card" data-step="2">
+                    <div class="card-icon">📧</div>
+                    <h2>Email Address <span class="required">*</span></h2>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="wizard-card" data-step="3">
+                    <div class="card-icon">📱</div>
+                    <h2>Phone Number</h2>
+                    <input type="tel" id="phone" name="phone" maxlength="15" placeholder="+1234567890">
+                </div>
+                <div class="wizard-card" data-step="4">
+                    <div class="card-icon">📍</div>
+                    <h2>Current Location (City, Country) <span class="required">*</span></h2>
+                    <input type="text" id="location" name="location" required>
+                </div>
+                <div class="wizard-card" data-step="5">
+                    <div class="card-icon">🔗</div>
+                    <h2>LinkedIn URL <span class="required">*</span></h2>
+                    <input type="url" id="linkedin" name="linkedin" required>
+                </div>
+                <div class="wizard-card" data-step="6">
+                    <div class="card-icon">💼</div>
+                    <h2>Current Role / Title <span class="required">*</span></h2>
                     <input type="text" id="current_role" name="current_role" required>
                 </div>
-                <div class="form-group">
-                    <label for="current_company">Current Company or Institution <span class="required">*</span></label>
+                <div class="wizard-card" data-step="7">
+                    <div class="card-icon">🏢</div>
+                    <h2>Current Company or Institution <span class="required">*</span></h2>
                     <input type="text" id="current_company" name="current_company" required>
                 </div>
-                <div class="form-group">
-                    <label for="experience">Years of Experience <span class="required">*</span></label>
+                <div class="wizard-card" data-step="8">
+                    <div class="card-icon">⏳</div>
+                    <h2>Years of Experience <span class="required">*</span></h2>
                     <select id="experience" name="experience" required>
                         <option value="">Select...</option>
                         <option value="0-1">0–1</option>
@@ -65,32 +66,34 @@
                         <option value="5+">5+</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label>Highest Education <span class="required">*</span></label>
-                    <input type="text" id="degree" name="degree" placeholder="Degree" required>
-                    <input type="text" id="field" name="field" placeholder="Field of Study" required>
-                    <input type="text" id="university" name="university" placeholder="University" required>
+                <div class="wizard-card" data-step="9">
+                    <div class="card-icon">🎓</div>
+                    <h2>Highest Education - Degree <span class="required">*</span></h2>
+                    <input type="text" id="degree" name="degree" required>
                 </div>
-            </div>
-
-            <!-- Section 3: CV & Portfolio -->
-            <div class="form-section" id="section-3">
-                <h2>3. CV & Portfolio</h2>
-                <div class="form-group">
-                    <label for="cv">Upload CV (PDF only) <span class="required">*</span></label>
+                <div class="wizard-card" data-step="10">
+                    <div class="card-icon">🧠</div>
+                    <h2>Highest Education - Field <span class="required">*</span></h2>
+                    <input type="text" id="field" name="field" required>
+                </div>
+                <div class="wizard-card" data-step="11">
+                    <div class="card-icon">🏫</div>
+                    <h2>Highest Education - University <span class="required">*</span></h2>
+                    <input type="text" id="university" name="university" required>
+                </div>
+                <div class="wizard-card" data-step="12">
+                    <div class="card-icon">📄</div>
+                    <h2>Upload CV (PDF only) <span class="required">*</span></h2>
                     <input type="file" id="cv" name="cv" accept=".pdf" required>
                 </div>
-                <div class="form-group">
-                    <label for="portfolio">Portfolio / GitHub / Personal Website links</label>
+                <div class="wizard-card" data-step="13">
+                    <div class="card-icon">🌐</div>
+                    <h2>Portfolio / GitHub / Website</h2>
                     <input type="url" id="portfolio" name="portfolio">
                 </div>
-            </div>
-
-            <!-- Section 4: Eligibility & Availability -->
-            <div class="form-section" id="section-4">
-                <h2>4. Eligibility & Availability</h2>
-                <div class="form-group">
-                    <label for="work_type">Preferred work type <span class="required">*</span></label>
+                <div class="wizard-card" data-step="14">
+                    <div class="card-icon">👩‍💻</div>
+                    <h2>Preferred Work Type <span class="required">*</span></h2>
                     <select id="work_type" name="work_type" required>
                         <option value="">Select...</option>
                         <option value="full-time">Full-time</option>
@@ -98,12 +101,14 @@
                         <option value="contract">Contract</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label for="start_date">Available Start Date <span class="required">*</span></label>
+                <div class="wizard-card" data-step="15">
+                    <div class="card-icon">📅</div>
+                    <h2>Available Start Date <span class="required">*</span></h2>
                     <input type="date" id="start_date" name="start_date" required>
                 </div>
-                <div class="form-group">
-                    <label for="work_preference">Work preference <span class="required">*</span></label>
+                <div class="wizard-card" data-step="16">
+                    <div class="card-icon">🏠</div>
+                    <h2>Work Preference <span class="required">*</span></h2>
                     <select id="work_preference" name="work_preference" required>
                         <option value="">Select...</option>
                         <option value="remote">Remote</option>
@@ -111,30 +116,24 @@
                         <option value="hybrid">Hybrid</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label for="constraints">Any constraints or additional notes</label>
+                <div class="wizard-card" data-step="17">
+                    <div class="card-icon">📝</div>
+                    <h2>Constraints / Notes</h2>
                     <textarea id="constraints" name="constraints"></textarea>
                 </div>
-            </div>
-
-            <!-- Section 5: Motivation -->
-            <div class="form-section" id="section-5">
-                <h2>5. Motivation</h2>
-                <div class="form-group">
-                    <label for="interest">Why are you interested in working with us? <span class="required">*</span></label>
+                <div class="wizard-card" data-step="18">
+                    <div class="card-icon">❤️</div>
+                    <h2>Why do you want to work with us? <span class="required">*</span></h2>
                     <textarea id="interest" name="interest" required></textarea>
                 </div>
-                <div class="form-group">
-                    <label for="problems">What kind of problems do you enjoy solving?</label>
+                <div class="wizard-card" data-step="19">
+                    <div class="card-icon">🧩</div>
+                    <h2>What problems do you enjoy solving?</h2>
                     <textarea id="problems" name="problems"></textarea>
                 </div>
-            </div>
-
-            <!-- Section 6: Basic Skill Snapshot -->
-            <div class="form-section" id="section-6">
-                <h2>6. Basic Skill Snapshot</h2>
-                <div class="form-group">
-                    <label for="area">Primary Area of Interest <span class="required">*</span></label>
+                <div class="wizard-card" data-step="20">
+                    <div class="card-icon">🎯</div>
+                    <h2>Primary Area of Interest <span class="required">*</span></h2>
                     <select id="area" name="area" required>
                         <option value="">Select...</option>
                         <option value="database">Database / Backend Systems</option>
@@ -143,9 +142,10 @@
                         <option value="not-sure">Not sure</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label>Skills (select all that apply)</label>
-                    <div class="checkbox-group">
+                <div class="wizard-card" data-step="21">
+                    <div class="card-icon">🛠️</div>
+                    <h2>Skills (optional)</h2>
+                    <div class="checkbox-group wizard-checkbox">
                         <label><input type="checkbox" name="skills" value="python"> Python</label>
                         <label><input type="checkbox" name="skills" value="sql"> SQL</label>
                         <label><input type="checkbox" name="skills" value="ml"> Machine Learning</label>
@@ -154,13 +154,9 @@
                         <label><input type="checkbox" name="skills" value="other"> Other</label>
                     </div>
                 </div>
-            </div>
-
-            <!-- Section 7: Source Tracking -->
-            <div class="form-section" id="section-7">
-                <h2>7. Source Tracking</h2>
-                <div class="form-group">
-                    <label for="source">Where did you hear about us? <span class="required">*</span></label>
+                <div class="wizard-card" data-step="22">
+                    <div class="card-icon">📣</div>
+                    <h2>Where did you hear about us? <span class="required">*</span></h2>
                     <select id="source" name="source" required>
                         <option value="">Select...</option>
                         <option value="linkedin">LinkedIn</option>
@@ -169,12 +165,28 @@
                         <option value="other">Other</option>
                     </select>
                 </div>
-            </div>
 
-            <div class="submit-container">
-                <button type="submit" class="submit-btn">Submit Application</button>
-            </div>
-        </form>
+                <div class="wizard-card" data-step="23">
+                    <div class="card-icon">✅</div>
+                    <h2>Review Your Application</h2>
+                    <p>Please confirm your responses below before submitting.</p>
+                    <ul id="review-content" style="line-height: 1.6;
+                        margin: 0;
+                        padding-left: 16px;
+                        color: #c2d7f2;
+                    "></ul>
+                </div>
+
+                <div class="wizard-actions">
+                    <button type="button" id="prev-btn" class="nav-btn">Back</button>
+                    <button type="button" id="next-btn" class="nav-btn">Next</button>
+                </div>
+
+                <div class="submit-container" style="display:none;">
+                    <button type="submit" class="submit-btn">Submit Application</button>
+                </div>
+            </form>
+        </div>
     </div>
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>

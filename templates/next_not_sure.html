@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Next Steps - TalentForge</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>TalentForge</h1>
+        </header>
+        <div class="confirmation">
+            <h2>Thank you for your application!</h2>
+            <p>Since you're exploring different areas, our team will review your profile to find the best fit:</p>
+            <ul>
+                <li>Your application will be assessed by multiple department leads.</li>
+                <li>If selected, we'll discuss potential roles across our teams during the interview.</li>
+                <li>Expected timeline: 3-5 business days for initial review.</li>
+            </ul>
+            <p>We're flexible and excited to find where your skills can shine!</p>
+            <a href="{{ url_for('index') }}" class="btn">Back to Home</a>
+        </div>
+    </div>
+</body>
+</html>

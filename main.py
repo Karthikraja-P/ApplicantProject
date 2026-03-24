@@ -1,5 +1,7 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, session, jsonify
 import os
+import json
+from datetime import datetime
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key_here'  # Change this to a random secret key
@@ -9,6 +11,74 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
+
+@app.route('/save', methods=['POST'])
+def save_progress():
+    # Save form data to session
+    data = {
+        'full_name': request.form.get('full_name'),
+        'email': request.form.get('email'),
+        'country_code': request.form.get('country_code'),
+        'phone': request.form.get('phone'),
+        'location_country': request.form.get('location_country'),
+        'location': request.form.get('location'),
+        'linkedin': request.form.get('linkedin'),
+        'current_role': request.form.get('current_role'),
+        'current_company': request.form.get('current_company'),
+        'experience': request.form.get('experience'),
+        'degree': request.form.get('degree'),
+        'field': request.form.get('field'),
+        'university': request.form.get('university'),
+        'portfolio': request.form.get('portfolio'),
+        'github': request.form.get('github'),
+        'website': request.form.get('website'),
+        'work_type': request.form.get('work_type'),
+        'start_date': request.form.get('start_date'),
+        'work_preference': request.form.get('work_preference'),
+        'constraints': request.form.get('constraints'),
+        'interest': request.form.get('interest'),
+        'problems': request.form.get('problems'),
+        'area': request.form.get('area'),
+        'skills': request.form.getlist('skills'),
+        'source': request.form.get('source')
+    }
+    session['form_data'] = data
+    
+    # Also save to a file for persistence
+    if not os.path.exists('saved_applications'):
+        os.makedirs('saved_applications')
+    
+    # Create filename with timestamp
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    email = data.get('email', 'unknown').replace('@', '_at_')
+    filename = f"saved_applications/draft_{email}_{timestamp}.json"
+    
+    with open(filename, 'w') as f:
+        json.dump(data, f, indent=2)
+    
+    return jsonify({'status': 'success', 'message': 'Progress saved successfully'})
+
+@app.route('/load-draft', methods=['GET'])
+def load_draft():
+    """Load the most recent draft from saved applications"""
+    if not os.path.exists('saved_applications'):
+        return jsonify({'status': 'error', 'message': 'No saved drafts found'}), 404
+    
+    # Get all draft files
+    drafts = [f for f in os.listdir('saved_applications') if f.startswith('draft_')]
+    if not drafts:
+        return jsonify({'status': 'error', 'message': 'No saved drafts found'}), 404
+    
+    # Sort by modification time and get the most recent
+    drafts.sort(key=lambda f: os.path.getmtime(os.path.join('saved_applications', f)), reverse=True)
+    latest_draft = drafts[0]
+    
+    try:
+        with open(os.path.join('saved_applications', latest_draft), 'r') as f:
+            data = json.load(f)
+        return jsonify({'status': 'success', 'data': data})
+    except Exception as e:
+        return jsonify({'status': 'error', 'message': str(e)}), 500
 
 @app.route('/')
 def index():
@@ -31,6 +101,8 @@ def submit():
         'field': request.form.get('field'),
         'university': request.form.get('university'),
         'portfolio': request.form.get('portfolio'),
+        'github': request.form.get('github'),
+        'website': request.form.get('website'),
         'work_type': request.form.get('work_type'),
         'start_date': request.form.get('start_date'),
         'work_preference': request.form.get('work_preference'),

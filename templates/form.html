@@ -11,53 +11,100 @@
         <div class="wizard-inner">
             <header>
                 <h1>TalentForge Candidate Intake</h1>
-                <p>Minimal UX, single-step cards, higher conversion.</p>
             </header>
 
-            <div class="progress-container wizard-progress">
-                <div class="progress-bar" id="progress-bar"></div>
-                <div class="progress-text">Step <span id="current-step">1</span> of <span id="total-steps">22</span></div>
-            </div>
+            <div class="wizard-layout">
+                <div class="sidebar">
+                    <div class="sidebar-steps">
+                        <div class="step-item active" data-step="1">
+                            <div class="step-number">1</div>
+                            <div class="step-title">Personal Info</div>
+                        </div>
+                        <div class="step-item" data-step="2">
+                            <div class="step-number">2</div>
+                            <div class="step-title">Professional</div>
+                        </div>
+                        <div class="step-item" data-step="3">
+                            <div class="step-number">3</div>
+                            <div class="step-title">CV & Portfolio</div>
+                        </div>
+                        <div class="step-item" data-step="4">
+                            <div class="step-number">4</div>
+                            <div class="step-title">Eligibility</div>
+                        </div>
+                        <div class="step-item" data-step="5">
+                            <div class="step-number">5</div>
+                            <div class="step-title">Motivation</div>
+                        </div>
+                        <div class="step-item" data-step="6">
+                            <div class="step-number">6</div>
+                            <div class="step-title">Skills & Source</div>
+                        </div>
+                        <div class="step-item" data-step="7">
+                            <div class="step-number">7</div>
+                            <div class="step-title">Review</div>
+                        </div>
+                    </div>
+                </div>
 
-            <form id="application-form" action="{{ url_for('submit') }}" method="post" enctype="multipart/form-data" novalidate>
+                <div class="main-content">
+                    <div class="progress-container wizard-progress">
+                        <div class="progress-bar" id="progress-bar"></div>
+                        <div class="progress-text">Step <span id="current-step">1</span> of <span id="total-steps">7</span></div>
+                    </div>
+
+                    <form id="application-form" action="{{ url_for('submit') }}" method="post" enctype="multipart/form-data" novalidate>
                 <div class="wizard-card active" data-step="1">
                     <div class="card-icon">🧑</div>
-                    <h2>Full Name <span class="required">*</span></h2>
+                    <h2>Personal Information</h2>
+                    <label>Full Name <span class="required">*</span> <span class="help-icon" title="Enter your complete legal name as it appears on official documents.">?</span></label>
                     <input type="text" id="full_name" name="full_name" required>
-                </div>
-                <div class="wizard-card" data-step="2">
-                    <div class="card-icon">📧</div>
-                    <h2>Email Address <span class="required">*</span></h2>
+                    <label>Email Address <span class="required">*</span> <span class="help-icon" title="We'll use this to contact you about your application.">?</span></label>
                     <input type="email" id="email" name="email" required>
-                </div>
-                <div class="wizard-card" data-step="3">
-                    <div class="card-icon">📱</div>
-                    <h2>Phone Number</h2>
-                    <input type="tel" id="phone" name="phone" maxlength="15" placeholder="+1234567890">
-                </div>
-                <div class="wizard-card" data-step="4">
-                    <div class="card-icon">📍</div>
-                    <h2>Current Location (City, Country) <span class="required">*</span></h2>
-                    <input type="text" id="location" name="location" required>
-                </div>
-                <div class="wizard-card" data-step="5">
-                    <div class="card-icon">🔗</div>
-                    <h2>LinkedIn URL <span class="required">*</span></h2>
+                    <label>Phone Number <span class="help-icon" title="Include your country code and number for international calls.">?</span></label>
+                    <div class="phone-input">
+                        <select id="country_code" name="country_code">
+                            <option value="+1">+1 (US)</option>
+                            <option value="+44">+44 (UK)</option>
+                            <option value="+91">+91 (India)</option>
+                            <option value="+61">+61 (Australia)</option>
+                            <option value="+81">+81 (Japan)</option>
+                            <option value="+49">+49 (Germany)</option>
+                            <option value="+33">+33 (France)</option>
+                            <option value="+86">+86 (China)</option>
+                            <option value="+7">+7 (Russia)</option>
+                            <option value="+55">+55 (Brazil)</option>
+                        </select>
+                        <input type="tel" id="phone" name="phone" maxlength="15" placeholder="1234567890">
+                    </div>
+                    <label>Current Location (City, Country) <span class="required">*</span> <span class="help-icon" title="Start typing your city and country for suggestions.">?</span></label>
+                    <input type="text" id="location" name="location" list="locations" required>
+                    <datalist id="locations">
+                        <option value="New York, USA">
+                        <option value="London, UK">
+                        <option value="Mumbai, India">
+                        <option value="Sydney, Australia">
+                        <option value="Tokyo, Japan">
+                        <option value="Berlin, Germany">
+                        <option value="Paris, France">
+                        <option value="Beijing, China">
+                        <option value="Moscow, Russia">
+                        <option value="São Paulo, Brazil">
+                        <option value="Toronto, Canada">
+                        <option value="Singapore, Singapore">
+                    </datalist>
+                    <label>LinkedIn URL <span class="required">*</span> <span class="help-icon" title="Provide your LinkedIn profile URL for professional background check.">?</span></label>
                     <input type="url" id="linkedin" name="linkedin" required>
                 </div>
-                <div class="wizard-card" data-step="6">
+
+                <div class="wizard-card" data-step="2">
                     <div class="card-icon">💼</div>
-                    <h2>Current Role / Title <span class="required">*</span></h2>
+                    <h2>Professional Snapshot</h2>
+                    <label>Current Role / Title <span class="required">*</span> <span class="help-icon" title="Your current job title or position.">?</span></label>
                     <input type="text" id="current_role" name="current_role" required>
-                </div>
-                <div class="wizard-card" data-step="7">
-                    <div class="card-icon">🏢</div>
-                    <h2>Current Company or Institution <span class="required">*</span></h2>
+                    <label>Current Company or Institution <span class="required">*</span> <span class="help-icon" title="Name of your current employer or educational institution.">?</span></label>
                     <input type="text" id="current_company" name="current_company" required>
-                </div>
-                <div class="wizard-card" data-step="8">
-                    <div class="card-icon">⏳</div>
-                    <h2>Years of Experience <span class="required">*</span></h2>
+                    <label>Years of Experience <span class="required">*</span> <span class="help-icon" title="Total years in your field.">?</span></label>
                     <select id="experience" name="experience" required>
                         <option value="">Select...</option>
                         <option value="0-1">0–1</option>
@@ -65,75 +112,59 @@
                         <option value="3-5">3–5</option>
                         <option value="5+">5+</option>
                     </select>
-                </div>
-                <div class="wizard-card" data-step="9">
-                    <div class="card-icon">🎓</div>
-                    <h2>Highest Education - Degree <span class="required">*</span></h2>
+                    <label>Degree <span class="required">*</span> <span class="help-icon" title="Highest degree obtained (e.g., Bachelor's, Master's).">?</span></label>
                     <input type="text" id="degree" name="degree" required>
-                </div>
-                <div class="wizard-card" data-step="10">
-                    <div class="card-icon">🧠</div>
-                    <h2>Highest Education - Field <span class="required">*</span></h2>
+                    <label>Field of Study <span class="required">*</span> <span class="help-icon" title="Your major or area of specialization.">?</span></label>
                     <input type="text" id="field" name="field" required>
-                </div>
-                <div class="wizard-card" data-step="11">
-                    <div class="card-icon">🏫</div>
-                    <h2>Highest Education - University <span class="required">*</span></h2>
+                    <label>University <span class="required">*</span> <span class="help-icon" title="Name of the institution where you obtained your degree.">?</span></label>
                     <input type="text" id="university" name="university" required>
                 </div>
-                <div class="wizard-card" data-step="12">
+
+                <div class="wizard-card" data-step="3">
                     <div class="card-icon">📄</div>
-                    <h2>Upload CV (PDF only) <span class="required">*</span></h2>
+                    <h2>CV & Portfolio</h2>
+                    <label>Upload CV (PDF only) <span class="required">*</span> <span class="help-icon" title="Upload your resume in PDF format (max 10MB).">?</span></label>
                     <input type="file" id="cv" name="cv" accept=".pdf" required>
-                </div>
-                <div class="wizard-card" data-step="13">
-                    <div class="card-icon">🌐</div>
-                    <h2>Portfolio / GitHub / Website</h2>
+                    <label>Portfolio / GitHub / Website <span class="help-icon" title="Link to your portfolio, GitHub, or personal website.">?</span></label>
                     <input type="url" id="portfolio" name="portfolio">
                 </div>
-                <div class="wizard-card" data-step="14">
-                    <div class="card-icon">👩‍💻</div>
-                    <h2>Preferred Work Type <span class="required">*</span></h2>
+
+                <div class="wizard-card" data-step="4">
+                    <div class="card-icon">📅</div>
+                    <h2>Eligibility & Availability</h2>
+                    <label>Preferred Work Type <span class="required">*</span> <span class="help-icon" title="Choose the type of employment you're seeking.">?</span></label>
                     <select id="work_type" name="work_type" required>
                         <option value="">Select...</option>
                         <option value="full-time">Full-time</option>
                         <option value="internship">Internship</option>
                         <option value="contract">Contract</option>
                     </select>
-                </div>
-                <div class="wizard-card" data-step="15">
-                    <div class="card-icon">📅</div>
-                    <h2>Available Start Date <span class="required">*</span></h2>
+                    <label>Available Start Date <span class="required">*</span> <span class="help-icon" title="Earliest date you can start working.">?</span></label>
                     <input type="date" id="start_date" name="start_date" required>
-                </div>
-                <div class="wizard-card" data-step="16">
-                    <div class="card-icon">🏠</div>
-                    <h2>Work Preference <span class="required">*</span></h2>
+                    <label>Work Preference <span class="required">*</span> <span class="help-icon" title="Your preferred work arrangement.">?</span></label>
                     <select id="work_preference" name="work_preference" required>
                         <option value="">Select...</option>
                         <option value="remote">Remote</option>
                         <option value="on-site">On-site</option>
                         <option value="hybrid">Hybrid</option>
                     </select>
-                </div>
-                <div class="wizard-card" data-step="17">
-                    <div class="card-icon">📝</div>
-                    <h2>Constraints / Notes</h2>
+                    <label>Any Constraints or Additional Notes <span class="help-icon" title="Any limitations or additional information about your availability.">?</span></label>
                     <textarea id="constraints" name="constraints"></textarea>
                 </div>
-                <div class="wizard-card" data-step="18">
+
+                <div class="wizard-card" data-step="5">
                     <div class="card-icon">❤️</div>
-                    <h2>Why do you want to work with us? <span class="required">*</span></h2>
+                    <h2>Motivation</h2>
+                    <label>Why are you interested in working with us? <span class="required">*</span> <span class="help-icon" title="Tell us what attracts you to our company and role.">?</span></label>
                     <textarea id="interest" name="interest" required></textarea>
-                </div>
-                <div class="wizard-card" data-step="19">
-                    <div class="card-icon">🧩</div>
-                    <h2>What problems do you enjoy solving?</h2>
+                    <label>What problems do you enjoy solving? <span class="help-icon" title="Describe the types of challenges you find engaging.">?</span></label>
                     <textarea id="problems" name="problems"></textarea>
                 </div>
-                <div class="wizard-card" data-step="20">
+
+                <div class="wizard-card" data-step="6">
                     <div class="card-icon">🎯</div>
-                    <h2>Primary Area of Interest <span class="required">*</span></h2>
+                    <h2>Skills & Source</h2>
+                    <label>Primary Area of Interest <span class="required">*</span> <span class="help-icon" title="Choose the area that best matches your expertise.">?</span></label>
                     <select id="area" name="area" required>
                         <option value="">Select...</option>
                         <option value="database">Database / Backend Systems</option>
@@ -141,10 +172,7 @@
                         <option value="ai">AI / LLM Systems</option>
                         <option value="not-sure">Not sure</option>
                     </select>
-                </div>
-                <div class="wizard-card" data-step="21">
-                    <div class="card-icon">🛠️</div>
-                    <h2>Skills (optional)</h2>
+                    <label>Skills (optional) <span class="help-icon" title="Select all that apply to your skill set.">?</span></label>
                     <div class="checkbox-group wizard-checkbox">
                         <label><input type="checkbox" name="skills" value="python"> Python</label>
                         <label><input type="checkbox" name="skills" value="sql"> SQL</label>
@@ -153,10 +181,7 @@
                         <label><input type="checkbox" name="skills" value="apis"> APIs / Backend Development</label>
                         <label><input type="checkbox" name="skills" value="other"> Other</label>
                     </div>
-                </div>
-                <div class="wizard-card" data-step="22">
-                    <div class="card-icon">📣</div>
-                    <h2>Where did you hear about us? <span class="required">*</span></h2>
+                    <label>Where did you hear about us? <span class="required">*</span> <span class="help-icon" title="How did you learn about this opportunity?">?</span></label>
                     <select id="source" name="source" required>
                         <option value="">Select...</option>
                         <option value="linkedin">LinkedIn</option>
@@ -166,15 +191,11 @@
                     </select>
                 </div>
 
-                <div class="wizard-card" data-step="23">
+                <div class="wizard-card" data-step="7">
                     <div class="card-icon">✅</div>
                     <h2>Review Your Application</h2>
                     <p>Please confirm your responses below before submitting.</p>
-                    <ul id="review-content" style="line-height: 1.6;
-                        margin: 0;
-                        padding-left: 16px;
-                        color: #c2d7f2;
-                    "></ul>
+                    <ul id="review-content" style="line-height: 1.6; margin: 0; padding-left: 16px; color: #c2d7f2;"></ul>
                 </div>
 
                 <div class="wizard-actions">
@@ -186,6 +207,8 @@
                     <button type="submit" class="submit-btn">Submit Application</button>
                 </div>
             </form>
+                </div>
+            </div>
         </div>
     </div>
 

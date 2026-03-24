@@ -20,6 +20,7 @@ def submit():
     data = {
         'full_name': request.form.get('full_name'),
         'email': request.form.get('email'),
+        'country_code': request.form.get('country_code'),
         'phone': request.form.get('phone'),
         'location': request.form.get('location'),
         'linkedin': request.form.get('linkedin'),

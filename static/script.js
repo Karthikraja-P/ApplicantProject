@@ -9,12 +9,17 @@
     const prevBtn = document.getElementById('prev-btn');
     const nextBtn = document.getElementById('next-btn');
     const submitContainer = document.querySelector('.submit-container');
+    const stepItems = document.querySelectorAll('.step-item');
 
     let currentStep = 1;
 
     function updateStep() {
         steps.forEach((stepCard, index) => {
             stepCard.classList.toggle('active', index === currentStep - 1);
+        });
+
+        stepItems.forEach((item, index) => {
+            item.classList.toggle('active', index === currentStep - 1);
         });
 
         const progress = Math.round((currentStep - 1) / totalSteps * 100);
@@ -120,10 +125,14 @@
         const review = document.getElementById('review-content');
         if (!review) return;
 
+        const countryCode = document.getElementById('country_code').value || '';
+        const phone = document.getElementById('phone').value.trim() || '';
+        const fullPhone = phone ? `${countryCode} ${phone}` : '—';
+
         const values = {
             'Full Name': document.getElementById('full_name').value.trim() || '—',
             'Email': document.getElementById('email').value.trim() || '—',
-            'Phone': document.getElementById('phone').value.trim() || '—',
+            'Phone': fullPhone,
             'Location': document.getElementById('location').value.trim() || '—',
             'LinkedIn': document.getElementById('linkedin').value.trim() || '—',
             'Current Role': document.getElementById('current_role').value.trim() || '—',
@@ -153,11 +162,6 @@
     }
 
     form.addEventListener('input', sanitizePhone);
-    form.addEventListener('input', function(e) {
-        if (['email', 'url', 'tel', 'text', 'date', 'select-one', 'textarea'].includes(e.target.type)) {
-            validateField(e.target);
-        }
-    });
 
     prevBtn.addEventListener('click', function() {
         if (currentStep > 1) {
@@ -172,6 +176,16 @@
             currentStep++;
             updateStep();
         }
+    });
+
+    stepItems.forEach((item, index) => {
+        item.addEventListener('click', function() {
+            const step = parseInt(item.dataset.step);
+            if (step <= currentStep || validateCurrentStep()) {
+                currentStep = step;
+                updateStep();
+            }
+        });
     });
 
     form.addEventListener('submit', function(e) {

@@ -844,7 +844,53 @@ header p {
 .pattern-visual {
     display: flex;
     justify-content: center;
-    margin-bottom: 18px;
+    margin-bottom: 14px;
+}
+.pattern-visual svg {
+    max-width: 100%;
+    max-height: 150px;
+    width: auto;
+    height: auto;
+    display: block;
+}
+
+/* Centered matrix visual for visual questions */
+.psych-viz-center {
+    display: flex;
+    justify-content: center;
+    margin: 6px 0 10px;
+}
+
+.psych-viz-center svg {
+    display: block;
+    width: 148px;
+    height: 148px;
+    max-width: 148px;
+    max-height: 148px;
+}
+
+/* Horizontal single-row options for visual questions */
+.mcq-options.psych-opts-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 8px;
+}
+
+.psych-opts-row .mcq-option.pattern-opt {
+    flex: 1;
+    min-width: 0;
+    padding: 6px 4px;
+    gap: 4px;
+}
+
+.psych-opts-row .mcq-option.pattern-opt svg {
+    width: 100%;
+    height: auto;
+    max-width: 64px;
+    max-height: 64px;
 }
 .pattern-svg {
     max-width: 100%;
@@ -891,6 +937,51 @@ header p {
     align-items: center;
     margin-top: 18px;
     gap: 12px;
+}
+
+.q-finish-btn {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+}
+
+/* ── Question number grid ── */
+.q-number-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(110, 173, 255, 0.1);
+}
+
+.q-num-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 6px;
+    border: 1.5px solid rgba(52, 102, 162, 0.3);
+    background: rgba(9, 14, 26, 0.9);
+    color: #5a7ca0;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.q-num-btn:hover {
+    border-color: #00d4ff;
+    color: #aac4e8;
+}
+
+.q-num-btn.qn-current {
+    border-color: #00d4ff;
+    color: #00d4ff;
+    background: rgba(0, 212, 255, 0.12);
+}
+
+.q-num-btn.qn-answered {
+    background: rgba(0, 255, 136, 0.12);
+    border-color: #00ff88;
+    color: #00ff88;
 }
 
 /* ── Question source badge (repo attribution) ── */

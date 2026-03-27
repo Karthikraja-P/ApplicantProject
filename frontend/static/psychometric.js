@@ -178,7 +178,7 @@ document.addEventListener('DOMContentLoaded', function () {
         {
             source: 'DiLi-Lab / MeRID',
             q: 'The word below is printed in a specific ink colour.\nWhat COLOUR is the ink? (Do not read the word — look at the colour.)',
-            visual: '<svg width="320" height="110" viewBox="0 0 320 110" xmlns="http://www.w3.org/2000/svg" style="background:#0d1b2a;border-radius:8px;"><text x="160" y="74" text-anchor="middle" font-size="62" font-weight="bold" fill="#e63946" font-family="Arial, sans-serif">GREEN</text></svg>',
+            visual: '<svg width="280" height="80" viewBox="0 0 280 80" xmlns="http://www.w3.org/2000/svg" style="background:#0d1b2a;border-radius:8px;"><text x="140" y="54" text-anchor="middle" font-size="44" font-weight="bold" fill="#e63946" font-family="Arial, sans-serif">GREEN</text></svg>',
             opts: ['A.  Green', 'B.  Red', 'C.  Blue', 'D.  Yellow'],
             a: 1,
             exp: 'Stroop effect: the word says "GREEN" but the ink colour is Red. Suppressing word meaning requires cognitive control.'
@@ -186,7 +186,7 @@ document.addEventListener('DOMContentLoaded', function () {
         {
             source: 'DiLi-Lab / MeRID',
             q: 'Look at the row of arrows below.\nWhich direction does the CENTRE arrow point?',
-            visual: '<svg width="320" height="90" viewBox="0 0 320 90" xmlns="http://www.w3.org/2000/svg" style="background:#0d1b2a;border-radius:8px;"><text x="160" y="62" text-anchor="middle" font-size="52" fill="#c8d8f0" font-family="Arial, sans-serif">&#8592; &#8592; &#8594; &#8592; &#8592;</text></svg>',
+            visual: '<svg width="280" height="70" viewBox="0 0 280 70" xmlns="http://www.w3.org/2000/svg" style="background:#0d1b2a;border-radius:8px;"><text x="140" y="46" text-anchor="middle" font-size="36" fill="#c8d8f0" font-family="Arial, sans-serif">&#8592; &#8592; &#8594; &#8592; &#8592;</text></svg>',
             opts: ['A.  Left', 'B.  Right', 'C.  Up', 'D.  Down'],
             a: 1,
             exp: 'Flanker task: the flanking arrows point left, but the centre arrow points Right. Attention must focus on the target and suppress distractors.'
@@ -289,10 +289,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // ─── Cached DOM references ─────────────────────────────────────────────────
 
-    const screens  = document.querySelectorAll('.psych-screen');
-    const navItems = document.querySelectorAll('.psych-nav-item');
-    const prevBtn  = document.getElementById('q-prev-btn');
-    const nextBtn  = document.getElementById('q-next-btn');
+    const screens    = document.querySelectorAll('.psych-screen');
+    const navItems   = document.querySelectorAll('.psych-nav-item');
+    const prevBtn    = document.getElementById('q-prev-btn');
+    const nextBtn    = document.getElementById('q-next-btn');
+    const finishBtn  = document.getElementById('q-finish-btn');
+    const numGrid    = document.getElementById('q-number-grid');
 
     // ─── Helpers ───────────────────────────────────────────────────────────────
 
@@ -343,6 +345,33 @@ document.addEventListener('DOMContentLoaded', function () {
         return ticker;
     }
 
+    // Render the numbered bubble grid
+    function renderNumberGrid(currentIndex) {
+        numGrid.innerHTML = '';
+        QUESTIONS.forEach((_q, i) => {
+            const btn = document.createElement('button');
+            btn.className   = 'q-num-btn';
+            btn.textContent = i + 1;
+            btn.title       = 'Go to Question ' + (i + 1);
+
+            if (i === currentIndex) {
+                btn.classList.add('qn-current');
+            } else if (answers[i] !== null) {
+                btn.classList.add('qn-answered');
+            }
+
+            btn.addEventListener('click', () => navigateTo(i));
+            numGrid.appendChild(btn);
+        });
+
+        // Show Finish button only on last question or when all answered
+        const allAnswered   = answers.every(a => a !== null);
+        const onLast        = currentIndex === QUESTIONS.length - 1;
+        finishBtn.style.display = (onLast || allAnswered) ? 'inline-block' : 'none';
+        nextBtn.style.display   = (onLast && !allAnswered) ? 'none' : 'inline-block';
+        if (onLast) nextBtn.style.display = 'none';
+    }
+
     // Stop running timer and freeze bar display
     function stopTimer() {
         clearInterval(currentTicker);
@@ -367,6 +396,10 @@ document.addEventListener('DOMContentLoaded', function () {
         const questionEl = document.getElementById('pattern-question');
         questionEl.innerHTML = '';
 
+        const optsEl = document.getElementById('pattern-options');
+        const exp    = document.getElementById('pattern-explanation');
+
+        // Source badge
         if (q.source) {
             const badge = document.createElement('div');
             badge.className   = 'q-source-badge';
@@ -374,34 +407,24 @@ document.addEventListener('DOMContentLoaded', function () {
             questionEl.appendChild(badge);
         }
 
-        if (q.visual) {
-            const vizDiv = document.createElement('div');
-            vizDiv.className = 'pattern-visual';
-            vizDiv.innerHTML = q.visual;
-            questionEl.appendChild(vizDiv);
-        }
-
+        // Caption always shown above
         const caption = document.createElement('p');
         caption.className   = 'pattern-caption';
         caption.textContent = q.q;
         questionEl.appendChild(caption);
 
-        // Explanation
-        const exp = document.getElementById('pattern-explanation');
-        exp.className   = 'mcq-explanation';
-        exp.textContent = '';
-
-        if (answered) {
-            exp.textContent = (chosen === q.a ? '✓ Correct' : (chosen === -1 ? '⏱  Time\'s up' : '✗ Incorrect')) + ' — ' + q.exp;
-            exp.classList.add(chosen === q.a ? 'correct' : 'incorrect', 'visible');
-        }
-
-        // Options
-        const optsEl = document.getElementById('pattern-options');
-        optsEl.innerHTML = '';
-
         if (q.svgOpts) {
-            optsEl.classList.add('pattern-grid');
+            // ── Visual question: matrix centered above, options in one horizontal row ──
+            if (q.visual) {
+                const vizDiv = document.createElement('div');
+                vizDiv.className = 'psych-viz-center';
+                vizDiv.innerHTML = q.visual;
+                questionEl.appendChild(vizDiv);
+            }
+
+            optsEl.style.display = '';
+            optsEl.innerHTML = '';
+            optsEl.className = 'mcq-options psych-opts-row';
             q.svgOpts.forEach((svg, i) => {
                 const btn = document.createElement('button');
                 btn.className = 'mcq-option pattern-opt';
@@ -416,7 +439,18 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
                 optsEl.appendChild(btn);
             });
+
         } else {
+            // ── Text question: visual (if any) above, options below ──
+            if (q.visual) {
+                const vizDiv = document.createElement('div');
+                vizDiv.className = 'pattern-visual';
+                vizDiv.innerHTML = q.visual;
+                questionEl.appendChild(vizDiv);
+            }
+
+            optsEl.style.display = '';
+            optsEl.innerHTML = '';
             optsEl.classList.remove('pattern-grid');
             q.opts.forEach((opt, i) => {
                 const btn = document.createElement('button');
@@ -434,10 +468,20 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
 
+        // Explanation
+        exp.className   = 'mcq-explanation';
+        exp.textContent = '';
+        if (answered) {
+            exp.textContent = (chosen === q.a ? '✓ Correct' : (chosen === -1 ? '⏱  Time\'s up' : '✗ Incorrect')) + ' — ' + q.exp;
+            exp.classList.add(chosen === q.a ? 'correct' : 'incorrect', 'visible');
+        }
+
         // Nav buttons
         prevBtn.style.display = idx > 0 ? 'inline-block' : 'none';
         nextBtn.disabled      = false;
-        nextBtn.textContent   = (idx === QUESTIONS.length - 1) ? 'Finish ✓' : 'Next →';
+        nextBtn.textContent   = 'Next →';
+
+        renderNumberGrid(idx);
     }
 
     // ─── Assessment logic ──────────────────────────────────────────────────────
@@ -549,12 +593,10 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     nextBtn.addEventListener('click', () => {
-        if (currentIdx < QUESTIONS.length - 1) {
-            navigateTo(currentIdx + 1);
-        } else {
-            showResults();
-        }
+        if (currentIdx < QUESTIONS.length - 1) navigateTo(currentIdx + 1);
     });
+
+    finishBtn.addEventListener('click', () => showResults());
 
     // ─── Entry Point ───────────────────────────────────────────────────────────
 

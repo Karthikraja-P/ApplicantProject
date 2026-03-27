@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Candidate Application - TalentForge</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="static/styles.css">
 </head>
 <body>
     <div class="container full-screen">
@@ -46,7 +46,7 @@
                         </div>
                     </div>
                     <div class="sidebar-decoration">
-                        <img src="{{ url_for('static', filename='sidebar-decoration.svg') }}" alt="Decoration">
+                        <img src="static/sidebar-decoration.svg">
                     </div>
                 </div>
 
@@ -56,7 +56,8 @@
                         <div class="progress-text">Step <span id="current-step">1</span> of <span id="total-steps">7</span></div>
                     </div>
 
-                    <form id="application-form" action="{{ url_for('submit') }}" method="post" enctype="multipart/form-data" novalidate>
+                    <form id="application-form" action="
+                    { url_for('submit') }}" method="post" enctype="multipart/form-data" novalidate>
                 <div class="wizard-card active" data-step="1">
                     <h2>Personal Information</h2>
                     <label>Full Name <span class="required">*</span></label>
@@ -359,6 +360,6 @@
         </div>
     </div>
 
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script src="static/script.js"></script>
 </body>
 </html>

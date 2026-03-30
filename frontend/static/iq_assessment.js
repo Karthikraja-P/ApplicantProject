@@ -71,6 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
             else if (n === 4)  pos = [[-10, -10], [10, -10], [-10, 10], [10, 10]];
             else if (n === 5)  pos = [[0, -14], [-13, -3], [13, -3], [-8, 10], [8, 10]];
             else if (n === 6)  pos = [[-13, -12], [0, -12], [13, -12], [-13, 4], [0, 4], [13, 4]];
+            else if (n === 7)  pos = [[-14,-14],[0,-14],[14,-14],[-14,0],[14,0],[-14,14],[0,14]];
             else if (n === 8)  pos = [[-14,-14],[0,-14],[14,-14],[-14,0],[14,0],[-14,14],[0,14],[14,14]];
             else if (n === 9)  { for (var i=0;i<3;i++) for (var j=0;j<3;j++) pos.push([(j-1)*14,(i-1)*14]); }
             else if (n === 12) { for (var ri=0;ri<3;ri++) for (var ci2=0;ci2<4;ci2++) pos.push([(ci2-1.5)*13,(ri-1)*16]); }
@@ -127,133 +128,354 @@ document.addEventListener('DOMContentLoaded', function () {
         return '<svg width="56" height="56" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" style="background:' + BG + ';border-radius:6px;"><text x="40" y="50" text-anchor="middle" font-size="32" fill="' + COL + '" font-weight="bold">' + n + '</text></svg>';
     }
 
-    // ─── Question Bank ──────────────────────────────────────────────────────────
+    // ─── Question Bank (15 visual + 15 number, interleaved) ────────────────────
+    // Answer distribution: A(0)×6, B(1)×8, C(2)×8, D(3)×8
 
     var QUESTIONS = [
 
-        // Q1: Shape × Fill matrix (RPM classic)
+        // ── Visual 1 ── answer: C (2) ──────────────────────────────────────────
         {
             title: 'Which image completes the pattern?',
             source: 'yuis-ice / rpm-iq-exam',
             matrix: [sqSVG('none'), ciSVG('none'), trSVG('none'),
                      sqSVG('half'), ciSVG('half'), trSVG('half'),
                      sqSVG('full'), ciSVG('full'), null],
-            opts:      [trSVG('full'), trSVG('none'), ciSVG('full'), sqSVG('half')],
-            optLabels: ['A', 'B', 'C', 'D'],
-            answer: 0, time: 90,
-            exp: 'Each row shares a fill style (none/half/full). Each column has the same shape. Row 3 = filled; Column 3 = triangle → filled triangle.'
+            opts: [trSVG('none'), ciSVG('full'), trSVG('full'), sqSVG('half')],
+            optLabels: ['A','B','C','D'], answer: 2, time: 90,
+            exp: 'Each row shares a fill style (none/half/full); each column has the same shape. Row 3 = full, Col 3 = triangle → filled triangle.'
         },
 
-        // Q2: col1 + col2 = col3
+        // ── Number 1 ── answer: B (1) ──────────────────────────────────────────
         {
             title: 'What number replaces the question mark?',
             source: 'yuis-ice / rpm-iq-exam',
             matrix: [numFn(8), numFn(3), numFn(11),
                      numFn(5), numFn(7), numFn(12),
                      numFn(9), numFn(4), null],
-            numOpts: [13, 14, 12, 15],
-            answer: 0, time: 60,
+            numOpts: [14, 13, 12, 15], answer: 1, time: 60,
             exp: 'Each row: Col1 + Col2 = Col3. 8+3=11, 5+7=12, 9+4=13.'
         },
 
-        // Q3: Dot counting (row × col)
+        // ── Visual 2 ── answer: D (3) ──────────────────────────────────────────
         {
             title: 'Which image completes the pattern?',
             source: 'yuis-ice / rpm-iq-exam',
             matrix: [dotsFn(1), dotsFn(2), dotsFn(3),
                      dotsFn(2), dotsFn(4), dotsFn(6),
                      dotsFn(3), dotsFn(6), null],
-            opts:      [dotsFn(9), dotsFn(8), dotsFn(6), dotsFn(12)],
-            optLabels: ['9', '8', '6', '12'],
-            answer: 0, time: 90,
-            exp: 'Dots = row × column. Row 3, Col 3 = 3 × 3 = 9 dots.'
+            opts: [dotsFn(8), dotsFn(6), dotsFn(12), dotsFn(9)],
+            optLabels: ['8','6','12','9'], answer: 3, time: 90,
+            exp: 'Dots = row × column. Row 3, Col 3 = 3×3 = 9 dots.'
         },
 
-        // Q4: col1 × col2 = col3
+        // ── Number 2 ── answer: C (2) ──────────────────────────────────────────
         {
             title: 'What number replaces the question mark?',
             source: 'yuis-ice / rpm-iq-exam',
             matrix: [numFn(3), numFn(4), numFn(12),
                      numFn(5), numFn(3), numFn(15),
                      numFn(6), numFn(2), null],
-            numOpts: [12, 8, 10, 14],
-            answer: 0, time: 60,
+            numOpts: [8, 10, 12, 14], answer: 2, time: 60,
             exp: 'Each row: Col1 × Col2 = Col3. 3×4=12, 5×3=15, 6×2=12.'
         },
 
-        // Q5: Arrow rotation +45° per step
+        // ── Visual 3 ── answer: B (1) ──────────────────────────────────────────
         {
             title: 'Which image completes the pattern?',
             source: 'yuis-ice / rpm-iq-exam',
             matrix: [arrowFn(0), arrowFn(1), arrowFn(2),
                      arrowFn(1), arrowFn(2), arrowFn(3),
                      arrowFn(2), arrowFn(3), null],
-            opts:      [arrowFn(4), arrowFn(0), arrowFn(6), arrowFn(2)],
-            optLabels: ['A', 'B', 'C', 'D'],
-            answer: 0, time: 90,
-            exp: 'Each arrow rotates 45° clockwise per step. Row 3 goes: ↓, ↙, ← (dir 4).'
+            opts: [arrowFn(0), arrowFn(4), arrowFn(6), arrowFn(2)],
+            optLabels: ['A','B','C','D'], answer: 1, time: 90,
+            exp: 'Each arrow rotates 45° clockwise per step. Row 3: ↓, ↙, ← (dir 4).'
         },
 
-        // Q6: Perfect squares diagonal
+        // ── Number 3 ── answer: D (3) ──────────────────────────────────────────
         {
             title: 'What number replaces the question mark?',
             source: 'yuis-ice / rpm-iq-exam',
             matrix: [numFn(1),  numFn(4),  numFn(9),
                      numFn(4),  numFn(9),  numFn(16),
                      numFn(9),  numFn(16), null],
-            numOpts: [25, 20, 36, 21],
-            answer: 0, time: 60,
-            exp: 'Each diagonal uses consecutive perfect squares: 1², 2², 3², 4², 5²=25.'
+            numOpts: [20, 36, 21, 25], answer: 3, time: 60,
+            exp: 'Numbers are perfect squares shifting one step each row: 1², 2², 3², 4², 5²=25.'
         },
 
-        // Q7: Shape size progression (small → medium → large)
+        // ── Visual 4 ── answer: A (0) ──────────────────────────────────────────
         {
             title: 'Which image completes the pattern?',
             source: 'yuis-ice / rpm-iq-exam',
-            matrix: [sqSVG('full', 12), sqSVG('full', 20), sqSVG('full', 28),
-                     ciSVG('full', 12), ciSVG('full', 20), ciSVG('full', 28),
-                     trSVG('full', 12), trSVG('full', 20), null],
-            opts:      [trSVG('full', 28), trSVG('full', 12), ciSVG('full', 28), sqSVG('full', 28)],
-            optLabels: ['A', 'B', 'C', 'D'],
-            answer: 0, time: 90,
-            exp: 'Each row shows the same shape growing small → medium → large. Row 3 = triangle; Column 3 = large.'
+            matrix: [sqSVG('full',12), sqSVG('full',20), sqSVG('full',28),
+                     ciSVG('full',12), ciSVG('full',20), ciSVG('full',28),
+                     trSVG('full',12), trSVG('full',20), null],
+            opts: [trSVG('full',28), trSVG('full',12), ciSVG('full',28), sqSVG('full',28)],
+            optLabels: ['A','B','C','D'], answer: 0, time: 90,
+            exp: 'Each row: same shape, size grows small→medium→large. Row 3 = triangle, Col 3 = large.'
         },
 
-        // Q8: n²+1 sequence
+        // ── Number 4 ── answer: C (2) ──────────────────────────────────────────
         {
             title: 'What number replaces the question mark?',
             source: 'yuis-ice / rpm-iq-exam',
             matrix: [numFn(2),  numFn(5),  numFn(10),
                      numFn(5),  numFn(10), numFn(17),
                      numFn(10), numFn(17), null],
-            numOpts: [26, 24, 28, 25],
-            answer: 0, time: 60,
+            numOpts: [24, 28, 26, 25], answer: 2, time: 60,
             exp: 'Values follow n²+1: 1²+1=2, 2²+1=5, 3²+1=10, 4²+1=17, 5²+1=26.'
         },
 
-        // Q9: Progressive filling (0 → 1 → 2 filled shapes per row)
+        // ── Visual 5 ── answer: B (1) ──────────────────────────────────────────
         {
             title: 'Which image completes the pattern?',
             source: 'yuis-ice / rpm-iq-exam',
             matrix: [diSVG('none'), ciSVG('none'), sqSVG('none'),
                      diSVG('full'), ciSVG('none'), sqSVG('none'),
                      diSVG('full'), ciSVG('full'), null],
-            opts:      [sqSVG('full'), sqSVG('none'), ciSVG('full'), diSVG('full')],
-            optLabels: ['A', 'B', 'C', 'D'],
-            answer: 0, time: 90,
-            exp: 'Each row has one more filled shape: Row 1 = 0, Row 2 = 1, Row 3 = 2 → the last shape must also be filled.'
+            opts: [sqSVG('none'), sqSVG('full'), ciSVG('full'), diSVG('full')],
+            optLabels: ['A','B','C','D'], answer: 1, time: 90,
+            exp: 'One more shape fills per row: 0 filled → 1 filled → 2 filled. The last shape must be filled.'
         },
 
-        // Q10: n³ pattern (n, n², n³)
+        // ── Number 5 ── answer: D (3) ──────────────────────────────────────────
         {
             title: 'What number replaces the question mark?',
             source: 'yuis-ice / rpm-iq-exam',
             matrix: [numFn(2), numFn(4),  numFn(8),
                      numFn(3), numFn(9),  numFn(27),
                      numFn(4), numFn(16), null],
-            numOpts: [64, 48, 32, 80],
-            answer: 0, time: 60,
+            numOpts: [48, 32, 80, 64], answer: 3, time: 60,
             exp: 'Each row: n, n², n³. Row 3: 4, 4²=16, 4³=64.'
+        },
+
+        // ── Visual 6 ── answer: A (0) ──────────────────────────────────────────
+        {
+            title: 'Which image completes the pattern?',
+            source: 'yuis-ice / rpm-iq-exam',
+            matrix: [arrowFn(6), arrowFn(0), arrowFn(2),
+                     arrowFn(0), arrowFn(2), arrowFn(4),
+                     arrowFn(2), arrowFn(4), null],
+            opts: [arrowFn(6), arrowFn(0), arrowFn(4), arrowFn(3)],
+            optLabels: ['A','B','C','D'], answer: 0, time: 90,
+            exp: 'Each arrow rotates 90° clockwise per step. Row 3: ↓(2), ←(4), ↑(6).'
+        },
+
+        // ── Number 6 ── answer: C (2) ──────────────────────────────────────────
+        {
+            title: 'What number replaces the question mark?',
+            source: 'yuis-ice / rpm-iq-exam',
+            matrix: [numFn(3), numFn(4), numFn(5),
+                     numFn(5), numFn(2), numFn(5),
+                     numFn(4), numFn(3), null],
+            numOpts: [4, 6, 5, 3], answer: 2, time: 60,
+            exp: 'Each row sums to 12: 3+4+5=12, 5+2+5=12, 4+3+?=12 → ?=5.'
+        },
+
+        // ── Visual 7 ── answer: B (1) ──────────────────────────────────────────
+        {
+            title: 'Which image completes the pattern?',
+            source: 'yuis-ice / rpm-iq-exam',
+            matrix: [sqSVG('none'), sqSVG('half'), sqSVG('full'),
+                     ciSVG('none'), ciSVG('half'), ciSVG('full'),
+                     trSVG('none'), trSVG('half'), null],
+            opts: [trSVG('none'), trSVG('full'), ciSVG('full'), sqSVG('half')],
+            optLabels: ['A','B','C','D'], answer: 1, time: 90,
+            exp: 'Each row uses the same shape; fill increases none→half→full across columns. Row 3 = triangle, Col 3 = full → filled triangle.'
+        },
+
+        // ── Number 7 ── answer: D (3) ──────────────────────────────────────────
+        {
+            title: 'What number replaces the question mark?',
+            source: 'yuis-ice / rpm-iq-exam',
+            matrix: [numFn(3), numFn(7), numFn(11),
+                     numFn(5), numFn(8), numFn(11),
+                     numFn(2), numFn(6), null],
+            numOpts: [8, 12, 9, 10], answer: 3, time: 60,
+            exp: 'Each row is arithmetic: Row 1 diff=4, Row 2 diff=3, Row 3 diff=4 → 2+4+4=10.'
+        },
+
+        // ── Visual 8 ── answer: A (0) ──────────────────────────────────────────
+        {
+            title: 'Which image completes the pattern?',
+            source: 'yuis-ice / rpm-iq-exam',
+            matrix: [diSVG('none'), sqSVG('none'), ciSVG('none'),
+                     diSVG('half'), sqSVG('half'), ciSVG('half'),
+                     diSVG('full'), sqSVG('full'), null],
+            opts: [ciSVG('full'), ciSVG('half'), sqSVG('full'), diSVG('none')],
+            optLabels: ['A','B','C','D'], answer: 0, time: 90,
+            exp: 'Each column has the same shape; fill increases down. Col 3 = circle, Row 3 = full → filled circle.'
+        },
+
+        // ── Number 8 ── answer: C (2) ──────────────────────────────────────────
+        {
+            title: 'What number replaces the question mark?',
+            source: 'yuis-ice / rpm-iq-exam',
+            matrix: [numFn(15), numFn(8),  numFn(7),
+                     numFn(12), numFn(3),  numFn(9),
+                     numFn(10), numFn(4),  null],
+            numOpts: [5, 7, 6, 4], answer: 2, time: 60,
+            exp: 'Each row: Col1 − Col2 = Col3. 15−8=7, 12−3=9, 10−4=6.'
+        },
+
+        // ── Visual 9 ── answer: D (3) ──────────────────────────────────────────
+        {
+            title: 'Which image completes the pattern?',
+            source: 'yuis-ice / rpm-iq-exam',
+            matrix: [arrowFn(0), arrowFn(6), arrowFn(4),
+                     arrowFn(6), arrowFn(4), arrowFn(2),
+                     arrowFn(4), arrowFn(2), null],
+            opts: [arrowFn(6), arrowFn(2), arrowFn(3), arrowFn(0)],
+            optLabels: ['A','B','C','D'], answer: 3, time: 90,
+            exp: 'Each arrow rotates 90° counter-clockwise per step. Row 3: ←(4), ↓(2), →(0).'
+        },
+
+        // ── Number 9 ── answer: B (1) ──────────────────────────────────────────
+        {
+            title: 'What number replaces the question mark?',
+            source: 'yuis-ice / rpm-iq-exam',
+            matrix: [numFn(1), numFn(1), numFn(2),
+                     numFn(2), numFn(3), numFn(5),
+                     numFn(3), numFn(5), null],
+            numOpts: [7, 8, 9, 6], answer: 1, time: 60,
+            exp: 'Each row: Col1 + Col2 = Col3 (Fibonacci-like). Row 3: 3+5=8.'
+        },
+
+        // ── Visual 10 ── answer: C (2) ─────────────────────────────────────────
+        {
+            title: 'Which image completes the pattern?',
+            source: 'yuis-ice / rpm-iq-exam',
+            matrix: [sqSVG('none',12), sqSVG('none',26), sqSVG('none',12),
+                     ciSVG('none',26), ciSVG('none',12), ciSVG('none',26),
+                     trSVG('none',12), trSVG('none',26), null],
+            opts: [trSVG('none',26), ciSVG('none',12), trSVG('none',12), sqSVG('none',12)],
+            optLabels: ['A','B','C','D'], answer: 2, time: 90,
+            exp: 'Row 1: S-L-S; Row 2: L-S-L; Row 3: S-L-? = S. The pattern ends on small.'
+        },
+
+        // ── Number 10 ── answer: A (0) ─────────────────────────────────────────
+        {
+            title: 'What number replaces the question mark?',
+            source: 'yuis-ice / rpm-iq-exam',
+            matrix: [numFn(3), numFn(4), numFn(9),
+                     numFn(5), numFn(3), numFn(10),
+                     numFn(4), numFn(5), null],
+            numOpts: [16, 12, 20, 14], answer: 0, time: 60,
+            exp: 'Each row: Col1 × (Col2 − 1) = Col3. 3×3=9, 5×2=10, 4×4=16.'
+        },
+
+        // ── Visual 11 ── answer: D (3) ─────────────────────────────────────────
+        {
+            title: 'Which image completes the pattern?',
+            source: 'yuis-ice / rpm-iq-exam',
+            matrix: [sqSVG('none'), ciSVG('half'), trSVG('full'),
+                     ciSVG('none'), trSVG('half'), sqSVG('full'),
+                     trSVG('none'), sqSVG('half'), null],
+            opts: [ciSVG('half'), sqSVG('full'), trSVG('full'), ciSVG('full')],
+            optLabels: ['A','B','C','D'], answer: 3, time: 90,
+            exp: 'Each column has the same fill (none/half/full). Shapes cycle sq→ci→tr each row. Col 3 fill=full, next shape after sq = ci → filled circle.'
+        },
+
+        // ── Number 11 ── answer: B (1) ─────────────────────────────────────────
+        {
+            title: 'What number replaces the question mark?',
+            source: 'yuis-ice / rpm-iq-exam',
+            matrix: [numFn(4), numFn(3), numFn(13),
+                     numFn(5), numFn(6), numFn(19),
+                     numFn(3), numFn(2), null],
+            numOpts: [5, 7, 9, 6], answer: 1, time: 60,
+            exp: 'Each row: Col1² − Col2 = Col3. 4²−3=13, 5²−6=19, 3²−2=7.'
+        },
+
+        // ── Visual 12 ── answer: C (2) ─────────────────────────────────────────
+        {
+            title: 'Which image completes the pattern?',
+            source: 'yuis-ice / rpm-iq-exam',
+            matrix: [dotsFn(2), dotsFn(3), dotsFn(4),
+                     dotsFn(3), dotsFn(4), dotsFn(5),
+                     dotsFn(4), dotsFn(5), null],
+            opts: [dotsFn(5), dotsFn(7), dotsFn(6), dotsFn(4)],
+            optLabels: ['5','7','6','4'], answer: 2, time: 90,
+            exp: 'Dots = row + col + 1 (1-indexed). Row 3, Col 3: 3+3=6 dots.'
+        },
+
+        // ── Number 12: (col1 + col3) / col2 = 2 ───────────────────────────────
+        {
+            title: 'What number replaces the question mark?',
+            source: 'yuis-ice / rpm-iq-exam',
+            matrix: [numFn(2), numFn(4),  numFn(6),
+                     numFn(3), numFn(6),  numFn(9),
+                     numFn(4), numFn(8),  null],
+            numOpts: [12, 10, 16, 14], answer: 0, time: 60,
+            exp: 'Each row: Col1+Col3 = 2×Col2. 2+6=8=2×4 ✓, 3+9=12=2×6 ✓, 4+?=2×8=16 → ?=12.'
+        },
+
+        // ── Visual 13: Diagonal fill pattern ───────────────────────────────────
+        {
+            title: 'Which image completes the pattern?',
+            source: 'yuis-ice / rpm-iq-exam',
+            matrix: [sqSVG('none'), sqSVG('none'), sqSVG('half'),
+                     sqSVG('none'), sqSVG('half'), sqSVG('full'),
+                     sqSVG('half'), sqSVG('full'), null],
+            opts: [sqSVG('half'), sqSVG('none'), ciSVG('full'), sqSVG('full')],
+            optLabels: ['A','B','C','D'], answer: 3, time: 90,
+            exp: 'Fill increases toward the bottom-right corner. The cell at Row 3, Col 3 is the most distant from the origin → fully filled.'
+        },
+
+        // ── Number 13: col3 = col1 + col2² ────────────────────────────────────
+        {
+            title: 'What number replaces the question mark?',
+            source: 'yuis-ice / rpm-iq-exam',
+            matrix: [numFn(1), numFn(2), numFn(5),
+                     numFn(2), numFn(3), numFn(11),
+                     numFn(3), numFn(4), null],
+            numOpts: [16, 19, 22, 17], answer: 1, time: 60,
+            exp: 'Col3 = Col1 + Col2². 1+2²=5 ✓, 2+3²=11 ✓, 3+4²=19.'
+        },
+
+        // ── Visual 14: Arrow direction = (row+col)×90° mod 360° ────────────────
+        {
+            title: 'Which image completes the pattern?',
+            source: 'yuis-ice / rpm-iq-exam',
+            matrix: [arrowFn(0), arrowFn(2), arrowFn(4),
+                     arrowFn(2), arrowFn(4), arrowFn(6),
+                     arrowFn(4), arrowFn(6), null],
+            opts: [arrowFn(2), arrowFn(6), arrowFn(0), arrowFn(4)],
+            optLabels: ['A','B','C','D'], answer: 2, time: 90,
+            exp: 'Direction = (row+col)×90°. Row 2+Col 2 = 4 steps of 90° = 360° → back to right (→).'
+        },
+
+        // ── Number 14: col3 = col1 + col2 + (row index) ────────────────────────
+        {
+            title: 'What number replaces the question mark?',
+            source: 'yuis-ice / rpm-iq-exam',
+            matrix: [numFn(2), numFn(3), numFn(6),
+                     numFn(4), numFn(5), numFn(11),
+                     numFn(3), numFn(6), null],
+            numOpts: [10, 14, 9, 12], answer: 3, time: 60,
+            exp: 'Col3 = Col1 + Col2 + row (1-indexed). Row1: 2+3+1=6 ✓, Row2: 4+5+2=11 ✓, Row3: 3+6+3=12.'
+        },
+
+        // ── Visual 15: Dots in columns match column number × 2 ─────────────────
+        {
+            title: 'Which image completes the pattern?',
+            source: 'yuis-ice / rpm-iq-exam',
+            matrix: [dotsFn(2), dotsFn(4), dotsFn(6),
+                     dotsFn(2), dotsFn(4), dotsFn(6),
+                     dotsFn(2), dotsFn(4), null],
+            opts: [dotsFn(6), dotsFn(4), dotsFn(8), dotsFn(5)],
+            optLabels: ['6','4','8','5'], answer: 0, time: 90,
+            exp: 'Each column always has the same dot count: Col 1=2, Col 2=4, Col 3=6. All rows follow this rule.'
+        },
+
+        // ── Number 15: triangular numbers ──────────────────────────────────────
+        {
+            title: 'What number replaces the question mark?',
+            source: 'yuis-ice / rpm-iq-exam',
+            matrix: [numFn(1), numFn(3),  numFn(6),
+                     numFn(3), numFn(6),  numFn(10),
+                     numFn(6), numFn(10), null],
+            numOpts: [12, 15, 14, 16], answer: 1, time: 60,
+            exp: 'Triangular numbers: T(1)=1, T(2)=3, T(3)=6, T(4)=10, T(5)=15. Diagonal shifts one step per row.'
         }
     ];
 
@@ -471,8 +693,8 @@ document.addEventListener('DOMContentLoaded', function () {
         var breakdown = document.getElementById('res-breakdown');
         breakdown.innerHTML = '';
         var cats = [
-            { label: 'Visual Patterns', indices: [0, 2, 4, 6, 8] },
-            { label: 'Number Matrices', indices: [1, 3, 5, 7, 9] }
+            { label: 'Visual Patterns', indices: [0,2,4,6,8,10,12,14,16,18,20,22,24,26,28] },
+            { label: 'Number Matrices', indices: [1,3,5,7,9,11,13,15,17,19,21,23,25,27,29] }
         ];
         cats.forEach(function (cat) {
             var correct = cat.indices.filter(function (i) { return answers[i] === QUESTIONS[i].answer; }).length;

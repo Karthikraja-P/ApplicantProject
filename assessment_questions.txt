@@ -1,0 +1,229 @@
+================================================================================
+  IQ TEST — ASSESSMENT QUESTIONS BREAKDOWN
+================================================================================
+
+Total Questions : 19
+Time per Question : 60 seconds
+
+--------------------------------------------------------------------------------
+CATEGORY 1 — VERBAL  (3 questions)
+--------------------------------------------------------------------------------
+
+  Q1  Type : Classification
+      Question : Which one does NOT belong with the others?
+                 A. Dog   B. Mouse   C. Lion   D. Snake   E. Elephant
+      Answer   : D. Snake  (only reptile; rest are mammals)
+      Source   : Sample PDF
+
+  Q3  Type : Analogy
+      Question : Finger is to Hand  as  Leaf is to ___
+                 A. Tree   B. Flower   C. Branch   D. Root
+      Answer   : C. Branch
+      Source   : Sample PDF
+
+  Q6  Type : Syllogism
+      Question : All architects are engineers.
+                 No engineers are drone pilots.
+                 Which conclusion necessarily follows?
+                 A. No architects are drone pilots.
+                 B. Some architects are drone pilots.
+                 C. All engineers are architects.
+                 D. Some drone pilots are engineers.
+      Answer   : A. No architects are drone pilots.
+      Source   : Sample PDF
+
+--------------------------------------------------------------------------------
+CATEGORY 2 — NUMERICAL  (3 questions)
+--------------------------------------------------------------------------------
+
+  Q2  Type : Number Series (Fibonacci)
+      Question : What is the next number in the series?
+                 1  1  2  3  5  8  13  __
+                 A. 18   B. 20   C. 21   D. 26
+      Answer   : C. 21  (each term = sum of previous two)
+      Source   : Sample PDF
+
+  Q4  Type : Word Problem (Age)
+      Question : Mary is 16 years old. She is 4 times older than her brother.
+                 How old will Mary be when she is twice as old as her brother?
+                 A. 32   B. 24   C. 8   D. 20
+      Answer   : B. 24
+      Source   : Sample PDF
+
+  Q5  Type : Number Series (Cubes)
+      Question : What is the missing number?
+                 1  8  27  __  125  216
+                 A. 36   B. 48   C. 56   D. 64
+      Answer   : D. 64  (1^3, 2^3, 3^3, 4^3, 5^3, 6^3)
+      Source   : Sample PDF
+
+--------------------------------------------------------------------------------
+CATEGORY 3 — VISUAL / MATRIX  (4 questions)
+--------------------------------------------------------------------------------
+
+  Q7  Type : Shape Pattern Matrix
+      Question : 3x3 grid showing shapes (square, circle, pentagon) with
+                 increasing fill (outline, half-filled, fully-filled).
+                 Which shape completes the bottom-right cell?
+                 A. Filled Pentagon   B. Outline Pentagon
+                 C. Filled Square     D. Outline Circle
+      Answer   : A. Filled Pentagon
+      Source   : Sample PDF
+
+  Q8  Type : Number Matrix (Row Sum)
+      Question : Find the missing number:
+                   4   3   7
+                   3   6   9
+                   2   9   ?
+                 A. 9   B. 7   C. 11   D. 6
+      Answer   : C. 11  (each row: col1 + col2 = col3)
+      Source   : Sample PDF
+
+  Q9  Type : Number Matrix (Row Product)
+      Question : Find the missing number:
+                   5   3  15
+                   3   3   9
+                   4   2   ?
+                 A. 6   B. 12   C. 2   D. 8
+      Answer   : D. 8  (each row: col1 x col2 = col3)
+      Source   : Sample PDF
+
+  Q10 Type : Number Matrix (Decreasing Differences)
+      Question : Find the missing number:
+                  43  42  40
+                  37  33  28
+                  22  15   ?
+                 A. 14   B. 7   C. 0   D. 21
+      Answer   : B. 7  (column differences increase by 9 each step)
+      Source   : Sample PDF
+
+--------------------------------------------------------------------------------
+CATEGORY 4 — COGNITIVE  (3 questions)
+  Repository : DiLi-Lab / MeRID Psychometric Tests
+  GitHub     : https://github.com/DiLi-Lab/MeRID-psychometric-tests
+--------------------------------------------------------------------------------
+
+  Q11 Type : Stroop Test (Attention / Cognitive Control)
+      Question : The word GREEN is printed in red ink.
+                 What COLOUR is the ink?
+                 (Do not read the word — look at the colour.)
+                 A. Green   B. Red   C. Blue   D. Yellow
+      Answer   : B. Red
+      Source   : DiLi-Lab / MeRID
+
+  Q12 Type : Flanker Task (Attention / Inhibition)
+      Question : Look at the row of arrows:  <-- <-- --> <-- <--
+                 Which direction does the CENTRE arrow point?
+                 A. Left   B. Right   C. Up   D. Down
+      Answer   : B. Right
+      Source   : DiLi-Lab / MeRID
+
+  Q13 Type : Working Memory
+      Question : A sequence was shown for 3 seconds:  7  3  9  1  5
+                 Which number was NOT in the sequence?
+                 A. 7   B. 4   C. 9   D. 5
+      Answer   : B. 4
+      Source   : DiLi-Lab / MeRID
+
+--------------------------------------------------------------------------------
+CATEGORY 5 — BEHAVIOURAL / SITUATIONAL  (3 questions)
+  Repository : Vishal1003 / psychometric-mindHunt
+  GitHub     : https://github.com/Vishal1003/psychometric-mindHunt
+--------------------------------------------------------------------------------
+
+  Q14 Type : Team Collaboration
+      Question : Your team is behind schedule and a key member is visibly
+                 struggling with their workload. What is the most effective
+                 response?
+                 A. Reassign their tasks to others immediately without discussion.
+                 B. Have a private conversation to understand the issue and offer
+                    support.
+                 C. Escalate to management right away.
+                 D. Wait and monitor — they will likely catch up on their own.
+      Answer   : B
+      Source   : Vishal1003 / mindHunt
+
+  Q15 Type : Prioritisation Under Pressure
+      Question : You are mid-sprint and a critical production bug is reported.
+                 You also have a feature deadline today. What do you do?
+                 A. Ignore the bug report and meet the feature deadline first.
+                 B. Fix the bug immediately without telling anyone.
+                 C. Triage the bug, notify stakeholders, and negotiate the
+                    feature deadline.
+                 D. Hand the bug to whoever reported it and continue your work.
+      Answer   : C
+      Source   : Vishal1003 / mindHunt
+
+  Q16 Type : Growth Mindset / Feedback
+      Question : After a project retrospective, your approach is criticised by
+                 two teammates. How do you respond?
+                 A. Defend your decisions — you had valid reasons for each one.
+                 B. Agree publicly but ignore the feedback privately.
+                 C. Listen carefully, ask clarifying questions, and incorporate
+                    useful feedback.
+                 D. Avoid the teammates in future projects to prevent conflict.
+      Answer   : C
+      Source   : Vishal1003 / mindHunt
+
+--------------------------------------------------------------------------------
+CATEGORY 6 — LOGICAL / ECOSYSTEM  (3 questions)
+  Repository : SebastienEveno / McKinsey Solve Game
+  GitHub     : https://github.com/SebastienEveno/mckinseysolvegame
+--------------------------------------------------------------------------------
+
+  Q17 Type : Food Chain Cascade
+      Question : In a food chain:  Grass --> Rabbit --> Fox
+                 All Rabbits are suddenly removed. What is the most likely
+                 outcome?
+                 A. Fox population increases; Grass decreases.
+                 B. Fox population decreases; Grass increases.
+                 C. Fox population increases; Grass increases.
+                 D. No change in either Fox or Grass populations.
+      Answer   : B  (Fox loses food; Grass expands without grazing)
+      Source   : SebastienEveno / McKinsey Solve
+
+  Q18 Type : Constraint Logic (Species Extinction)
+      Question : 4 predators share 2 prey species.
+                   Species A  eats X only
+                   Species B  eats Y only
+                   Species C  eats both X and Y
+                   Species D  eats both X and Y
+                 If Species X goes extinct, which predators survive?
+                 A. A, B, C and D all survive.
+                 B. B, C and D survive; A goes extinct.
+                 C. Only B survives.
+                 D. None survive.
+      Answer   : B
+      Source   : SebastienEveno / McKinsey Solve
+
+  Q19 Type : Ecosystem Building (Sustainable Chain)
+      Question : Form a valid 3-species food chain from:
+                 Eagle, Trout, Mayfly, Deer
+                   Eagle eats Trout and Deer
+                   Trout eats Mayfly
+                   Deer  eats Grass (external)
+                   Mayfly eats Algae (external)
+                 Which trio forms a complete valid chain?
+                 A. Eagle --> Deer  --> Mayfly
+                 B. Eagle --> Trout --> Mayfly
+                 C. Deer  --> Eagle --> Trout
+                 D. Eagle --> Deer  --> Trout
+      Answer   : B  (Eagle eats Trout, Trout eats Mayfly, Mayfly eats Algae)
+      Source   : SebastienEveno / McKinsey Solve
+
+================================================================================
+  SUMMARY
+================================================================================
+
+  Category                 | Questions | Source
+  -------------------------|-----------|------------------------------------
+  Verbal                   |     3     | Sample PDF
+  Numerical                |     3     | Sample PDF
+  Visual / Matrix          |     4     | Sample PDF
+  Cognitive                |     3     | DiLi-Lab / MeRID
+  Behavioural              |     3     | Vishal1003 / mindHunt
+  Logical / Ecosystem      |     3     | SebastienEveno / McKinsey Solve
+  -------------------------|-----------|------------------------------------
+  TOTAL                    |    19     |
+
+================================================================================

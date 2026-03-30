@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Assessment — TalentForge</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <style>
+        .pe-problem {
+            background: rgba(9,14,26,0.9);
+            border: 1px solid rgba(52,102,162,0.35);
+            border-radius: 14px;
+            padding: 20px 22px;
+            margin-bottom: 16px;
+            transition: border-color 0.2s;
+        }
+        .pe-problem.answered-correct { border-color: rgba(0,255,136,0.45); }
+        .pe-problem.answered-wrong   { border-color: rgba(255,111,111,0.45); }
+
+        .pe-num {
+            display: inline-block;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #ffaa00;
+            background: rgba(255,170,0,0.1);
+            border: 1px solid rgba(255,170,0,0.22);
+            border-radius: 999px;
+            padding: 2px 10px;
+            margin-bottom: 10px;
+        }
+        .pe-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #c6e8ff;
+            margin: 0 0 10px;
+        }
+        .pe-body {
+            font-size: 0.92rem;
+            color: #aac4e8;
+            line-height: 1.7;
+            white-space: pre-wrap;
+            margin-bottom: 14px;
+        }
+        .pe-input-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .pe-answer-input {
+            width: 180px;
+            background: rgba(8,13,22,0.86);
+            border: 1.5px solid #2f3f5f;
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-size: 1rem;
+            color: #eef2ff;
+            outline: none;
+            font-family: 'Courier New', monospace;
+            font-variant-numeric: tabular-nums;
+            transition: border-color 0.2s;
+        }
+        .pe-answer-input:focus  { border-color: #00d4ff; box-shadow: 0 0 0 2px rgba(0,212,255,0.2); }
+        .pe-answer-input.correct { border-color: #00ff88; }
+        .pe-answer-input.wrong   { border-color: #ff6f6f; }
+
+        .pe-status {
+            font-size: 0.9rem;
+            font-weight: 600;
+            min-width: 90px;
+        }
+        .pe-status.correct { color: #00ff88; }
+        .pe-status.wrong   { color: #ff9a9a; }
+
+        .pe-hint {
+            font-size: 0.82rem;
+            color: #5a7ca0;
+            margin-top: 10px;
+            display: none;
+            line-height: 1.5;
+        }
+        .pe-hint.visible { display: block; }
+
+        .pe-score-box {
+            display: flex;
+            gap: 32px;
+            padding: 20px 24px;
+            background: rgba(0,212,255,0.05);
+            border: 1px solid rgba(0,212,255,0.2);
+            border-radius: 14px;
+            margin-bottom: 22px;
+        }
+        .pe-source-line {
+            font-size: 0.82rem;
+            color: #5a7ca0;
+            margin-bottom: 18px;
+        }
+        .pe-source-line a { color: #00d4ff; text-decoration: none; }
+
+        #check-btn, #reset-btn {
+            min-width: 140px;
+        }
+        #check-btn {
+            background: linear-gradient(135deg,#ffaa00,#ff6600);
+            color: #000;
+        }
+        #check-btn:hover { filter: brightness(1.08); }
+        #reset-btn {
+            background: rgba(255,255,255,0.08);
+            color: #c7d5e5;
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+        #reset-btn:hover { background: rgba(255,255,255,0.14); }
+    </style>
+</head>
+<body>
+<div class="container full-screen">
+    <div class="wizard-inner">
+        <header>
+            <h1>TalentForge Candidate Intake</h1>
+        </header>
+
+        <div class="wizard-layout">
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <div class="sidebar-steps">
+                    <a href="/" class="step-item" style="text-decoration:none;">
+                        <div class="step-number" style="font-size:1rem;">←</div>
+                        <div class="step-title">Application</div>
+                    </a>
+                </div>
+                <div class="sidebar-divider"></div>
+                <div class="sidebar-section-label">Assessment</div>
+                <div class="sidebar-assessment-items">
+                    <a href="/assessment/iq" class="assessment-item step-item">
+                        <div class="step-number" style="font-size:0.65rem;font-weight:800;">IQ</div>
+                        <div class="step-title">General IQ</div>
+                    </a>
+                    <a href="/assessment/advanced" class="assessment-item step-item active">
+                        <div class="step-number" style="font-size:0.65rem;font-weight:800;">ADV</div>
+                        <div class="step-title">Advanced</div>
+                    </a>
+                </div>
+                <div class="sidebar-decoration">
+                    <img src="/static/sidebar-decoration.svg" alt="">
+                </div>
+            </div>
+
+            <!-- Main content -->
+            <div class="main-content">
+                <div id="screen-intro" class="psych-screen active">
+
+                    <h2 style="color:#c6e8ff;margin:0 0 6px;">Advanced Assessment</h2>
+                    <p class="pe-source-line">
+                        Problems from
+                        <a href="https://github.com/nayuki/Project-Euler-solutions" target="_blank">nayuki / Project-Euler-solutions</a>
+                        &amp;
+                        <a href="https://projecteuler.net" target="_blank">projecteuler.net</a>
+                    </p>
+
+                    <p style="color:#aac4e8;margin-bottom:20px;line-height:1.6;">
+                        Five mathematical / algorithmic problems from Project Euler.
+                        Work out the answer using code, pen-and-paper, or logic — then enter the result.
+                        Each problem has a precise integer answer.
+                    </p>
+
+                    <!-- Score box (hidden until checked) -->
+                    <div id="score-box" class="pe-score-box" style="display:none;">
+                        <div>
+                            <div class="psych-overall-label">Score</div>
+                            <div class="psych-overall-score" id="score-val">—</div>
+                        </div>
+                        <div>
+                            <div class="psych-overall-label">Rating</div>
+                            <div class="psych-overall-tier" id="score-tier" style="color:#ffcc44;">—</div>
+                        </div>
+                    </div>
+
+                    <!-- Problem 1 -->
+                    <div class="pe-problem" id="prob-0">
+                        <div class="pe-num">Project Euler — Problem 1</div>
+                        <div class="pe-title">Multiples of 3 or 5</div>
+                        <div class="pe-body">If we list all the natural numbers below 10 that are multiples of 3 or 5,
+we get 3, 5, 6 and 9. The sum of these multiples is 23.
+
+Find the sum of all the multiples of 3 or 5 below 1000.</div>
+                        <div class="pe-input-row">
+                            <input type="number" class="pe-answer-input" id="ans-0" placeholder="Your answer" autocomplete="off">
+                            <span class="pe-status" id="status-0"></span>
+                        </div>
+                        <div class="pe-hint" id="hint-0">
+                            Hint: Use the formula for arithmetic series, or iterate with a loop.
+                            Sum = sum of multiples of 3 + sum of multiples of 5 − sum of multiples of 15.
+                        </div>
+                    </div>
+
+                    <!-- Problem 2 -->
+                    <div class="pe-problem" id="prob-1">
+                        <div class="pe-num">Project Euler — Problem 2</div>
+                        <div class="pe-title">Even Fibonacci Numbers</div>
+                        <div class="pe-body">Each new term in the Fibonacci sequence is generated by adding the previous two terms.
+Starting with 1 and 2, the first 10 terms are:
+  1, 2, 3, 5, 8, 13, 21, 34, 55, 89, ...
+
+By considering the terms in the Fibonacci sequence whose values
+do not exceed four million, find the sum of the even-valued terms.</div>
+                        <div class="pe-input-row">
+                            <input type="number" class="pe-answer-input" id="ans-1" placeholder="Your answer" autocomplete="off">
+                            <span class="pe-status" id="status-1"></span>
+                        </div>
+                        <div class="pe-hint" id="hint-1">
+                            Hint: Generate Fibonacci numbers up to 4,000,000 and accumulate only the even ones.
+                            Every third Fibonacci number is even.
+                        </div>
+                    </div>
+
+                    <!-- Problem 3 -->
+                    <div class="pe-problem" id="prob-2">
+                        <div class="pe-num">Project Euler — Problem 3</div>
+                        <div class="pe-title">Largest Prime Factor</div>
+                        <div class="pe-body">The prime factors of 13195 are 5, 7, 13 and 29.
+
+What is the largest prime factor of the number 600851475143?</div>
+                        <div class="pe-input-row">
+                            <input type="number" class="pe-answer-input" id="ans-2" placeholder="Your answer" autocomplete="off">
+                            <span class="pe-status" id="status-2"></span>
+                        </div>
+                        <div class="pe-hint" id="hint-2">
+                            Hint: Trial division starting from 2. Divide out each small factor,
+                            then the remaining number (if &gt;1) is the largest prime factor.
+                        </div>
+                    </div>
+
+                    <!-- Problem 6 -->
+                    <div class="pe-problem" id="prob-3">
+                        <div class="pe-num">Project Euler — Problem 6</div>
+                        <div class="pe-title">Sum Square Difference</div>
+                        <div class="pe-body">The sum of the squares of the first ten natural numbers is:
+  1² + 2² + ... + 10² = 385
+
+The square of the sum of the first ten natural numbers is:
+  (1 + 2 + ... + 10)² = 55² = 3025
+
+Hence the difference is 3025 − 385 = 2640.
+
+Find the difference between the sum of the squares of the first one
+hundred natural numbers and the square of the sum.</div>
+                        <div class="pe-input-row">
+                            <input type="number" class="pe-answer-input" id="ans-3" placeholder="Your answer" autocomplete="off">
+                            <span class="pe-status" id="status-3"></span>
+                        </div>
+                        <div class="pe-hint" id="hint-3">
+                            Hint: sum of 1..n = n(n+1)/2; sum of squares = n(n+1)(2n+1)/6.
+                            Compute (sum)² − (sum of squares) for n=100.
+                        </div>
+                    </div>
+
+                    <!-- Problem 9 -->
+                    <div class="pe-problem" id="prob-4">
+                        <div class="pe-num">Project Euler — Problem 9</div>
+                        <div class="pe-title">Special Pythagorean Triplet</div>
+                        <div class="pe-body">A Pythagorean triplet is a set of three natural numbers a &lt; b &lt; c for which:
+  a² + b² = c²
+
+For example, 3² + 4² = 9 + 16 = 25 = 5².
+
+There exists exactly one Pythagorean triplet for which a + b + c = 1000.
+Find the product abc.</div>
+                        <div class="pe-input-row">
+                            <input type="number" class="pe-answer-input" id="ans-4" placeholder="Your answer" autocomplete="off">
+                            <span class="pe-status" id="status-4"></span>
+                        </div>
+                        <div class="pe-hint" id="hint-4">
+                            Hint: Iterate a from 1..333, b from a+1, derive c = 1000−a−b, then check a²+b²=c².
+                        </div>
+                    </div>
+
+                    <!-- Action buttons -->
+                    <div style="display:flex;gap:12px;margin-top:6px;flex-wrap:wrap;align-items:center;">
+                        <button id="check-btn" class="nav-btn">Check Answers</button>
+                        <button id="reset-btn" class="nav-btn">Reset</button>
+                        <button id="hints-btn" class="nav-btn"
+                                style="background:rgba(0,212,255,0.08);color:#00d4ff;border:1px solid rgba(0,212,255,0.22);">
+                            Show Hints
+                        </button>
+                    </div>
+
+                    <div style="margin-top:20px;">
+                        <a href="/" style="text-decoration:none;">
+                            <button class="nav-btn prev-btn">← Back to Application</button>
+                        </a>
+                    </div>
+
+                </div><!-- /screen-intro -->
+            </div><!-- /main-content -->
+        </div>
+    </div>
+</div>
+
+<script>
+(function () {
+    var ANSWERS = [233168, 4613732, 6857, 25164150, 31875000];
+    var hintsVisible = false;
+
+    document.getElementById('check-btn').addEventListener('click', function () {
+        var correct = 0;
+        for (var i = 0; i < 5; i++) {
+            var inp    = document.getElementById('ans-' + i);
+            var status = document.getElementById('status-' + i);
+            var prob   = document.getElementById('prob-' + i);
+            var val    = parseInt(inp.value, 10);
+
+            inp.classList.remove('correct', 'wrong');
+            prob.classList.remove('answered-correct', 'answered-wrong');
+            status.className = 'pe-status';
+            status.textContent = '';
+
+            if (isNaN(val) || inp.value.trim() === '') {
+                status.textContent = 'No answer';
+                status.className = 'pe-status';
+            } else if (val === ANSWERS[i]) {
+                inp.classList.add('correct');
+                prob.classList.add('answered-correct');
+                status.className = 'pe-status correct';
+                status.textContent = '✓ Correct';
+                correct++;
+            } else {
+                inp.classList.add('wrong');
+                prob.classList.add('answered-wrong');
+                status.className = 'pe-status wrong';
+                status.textContent = '✗ Incorrect';
+            }
+        }
+
+        var box    = document.getElementById('score-box');
+        var valEl  = document.getElementById('score-val');
+        var tierEl = document.getElementById('score-tier');
+        box.style.display = 'flex';
+        valEl.textContent  = correct + ' / 5';
+
+        var tier, color;
+        if (correct === 5)      { tier = 'Perfect';       color = '#00ff88'; }
+        else if (correct >= 4)  { tier = 'Excellent';     color = '#00d4ff'; }
+        else if (correct >= 3)  { tier = 'Good';          color = '#ffcc44'; }
+        else if (correct >= 1)  { tier = 'Keep Trying';   color = '#ff9a9a'; }
+        else                    { tier = 'No Score';       color = '#5a7ca0'; }
+
+        tierEl.textContent = tier;
+        tierEl.style.color = color;
+
+        box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+
+    document.getElementById('reset-btn').addEventListener('click', function () {
+        for (var i = 0; i < 5; i++) {
+            var inp    = document.getElementById('ans-' + i);
+            var status = document.getElementById('status-' + i);
+            var prob   = document.getElementById('prob-' + i);
+            inp.value = '';
+            inp.classList.remove('correct', 'wrong');
+            prob.classList.remove('answered-correct', 'answered-wrong');
+            status.textContent = '';
+            status.className = 'pe-status';
+        }
+        document.getElementById('score-box').style.display = 'none';
+    });
+
+    document.getElementById('hints-btn').addEventListener('click', function () {
+        hintsVisible = !hintsVisible;
+        for (var i = 0; i < 5; i++) {
+            var hint = document.getElementById('hint-' + i);
+            hint.classList.toggle('visible', hintsVisible);
+        }
+        this.textContent = hintsVisible ? 'Hide Hints' : 'Show Hints';
+    });
+})();
+</script>
+</body>
+</html>

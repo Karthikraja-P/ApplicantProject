@@ -3,7 +3,7 @@ import os
 import json
 from datetime import datetime
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='frontend/templates', static_folder='frontend/static')
 app.secret_key = 'your_secret_key_here'  # Change this to a random secret key
 
 UPLOAD_FOLDER = 'uploads'
@@ -82,7 +82,7 @@ def load_draft():
 
 @app.route('/')
 def index():
-    return render_template('form.html')
+    return render_template('index.html')
 
 @app.route('/submit', methods=['POST'])
 def submit():
@@ -152,6 +152,14 @@ def next_ai():
 @app.route('/next/not-sure')
 def next_not_sure():
     return render_template('next_not_sure.html')
+
+@app.route('/assessment/iq')
+def assessment_iq():
+    return render_template('iq_assessment.html')
+
+@app.route('/assessment/advanced')
+def assessment_advanced():
+    return render_template('advanced_assessment.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -773,6 +773,63 @@ header p {
     .reaction-circle { width: 130px; height: 130px; }
 }
 
+/* ── Assessment sidebar section ── */
+.sidebar-divider {
+    height: 1px;
+    background: rgba(110, 173, 255, 0.12);
+    margin: 14px 0 10px;
+}
+
+.sidebar-section-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #4a6a8a;
+    font-weight: 700;
+    padding: 0 6px;
+    margin-bottom: 8px;
+}
+
+.sidebar-assessment-items {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.assessment-item {
+    text-decoration: none;
+    background: rgba(255, 165, 0, 0.07);
+    border: 1px solid rgba(255, 165, 0, 0.15);
+}
+
+.assessment-item:hover {
+    background: rgba(255, 165, 0, 0.14) !important;
+    border-color: rgba(255, 165, 0, 0.3) !important;
+}
+
+.assessment-item.active {
+    background: linear-gradient(135deg, rgba(255, 165, 0, 0.2), rgba(255, 80, 0, 0.15)) !important;
+    border-color: rgba(255, 165, 0, 0.4) !important;
+}
+
+.assessment-item .step-number {
+    background: rgba(255, 165, 0, 0.18);
+    color: #ffaa00;
+}
+
+.assessment-item .step-title {
+    color: #c7c2a8;
+}
+
+.assessment-item.active .step-number {
+    background: #ffaa00;
+    color: #000;
+}
+
+.assessment-item.active .step-title {
+    color: #ffe0aa;
+}
+
 /* ── Sidebar tabs ── */
 .sidebar-tabs {
     display: flex;

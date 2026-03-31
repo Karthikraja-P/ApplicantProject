@@ -1,0 +1,325 @@
+{
+  "timestamp": "20260331_124941",
+  "timingLog": [
+    {
+      "q": 1,
+      "category": "Verbal",
+      "type": "Classification",
+      "timeSecs": 9,
+      "answered": true,
+      "correct": false
+    },
+    {
+      "q": 2,
+      "category": "Verbal",
+      "type": "Analogy",
+      "timeSecs": 1,
+      "answered": true,
+      "correct": true
+    },
+    {
+      "q": 3,
+      "category": "Verbal",
+      "type": "Syllogism",
+      "timeSecs": 1,
+      "answered": true,
+      "correct": false
+    },
+    {
+      "q": 4,
+      "category": "Verbal",
+      "type": "Classification",
+      "timeSecs": 1,
+      "answered": true,
+      "correct": false
+    },
+    {
+      "q": 5,
+      "category": "Verbal",
+      "type": "Analogy",
+      "timeSecs": 1,
+      "answered": true,
+      "correct": false
+    },
+    {
+      "q": 6,
+      "category": "Verbal",
+      "type": "Syllogism",
+      "timeSecs": 1,
+      "answered": true,
+      "correct": false
+    },
+    {
+      "q": 7,
+      "category": "Numerical",
+      "type": "Number Series (Fibonacci)",
+      "timeSecs": 1,
+      "answered": true,
+      "correct": true
+    },
+    {
+      "q": 8,
+      "category": "Numerical",
+      "type": "Word Problem (Age)",
+      "timeSecs": 0,
+      "answered": true,
+      "correct": false
+    },
+    {
+      "q": 9,
+      "category": "Numerical",
+      "type": "Number Series (Cubes)",
+      "timeSecs": 0,
+      "answered": true,
+      "correct": false
+    },
+    {
+      "q": 10,
+      "category": "Numerical",
+      "type": "Number Series (Differences)",
+      "timeSecs": 0,
+      "answered": true,
+      "correct": false
+    },
+    {
+      "q": 11,
+      "category": "Numerical",
+      "type": "Word Problem (Distance)",
+      "timeSecs": 0,
+      "answered": true,
+      "correct": false
+    },
+    {
+      "q": 12,
+      "category": "Numerical",
+      "type": "Number Series (Geometric)",
+      "timeSecs": 0,
+      "answered": true,
+      "correct": true
+    },
+    {
+      "q": 13,
+      "category": "Numerical",
+      "type": "Number Series (Even Squares)",
+      "timeSecs": 0,
+      "answered": true,
+      "correct": true
+    },
+    {
+      "q": 14,
+      "category": "Visual / Matrix",
+      "type": "Shape Pattern Matrix",
+      "timeSecs": 0,
+      "answered": true,
+      "correct": false
+    },
+    {
+      "q": 15,
+      "category": "Visual / Matrix",
+      "type": "Number Matrix (Row Sum)",
+      "timeSecs": 1,
+      "answered": true,
+      "correct": false
+    },
+    {
+      "q": 16,
+      "category": "Visual / Matrix",
+      "type": "Number Matrix (Row Product)",
+      "timeSecs": 1,
+      "answered": true,
+      "correct": false
+    },
+    {
+      "q": 17,
+      "category": "Visual / Matrix",
+      "type": "Number Matrix (Decreasing Differences)",
+      "timeSecs": 1,
+      "answered": true,
+      "correct": false
+    },
+    {
+      "q": 18,
+      "category": "Visual / Matrix",
+      "type": "Number Matrix (Row Difference)",
+      "timeSecs": 1,
+      "answered": true,
+      "correct": false
+    },
+    {
+      "q": 19,
+      "category": "Visual / Matrix",
+      "type": "Number Matrix (Row Average)",
+      "timeSecs": 1,
+      "answered": true,
+      "correct": false
+    },
+    {
+      "q": 20,
+      "category": "Visual / Matrix",
+      "type": "Number Matrix (Sequence)",
+      "timeSecs": 0,
+      "answered": true,
+      "correct": false
+    },
+    {
+      "q": 21,
+      "category": "Visual / Matrix",
+      "type": "Number Matrix (Powers)",
+      "timeSecs": 0,
+      "answered": true,
+      "correct": false
+    },
+    {
+      "q": 22,
+      "category": "Cognitive",
+      "type": "Stroop Test (Attention / Cognitive Control)",
+      "timeSecs": 0,
+      "answered": true,
+      "correct": true
+    },
+    {
+      "q": 23,
+      "category": "Cognitive",
+      "type": "Flanker Task (Attention / Inhibition)",
+      "timeSecs": 1,
+      "answered": true,
+      "correct": false
+    },
+    {
+      "q": 24,
+      "category": "Cognitive",
+      "type": "Working Memory",
+      "timeSecs": 0,
+      "answered": true,
+      "correct": false
+    },
+    {
+      "q": 25,
+      "category": "Cognitive",
+      "type": "Stroop Test (Attention / Cognitive Control)",
+      "timeSecs": 0,
+      "answered": true,
+      "correct": false
+    },
+    {
+      "q": 26,
+      "category": "Cognitive",
+      "type": "Flanker Task (Attention / Inhibition)",
+      "timeSecs": 0,
+      "answered": true,
+      "correct": false
+    },
+    {
+      "q": 27,
+      "category": "Cognitive",
+      "type": "Working Memory",
+      "timeSecs": 0,
+      "answered": true,
+      "correct": false
+    },
+    {
+      "q": 28,
+      "category": "Behavioural",
+      "type": "Team Collaboration",
+      "timeSecs": 0,
+      "answered": true,
+      "correct": true
+    },
+    {
+      "q": 29,
+      "category": "Behavioural",
+      "type": "Prioritisation Under Pressure",
+      "timeSecs": 0,
+      "answered": true,
+      "correct": false
+    },
+    {
+      "q": 30,
+      "category": "Behavioural",
+      "type": "Growth Mindset / Feedback",
+      "timeSecs": 0,
+      "answered": true,
+      "correct": false
+    },
+    {
+      "q": 31,
+      "category": "Behavioural",
+      "type": "Integrity / Error Handling",
+      "timeSecs": 0,
+      "answered": true,
+      "correct": false
+    },
+    {
+      "q": 32,
+      "category": "Behavioural",
+      "type": "Adaptability / Remote Work",
+      "timeSecs": 0,
+      "answered": true,
+      "correct": false
+    },
+    {
+      "q": 33,
+      "category": "Behavioural",
+      "type": "Conflict Resolution",
+      "timeSecs": 0,
+      "answered": true,
+      "correct": false
+    },
+    {
+      "q": 34,
+      "category": "Logical / Ecosystem",
+      "type": "Food Chain Cascade",
+      "timeSecs": 1,
+      "answered": true,
+      "correct": false
+    },
+    {
+      "q": 35,
+      "category": "Logical / Ecosystem",
+      "type": "Constraint Logic (Species Extinction)",
+      "timeSecs": 1,
+      "answered": true,
+      "correct": false
+    },
+    {
+      "q": 36,
+      "category": "Logical / Ecosystem",
+      "type": "Ecosystem Building (Sustainable Chain)",
+      "timeSecs": 0,
+      "answered": true,
+      "correct": false
+    },
+    {
+      "q": 37,
+      "category": "Logical / Ecosystem",
+      "type": "Food Chain Cascade (Pollution)",
+      "timeSecs": 0,
+      "answered": true,
+      "correct": false
+    },
+    {
+      "q": 38,
+      "category": "Logical / Ecosystem",
+      "type": "Cascade Logic (Producer Boost)",
+      "timeSecs": 0,
+      "answered": true,
+      "correct": false
+    },
+    {
+      "q": 39,
+      "category": "Logical / Ecosystem",
+      "type": "Predator Removal",
+      "timeSecs": 0,
+      "answered": true,
+      "correct": false
+    },
+    {
+      "q": 40,
+      "category": "Logical / Ecosystem",
+      "type": "Food Chain Validity",
+      "timeSecs": 0,
+      "answered": true,
+      "correct": false
+    }
+  ]
+}

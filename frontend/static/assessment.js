@@ -1,511 +1,964 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-    // ─── Question Bank (39 questions across 6 categories) ──────────────────────
-    // Original 19 from IQTestAcademy + 20 new questions under the same topics
+    // ─── SVG Cell Renderer ─────────────────────────────────────────────────────
+    // c = { sh, r, f, sz, d, ds, n, cnt, ip, dp }
+    // sh: shape name  r: rotation(deg)  f: fill style  sz: scale(0-1)
+    // d: center dot(bool)  ds: dot count  n: nested outlines
+    // cnt: shape count  ip: inner shape  dp: dot position ('tl','tr','bl','br')
+    var _hid = 0;
+
+    function cellSVG(c) {
+        if (!c) {
+            return '<svg width="60" height="60" viewBox="0 0 60 60">'
+                 + '<text x="30" y="38" text-anchor="middle" font-size="30" font-weight="800" fill="#4a6a8a">?</text>'
+                 + '</svg>';
+        }
+
+        var sh  = c.sh  || 'triangle';
+        var rot = c.r   !== undefined ? c.r   : 0;
+        var f   = c.f   || 'solid';
+        var sz  = c.sz  !== undefined ? c.sz  : 1.0;
+        var col = '#3d6491';
+
+        var fc, sw, defs = '';
+        if (f === 'solid')   { fc = col;      sw = 0;   }
+        else if (f === 'outline') { fc = 'none';  sw = 2.5; }
+        else if (f === 'light')  { fc = '#8ab4d8'; sw = 0; }
+        else if (f === 'dark')   { fc = '#162636'; sw = 0; }
+        else { // striped
+            var hid = 'ht' + (++_hid);
+            defs = '<defs><pattern id="' + hid + '" width="6" height="6"'
+                 + ' patternUnits="userSpaceOnUse" patternTransform="rotate(45)">'
+                 + '<line x1="0" y1="0" x2="0" y2="6" stroke="' + col + '" stroke-width="2.5"/>'
+                 + '</pattern></defs>';
+            fc = 'url(#' + hid + ')'; sw = 2;
+        }
+
+        var POLY = {
+            triangle: [[30,8],[8,52],[52,52]],
+            pentagon: [[30,8],[50.9,23.2],[42.9,47.8],[17.1,47.8],[9.1,23.2]],
+            diamond:  [[30,8],[52,30],[30,52],[8,30]],
+            arrow:    [[8,22],[40,22],[40,12],[52,30],[40,48],[40,38],[8,38]],
+            cross:    [[22,8],[38,8],[38,22],[52,22],[52,38],[38,38],[38,52],[22,52],[22,38],[8,38],[8,22],[22,22]],
+            star:     [[30,8],[34,22],[48,22],[37,31],[41,45],[30,37],[19,45],[23,31],[12,22],[26,22]]
+        };
+
+        function polyStr(pts, s, ox, oy) {
+            ox = ox || 0; oy = oy || 0;
+            return pts.map(function(p) {
+                return (30 + ox + (p[0] - 30) * s).toFixed(1) + ','
+                     + (30 + oy + (p[1] - 30) * s).toFixed(1);
+            }).join(' ');
+        }
+
+        function singleShape(s, pfc, psw, pr, ox, oy) {
+            ox = ox || 0; oy = oy || 0;
+            pr = pr !== undefined ? pr : rot;
+            if (sh === 'circle') {
+                return '<circle cx="' + (30+ox) + '" cy="' + (30+oy) + '" r="' + (22*s).toFixed(1)
+                     + '" fill="' + pfc + '" stroke="' + col + '" stroke-width="' + psw + '"/>';
+            } else if (sh === 'square') {
+                var hw = (22 * s).toFixed(1);
+                return '<rect x="' + (30+ox-hw) + '" y="' + (30+oy-hw)
+                     + '" width="' + (hw*2) + '" height="' + (hw*2)
+                     + '" fill="' + pfc + '" stroke="' + col + '" stroke-width="' + psw
+                     + '" transform="rotate(' + pr + ',' + (30+ox) + ',' + (30+oy) + ')"/>';
+            } else {
+                var pts = POLY[sh] || POLY.triangle;
+                var ptStr = polyStr(pts, s, ox, oy);
+                return '<polygon points="' + ptStr + '" fill="' + pfc + '" stroke="' + col
+                     + '" stroke-width="' + psw + '" transform="rotate(' + pr + ','
+                     + (30+ox) + ',' + (30+oy) + ')"/>';
+            }
+        }
+
+        var body = '';
+
+        if (c.n && c.n > 1) {
+            // Nested outlines
+            var scales = c.n === 2 ? [1.0, 0.55] : [1.0, 0.65, 0.33];
+            scales.forEach(function(s) {
+                body += singleShape(s, 'none', 2.5, rot);
+            });
+
+        } else if (c.cnt && c.cnt > 1) {
+            // Multiple shapes side by side
+            var n = c.cnt;
+            var offs = n === 2 ? [[-13,0],[13,0]] : [[-16,0],[0,0],[16,0]];
+            var s2 = n === 2 ? 0.52 : 0.4;
+            offs.forEach(function(off) {
+                body += singleShape(s2, fc, sw, rot, off[0], off[1]);
+            });
+
+        } else {
+            // Single shape
+            body = singleShape(sz, fc, sw, rot);
+        }
+
+        // Inner shape (white)
+        if (c.ip) {
+            var isz = 0.42;
+            if (c.ip === 'circle') {
+                body += '<circle cx="30" cy="30" r="' + (22*isz).toFixed(1) + '" fill="white"/>';
+            } else if (c.ip === 'square') {
+                var ihw = (22*isz).toFixed(1);
+                body += '<rect x="' + (30-ihw) + '" y="' + (30-ihw)
+                     + '" width="' + (ihw*2) + '" height="' + (ihw*2) + '" fill="white"/>';
+            } else if (c.ip === 'triangle') {
+                var ipts = polyStr(POLY.triangle, isz);
+                body += '<polygon points="' + ipts + '" fill="white"/>';
+            }
+        }
+
+        // Center dot
+        if (c.d) {
+            body += '<circle cx="30" cy="30" r="6" fill="white"/>';
+        }
+
+        // Multiple dots (evenly spaced)
+        if (c.ds) {
+            for (var i = 0; i < c.ds; i++) {
+                var dx = 30 + (i - (c.ds - 1) / 2) * 14;
+                body += '<circle cx="' + dx.toFixed(1) + '" cy="30" r="5" fill="white"/>';
+            }
+        }
+
+        // Corner dot
+        if (c.dp) {
+            var dpx = c.dp.charAt(1) === 'l' ? 16 : 44;
+            var dpy = c.dp.charAt(0) === 't' ? 16 : 44;
+            body += '<circle cx="' + dpx + '" cy="' + dpy + '" r="5" fill="white"/>';
+        }
+
+        return '<svg width="60" height="60" viewBox="0 0 60 60">' + defs + body + '</svg>';
+    }
+
+    // ─── Visual 3×3 Grid ───────────────────────────────────────────────────────
+    function buildVisualGrid(cells) {
+        var html = '<div class="v-grid">';
+        for (var i = 0; i < 9; i++) {
+            html += '<div class="v-cell">';
+            if (i === 8 || cells[i] === null) {
+                html += '<span class="v-qmark">?</span>';
+            } else {
+                html += cellSVG(cells[i]);
+            }
+            html += '</div>';
+        }
+        html += '</div>';
+        return html;
+    }
+
+    // ─── Question Bank — 20 Visual Pattern Questions ───────────────────────────
     var QUESTIONS = [
 
-        // ══════════════════════════════════════════════════════════════════════
-        //  CATEGORY 1 — VERBAL  (6 questions: 3 original + 3 new)
-        // ══════════════════════════════════════════════════════════════════════
-
-        // V1 — Original
+        // Q1 – Triangle rotation (90° clockwise per step)
         {
-            category: 'Verbal', type: 'Classification',
-            title: 'Which one does NOT belong with the others?\n\nA. Dog   B. Mouse   C. Lion   D. Snake   E. Elephant',
-            options: ['A. Dog', 'B. Mouse', 'C. Lion', 'D. Snake', 'E. Elephant'],
+            category: 'Pattern', type: 'Rotation',
+            prompt: 'Which shape completes the pattern?',
+            cells: [
+                {sh:'triangle',r:0,  f:'solid'}, {sh:'triangle',r:90, f:'solid'}, {sh:'triangle',r:180,f:'solid'},
+                {sh:'triangle',r:90, f:'solid'}, {sh:'triangle',r:180,f:'solid'}, {sh:'triangle',r:270,f:'solid'},
+                {sh:'triangle',r:180,f:'solid'}, {sh:'triangle',r:270,f:'solid'}, null
+            ],
+            choices: [
+                {sh:'triangle',r:0,  f:'solid'},
+                {sh:'triangle',r:90, f:'solid'},
+                {sh:'triangle',r:180,f:'solid'},
+                {sh:'triangle',r:270,f:'solid'}
+            ],
+            answer: 0,
+            exp: 'Each row the triangle rotates 90° clockwise per column. Row 3 ends at 360° = 0° (pointing up).',
+            time: 15
+        },
+
+        // Q2 – Fill progression (rows=shape, cols=fill: outline→striped→solid)
+        {
+            category: 'Pattern', type: 'Fill Progression',
+            prompt: 'Which shape completes the pattern?',
+            cells: [
+                {sh:'triangle',f:'outline'}, {sh:'triangle',f:'striped'}, {sh:'triangle',f:'solid'},
+                {sh:'square',  f:'outline'}, {sh:'square',  f:'striped'}, {sh:'square',  f:'solid'},
+                {sh:'circle',  f:'outline'}, {sh:'circle',  f:'striped'}, null
+            ],
+            choices: [
+                {sh:'circle',  f:'solid'},
+                {sh:'circle',  f:'outline'},
+                {sh:'triangle',f:'solid'},
+                {sh:'square',  f:'striped'}
+            ],
+            answer: 0,
+            exp: 'Each row progresses outline → striped → solid. Row 3 uses circles, so the missing cell is a solid circle.',
+            time: 15
+        },
+
+        // Q3 – Shape Latin square (each shape appears once per row & column)
+        {
+            category: 'Pattern', type: 'Shape Sequence',
+            prompt: 'Which shape completes the pattern?',
+            cells: [
+                {sh:'triangle',f:'solid'}, {sh:'square',  f:'solid'}, {sh:'circle',  f:'solid'},
+                {sh:'square',  f:'solid'}, {sh:'circle',  f:'solid'}, {sh:'triangle',f:'solid'},
+                {sh:'circle',  f:'solid'}, {sh:'triangle',f:'solid'}, null
+            ],
+            choices: [
+                {sh:'triangle',f:'solid'},
+                {sh:'circle',  f:'solid'},
+                {sh:'square',  f:'solid'},
+                {sh:'diamond', f:'solid'}
+            ],
+            answer: 2,
+            exp: 'Each row and column contains triangle, square, and circle exactly once. The missing shape is a square.',
+            time: 15
+        },
+
+        // Q4 – Size progression (rows=shape, cols=small→medium→large)
+        {
+            category: 'Pattern', type: 'Size Progression',
+            prompt: 'Which shape completes the pattern?',
+            cells: [
+                {sh:'triangle',f:'solid',sz:0.5},  {sh:'triangle',f:'solid',sz:0.75}, {sh:'triangle',f:'solid',sz:1.0},
+                {sh:'circle',  f:'solid',sz:0.5},  {sh:'circle',  f:'solid',sz:0.75}, {sh:'circle',  f:'solid',sz:1.0},
+                {sh:'square',  f:'solid',sz:0.5},  {sh:'square',  f:'solid',sz:0.75}, null
+            ],
+            choices: [
+                {sh:'square',f:'solid',sz:0.5},
+                {sh:'square',f:'solid',sz:0.75},
+                {sh:'triangle',f:'solid',sz:1.0},
+                {sh:'square',f:'solid',sz:1.0}
+            ],
             answer: 3,
-            exp: 'Snake is the only reptile; the others (Dog, Mouse, Lion, Elephant) are all mammals.',
+            exp: 'Each row grows small → medium → large. Row 3 uses squares, so the missing cell is a large solid square.',
             time: 15
         },
 
-        // V2 — Original
+        // Q5 – Dot count progression (0, 1, 2 white dots per column)
         {
-            category: 'Verbal', type: 'Analogy',
-            title: 'Finger is to Hand   as   Leaf is to ___',
-            options: ['A. Tree', 'B. Flower', 'C. Branch', 'D. Root'],
+            category: 'Pattern', type: 'Dot Count',
+            prompt: 'Which shape completes the pattern?',
+            cells: [
+                {sh:'square',  f:'solid'}, {sh:'square',  f:'solid',ds:1}, {sh:'square',  f:'solid',ds:2},
+                {sh:'circle',  f:'solid'}, {sh:'circle',  f:'solid',ds:1}, {sh:'circle',  f:'solid',ds:2},
+                {sh:'triangle',f:'solid'}, {sh:'triangle',f:'solid',ds:1}, null
+            ],
+            choices: [
+                {sh:'triangle',f:'solid'},
+                {sh:'triangle',f:'solid',ds:1},
+                {sh:'triangle',f:'solid',ds:2},
+                {sh:'circle',  f:'solid',ds:2}
+            ],
             answer: 2,
-            exp: 'A finger is a part of a hand. A leaf is a part of a branch — the direct structural parent.',
+            exp: 'Each row adds 0, 1, 2 white dots inside the shape. Row 3 uses triangles, so the missing cell is a triangle with 2 white dots.',
             time: 15
         },
 
-        // V3 — Original
+        // Q6 – Inner shape (outer=row, inner=column)
         {
-            category: 'Verbal', type: 'Syllogism',
-            title: 'All architects are engineers.\nNo engineers are drone pilots.\n\nWhich conclusion necessarily follows?\n\nA. No architects are drone pilots.\nB. Some architects are drone pilots.\nC. All engineers are architects.\nD. Some drone pilots are engineers.',
-            options: ['A. No architects are drone pilots.', 'B. Some architects are drone pilots.', 'C. All engineers are architects.', 'D. Some drone pilots are engineers.'],
-            answer: 0,
-            exp: 'Since all architects are engineers, and no engineers are drone pilots, it follows that no architects can be drone pilots.',
-            time: 15
-        },
-
-        // V4 — New
-        {
-            category: 'Verbal', type: 'Classification',
-            title: 'Which one does NOT belong with the others?\n\nA. Mars   B. Earth   C. Moon   D. Jupiter   E. Venus',
-            options: ['A. Mars', 'B. Earth', 'C. Moon', 'D. Jupiter', 'E. Venus'],
-            answer: 2,
-            exp: 'The Moon is a natural satellite, not a planet. Mars, Earth, Jupiter and Venus are all planets in our solar system.',
-            time: 15
-        },
-
-        // V5 — New
-        {
-            category: 'Verbal', type: 'Analogy',
-            title: 'Book is to Author   as   Painting is to ___',
-            options: ['A. Gallery', 'B. Canvas', 'C. Artist', 'D. Museum'],
-            answer: 2,
-            exp: 'An author creates a book. An artist creates a painting — both are the creators of their respective works.',
-            time: 15
-        },
-
-        // V6 — New
-        {
-            category: 'Verbal', type: 'Syllogism',
-            title: 'All birds have wings.\nPenguins are birds.\n\nWhich conclusion necessarily follows?\n\nA. Penguins can fly.\nB. Penguins have wings.\nC. All winged animals are birds.\nD. Penguins have no wings.',
-            options: ['A. Penguins can fly.', 'B. Penguins have wings.', 'C. All winged animals are birds.', 'D. Penguins have no wings.'],
-            answer: 1,
-            exp: 'If all birds have wings and penguins are birds, then penguins must have wings. Whether they can fly is a separate matter not established by the premises.',
-            time: 15
-        },
-
-        // ══════════════════════════════════════════════════════════════════════
-        //  CATEGORY 2 — NUMERICAL  (6 questions: 3 original + 3 new)
-        // ══════════════════════════════════════════════════════════════════════
-
-        // N1 — Original
-        {
-            category: 'Numerical', type: 'Number Series (Fibonacci)',
-            title: 'What is the next number in the series?\n\n1  1  2  3  5  8  13  __',
-            options: ['A. 18', 'B. 20', 'C. 21', 'D. 26'],
-            answer: 2,
-            exp: 'This is the Fibonacci sequence — each term is the sum of the two preceding terms. 8 + 13 = 21.',
-            time: 15
-        },
-
-        // N2 — Original
-        {
-            category: 'Numerical', type: 'Word Problem (Age)',
-            title: 'Mary is 16 years old. She is 4 times older than her brother.\nHow old will Mary be when she is twice as old as her brother?',
-            options: ['A. 32', 'B. 24', 'C. 8', 'D. 20'],
-            answer: 1,
-            exp: "Mary is 16, brother is 4. Let x = years elapsed. (16+x) = 2×(4+x) → 16+x = 8+2x → x = 8. Mary will be 16+8 = 24.",
-            time: 15
-        },
-
-        // N3 — Original
-        {
-            category: 'Numerical', type: 'Number Series (Cubes)',
-            title: 'What is the missing number?\n\n1  8  27  __  125  216',
-            options: ['A. 36', 'B. 48', 'C. 56', 'D. 64'],
+            category: 'Pattern', type: 'Inner Shape',
+            prompt: 'Which shape completes the pattern?',
+            cells: [
+                {sh:'square',  f:'solid',ip:'triangle'}, {sh:'square',  f:'solid',ip:'circle'}, {sh:'square',  f:'solid',ip:'square'},
+                {sh:'circle',  f:'solid',ip:'triangle'}, {sh:'circle',  f:'solid',ip:'circle'}, {sh:'circle',  f:'solid',ip:'square'},
+                {sh:'triangle',f:'solid',ip:'triangle'}, {sh:'triangle',f:'solid',ip:'circle'}, null
+            ],
+            choices: [
+                {sh:'triangle',f:'solid',ip:'triangle'},
+                {sh:'square',  f:'solid',ip:'square'},
+                {sh:'circle',  f:'solid',ip:'square'},
+                {sh:'triangle',f:'solid',ip:'square'}
+            ],
             answer: 3,
-            exp: 'Each term is a perfect cube: 1³=1, 2³=8, 3³=27, 4³=64, 5³=125, 6³=216.',
+            exp: 'Column 3 always has a square inner shape. Row 3 outer shape is a triangle. Answer: triangle with a square inside.',
             time: 15
         },
 
-        // N4 — New
+        // Q7 – Arrow direction rotation (90° per step)
         {
-            category: 'Numerical', type: 'Number Series (Differences)',
-            title: 'What is the next number in the series?\n\n2  6  12  20  30  __',
-            options: ['A. 40', 'B. 42', 'C. 44', 'D. 36'],
+            category: 'Pattern', type: 'Direction Rotation',
+            prompt: 'Which shape completes the pattern?',
+            cells: [
+                {sh:'arrow',r:0,  f:'solid'}, {sh:'arrow',r:90, f:'solid'}, {sh:'arrow',r:180,f:'solid'},
+                {sh:'arrow',r:90, f:'solid'}, {sh:'arrow',r:180,f:'solid'}, {sh:'arrow',r:270,f:'solid'},
+                {sh:'arrow',r:180,f:'solid'}, {sh:'arrow',r:270,f:'solid'}, null
+            ],
+            choices: [
+                {sh:'arrow',r:90, f:'solid'},
+                {sh:'arrow',r:0,  f:'solid'},
+                {sh:'arrow',r:270,f:'solid'},
+                {sh:'arrow',r:180,f:'solid'}
+            ],
             answer: 1,
-            exp: 'Differences between terms: 4, 6, 8, 10, 12 — increasing by 2 each time. 30 + 12 = 42.',
+            exp: 'Each row the arrow rotates 90° clockwise per column. Row 3: 180° → 270° → 360° = 0° (pointing right).',
             time: 15
         },
 
-        // N5 — New
+        // Q8 – Solid/outline checkerboard
         {
-            category: 'Numerical', type: 'Word Problem (Distance)',
-            title: 'A train travels at 60 km/h. How far will it travel in 2.5 hours?',
-            options: ['A. 120 km', 'B. 150 km', 'C. 130 km', 'D. 160 km'],
-            answer: 1,
-            exp: 'Distance = Speed × Time = 60 × 2.5 = 150 km.',
-            time: 15
-        },
-
-        // N6 — New
-        {
-            category: 'Numerical', type: 'Number Series (Geometric)',
-            title: 'What is the next number in the series?\n\n3  9  27  81  __',
-            options: ['A. 162', 'B. 192', 'C. 243', 'D. 324'],
+            category: 'Pattern', type: 'Fill Alternation',
+            prompt: 'Which shape completes the pattern?',
+            cells: [
+                {sh:'triangle',f:'solid'},   {sh:'triangle',f:'outline'}, {sh:'triangle',f:'solid'},
+                {sh:'triangle',f:'outline'}, {sh:'triangle',f:'solid'},   {sh:'triangle',f:'outline'},
+                {sh:'triangle',f:'solid'},   {sh:'triangle',f:'outline'}, null
+            ],
+            choices: [
+                {sh:'triangle',f:'outline'},
+                {sh:'circle',  f:'solid'},
+                {sh:'triangle',f:'solid'},
+                {sh:'square',  f:'solid'}
+            ],
             answer: 2,
-            exp: 'Each term is multiplied by 3. 81 × 3 = 243.',
+            exp: 'Fill alternates like a checkerboard. Row 3 starts solid, so col 3 of row 3 is solid.',
             time: 15
         },
 
-        // N7 — New (40th question)
+        // Q9 – Nested shapes (1, 2, 3 concentric outlines per column)
         {
-            category: 'Numerical', type: 'Number Series (Even Squares)',
-            title: 'What is the missing number in the series?\n\n4  16  36  64  __',
-            options: ['A. 81', 'B. 96', 'C. 100', 'D. 144'],
-            answer: 2,
-            exp: 'The series is squares of even numbers: 2²=4, 4²=16, 6²=36, 8²=64, 10²=100.',
-            time: 15
-        },
-
-        // ══════════════════════════════════════════════════════════════════════
-        //  CATEGORY 3 — VISUAL / MATRIX  (8 questions: 4 original + 4 new)
-        // ══════════════════════════════════════════════════════════════════════
-
-        // M1 — Original (Shape Pattern Matrix — described textually)
-        {
-            category: 'Visual / Matrix', type: 'Shape Pattern Matrix',
-            title: 'A 3×3 grid shows shapes with increasing fill:\n\nRow 1: □ (outline)   ○ (outline)   ⬠ (outline)\nRow 2: □ (half)      ○ (half)      ⬠ (half)\nRow 3: □ (filled)    ○ (filled)    ?',
-            options: ['A. Filled Pentagon', 'B. Outline Pentagon', 'C. Filled Square', 'D. Outline Circle'],
-            answer: 0,
-            exp: 'Each row uses the same fill style; each column uses the same shape. Row 3 = filled, Column 3 = pentagon → Filled Pentagon.',
-            time: 15
-        },
-
-        // M2 — Original (Number Matrix Row Sum)
-        {
-            category: 'Visual / Matrix', type: 'Number Matrix (Row Sum)',
-            title: 'Find the missing number:\n\n   4   3   7\n   3   6   9\n   2   9   ?',
-            grid: [['4','3','7'],['3','6','9'],['2','9','?']],
-            options: ['A. 9', 'B. 7', 'C. 11', 'D. 6'],
-            answer: 2,
-            exp: 'Each row: Col1 + Col2 = Col3. 4+3=7 ✓, 3+6=9 ✓, 2+9=11.',
-            time: 15
-        },
-
-        // M3 — Original (Number Matrix Row Product)
-        {
-            category: 'Visual / Matrix', type: 'Number Matrix (Row Product)',
-            title: 'Find the missing number:\n\n   5   3   15\n   3   3    9\n   4   2    ?',
-            grid: [['5','3','15'],['3','3','9'],['4','2','?']],
-            options: ['A. 6', 'B. 12', 'C. 2', 'D. 8'],
+            category: 'Pattern', type: 'Nested Shapes',
+            prompt: 'Which shape completes the pattern?',
+            cells: [
+                {sh:'square',  f:'outline',n:1}, {sh:'square',  f:'outline',n:2}, {sh:'square',  f:'outline',n:3},
+                {sh:'circle',  f:'outline',n:1}, {sh:'circle',  f:'outline',n:2}, {sh:'circle',  f:'outline',n:3},
+                {sh:'triangle',f:'outline',n:1}, {sh:'triangle',f:'outline',n:2}, null
+            ],
+            choices: [
+                {sh:'triangle',f:'outline',n:1},
+                {sh:'triangle',f:'outline',n:2},
+                {sh:'circle',  f:'outline',n:3},
+                {sh:'triangle',f:'outline',n:3}
+            ],
             answer: 3,
-            exp: 'Each row: Col1 × Col2 = Col3. 5×3=15 ✓, 3×3=9 ✓, 4×2=8.',
+            exp: 'Each row has 1, 2, then 3 concentric outlines of the same shape. Row 3 uses triangles, so 3 nested triangles.',
             time: 15
         },
 
-        // M4 — Original (Number Matrix Decreasing Differences)
+        // Q10 – Pentagon rotation (72° per step)
         {
-            category: 'Visual / Matrix', type: 'Number Matrix (Decreasing Differences)',
-            title: 'Find the missing number:\n\n  43  42  40\n  37  33  28\n  22  15   ?',
-            grid: [['43','42','40'],['37','33','28'],['22','15','?']],
-            options: ['A. 14', 'B. 7', 'C. 0', 'D. 21'],
-            answer: 1,
-            exp: 'Column differences: Col1→Col2 differences are 1, 4, 7 (+3 each); Col2→Col3 differences are 2, 5, 8 (+3 each). 15 − 8 = 7.',
-            time: 15
-        },
-
-        // M5 — New (Row Difference)
-        {
-            category: 'Visual / Matrix', type: 'Number Matrix (Row Difference)',
-            title: 'Find the missing number:\n\n   7   3   4\n   9   5   4\n   8   2   ?',
-            grid: [['7','3','4'],['9','5','4'],['8','2','?']],
-            options: ['A. 4', 'B. 6', 'C. 5', 'D. 3'],
-            answer: 1,
-            exp: 'Each row: Col1 − Col2 = Col3. 7−3=4 ✓, 9−5=4 ✓, 8−2=6.',
-            time: 15
-        },
-
-        // M6 — New (Row Average)
-        {
-            category: 'Visual / Matrix', type: 'Number Matrix (Row Average)',
-            title: 'Find the missing number:\n\n   2   6   4\n   4   8   6\n   3   9   ?',
-            grid: [['2','6','4'],['4','8','6'],['3','9','?']],
-            options: ['A. 5', 'B. 6', 'C. 7', 'D. 8'],
-            answer: 1,
-            exp: 'Col3 is the average of Col1 and Col2. (2+6)/2=4 ✓, (4+8)/2=6 ✓, (3+9)/2=6.',
-            time: 15
-        },
-
-        // M7 — New (Sequential matrix)
-        {
-            category: 'Visual / Matrix', type: 'Number Matrix (Sequence)',
-            title: 'Find the missing number:\n\n   1   2   3\n   4   5   6\n   7   8   ?',
-            grid: [['1','2','3'],['4','5','6'],['7','8','?']],
-            options: ['A. 9', 'B. 10', 'C. 8', 'D. 12'],
-            answer: 0,
-            exp: 'Numbers fill the grid sequentially left-to-right, top-to-bottom: 1 through 9.',
-            time: 15
-        },
-
-        // M8 — New (n, n², n³ pattern)
-        {
-            category: 'Visual / Matrix', type: 'Number Matrix (Powers)',
-            title: 'Find the missing number:\n\n   2    4    8\n   3    9   27\n   4   16    ?',
-            grid: [['2','4','8'],['3','9','27'],['4','16','?']],
-            options: ['A. 32', 'B. 48', 'C. 64', 'D. 36'],
-            answer: 2,
-            exp: 'Each row follows n, n², n³. Row 3: 4, 4²=16, 4³=64.',
-            time: 15
-        },
-
-        // ══════════════════════════════════════════════════════════════════════
-        //  CATEGORY 4 — COGNITIVE  (6 questions: 3 original + 3 new)
-        // ══════════════════════════════════════════════════════════════════════
-
-        // C1 — Original (Stroop)
-        {
-            category: 'Cognitive', type: 'Stroop Test (Attention / Cognitive Control)',
-            title: 'The word GREEN is printed in red ink.\n\nWhat COLOUR is the ink?\n(Do not read the word — focus on the ink colour.)',
-            options: ['A. Green', 'B. Red', 'C. Blue', 'D. Yellow'],
-            answer: 1,
-            exp: 'The ink colour is Red. The Stroop effect makes it tempting to say "Green" (the word) instead of the actual ink colour.',
-            time: 15
-        },
-
-        // C2 — Original (Flanker)
-        {
-            category: 'Cognitive', type: 'Flanker Task (Attention / Inhibition)',
-            title: 'Look at this row of arrows:\n\n  ←  ←  →  ←  ←\n\nWhich direction does the CENTRE arrow point?',
-            options: ['A. Left', 'B. Right', 'C. Up', 'D. Down'],
-            answer: 1,
-            exp: 'The centre (3rd) arrow points Right →. The surrounding arrows pointing left are distractors.',
-            time: 15
-        },
-
-        // C3 — Original (Working Memory)
-        {
-            category: 'Cognitive', type: 'Working Memory',
-            title: 'A sequence was shown for 3 seconds:\n\n  7  3  9  1  5\n\nWhich number was NOT in the sequence?',
-            options: ['A. 7', 'B. 4', 'C. 9', 'D. 5'],
-            answer: 1,
-            exp: 'The sequence was 7, 3, 9, 1, 5. The number 4 does not appear in the sequence.',
-            time: 15
-        },
-
-        // C4 — New (Stroop)
-        {
-            category: 'Cognitive', type: 'Stroop Test (Attention / Cognitive Control)',
-            title: 'The word BLUE is printed in yellow ink.\n\nWhat COLOUR is the ink?\n(Do not read the word — focus on the ink colour.)',
-            options: ['A. Blue', 'B. Yellow', 'C. Green', 'D. Red'],
-            answer: 1,
-            exp: 'The ink colour is Yellow. The word "BLUE" creates interference — focus on the physical colour of the text, not what it says.',
-            time: 15
-        },
-
-        // C5 — New (Flanker)
-        {
-            category: 'Cognitive', type: 'Flanker Task (Attention / Inhibition)',
-            title: 'Look at this row of arrows:\n\n  →  →  ←  →  →\n\nWhich direction does the CENTRE arrow point?',
-            options: ['A. Right', 'B. Left', 'C. Up', 'D. Down'],
-            answer: 1,
-            exp: 'The centre (3rd) arrow points Left ←. The surrounding arrows pointing right are distractors.',
-            time: 15
-        },
-
-        // C6 — New (Working Memory)
-        {
-            category: 'Cognitive', type: 'Working Memory',
-            title: 'A list was displayed for 3 seconds:\n\n  4  8  2  6  3  1\n\nWhich number was NOT in the list?',
-            options: ['A. 3', 'B. 7', 'C. 6', 'D. 4'],
-            answer: 1,
-            exp: 'The list was 4, 8, 2, 6, 3, 1. The number 7 does not appear in the list.',
-            time: 15
-        },
-
-        // ══════════════════════════════════════════════════════════════════════
-        //  CATEGORY 5 — BEHAVIOURAL / SITUATIONAL  (6 questions: 3 original + 3 new)
-        // ══════════════════════════════════════════════════════════════════════
-
-        // B1 — Original
-        {
-            category: 'Behavioural', type: 'Team Collaboration',
-            title: 'Your team is behind schedule and a key member is visibly struggling with their workload. What is the most effective response?',
-            options: [
-                'A. Reassign their tasks to others immediately without discussion.',
-                'B. Have a private conversation to understand the issue and offer support.',
-                'C. Escalate to management right away.',
-                'D. Wait and monitor — they will likely catch up on their own.'
+            category: 'Pattern', type: 'Pentagon Rotation',
+            prompt: 'Which shape completes the pattern?',
+            cells: [
+                {sh:'pentagon',r:0,  f:'solid'}, {sh:'pentagon',r:72, f:'solid'}, {sh:'pentagon',r:144,f:'solid'},
+                {sh:'pentagon',r:72, f:'solid'}, {sh:'pentagon',r:144,f:'solid'}, {sh:'pentagon',r:216,f:'solid'},
+                {sh:'pentagon',r:144,f:'solid'}, {sh:'pentagon',r:216,f:'solid'}, null
+            ],
+            choices: [
+                {sh:'pentagon',r:0,  f:'solid'},
+                {sh:'pentagon',r:288,f:'solid'},
+                {sh:'pentagon',r:216,f:'solid'},
+                {sh:'pentagon',r:144,f:'solid'}
             ],
             answer: 1,
-            exp: 'A private conversation respects the colleague\'s dignity, identifies the root cause, and enables targeted support — the most collaborative and effective approach.',
+            exp: 'Each row the pentagon rotates 72° per column. Row 3: 144° → 216° → 288°.',
             time: 15
         },
 
-        // B2 — Original
+        // Q11 – Fill × rotation matrix (rows=fill, cols=rotation)
         {
-            category: 'Behavioural', type: 'Prioritisation Under Pressure',
-            title: 'You are mid-sprint and a critical production bug is reported. You also have a feature deadline today. What do you do?',
-            options: [
-                'A. Ignore the bug report and meet the feature deadline first.',
-                'B. Fix the bug immediately without telling anyone.',
-                'C. Triage the bug, notify stakeholders, and negotiate the feature deadline.',
-                'D. Hand the bug to whoever reported it and continue your work.'
+            category: 'Pattern', type: 'Fill & Rotation',
+            prompt: 'Which shape completes the pattern?',
+            cells: [
+                {sh:'triangle',r:0,  f:'outline'}, {sh:'triangle',r:90, f:'outline'}, {sh:'triangle',r:180,f:'outline'},
+                {sh:'triangle',r:0,  f:'striped'},  {sh:'triangle',r:90, f:'striped'},  {sh:'triangle',r:180,f:'striped'},
+                {sh:'triangle',r:0,  f:'solid'},   {sh:'triangle',r:90, f:'solid'},   null
             ],
-            answer: 2,
-            exp: 'Triaging first ensures you understand severity; notifying stakeholders keeps everyone informed; negotiating the deadline is transparent and professional.',
-            time: 15
-        },
-
-        // B3 — Original
-        {
-            category: 'Behavioural', type: 'Growth Mindset / Feedback',
-            title: 'After a project retrospective, your approach is criticised by two teammates. How do you respond?',
-            options: [
-                'A. Defend your decisions — you had valid reasons for each one.',
-                'B. Agree publicly but ignore the feedback privately.',
-                'C. Listen carefully, ask clarifying questions, and incorporate useful feedback.',
-                'D. Avoid the teammates in future projects to prevent conflict.'
-            ],
-            answer: 2,
-            exp: 'Listening openly, seeking to understand, and applying useful feedback demonstrates professional maturity and a genuine growth mindset.',
-            time: 15
-        },
-
-        // B4 — New
-        {
-            category: 'Behavioural', type: 'Integrity / Error Handling',
-            title: 'You discover a colleague has made a significant mistake that will affect the entire team\'s delivery. What do you do?',
-            options: [
-                'A. Quietly fix it yourself without telling anyone.',
-                'B. Inform the team lead and the colleague, and propose a fix together.',
-                'C. Tell other teammates about the colleague\'s mistake.',
-                'D. Ignore it and hope it resolves itself before the deadline.'
-            ],
-            answer: 1,
-            exp: 'Informing the relevant people and proposing a collaborative fix addresses the problem transparently and maintains team trust without blame.',
-            time: 15
-        },
-
-        // B5 — New
-        {
-            category: 'Behavioural', type: 'Adaptability / Remote Work',
-            title: 'You are working remotely and your internet drops during an important client call. What do you do?',
-            options: [
-                'A. Reconnect as soon as possible, inform the team, and request a recap of missed points.',
-                'B. Ignore it — the meeting will continue without you.',
-                'C. Send a frustrated message blaming your internet provider.',
-                'D. Wait for someone to call you without taking any initiative.'
+            choices: [
+                {sh:'triangle',r:180,f:'solid'},
+                {sh:'triangle',r:0,  f:'solid'},
+                {sh:'triangle',r:180,f:'outline'},
+                {sh:'triangle',r:180,f:'striped'}
             ],
             answer: 0,
-            exp: 'Reconnecting promptly, communicating proactively, and catching up on missed content demonstrates professionalism and accountability in a remote setting.',
+            exp: 'Rows follow fill: outline, striped, solid. Columns follow rotation: 0°, 90°, 180°. Row 3, col 3 → solid at 180°.',
             time: 15
         },
 
-        // B6 — New
+        // Q12 – Cross alternation (+ at 0° vs × at 45°)
         {
-            category: 'Behavioural', type: 'Conflict Resolution',
-            title: 'A colleague presents your idea in a meeting as their own, without crediting you. How do you respond?',
-            options: [
-                'A. Angrily confront them in front of the entire team immediately.',
-                'B. Say nothing and assume it was an honest mistake.',
-                'C. Speak to the colleague privately afterwards to clarify ownership and set expectations.',
-                'D. Stop sharing ideas with the team to protect yourself in future.'
+            category: 'Pattern', type: 'Cross Alternation',
+            prompt: 'Which shape completes the pattern?',
+            cells: [
+                {sh:'cross',r:0, f:'solid'}, {sh:'cross',r:45,f:'solid'}, {sh:'cross',r:0, f:'solid'},
+                {sh:'cross',r:45,f:'solid'}, {sh:'cross',r:0, f:'solid'}, {sh:'cross',r:45,f:'solid'},
+                {sh:'cross',r:0, f:'solid'}, {sh:'cross',r:45,f:'solid'}, null
             ],
-            answer: 2,
-            exp: 'A private conversation addresses the issue directly and professionally, gives the colleague a chance to explain, and avoids creating unnecessary public conflict.',
-            time: 15
-        },
-
-        // ══════════════════════════════════════════════════════════════════════
-        //  CATEGORY 6 — LOGICAL / ECOSYSTEM  (7 questions: 3 original + 4 new)
-        // ══════════════════════════════════════════════════════════════════════
-
-        // L1 — Original
-        {
-            category: 'Logical / Ecosystem', type: 'Food Chain Cascade',
-            title: 'In a food chain:  Grass → Rabbit → Fox\n\nAll Rabbits are suddenly removed. What is the most likely outcome?',
-            options: [
-                'A. Fox population increases; Grass decreases.',
-                'B. Fox population decreases; Grass increases.',
-                'C. Fox population increases; Grass increases.',
-                'D. No change in either Fox or Grass populations.'
+            choices: [
+                {sh:'cross',r:45,f:'solid'},
+                {sh:'cross',r:0, f:'solid'},
+                {sh:'circle',r:0,f:'solid'},
+                {sh:'square',r:0,f:'solid'}
             ],
             answer: 1,
-            exp: 'Without Rabbits, Foxes lose their food source and decline. Without Rabbits grazing, Grass is no longer consumed and expands.',
+            exp: 'The cross alternates + (0°) and × (45°) like a checkerboard. Position (3,3) follows the same alternation — it is + (0°).',
             time: 15
         },
 
-        // L2 — Original
+        // Q13 – Sides progression × fill (cols=3/4/5 sides, rows=fill)
         {
-            category: 'Logical / Ecosystem', type: 'Constraint Logic (Species Extinction)',
-            title: '4 predators share 2 prey species:\n\n  Species A eats X only\n  Species B eats Y only\n  Species C eats both X and Y\n  Species D eats both X and Y\n\nIf Species X goes extinct, which predators survive?',
-            options: [
-                'A. A, B, C and D all survive.',
-                'B. B, C and D survive; A goes extinct.',
-                'C. Only B survives.',
-                'D. None survive.'
+            category: 'Pattern', type: 'Shape & Fill',
+            prompt: 'Which shape completes the pattern?',
+            cells: [
+                {sh:'triangle',f:'outline'}, {sh:'square',  f:'outline'}, {sh:'pentagon',f:'outline'},
+                {sh:'triangle',f:'striped'},  {sh:'square',  f:'striped'},  {sh:'pentagon',f:'striped'},
+                {sh:'triangle',f:'solid'},   {sh:'square',  f:'solid'},   null
             ],
-            answer: 1,
-            exp: 'Species A depends solely on X, so it goes extinct. B (eats Y), C and D (eat both — switch entirely to Y) can all survive on Species Y alone.',
-            time: 15
-        },
-
-        // L3 — Original
-        {
-            category: 'Logical / Ecosystem', type: 'Ecosystem Building (Sustainable Chain)',
-            title: 'Form a valid 3-species food chain from:\nEagle, Trout, Mayfly, Deer\n\n  Eagle eats Trout and Deer\n  Trout eats Mayfly\n  Deer eats Grass (external)\n  Mayfly eats Algae (external)\n\nWhich trio forms a complete valid chain?',
-            options: [
-                'A. Eagle → Deer → Mayfly',
-                'B. Eagle → Trout → Mayfly',
-                'C. Deer → Eagle → Trout',
-                'D. Eagle → Deer → Trout'
+            choices: [
+                {sh:'pentagon',f:'outline'},
+                {sh:'pentagon',f:'striped'},
+                {sh:'square',  f:'solid'},
+                {sh:'pentagon',f:'solid'}
             ],
-            answer: 1,
-            exp: 'Eagle eats Trout; Trout eats Mayfly; Mayfly eats Algae. This forms a complete, valid 3-link chain with each predator directly eating the next.',
+            answer: 3,
+            exp: 'Columns follow shape (3, 4, 5 sides); rows follow fill (outline, striped, solid). Row 3, col 3 → solid pentagon.',
             time: 15
         },
 
-        // L4 — New
+        // Q14 – Color intensity progression (light → medium → dark)
         {
-            category: 'Logical / Ecosystem', type: 'Food Chain Cascade (Pollution)',
-            title: 'In a marine chain:  Algae → Small Fish → Shark\n\nHeavy pollution kills most Algae. What is the most likely outcome?',
-            options: [
-                'A. Shark population increases; Small Fish increase.',
-                'B. Shark population decreases; Small Fish decrease.',
-                'C. Shark population increases; Small Fish decrease.',
-                'D. No change — Sharks do not eat Algae directly.'
+            category: 'Pattern', type: 'Color Intensity',
+            prompt: 'Which shape completes the pattern?',
+            cells: [
+                {sh:'triangle',f:'light'},  {sh:'triangle',f:'solid'}, {sh:'triangle',f:'dark'},
+                {sh:'circle',  f:'light'},  {sh:'circle',  f:'solid'}, {sh:'circle',  f:'dark'},
+                {sh:'square',  f:'light'},  {sh:'square',  f:'solid'}, null
             ],
-            answer: 1,
-            exp: 'Loss of Algae means Small Fish lose their food source and decline. With fewer Small Fish, Sharks also decline — the cascade moves up the chain.',
-            time: 15
-        },
-
-        // L5 — New
-        {
-            category: 'Logical / Ecosystem', type: 'Cascade Logic (Producer Boost)',
-            title: 'In a pond ecosystem:\n\n  Species A eats only Algae\n  Species B eats only Species A\n  Species C eats Species A and Species B\n\nIf Algae doubles in quantity, which species benefits MOST DIRECTLY first?',
-            options: [
-                'A. Species B only.',
-                'B. Species C only.',
-                'C. Species A first, then B and C benefit as a cascade.',
-                'D. All three benefit equally and simultaneously.'
+            choices: [
+                {sh:'square',f:'light'},
+                {sh:'square',f:'solid'},
+                {sh:'circle',f:'dark'},
+                {sh:'square',f:'dark'}
             ],
-            answer: 2,
-            exp: 'Species A feeds directly on Algae, so it benefits immediately. As A grows, B (which eats A) benefits next, and finally C (which eats both) benefits last in the cascade.',
+            answer: 3,
+            exp: 'Each row progresses light → medium → dark. Row 3 uses squares, so the missing cell is a dark-shaded square.',
             time: 15
         },
 
-        // L6 — New
+        // Q15 – Dot position pattern (corner dot cycles TL→TR→BL→BR)
         {
-            category: 'Logical / Ecosystem', type: 'Predator Removal',
-            title: 'A forest has:  Trees → Deer → Wolves\n\nRangers remove all Wolves from the forest. What is the most likely long-term outcome?',
-            options: [
-                'A. Deer increase, overgraze, and Trees decrease.',
-                'B. Deer decrease; Trees increase.',
-                'C. Deer and Trees both increase equally.',
-                'D. No change — Wolves were not eating Trees.'
+            category: 'Pattern', type: 'Dot Position',
+            prompt: 'Which shape completes the pattern?',
+            cells: [
+                {sh:'square',f:'solid',dp:'tl'}, {sh:'square',f:'solid',dp:'tr'}, {sh:'square',f:'solid',dp:'bl'},
+                {sh:'square',f:'solid',dp:'tr'}, {sh:'square',f:'solid',dp:'bl'}, {sh:'square',f:'solid',dp:'br'},
+                {sh:'square',f:'solid',dp:'bl'}, {sh:'square',f:'solid',dp:'br'}, null
+            ],
+            choices: [
+                {sh:'square',f:'solid',dp:'tr'},
+                {sh:'square',f:'solid',dp:'bl'},
+                {sh:'square',f:'solid',dp:'br'},
+                {sh:'square',f:'solid',dp:'tl'}
+            ],
+            answer: 3,
+            exp: 'The white dot cycles diagonally. Each row shifts one step: TL→TR→BL, TR→BL→BR, BL→BR→TL. The missing position is top-left.',
+            time: 15
+        },
+
+        // Q16 – Rotation × dot (dot present at 0°/180°, absent at 90°/270°)
+        {
+            category: 'Pattern', type: 'Rotation & Dot',
+            prompt: 'Which shape completes the pattern?',
+            cells: [
+                {sh:'triangle',r:0,  f:'solid',d:true},  {sh:'triangle',r:90, f:'solid',d:false}, {sh:'triangle',r:180,f:'solid',d:true},
+                {sh:'triangle',r:90, f:'solid',d:false}, {sh:'triangle',r:180,f:'solid',d:true},  {sh:'triangle',r:270,f:'solid',d:false},
+                {sh:'triangle',r:180,f:'solid',d:true},  {sh:'triangle',r:270,f:'solid',d:false}, null
+            ],
+            choices: [
+                {sh:'triangle',r:0,f:'solid',d:true},
+                {sh:'triangle',r:0,f:'solid',d:false},
+                {sh:'triangle',r:90,f:'solid',d:true},
+                {sh:'triangle',r:180,f:'solid',d:false}
             ],
             answer: 0,
-            exp: 'Without Wolves, Deer populations grow unchecked. With more Deer eating vegetation, Trees and plants are overgrazed, leading to habitat degradation.',
+            exp: 'Triangle rotates 90° per step; dot appears at 0° and 180°, absent at 90° and 270°. Next step → 0° with dot.',
             time: 15
         },
 
-        // L7 — New
+        // Q17 – Shape count per cell (1 → 2 → 3)
         {
-            category: 'Logical / Ecosystem', type: 'Food Chain Validity',
-            title: 'Which of the following forms a valid food chain?\n(Energy must flow from producer to consumer.)',
-            options: [
-                'A. Fox → Rabbit → Grass',
-                'B. Grass → Rabbit → Fox',
-                'C. Fox → Grass → Rabbit',
-                'D. Rabbit → Fox → Grass'
+            category: 'Pattern', type: 'Shape Count',
+            prompt: 'Which shape completes the pattern?',
+            cells: [
+                {sh:'triangle',f:'solid',cnt:1}, {sh:'triangle',f:'solid',cnt:2}, {sh:'triangle',f:'solid',cnt:3},
+                {sh:'circle',  f:'solid',cnt:1}, {sh:'circle',  f:'solid',cnt:2}, {sh:'circle',  f:'solid',cnt:3},
+                {sh:'square',  f:'solid',cnt:1}, {sh:'square',  f:'solid',cnt:2}, null
+            ],
+            choices: [
+                {sh:'square',f:'solid',cnt:1},
+                {sh:'square',f:'solid',cnt:2},
+                {sh:'circle',f:'solid',cnt:3},
+                {sh:'square',f:'solid',cnt:3}
+            ],
+            answer: 3,
+            exp: 'Each row increases shape count: 1 → 2 → 3. Row 3 uses squares, so the missing cell has 3 squares.',
+            time: 15
+        },
+
+        // Q18 – Size + rotation (size grows, rotation +90° per step)
+        {
+            category: 'Pattern', type: 'Size & Rotation',
+            prompt: 'Which shape completes the pattern?',
+            cells: [
+                {sh:'triangle',r:0,  f:'solid',sz:0.5},  {sh:'triangle',r:90, f:'solid',sz:0.75}, {sh:'triangle',r:180,f:'solid',sz:1.0},
+                {sh:'triangle',r:90, f:'solid',sz:0.5},  {sh:'triangle',r:180,f:'solid',sz:0.75}, {sh:'triangle',r:270,f:'solid',sz:1.0},
+                {sh:'triangle',r:180,f:'solid',sz:0.5},  {sh:'triangle',r:270,f:'solid',sz:0.75}, null
+            ],
+            choices: [
+                {sh:'triangle',r:0,f:'solid',sz:0.5},
+                {sh:'triangle',r:180,f:'solid',sz:1.0},
+                {sh:'triangle',r:0,f:'solid',sz:0.75},
+                {sh:'triangle',r:0,f:'solid',sz:1.0}
+            ],
+            answer: 3,
+            exp: 'Size grows small→medium→large per column. Rotation starts each row 90° higher. Row 3 ends at 360°=0°, large size.',
+            time: 15
+        },
+
+        // Q19 – Shape + fill Latin square
+        {
+            category: 'Pattern', type: 'Shape & Fill Matrix',
+            prompt: 'Which shape completes the pattern?',
+            cells: [
+                {sh:'triangle',f:'solid'},   {sh:'circle',  f:'outline'},  {sh:'square',  f:'striped'},
+                {sh:'circle',  f:'outline'},  {sh:'square',  f:'striped'},  {sh:'triangle',f:'solid'},
+                {sh:'square',  f:'striped'},  {sh:'triangle',f:'solid'},   null
+            ],
+            choices: [
+                {sh:'triangle',f:'solid'},
+                {sh:'square',  f:'striped'},
+                {sh:'circle',  f:'outline'},
+                {sh:'circle',  f:'solid'}
+            ],
+            answer: 2,
+            exp: 'Each row and column contains each shape-fill pair exactly once: solid-triangle, outline-circle, striped-square. Row 3 col 3 must be outline circle.',
+            time: 15
+        },
+
+        // Q20 – Arrow: fill × direction matrix
+        {
+            category: 'Pattern', type: 'Fill & Direction',
+            prompt: 'Which shape completes the pattern?',
+            cells: [
+                {sh:'arrow',r:0,  f:'outline'}, {sh:'arrow',r:90, f:'outline'}, {sh:'arrow',r:180,f:'outline'},
+                {sh:'arrow',r:0,  f:'striped'},  {sh:'arrow',r:90, f:'striped'},  {sh:'arrow',r:180,f:'striped'},
+                {sh:'arrow',r:0,  f:'solid'},   {sh:'arrow',r:90, f:'solid'},   null
+            ],
+            choices: [
+                {sh:'arrow',r:180,f:'solid'},
+                {sh:'arrow',r:180,f:'outline'},
+                {sh:'arrow',r:90, f:'solid'},
+                {sh:'arrow',r:270,f:'solid'}
+            ],
+            answer: 0,
+            exp: 'Rows follow fill (outline, striped, solid). Columns follow direction (right=0°, down=90°, left=180°). Row 3, col 3 → solid arrow pointing left.',
+            time: 15
+        },
+
+        // Q21 – Star rotation (36° clockwise per step)
+        {
+            category: 'Pattern', type: 'Star Rotation',
+            prompt: 'Which shape completes the pattern?',
+            cells: [
+                {sh:'star',r:0,  f:'solid'}, {sh:'star',r:36, f:'solid'}, {sh:'star',r:72, f:'solid'},
+                {sh:'star',r:36, f:'solid'}, {sh:'star',r:72, f:'solid'}, {sh:'star',r:108,f:'solid'},
+                {sh:'star',r:72, f:'solid'}, {sh:'star',r:108,f:'solid'}, null
+            ],
+            choices: [
+                {sh:'star',r:144,f:'solid'},
+                {sh:'star',r:0,  f:'solid'},
+                {sh:'star',r:72, f:'solid'},
+                {sh:'star',r:108,f:'solid'}
+            ],
+            answer: 0,
+            exp: 'Each row the star rotates 36° per column. Row 3: 72° → 108° → 144°.',
+            time: 15
+        },
+
+        // Q22 – Fill Latin square (all circles; solid/striped/outline each once per row & col)
+        {
+            category: 'Pattern', type: 'Fill Latin Square',
+            prompt: 'Which shape completes the pattern?',
+            cells: [
+                {sh:'circle',f:'solid'},   {sh:'circle',f:'striped'}, {sh:'circle',f:'outline'},
+                {sh:'circle',f:'striped'}, {sh:'circle',f:'outline'}, {sh:'circle',f:'solid'},
+                {sh:'circle',f:'outline'}, {sh:'circle',f:'solid'},   null
+            ],
+            choices: [
+                {sh:'circle',  f:'solid'},
+                {sh:'circle',  f:'outline'},
+                {sh:'circle',  f:'striped'},
+                {sh:'triangle',f:'striped'}
+            ],
+            answer: 2,
+            exp: 'Each row and column contains each fill (solid, striped, outline) exactly once. Row 3 col 3 must be striped.',
+            time: 15
+        },
+
+        // Q23 – Pentagon: rows=fill, cols=size
+        {
+            category: 'Pattern', type: 'Shape Size & Fill',
+            prompt: 'Which shape completes the pattern?',
+            cells: [
+                {sh:'pentagon',f:'outline',sz:0.5}, {sh:'pentagon',f:'outline',sz:0.75}, {sh:'pentagon',f:'outline',sz:1.0},
+                {sh:'pentagon',f:'striped', sz:0.5}, {sh:'pentagon',f:'striped', sz:0.75}, {sh:'pentagon',f:'striped', sz:1.0},
+                {sh:'pentagon',f:'solid',  sz:0.5}, {sh:'pentagon',f:'solid',  sz:0.75}, null
+            ],
+            choices: [
+                {sh:'pentagon',f:'solid',  sz:0.5},
+                {sh:'pentagon',f:'outline',sz:1.0},
+                {sh:'pentagon',f:'solid',  sz:0.75},
+                {sh:'pentagon',f:'solid',  sz:1.0}
+            ],
+            answer: 3,
+            exp: 'Rows follow fill (outline, striped, solid); columns follow size (small, medium, large). Row 3, col 3 → solid, large pentagon.',
+            time: 15
+        },
+
+        // Q24 – Triangle count (per col) × rotation (per row)
+        {
+            category: 'Pattern', type: 'Count & Rotation',
+            prompt: 'Which shape completes the pattern?',
+            cells: [
+                {sh:'triangle',r:0,  f:'solid',cnt:1}, {sh:'triangle',r:0,  f:'solid',cnt:2}, {sh:'triangle',r:0,  f:'solid',cnt:3},
+                {sh:'triangle',r:90, f:'solid',cnt:1}, {sh:'triangle',r:90, f:'solid',cnt:2}, {sh:'triangle',r:90, f:'solid',cnt:3},
+                {sh:'triangle',r:180,f:'solid',cnt:1}, {sh:'triangle',r:180,f:'solid',cnt:2}, null
+            ],
+            choices: [
+                {sh:'triangle',r:180,f:'solid',cnt:1},
+                {sh:'triangle',r:90, f:'solid',cnt:3},
+                {sh:'triangle',r:180,f:'solid',cnt:2},
+                {sh:'triangle',r:180,f:'solid',cnt:3}
+            ],
+            answer: 3,
+            exp: 'Rows follow rotation (0°, 90°, 180°); columns follow count (1, 2, 3). Row 3, col 3 → 180° rotation, 3 shapes.',
+            time: 15
+        },
+
+        // Q25 – Arrow: direction per row × size per col
+        {
+            category: 'Pattern', type: 'Direction & Size',
+            prompt: 'Which shape completes the pattern?',
+            cells: [
+                {sh:'arrow',r:0,  f:'solid',sz:0.5},  {sh:'arrow',r:0,  f:'solid',sz:0.75}, {sh:'arrow',r:0,  f:'solid',sz:1.0},
+                {sh:'arrow',r:90, f:'solid',sz:0.5},  {sh:'arrow',r:90, f:'solid',sz:0.75}, {sh:'arrow',r:90, f:'solid',sz:1.0},
+                {sh:'arrow',r:180,f:'solid',sz:0.5},  {sh:'arrow',r:180,f:'solid',sz:0.75}, null
+            ],
+            choices: [
+                {sh:'arrow',r:180,f:'solid',sz:0.5},
+                {sh:'arrow',r:0,  f:'solid',sz:1.0},
+                {sh:'arrow',r:180,f:'solid',sz:0.75},
+                {sh:'arrow',r:180,f:'solid',sz:1.0}
+            ],
+            answer: 3,
+            exp: 'Rows follow arrow direction (right, down, left); columns follow size (small, medium, large). Row 3, col 3 → left-pointing large arrow.',
+            time: 15
+        },
+
+        // Q26 – Nested count (rows=shape, cols=1,2,3 nested outlines)
+        {
+            category: 'Pattern', type: 'Nested Count',
+            prompt: 'Which shape completes the pattern?',
+            cells: [
+                {sh:'triangle',f:'outline'},     {sh:'triangle',f:'outline',n:2}, {sh:'triangle',f:'outline',n:3},
+                {sh:'square',  f:'outline'},     {sh:'square',  f:'outline',n:2}, {sh:'square',  f:'outline',n:3},
+                {sh:'circle',  f:'outline'},     {sh:'circle',  f:'outline',n:2}, null
+            ],
+            choices: [
+                {sh:'circle',  f:'outline'},
+                {sh:'circle',  f:'outline',n:2},
+                {sh:'triangle',f:'outline',n:3},
+                {sh:'circle',  f:'outline',n:3}
+            ],
+            answer: 3,
+            exp: 'Each row progresses 1 → 2 → 3 nested outlines of the same shape. Row 3 uses circles, so 3 concentric circles.',
+            time: 15
+        },
+
+        // Q27 – Size decreasing (rows=shape, cols=large→medium→small)
+        {
+            category: 'Pattern', type: 'Size Decreasing',
+            prompt: 'Which shape completes the pattern?',
+            cells: [
+                {sh:'triangle',f:'solid',sz:1.0}, {sh:'triangle',f:'solid',sz:0.75}, {sh:'triangle',f:'solid',sz:0.5},
+                {sh:'circle',  f:'solid',sz:1.0}, {sh:'circle',  f:'solid',sz:0.75}, {sh:'circle',  f:'solid',sz:0.5},
+                {sh:'square',  f:'solid',sz:1.0}, {sh:'square',  f:'solid',sz:0.75}, null
+            ],
+            choices: [
+                {sh:'square',  f:'solid',sz:1.0},
+                {sh:'triangle',f:'solid',sz:0.5},
+                {sh:'square',  f:'solid',sz:0.75},
+                {sh:'square',  f:'solid',sz:0.5}
+            ],
+            answer: 3,
+            exp: 'Each row shrinks large → medium → small. Row 3 uses squares, so the missing cell is a small square.',
+            time: 15
+        },
+
+        // Q28 – Cross: fill per row × rotation alternates per col (+/×)
+        {
+            category: 'Pattern', type: 'Cross Fill & Angle',
+            prompt: 'Which shape completes the pattern?',
+            cells: [
+                {sh:'cross',r:0, f:'outline'}, {sh:'cross',r:45,f:'outline'}, {sh:'cross',r:0, f:'outline'},
+                {sh:'cross',r:45,f:'striped'},  {sh:'cross',r:0, f:'striped'},  {sh:'cross',r:45,f:'striped'},
+                {sh:'cross',r:0, f:'solid'},   {sh:'cross',r:45,f:'solid'},   null
+            ],
+            choices: [
+                {sh:'cross',r:45,f:'solid'},
+                {sh:'cross',r:0, f:'outline'},
+                {sh:'cross',r:0, f:'solid'},
+                {sh:'cross',r:45,f:'outline'}
+            ],
+            answer: 2,
+            exp: 'Rows follow fill (outline, striped, solid). Rotation alternates +/× per column: col 3 is always + (0°). Row 3, col 3 → solid + cross.',
+            time: 15
+        },
+
+        // Q29 – Shape count decreasing (3→2→1 per column)
+        {
+            category: 'Pattern', type: 'Count Decreasing',
+            prompt: 'Which shape completes the pattern?',
+            cells: [
+                {sh:'triangle',f:'solid',cnt:3}, {sh:'triangle',f:'solid',cnt:2}, {sh:'triangle',f:'solid',cnt:1},
+                {sh:'circle',  f:'solid',cnt:3}, {sh:'circle',  f:'solid',cnt:2}, {sh:'circle',  f:'solid',cnt:1},
+                {sh:'square',  f:'solid',cnt:3}, {sh:'square',  f:'solid',cnt:2}, null
+            ],
+            choices: [
+                {sh:'square',f:'solid',cnt:3},
+                {sh:'square',f:'solid',cnt:2},
+                {sh:'circle',f:'solid',cnt:1},
+                {sh:'square',f:'solid',cnt:1}
+            ],
+            answer: 3,
+            exp: 'Each row decreases count 3 → 2 → 1. Row 3 uses squares, so the missing cell has 1 square.',
+            time: 15
+        },
+
+        // Q30 – Nested count (rows) × rotation (cols)
+        {
+            category: 'Pattern', type: 'Nested & Rotation',
+            prompt: 'Which shape completes the pattern?',
+            cells: [
+                {sh:'triangle',r:0,  f:'outline'},     {sh:'triangle',r:90, f:'outline'},     {sh:'triangle',r:180,f:'outline'},
+                {sh:'triangle',r:0,  f:'outline',n:2}, {sh:'triangle',r:90, f:'outline',n:2}, {sh:'triangle',r:180,f:'outline',n:2},
+                {sh:'triangle',r:0,  f:'outline',n:3}, {sh:'triangle',r:90, f:'outline',n:3}, null
+            ],
+            choices: [
+                {sh:'triangle',r:0,  f:'outline',n:3},
+                {sh:'triangle',r:90, f:'outline',n:3},
+                {sh:'triangle',r:180,f:'outline',n:2},
+                {sh:'triangle',r:180,f:'outline',n:3}
+            ],
+            answer: 3,
+            exp: 'Rows follow nested count (1, 2, 3); columns follow rotation (0°, 90°, 180°). Row 3, col 3 → 3 nested, 180°.',
+            time: 15
+        },
+
+        // Q31 – Shape per column × rotation per row
+        {
+            category: 'Pattern', type: 'Shape & Rotation Grid',
+            prompt: 'Which shape completes the pattern?',
+            cells: [
+                {sh:'triangle',r:0,  f:'solid'}, {sh:'circle',r:0,  f:'solid'}, {sh:'square',r:0,  f:'solid'},
+                {sh:'triangle',r:90, f:'solid'}, {sh:'circle',r:90, f:'solid'}, {sh:'square',r:90, f:'solid'},
+                {sh:'triangle',r:180,f:'solid'}, {sh:'circle',r:180,f:'solid'}, null
+            ],
+            choices: [
+                {sh:'square',r:0,  f:'solid'},
+                {sh:'triangle',r:180,f:'solid'},
+                {sh:'square',r:90, f:'solid'},
+                {sh:'square',r:180,f:'solid'}
+            ],
+            answer: 3,
+            exp: 'Column 3 always has a square; row 3 rotation is 180°. The missing cell is a square rotated 180°.',
+            time: 15
+        },
+
+        // Q32 – Fill per row × count per col
+        {
+            category: 'Pattern', type: 'Fill & Count',
+            prompt: 'Which shape completes the pattern?',
+            cells: [
+                {sh:'triangle',f:'outline',cnt:1}, {sh:'triangle',f:'outline',cnt:2}, {sh:'triangle',f:'outline',cnt:3},
+                {sh:'triangle',f:'striped', cnt:1}, {sh:'triangle',f:'striped', cnt:2}, {sh:'triangle',f:'striped', cnt:3},
+                {sh:'triangle',f:'solid',  cnt:1}, {sh:'triangle',f:'solid',  cnt:2}, null
+            ],
+            choices: [
+                {sh:'triangle',f:'solid',  cnt:1},
+                {sh:'triangle',f:'solid',  cnt:2},
+                {sh:'triangle',f:'outline',cnt:3},
+                {sh:'triangle',f:'solid',  cnt:3}
+            ],
+            answer: 3,
+            exp: 'Rows follow fill (outline, striped, solid); columns follow count (1, 2, 3). Row 3, col 3 → solid, 3 triangles.',
+            time: 15
+        },
+
+        // Q33 – Pentagon: rotation per row × size per col
+        {
+            category: 'Pattern', type: 'Pentagon Size & Rotation',
+            prompt: 'Which shape completes the pattern?',
+            cells: [
+                {sh:'pentagon',r:0,  f:'solid',sz:0.5},  {sh:'pentagon',r:0,  f:'solid',sz:0.75}, {sh:'pentagon',r:0,  f:'solid',sz:1.0},
+                {sh:'pentagon',r:72, f:'solid',sz:0.5},  {sh:'pentagon',r:72, f:'solid',sz:0.75}, {sh:'pentagon',r:72, f:'solid',sz:1.0},
+                {sh:'pentagon',r:144,f:'solid',sz:0.5},  {sh:'pentagon',r:144,f:'solid',sz:0.75}, null
+            ],
+            choices: [
+                {sh:'pentagon',r:144,f:'solid',sz:0.5},
+                {sh:'pentagon',r:144,f:'solid',sz:0.75},
+                {sh:'pentagon',r:72, f:'solid',sz:1.0},
+                {sh:'pentagon',r:144,f:'solid',sz:1.0}
+            ],
+            answer: 3,
+            exp: 'Rows follow rotation (0°, 72°, 144°); columns follow size (small, medium, large). Row 3, col 3 → 144° rotation, large.',
+            time: 15
+        },
+
+        // Q34 – Dot position cycles clockwise (TL→TR→BR→BL)
+        {
+            category: 'Pattern', type: 'Dot Rotation',
+            prompt: 'Which shape completes the pattern?',
+            cells: [
+                {sh:'square',f:'solid',dp:'tl'}, {sh:'square',f:'solid',dp:'tr'}, {sh:'square',f:'solid',dp:'br'},
+                {sh:'square',f:'solid',dp:'tr'}, {sh:'square',f:'solid',dp:'br'}, {sh:'square',f:'solid',dp:'bl'},
+                {sh:'square',f:'solid',dp:'br'}, {sh:'square',f:'solid',dp:'bl'}, null
+            ],
+            choices: [
+                {sh:'square',f:'solid',dp:'br'},
+                {sh:'square',f:'solid',dp:'tl'},
+                {sh:'square',f:'solid',dp:'tr'},
+                {sh:'square',f:'solid',dp:'bl'}
             ],
             answer: 1,
-            exp: 'A valid food chain goes: Producer → Primary Consumer → Secondary Consumer. Grass (producer) → Rabbit (herbivore) → Fox (carnivore) is the only correct order.',
+            exp: 'The dot moves one step clockwise per cell: TL→TR→BR→BL→TL. Row 3: BR→BL→TL.',
+            time: 15
+        },
+
+        // Q35 – Shape Latin square × rotation per row
+        {
+            category: 'Pattern', type: 'Shape Latin & Rotation',
+            prompt: 'Which shape completes the pattern?',
+            cells: [
+                {sh:'triangle',r:0,  f:'solid'}, {sh:'circle',  r:0,  f:'solid'}, {sh:'square',  r:0,  f:'solid'},
+                {sh:'circle',  r:90, f:'solid'}, {sh:'square',  r:90, f:'solid'}, {sh:'triangle',r:90, f:'solid'},
+                {sh:'square',  r:180,f:'solid'}, {sh:'triangle',r:180,f:'solid'}, null
+            ],
+            choices: [
+                {sh:'square',  r:180,f:'solid'},
+                {sh:'circle',  r:180,f:'solid'},
+                {sh:'triangle',r:180,f:'solid'},
+                {sh:'circle',  r:0,  f:'solid'}
+            ],
+            answer: 1,
+            exp: 'Shapes form a Latin square (T,C,S each once per row & col). Rotation is 0°, 90°, 180° per row. Row 3, col 3 → circle at 180°.',
+            time: 15
+        },
+
+        // Q36 – Size decreasing × shape per row (reverse progression, different shapes)
+        {
+            category: 'Pattern', type: 'Reverse Size',
+            prompt: 'Which shape completes the pattern?',
+            cells: [
+                {sh:'circle',  f:'solid',sz:1.0}, {sh:'circle',  f:'solid',sz:0.75}, {sh:'circle',  f:'solid',sz:0.5},
+                {sh:'square',  f:'solid',sz:1.0}, {sh:'square',  f:'solid',sz:0.75}, {sh:'square',  f:'solid',sz:0.5},
+                {sh:'triangle',f:'solid',sz:1.0}, {sh:'triangle',f:'solid',sz:0.75}, null
+            ],
+            choices: [
+                {sh:'triangle',f:'solid',sz:1.0},
+                {sh:'triangle',f:'solid',sz:0.75},
+                {sh:'circle',  f:'solid',sz:0.5},
+                {sh:'triangle',f:'solid',sz:0.5}
+            ],
+            answer: 3,
+            exp: 'Each row shrinks large → medium → small. Row 3 uses triangles, so the missing cell is a small triangle.',
+            time: 15
+        },
+
+        // Q37 – Star: fill per row × rotation per col
+        {
+            category: 'Pattern', type: 'Star Fill & Rotation',
+            prompt: 'Which shape completes the pattern?',
+            cells: [
+                {sh:'star',r:0,  f:'outline'}, {sh:'star',r:36, f:'outline'}, {sh:'star',r:72, f:'outline'},
+                {sh:'star',r:0,  f:'solid'},   {sh:'star',r:36, f:'solid'},   {sh:'star',r:72, f:'solid'},
+                {sh:'star',r:0,  f:'striped'},  {sh:'star',r:36, f:'striped'},  null
+            ],
+            choices: [
+                {sh:'star',r:0,  f:'striped'},
+                {sh:'star',r:72, f:'solid'},
+                {sh:'star',r:36, f:'striped'},
+                {sh:'star',r:72, f:'striped'}
+            ],
+            answer: 3,
+            exp: 'Rows follow fill (outline, solid, striped); columns follow rotation (0°, 36°, 72°). Row 3, col 3 → striped star at 72°.',
+            time: 15
+        },
+
+        // Q38 – Mixed shapes per col × count per row (arrow/pentagon/star)
+        {
+            category: 'Pattern', type: 'Mixed Shape Count',
+            prompt: 'Which shape completes the pattern?',
+            cells: [
+                {sh:'arrow',  f:'solid',cnt:1}, {sh:'pentagon',f:'solid',cnt:1}, {sh:'star',   f:'solid',cnt:1},
+                {sh:'arrow',  f:'solid',cnt:2}, {sh:'pentagon',f:'solid',cnt:2}, {sh:'star',   f:'solid',cnt:2},
+                {sh:'arrow',  f:'solid',cnt:3}, {sh:'pentagon',f:'solid',cnt:3}, null
+            ],
+            choices: [
+                {sh:'star',f:'solid',cnt:1},
+                {sh:'star',f:'solid',cnt:2},
+                {sh:'pentagon',f:'solid',cnt:3},
+                {sh:'star',f:'solid',cnt:3}
+            ],
+            answer: 3,
+            exp: 'Columns fix the shape (arrow, pentagon, star); rows fix the count (1, 2, 3). Row 3, col 3 → 3 stars.',
+            time: 15
+        },
+
+        // Q39 – Diamond: fill per row × rotation per col
+        {
+            category: 'Pattern', type: 'Diamond Fill & Rotation',
+            prompt: 'Which shape completes the pattern?',
+            cells: [
+                {sh:'diamond',r:0, f:'outline'}, {sh:'diamond',r:45,f:'outline'}, {sh:'diamond',r:90,f:'outline'},
+                {sh:'diamond',r:0, f:'striped'},  {sh:'diamond',r:45,f:'striped'},  {sh:'diamond',r:90,f:'striped'},
+                {sh:'diamond',r:0, f:'solid'},   {sh:'diamond',r:45,f:'solid'},   null
+            ],
+            choices: [
+                {sh:'diamond',r:0, f:'solid'},
+                {sh:'diamond',r:90,f:'outline'},
+                {sh:'diamond',r:45,f:'solid'},
+                {sh:'diamond',r:90,f:'solid'}
+            ],
+            answer: 3,
+            exp: 'Rows follow fill (outline, striped, solid); columns follow rotation (0°, 45°, 90°). Row 3, col 3 → solid diamond at 90°.',
+            time: 15
+        },
+
+        // Q40 – Grand challenge: shape Latin square × size × fill (3 attributes)
+        {
+            category: 'Pattern', type: 'Triple Attribute',
+            prompt: 'Which shape completes the pattern?',
+            cells: [
+                {sh:'triangle',f:'solid',  sz:0.5},  {sh:'circle',  f:'striped', sz:0.5},  {sh:'square',  f:'outline',sz:0.5},
+                {sh:'circle',  f:'outline',sz:0.75}, {sh:'square',  f:'solid',  sz:0.75}, {sh:'triangle',f:'striped', sz:0.75},
+                {sh:'square',  f:'striped', sz:1.0},  {sh:'triangle',f:'outline',sz:1.0},  null
+            ],
+            choices: [
+                {sh:'circle',f:'solid',  sz:1.0},
+                {sh:'circle',f:'striped', sz:1.0},
+                {sh:'circle',f:'outline',sz:0.75},
+                {sh:'circle',f:'outline',sz:1.0}
+            ],
+            answer: 0,
+            exp: 'Three rules: shapes form a Latin square (T,C,S once per row & col); size increases per row (sm, md, lg); fill forms a Latin square (solid,striped,outline). Row 3, col 3 → circle, large, solid.',
             time: 15
         }
+
     ];
 
     // ─── State ─────────────────────────────────────────────────────────────────
-    var TOTAL_SECONDS = 10 * 60; // 10 minutes
+    var TOTAL_SECONDS = 40 * 60; // 40 minutes for 40 questions
     var answers       = new Array(QUESTIONS.length).fill(null);
-    var timingAccum   = new Array(QUESTIONS.length).fill(0); // total ms accumulated per question across ALL visits
-    var questionStart = null; // timestamp of when the current question view began (null if not timing)
+    var timingAccum   = new Array(QUESTIONS.length).fill(0);
+    var questionStart = null;
     var currentIdx    = 0;
     var ticker        = null;
     var globalStart   = null;
@@ -524,7 +977,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById(id).classList.add('active');
     }
 
-    // ─── Global countdown (MM:SS, single timer for all 40 questions) ───────────
+    // ─── Global countdown ─────────────────────────────────────────────────────
     function fmtTime(secs) {
         var m = Math.floor(secs / 60);
         var s = secs % 60;
@@ -540,7 +993,6 @@ document.addEventListener('DOMContentLoaded', function () {
         bar.style.width = '100%';
         numEl.textContent = fmtTime(TOTAL_SECONDS);
 
-        // Animate bar over full duration
         requestAnimationFrame(function () {
             bar.style.transition = 'width ' + TOTAL_SECONDS + 's linear';
             bar.style.width = '0%';
@@ -560,7 +1012,6 @@ document.addEventListener('DOMContentLoaded', function () {
             if (left <= 0) {
                 clearInterval(ticker);
                 ticker = null;
-                // Flush the current question's in-progress time before marking expired
                 pauseQuestionTimer();
                 for (var i = 0; i < answers.length; i++) {
                     if (answers[i] === null) answers[i] = -1;
@@ -575,7 +1026,6 @@ document.addEventListener('DOMContentLoaded', function () {
         if (ticker) { clearInterval(ticker); ticker = null; }
     }
 
-    // Pause accumulation for the current question (called on leave)
     function pauseQuestionTimer() {
         if (questionStart !== null) {
             timingAccum[currentIdx] += Date.now() - questionStart;
@@ -583,7 +1033,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Resume accumulation for idx (called on enter, only if still unanswered)
     function resumeQuestionTimer(idx) {
         if (answers[idx] === null) {
             questionStart = Date.now();
@@ -592,56 +1041,35 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // ─── Grid builder for matrix questions ─────────────────────────────────────
-    function buildGrid(gridData) {
-        var html = '<table class="q-grid-table"><tbody>';
-        for (var r = 0; r < gridData.length; r++) {
-            html += '<tr>';
-            for (var c = 0; c < gridData[r].length; c++) {
-                var val = gridData[r][c];
-                var cls = (val === '?') ? 'missing' : '';
-                html += '<td class="' + cls + '">' + val + '</td>';
-            }
-            html += '</tr>';
-        }
-        html += '</tbody></table>';
-        return html;
-    }
-
     // ─── Render ────────────────────────────────────────────────────────────────
     function renderQuestion(idx) {
-        var q       = QUESTIONS[idx];
-        var qNum    = document.getElementById('q-num');
-        var qTitle  = document.getElementById('q-title');
-        var qGrid   = document.getElementById('q-grid');
-        var qOpts   = document.getElementById('q-options');
-        var qExp    = document.getElementById('q-explanation');
-        var badge   = document.getElementById('q-cat-badge');
+        var q      = QUESTIONS[idx];
+        var qNum   = document.getElementById('q-num');
+        var qTitle = document.getElementById('q-title');
+        var qGrid  = document.getElementById('q-grid');
+        var qOpts  = document.getElementById('q-options');
+        var qExp   = document.getElementById('q-explanation');
+        var badge  = document.getElementById('q-cat-badge');
 
-        qNum.textContent   = 'Question ' + (idx + 1) + ' of ' + QUESTIONS.length;
-        // For grid questions show only the prompt line — the grid itself is rendered visually below
-        qTitle.textContent = q.grid ? q.title.split('\n')[0] : q.title;
-        qExp.className     = 'mcq-explanation';
-        qExp.textContent   = '';
-
+        qNum.textContent  = (idx + 1) + ' / ' + QUESTIONS.length;
+        qTitle.textContent = q.prompt || 'Which shape completes the pattern?';
+        qExp.className    = 'mcq-explanation';
+        qExp.textContent  = '';
         badge.textContent = q.category + ' · ' + q.type;
 
-        // Grid
-        if (q.grid) {
-            qGrid.innerHTML = buildGrid(q.grid);
-            qGrid.style.display = 'block';
-        } else {
-            qGrid.innerHTML = '';
-            qGrid.style.display = 'none';
-        }
+        // Visual 3×3 grid
+        qGrid.innerHTML = buildVisualGrid(q.cells);
+        qGrid.style.display = 'block';
 
-        // Options — horizontal row for grid questions, vertical otherwise
+        // Choice buttons (2×2 grid with SVG images)
         qOpts.innerHTML = '';
-        qOpts.className = q.grid ? 'mcq-options mcq-options-row' : 'mcq-options';
-        q.options.forEach(function (opt, i) {
+        qOpts.className = 'mcq-options mcq-options-visual';
+        var labels = ['A', 'B', 'C', 'D'];
+        q.choices.forEach(function (choice, i) {
             var btn = document.createElement('button');
-            btn.className = 'mcq-option';
-            btn.textContent = opt;
+            btn.className = 'mcq-option v-option';
+            btn.innerHTML = '<span class="v-opt-lbl">' + labels[i] + '</span>'
+                          + cellSVG(choice);
             btn.addEventListener('click', (function (ci) {
                 return function () { selectAnswer(ci); };
             })(i));
@@ -649,11 +1077,11 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         // Navigation
-        prevBtn.style.display = idx > 0 ? 'inline-flex' : 'none';
-        nextBtn.style.display = idx < QUESTIONS.length - 1 ? 'inline-flex' : 'none';
+        prevBtn.style.display   = idx > 0 ? 'inline-flex' : 'none';
+        nextBtn.style.display   = idx < QUESTIONS.length - 1 ? 'inline-flex' : 'none';
         finishBtn.style.display = idx === QUESTIONS.length - 1 ? 'inline-flex' : 'none';
 
-        // Restore prior answer state (timer keeps running globally)
+        // Restore prior answer state
         if (answers[idx] !== null && answers[idx] !== -1) {
             revealAnswer(qOpts.querySelectorAll('.mcq-option'), answers[idx], q.answer, q.exp);
         } else if (answers[idx] === -1) {
@@ -670,7 +1098,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function selectAnswer(choiceIdx) {
         if (answers[currentIdx] !== null) return;
         answers[currentIdx] = choiceIdx;
-        pauseQuestionTimer(); // flush this visit's time into timingAccum
+        pauseQuestionTimer();
         var opts = document.getElementById('q-options').querySelectorAll('.mcq-option');
         revealAnswer(opts, choiceIdx, QUESTIONS[currentIdx].answer, QUESTIONS[currentIdx].exp);
         updateNumGrid();
@@ -714,9 +1142,9 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function goTo(idx) {
-        pauseQuestionTimer(); // stop accumulating time for the question we're leaving
+        pauseQuestionTimer();
         currentIdx = idx;
-        renderQuestion(idx); // resumeQuestionTimer is called inside renderQuestion
+        renderQuestion(idx);
     }
 
     // ─── Results ───────────────────────────────────────────────────────────────
@@ -761,11 +1189,10 @@ document.addEventListener('DOMContentLoaded', function () {
             row.innerHTML =
                 '<span class="res-cat-name">' + cat + '</span>' +
                 '<span class="res-cat-score ' + cls + '">' + d.correct + ' / ' + d.total + ' (' + catPct + '%)</span>' +
-                '<span class="res-cat-time">⏱ ' + (avgT === '—' ? '—' : avgT + 's') + ' avg</span>';
+                '<span class="res-cat-time">&#8987; ' + (avgT === '—' ? '—' : avgT + 's') + ' avg</span>';
             breakdown.appendChild(row);
         });
 
-        // POST timing data to backend
         var payload = QUESTIONS.map(function (q, i) {
             return {
                 q:        i + 1,
@@ -780,7 +1207,7 @@ document.addEventListener('DOMContentLoaded', function () {
             method:  'POST',
             headers: { 'Content-Type': 'application/json' },
             body:    JSON.stringify({ timingLog: payload })
-        }).catch(function () {}); // silent fail — results still display
+        }).catch(function () {});
 
         showScreen('screen-results');
     }

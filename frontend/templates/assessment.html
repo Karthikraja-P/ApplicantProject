@@ -64,6 +64,49 @@
             text-align: center;
             padding: 12px 10px;
         }
+        /* ── Visual Pattern Grid ── */
+        .v-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 70px);
+            grid-template-rows: repeat(3, 70px);
+            gap: 0;
+            border: 2px solid #2a3a55;
+            margin: 12px auto 18px;
+            width: fit-content;
+            background: #0d1b2a;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        .v-cell {
+            width: 70px; height: 70px;
+            display: flex; align-items: center; justify-content: center;
+            border: 1px solid #2a3a55;
+        }
+        .v-cell svg { display: block; width: 60px; height: 60px; }
+        .v-qmark {
+            font-size: 2rem; font-weight: 800; color: #4a6a8a;
+            line-height: 1;
+        }
+        /* ── Visual option buttons ── */
+        .mcq-options-visual {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            gap: 10px;
+            justify-content: center;
+        }
+        .v-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 12px;
+            flex: 1 1 0;
+        }
+        .v-option svg { width: 80px; height: 80px; pointer-events: none; }
+        .v-opt-lbl {
+            font-size: 0.85rem; font-weight: 700; color: #aac4e8;
+        }
         .res-cat-row {
             display: flex;
             justify-content: space-between;
@@ -123,43 +166,35 @@
                 <div id="screen-intro" class="psych-screen active">
                     <h2 style="color:#c6e8ff;margin:0 0 6px;">IQ Assessment</h2>
                     <p style="color:#5a7ca0;font-size:0.82rem;margin:0 0 16px;">
-                        40 questions across 6 categories · 10 minutes total
+                        40 visual pattern questions · 40 minutes total
                     </p>
 
                     <div class="cat-summary-row">
                         <div class="cat-summary-card">
-                            <div class="cat-name">Verbal</div>
-                            <div class="cat-count">6 Q</div>
+                            <div class="cat-name">Rotation</div>
+                            <div class="cat-count">5 Q</div>
                         </div>
                         <div class="cat-summary-card">
-                            <div class="cat-name">Numerical</div>
-                            <div class="cat-count">7 Q</div>
+                            <div class="cat-name">Progression</div>
+                            <div class="cat-count">5 Q</div>
                         </div>
                         <div class="cat-summary-card">
-                            <div class="cat-name">Visual / Matrix</div>
-                            <div class="cat-count">8 Q</div>
+                            <div class="cat-name">Sequence</div>
+                            <div class="cat-count">5 Q</div>
                         </div>
                         <div class="cat-summary-card">
-                            <div class="cat-name">Cognitive</div>
-                            <div class="cat-count">6 Q</div>
-                        </div>
-                        <div class="cat-summary-card">
-                            <div class="cat-name">Behavioural</div>
-                            <div class="cat-count">6 Q</div>
-                        </div>
-                        <div class="cat-summary-card">
-                            <div class="cat-name">Logical / Ecosystem</div>
-                            <div class="cat-count">7 Q</div>
+                            <div class="cat-name">Combined</div>
+                            <div class="cat-count">5 Q</div>
                         </div>
                     </div>
 
                     <div class="psych-tips">
                         <strong>Tips</strong>
                         <ul>
-                            <li>A single 10-minute countdown covers all 40 questions — manage your time across the assessment</li>
+                            <li>Each puzzle shows a 3×3 grid — find the rule governing rows and columns</li>
+                            <li>Look for patterns in shape, rotation, size, fill, and count</li>
                             <li>You can navigate back to review previous answers</li>
-                            <li>For matrix questions, study the row and column patterns carefully</li>
-                            <li>Behavioural questions have no single wrong answer — choose the most effective response</li>
+                            <li>A single 20-minute timer covers all 20 questions</li>
                         </ul>
                     </div>
 
@@ -177,7 +212,7 @@
                             <div id="q-cat-badge" class="cat-badge" style="margin-top:4px;"></div>
                         </div>
                         <div class="psych-timer-block">
-                            <span class="psych-timer-number" id="timer-num" style="font-size:1.5rem;letter-spacing:0.04em;">10:00</span>
+                            <span class="psych-timer-number" id="timer-num" style="font-size:1.5rem;letter-spacing:0.04em;">40:00</span>
                             <span class="psych-timer-label">remaining</span>
                         </div>
                     </div>

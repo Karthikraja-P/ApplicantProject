@@ -503,10 +503,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // ─── State ─────────────────────────────────────────────────────────────────
     var TOTAL_SECONDS = 10 * 60; // 10 minutes
-    var answers    = new Array(QUESTIONS.length).fill(null);
-    var currentIdx = 0;
-    var ticker     = null;
-    var globalStart = null;
+    var answers       = new Array(QUESTIONS.length).fill(null);
+    var timingAccum   = new Array(QUESTIONS.length).fill(0); // total ms accumulated per question across ALL visits
+    var questionStart = null; // timestamp of when the current question view began (null if not timing)
+    var currentIdx    = 0;
+    var ticker        = null;
+    var globalStart   = null;
 
     // ─── DOM ───────────────────────────────────────────────────────────────────
     var screens   = document.querySelectorAll('.psych-screen');
@@ -558,7 +560,8 @@ document.addEventListener('DOMContentLoaded', function () {
             if (left <= 0) {
                 clearInterval(ticker);
                 ticker = null;
-                // Mark any unanswered questions as expired
+                // Flush the current question's in-progress time before marking expired
+                pauseQuestionTimer();
                 for (var i = 0; i < answers.length; i++) {
                     if (answers[i] === null) answers[i] = -1;
                 }
@@ -570,6 +573,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function stopGlobalTimer() {
         if (ticker) { clearInterval(ticker); ticker = null; }
+    }
+
+    // Pause accumulation for the current question (called on leave)
+    function pauseQuestionTimer() {
+        if (questionStart !== null) {
+            timingAccum[currentIdx] += Date.now() - questionStart;
+            questionStart = null;
+        }
+    }
+
+    // Resume accumulation for idx (called on enter, only if still unanswered)
+    function resumeQuestionTimer(idx) {
+        if (answers[idx] === null) {
+            questionStart = Date.now();
+        } else {
+            questionStart = null;
+        }
     }
 
     // ─── Grid builder for matrix questions ─────────────────────────────────────
@@ -640,6 +660,8 @@ document.addEventListener('DOMContentLoaded', function () {
             disableOpts(qOpts);
             qExp.textContent = 'Time expired. ' + q.exp;
             qExp.className   = 'mcq-explanation visible incorrect';
+        } else {
+            resumeQuestionTimer(idx);
         }
 
         updateNumGrid();
@@ -648,6 +670,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function selectAnswer(choiceIdx) {
         if (answers[currentIdx] !== null) return;
         answers[currentIdx] = choiceIdx;
+        pauseQuestionTimer(); // flush this visit's time into timingAccum
         var opts = document.getElementById('q-options').querySelectorAll('.mcq-option');
         revealAnswer(opts, choiceIdx, QUESTIONS[currentIdx].answer, QUESTIONS[currentIdx].exp);
         updateNumGrid();
@@ -691,33 +714,35 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function goTo(idx) {
+        pauseQuestionTimer(); // stop accumulating time for the question we're leaving
         currentIdx = idx;
-        renderQuestion(idx);
+        renderQuestion(idx); // resumeQuestionTimer is called inside renderQuestion
     }
 
     // ─── Results ───────────────────────────────────────────────────────────────
     function showResults() {
         stopGlobalTimer();
-        var total   = QUESTIONS.length;
-        var correct = 0;
+        var total      = QUESTIONS.length;
+        var correct    = 0;
         var byCategory = {};
 
         QUESTIONS.forEach(function (q, i) {
             var cat = q.category;
-            if (!byCategory[cat]) byCategory[cat] = { correct: 0, total: 0 };
+            if (!byCategory[cat]) byCategory[cat] = { correct: 0, total: 0, totalTime: 0, timedCount: 0 };
             byCategory[cat].total++;
-            if (answers[i] === q.answer) {
-                correct++;
-                byCategory[cat].correct++;
+            if (answers[i] === q.answer) { correct++; byCategory[cat].correct++; }
+            if (timingAccum[i] > 0) {
+                byCategory[cat].totalTime  += Math.round(timingAccum[i] / 1000);
+                byCategory[cat].timedCount++;
             }
         });
 
         var pct = Math.round((correct / total) * 100);
         var percentile, rating;
-        if (pct >= 90)      { percentile = 'Top 10%';  rating = 'Exceptional'; }
-        else if (pct >= 75) { percentile = 'Top 25%';  rating = 'Above Average'; }
-        else if (pct >= 60) { percentile = 'Top 40%';  rating = 'Average'; }
-        else if (pct >= 45) { percentile = 'Top 55%';  rating = 'Below Average'; }
+        if (pct >= 90)      { percentile = 'Top 10%';    rating = 'Exceptional'; }
+        else if (pct >= 75) { percentile = 'Top 25%';    rating = 'Above Average'; }
+        else if (pct >= 60) { percentile = 'Top 40%';    rating = 'Average'; }
+        else if (pct >= 45) { percentile = 'Top 55%';    rating = 'Below Average'; }
         else                { percentile = 'Bottom 50%'; rating = 'Needs Improvement'; }
 
         document.getElementById('res-score').textContent      = correct + ' / ' + total + ' (' + pct + '%)';
@@ -727,16 +752,35 @@ document.addEventListener('DOMContentLoaded', function () {
         var breakdown = document.getElementById('res-by-category');
         breakdown.innerHTML = '';
         Object.keys(byCategory).forEach(function (cat) {
-            var d = byCategory[cat];
+            var d      = byCategory[cat];
             var catPct = Math.round((d.correct / d.total) * 100);
-            var cls = catPct >= 70 ? '' : catPct >= 50 ? 'mid' : 'low';
-            var row = document.createElement('div');
+            var avgT   = d.timedCount > 0 ? Math.round(d.totalTime / d.timedCount) : '—';
+            var cls    = catPct >= 70 ? '' : catPct >= 50 ? 'mid' : 'low';
+            var row    = document.createElement('div');
             row.className = 'res-cat-row';
-            row.innerHTML = '<span class="res-cat-name">' + cat + '</span>' +
-                            '<span class="res-cat-score ' + cls + '">' +
-                            d.correct + ' / ' + d.total + ' (' + catPct + '%)</span>';
+            row.innerHTML =
+                '<span class="res-cat-name">' + cat + '</span>' +
+                '<span class="res-cat-score ' + cls + '">' + d.correct + ' / ' + d.total + ' (' + catPct + '%)</span>' +
+                '<span class="res-cat-time">⏱ ' + (avgT === '—' ? '—' : avgT + 's') + ' avg</span>';
             breakdown.appendChild(row);
         });
+
+        // POST timing data to backend
+        var payload = QUESTIONS.map(function (q, i) {
+            return {
+                q:        i + 1,
+                category: q.category,
+                type:     q.type,
+                timeSecs: timingAccum[i] > 0 ? Math.round(timingAccum[i] / 1000) : 0,
+                answered: answers[i] !== -1 && answers[i] !== null,
+                correct:  answers[i] === q.answer
+            };
+        });
+        fetch('/assessment/submit', {
+            method:  'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body:    JSON.stringify({ timingLog: payload })
+        }).catch(function () {}); // silent fail — results still display
 
         showScreen('screen-results');
     }
@@ -760,9 +804,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     retryBtn.addEventListener('click', function () {
         stopGlobalTimer();
-        answers    = new Array(QUESTIONS.length).fill(null);
-        currentIdx = 0;
-        globalStart = null;
+        answers       = new Array(QUESTIONS.length).fill(null);
+        timingAccum   = new Array(QUESTIONS.length).fill(0);
+        questionStart = null;
+        currentIdx    = 0;
+        globalStart   = null;
         showScreen('screen-intro');
     });
 

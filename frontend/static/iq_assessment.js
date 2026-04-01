@@ -374,7 +374,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 ];
 
-QUESTIONS = QUESTIONS.slice(0, 20);
+QUESTIONS = QUESTIONS.slice(0, 35);
 
 
     // ─── State ─────────────────────────────────────────────────────────────────

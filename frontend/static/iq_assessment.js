@@ -173,9 +173,9 @@ document.addEventListener('DOMContentLoaded', function () {
         source: 'IQ Test Academy',
         imgUrl: 'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612164401x306501931139286920/Q-06.svg',
         imgOpts: [
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612188661x664850454619189400/Q-07.svg',
+            '/static/images/iq/q4_mod_a.svg',
             'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612206726x152477936947297500/Q-08.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612220629x748943399782868100/Q-09.svg',
+            '/static/images/iq/q4_mod_c.svg',
             'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612230359x380918791418798340/Q-10.svg'
         ],
         answer: 0, time: 90, exp: 'Pattern completed according to visual logic.'
@@ -186,8 +186,8 @@ document.addEventListener('DOMContentLoaded', function () {
         imgUrl: 'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612265288x400208747201012900/Q-11.svg',
         imgOpts: [
             'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612287573x889196537106714400/Q-12.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612300104x964109325700997000/Q-13.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612312475x204553183506439580/Q-14.svg',
+            '/static/images/iq/q5_mod_b_v2.svg',
+            '/static/images/iq/q5_mod_c_v2.svg',
             'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612351189x921323380661548400/Q-15.svg'
         ],
         answer: 0, time: 90, exp: 'Pattern completed according to visual logic.'
@@ -197,10 +197,10 @@ document.addEventListener('DOMContentLoaded', function () {
         source: 'IQ Test Academy',
         imgUrl: 'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612398948x962512441782625700/Q-16.svg',
         imgOpts: [
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612425529x766302366875854600/Q-17.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612448264x247045399738077700/Q-18.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619686527995x759109475628974100/Q4A%20%283%29.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1620306315972x996536499471051800/Q4A%20%284%29.svg'
+            '/static/images/iq/q6_mod_a.svg',
+            '/static/images/iq/q6_mod_b.svg',
+            '/static/images/iq/q6_mod_c.svg',
+            '/static/images/iq/q6_mod_d.svg'
         ],
         answer: 0, time: 90, exp: 'Pattern completed according to visual logic.'
     },
@@ -363,12 +363,12 @@ document.addEventListener('DOMContentLoaded', function () {
     {
         title: 'Which image completes the pattern?',
         source: 'IQ Test Academy',
-        imgUrl: 'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619702212081x202411985709518340/Group%203.svg',
+        imgUrl: '/static/images/iq/q17_mod_main.svg',
         imgOpts: [
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619702227135x806119431202281300/Q%2019%20A%20%281%29.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619702238253x865788033219401500/Q%2019%20A%20%282%29.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619702246991x239834537066900380/Q%2019%20A%20%283%29.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619702258788x435321848650833000/Q%2019%20A%20%284%29.svg'
+            '/static/images/iq/q17_mod_a.svg',
+            '/static/images/iq/q17_mod_b.svg',
+            '/static/images/iq/q17_mod_c.svg',
+            '/static/images/iq/q17_mod_d.svg'
         ],
         answer: 0, time: 90, exp: 'Pattern completed according to visual logic.'
     }
@@ -382,17 +382,6 @@ document.addEventListener('DOMContentLoaded', function () {
     {
         title: 'Which larger shape would be made if the two sections are fitted together?',
         source: 'Perceptual Reasoning',
-        customHtml: '<div style="display:flex;gap:12px;align-items:flex-end;justify-content:center;margin-top:20px;"><div style="display:grid;grid-template-columns:30px 30px;grid-template-rows:30px 30px;border:1px solid #777;background:#fff;"><div style="background:#00004d;border:1px solid #777;"></div><div style="background:#009944;border:1px solid #777;"></div><div style="background:#fff;border:1px solid #777;"></div><div style="background:#fff;border:1px solid #777;"></div></div><div style="display:grid;grid-template-columns:30px 30px 30px;grid-template-rows:30px 30px 30px;border:1px solid #777;background:#fff;"><div style="background:#009944;border:1px solid #777;"></div><div style="background:#00004d;border:1px solid #777;"></div><div style="background:#fff;border:1px solid #777;"></div><div style="background:#00004d;border:1px solid #777;"></div><div style="grid-column:2/span 2;grid-row:2/span 2;background:#fff;border:1px solid #777;"></div></div></div>',
-        customOptsHtml: ['<div style="display:grid;grid-template-columns:18px 18px 18px;grid-template-rows:18px 18px 18px;border:1px solid #777;background:#fff;"><div style="background:#00004d;border:1px solid #777;"></div><div style="background:#009944;border:1px solid #777;"></div><div style="background:#fff;border:1px solid #777;"></div><div style="background:#009944;border:1px solid #777;"></div><div style="background:#00004d;border:1px solid #777;"></div><div style="background:#fff;border:1px solid #777;"></div><div style="background:#fff;border:1px solid #777;"></div><div style="background:#fff;border:1px solid #777;"></div><div style="background:#00004d;border:1px solid #777;"></div></div>', '<div style="display:grid;grid-template-columns:18px 18px 18px;grid-template-rows:18px 18px 18px;border:1px solid #777;background:#fff;"><div style="background:#00004d;border:1px solid #777;"></div><div style="background:#009944;border:1px solid #777;"></div><div style="background:#fff;border:1px solid #777;"></div><div style="background:#009944;border:1px solid #777;"></div><div style="background:#00004d;border:1px solid #777;"></div><div style="background:#009944;border:1px solid #777;"></div><div style="background:#fff;border:1px solid #777;"></div><div style="background:#fff;border:1px solid #777;"></div><div style="background:#fff;border:1px solid #777;"></div></div>', '<div style="display:grid;grid-template-columns:18px 18px 18px;grid-template-rows:18px 18px 18px;border:1px solid #777;background:#fff;"><div style="background:#009944;border:1px solid #777;"></div><div style="background:#00004d;border:1px solid #777;"></div><div style="background:#fff;border:1px solid #777;"></div><div style="background:#fff;border:1px solid #777;"></div><div style="background:#fff;border:1px solid #777;"></div><div style="background:#009944;border:1px solid #777;"></div><div style="background:#00004d;border:1px solid #777;"></div><div style="background:#fff;border:1px solid #777;"></div><div style="background:#fff;border:1px solid #777;"></div></div>', '<div style="display:grid;grid-template-columns:18px 18px 18px;grid-template-rows:18px 18px 18px;border:1px solid #777;background:#fff;"><div style="background:#fff;border:1px solid #777;"></div><div style="background:#00004d;border:1px solid #777;"></div><div style="background:#009944;border:1px solid #777;"></div><div style="background:#00004d;border:1px solid #777;"></div><div style="background:#fff;border:1px solid #777;"></div><div style="background:#009944;border:1px solid #777;"></div><div style="background:#fff;border:1px solid #777;"></div><div style="background:#fff;border:1px solid #777;"></div><div style="background:#00004d;border:1px solid #777;"></div></div>'],
-        answer: 0, time: 90, exp: 'The pieces combine and rotate to fit a 3x3 grid.'
-    },
-    {
-        title: 'If all Bloops are Razzies and all Razzies are Lazzies, all Bloops are definitely Lazzies.',
-        source: 'Fluid Reasoning',
-        opts: ['True', 'False'],
-        answer: 0, time: 90, exp: 'Because Bloops are a subset of Razzies, and Razzies are a subset of Lazzies, Bloops are necessarily Lazzies.'
-    },
-    {
         title: 'John needs 13 bottles of water from the store. John can only carry 3 at a time. What is the minimum number of trips John needs to make?',
         source: 'Quantitative Reasoning',
         opts: ['3', '4', '4 1/2', '5', '6'],
@@ -413,16 +402,16 @@ document.addEventListener('DOMContentLoaded', function () {
     {
         title: 'How many four-sided figures appear in the diagram below?',
         source: 'Perceptual Reasoning',
-        customHtml: '<div style="position:relative;width:180px;height:180px;margin:20px auto;background:#fff;border-radius:4px;"><svg width="180" height="180"><rect x="10" y="10" width="160" height="160" fill="none" stroke="#222" stroke-width="2"/><rect x="10" y="10" width="80" height="80" fill="none" stroke="#222" stroke-width="2"/><rect x="90" y="10" width="80" height="80" fill="none" stroke="#222" stroke-width="2"/><rect x="10" y="90" width="80" height="80" fill="none" stroke="#222" stroke-width="2"/><rect x="90" y="90" width="80" height="80" fill="none" stroke="#222" stroke-width="2"/><line x1="10" y1="90" x2="170" y2="90" stroke="#222" stroke-width="2"/><line x1="90" y1="10" x2="90" y2="170" stroke="#222" stroke-width="2"/></svg></div>',
+        customHtml: '<div style="position:relative;width:180px;height:220px;margin:20px auto;background:#fff;border-radius:4px;"><svg width="180" height="220" viewBox="0 0 180 220" stroke="#000" stroke-width="1.8" fill="none"><line x1="130" y1="10" x2="130" y2="210"/><line x1="165" y1="10" x2="165" y2="210"/><line x1="130" y1="10" x2="165" y2="10"/><line x1="10" y1="35" x2="165" y2="35"/><line x1="30" y1="55" x2="165" y2="55"/><line x1="10" y1="100" x2="165" y2="100"/><line x1="30" y1="140" x2="165" y2="140"/><line x1="95" y1="175" x2="165" y2="175"/><line x1="130" y1="210" x2="165" y2="210"/><line x1="10" y1="35" x2="10" y2="100"/><line x1="30" y1="55" x2="30" y2="140"/><line x1="95" y1="140" x2="95" y2="175"/></svg></div>',
         opts: ['10', '16', '22', '25', '28'],
-        answer: 1, time: 90, exp: 'By counting all overlapping rectangles systematically: 4 small + 4 medium + 4 cross + 1 large + 3 L-shapes = 16.'
+        answer: 1, time: 90, exp: 'By counting all overlapping and adjacent four-sided shapes systematically, there are 16 in total.'
     },
     {
         title: 'How many squares are there in the picture?',
         source: 'Spatial Reasoning',
-        customHtml: '<div style="display:flex;flex-direction:column;align-items:center;background:#fff;padding:20px;border-radius:8px;"><div style="width:80px;height:40px;border:2px solid #142e56;border-bottom:none;"></div><div style="display:flex;"><div style="width:40px;height:80px;border:2px solid #142e56;border-right:none;"></div><div style="display:grid;grid-template-columns:40px 40px;grid-template-rows:40px 40px;border:2px solid #142e56;"><div style="border-right:2px solid #142e56;border-bottom:2px solid #142e56;"></div><div style="border-bottom:2px solid #142e56;"></div><div style="border-right:2px solid #142e56;"></div><div></div></div><div style="width:40px;height:80px;border:2px solid #142e56;border-left:none;"></div></div><div style="width:80px;height:40px;border:2px solid #142e56;border-top:none;"></div></div>',
-        customOptsHtml: ['<svg width="50" height="50" viewBox="0 0 60 60"><rect x="2" y="2" width="56" height="56" fill="none" stroke="#142e56" stroke-width="2"/><circle cx="30" cy="30" r="22" fill="none" stroke="#142e56" stroke-width="2"/><text x="30" y="40" text-anchor="middle" font-size="24" font-weight="bold" fill="#142e56">10</text></svg>', '<svg width="50" height="50" viewBox="0 0 60 60"><rect x="2" y="2" width="56" height="56" fill="none" stroke="#142e56" stroke-width="2"/><circle cx="30" cy="30" r="22" fill="none" stroke="#142e56" stroke-width="2"/><text x="30" y="40" text-anchor="middle" font-size="24" font-weight="bold" fill="#142e56">5</text></svg>', '<svg width="50" height="50" viewBox="0 0 60 60"><rect x="2" y="2" width="56" height="56" fill="none" stroke="#142e56" stroke-width="2"/><circle cx="30" cy="30" r="22" fill="none" stroke="#142e56" stroke-width="2"/><text x="30" y="40" text-anchor="middle" font-size="24" font-weight="bold" fill="#142e56">11</text></svg>', '<svg width="50" height="50" viewBox="0 0 60 60"><rect x="2" y="2" width="56" height="56" fill="none" stroke="#142e56" stroke-width="2"/><circle cx="30" cy="30" r="22" fill="none" stroke="#142e56" stroke-width="2"/><text x="30" y="40" text-anchor="middle" font-size="24" font-weight="bold" fill="#142e56">8</text></svg>', '<svg width="50" height="50" viewBox="0 0 60 60"><rect x="2" y="2" width="56" height="56" fill="none" stroke="#142e56" stroke-width="2"/><circle cx="30" cy="30" r="22" fill="none" stroke="#142e56" stroke-width="2"/><text x="30" y="40" text-anchor="middle" font-size="24" font-weight="bold" fill="#142e56">7</text></svg>', '<svg width="50" height="50" viewBox="0 0 60 60"><rect x="2" y="2" width="56" height="56" fill="none" stroke="#142e56" stroke-width="2"/><circle cx="30" cy="30" r="22" fill="none" stroke="#142e56" stroke-width="2"/><text x="30" y="40" text-anchor="middle" font-size="24" font-weight="bold" fill="#142e56">6</text></svg>'],
-        answer: 2, time: 90, exp: 'There are 11 squares total including all different sizes.'
+        customHtml: '<div style="position:relative;width:180px;height:180px;margin:20px auto;background:#fff;border-radius:4px;"><svg width="180" height="180" viewBox="0 0 180 180" stroke="#142e56" stroke-width="2" fill="none"><line x1="20" y1="55" x2="20" y2="125"/><line x1="55" y1="20" x2="55" y2="160"/><line x1="90" y1="20" x2="90" y2="125"/><line x1="125" y1="20" x2="125" y2="160"/><line x1="160" y1="20" x2="160" y2="125"/><line x1="55" y1="20" x2="160" y2="20"/><line x1="20" y1="55" x2="160" y2="55"/><line x1="55" y1="90" x2="125" y2="90"/><line x1="20" y1="125" x2="160" y2="125"/><line x1="55" y1="160" x2="125" y2="160"/></svg></div>',
+        opts: ['8', '10', '11', '14', '17'],
+        answer: 2, time: 90, exp: 'By counting all small, medium, and large squares systematically (including the 2x2 and its sub-sections), there are 11 in total.'
     },
     {
         title: 'Select the missing matrix:',
@@ -430,12 +419,6 @@ document.addEventListener('DOMContentLoaded', function () {
         customHtml: '<div style="display:grid;grid-template-columns:auto auto auto;gap:15px;background:#fff;padding:20px;border-radius:8px;justify-content:center;"><div style="display:grid;grid-template-columns:18px 18px 18px;grid-template-rows:18px 18px 18px;gap:2px;"><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#f59e0b;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div></div><div style="display:grid;grid-template-columns:18px 18px 18px;grid-template-rows:18px 18px 18px;gap:2px;"><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#f59e0b;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#f59e0b;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div></div><div style="display:grid;grid-template-columns:18px 18px 18px;grid-template-rows:18px 18px 18px;gap:2px;"><div style="background:#f59e0b;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#f59e0b;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#f59e0b;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div></div><div style="display:grid;grid-template-columns:18px 18px 18px;grid-template-rows:18px 18px 18px;gap:2px;"><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#f59e0b;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#f59e0b;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#f59e0b;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div></div><div style="display:grid;grid-template-columns:18px 18px 18px;grid-template-rows:18px 18px 18px;gap:2px;"><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#f59e0b;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div></div><div style="display:grid;grid-template-columns:18px 18px 18px;grid-template-rows:18px 18px 18px;gap:2px;"><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#f59e0b;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#f59e0b;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#f59e0b;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div></div><div style="display:grid;grid-template-columns:18px 18px 18px;grid-template-rows:18px 18px 18px;gap:2px;"><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#f59e0b;border:1.5px solid #142e56;"></div></div><div style="display:grid;grid-template-columns:18px 18px 18px;grid-template-rows:18px 18px 18px;gap:2px;"><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#f59e0b;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#f59e0b;border:1.5px solid #142e56;"></div></div><div style="width:58px;height:58px;background:#142e56;color:#f59e0b;display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:bold;">?</div></div>',
         customOptsHtml: ['<div style="display:grid;grid-template-columns:18px 18px 18px;grid-template-rows:18px 18px 18px;gap:2px;"><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#f59e0b;border:1.5px solid #142e56;"></div><div style="background:#f59e0b;border:1.5px solid #142e56;"></div><div style="background:#f59e0b;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div></div>', '<div style="display:grid;grid-template-columns:18px 18px 18px;grid-template-rows:18px 18px 18px;gap:2px;"><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#f59e0b;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#f59e0b;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#f59e0b;border:1.5px solid #142e56;"></div></div>', '<div style="display:grid;grid-template-columns:18px 18px 18px;grid-template-rows:18px 18px 18px;gap:2px;"><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#f59e0b;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#f59e0b;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#f59e0b;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div></div>', '<div style="display:grid;grid-template-columns:18px 18px 18px;grid-template-rows:18px 18px 18px;gap:2px;"><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#f59e0b;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#f59e0b;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div></div>', '<div style="display:grid;grid-template-columns:18px 18px 18px;grid-template-rows:18px 18px 18px;gap:2px;"><div style="background:#f59e0b;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#f59e0b;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#f59e0b;border:1.5px solid #142e56;"></div></div>', '<div style="display:grid;grid-template-columns:18px 18px 18px;grid-template-rows:18px 18px 18px;gap:2px;"><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#f59e0b;border:1.5px solid #142e56;"></div><div style="background:#f59e0b;border:1.5px solid #142e56;"></div><div style="background:#f59e0b;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div><div style="background:#fff;border:1.5px solid #142e56;"></div></div>'],
         answer: 1, time: 90, exp: 'Right column builds from bottom up: 1 dot at bottom, then 2, then 3.'
-    },
-    {
-        title: 'Which word is the odd one out? Spool / Drawer / Looter / Pans',
-        source: 'Verbal Reasoning',
-        opts: ['Spool', 'Drawer', 'Looter', 'Pans'],
-        answer: 3, time: 90, exp: 'Spool=Loops, Drawer=Reward, Looter=Retool reversed. Pans reversed is Snap, not a meaningful reversal in this set.'
     },
     {
         title: 'Select the correct pattern to complete the sequence:',
@@ -472,9 +455,81 @@ document.addEventListener('DOMContentLoaded', function () {
         customOptsHtml: ['<div style="display:grid;grid-template-columns:18px 18px 18px;grid-template-rows:18px 18px 18px;border:1px solid #142e56;background:#fff;"><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;">🌙</div><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;"></div><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;"></div><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;"></div><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;"></div><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;">★</div><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;"></div><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;"></div><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;"></div></div>', '<div style="display:grid;grid-template-columns:18px 18px 18px;grid-template-rows:18px 18px 18px;border:1px solid #142e56;background:#fff;"><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;"></div><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;"></div><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;"></div><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;"></div><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;">🌙</div><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;">★</div><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;"></div><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;"></div><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;"></div></div>', '<div style="display:grid;grid-template-columns:18px 18px 18px;grid-template-rows:18px 18px 18px;border:1px solid #142e56;background:#fff;"><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;"></div><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;"></div><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;">🌙</div><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;"></div><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;"></div><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;">★</div><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;"></div><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;"></div><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;"></div></div>', '<div style="display:grid;grid-template-columns:18px 18px 18px;grid-template-rows:18px 18px 18px;border:1px solid #142e56;background:#fff;"><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;">🌙</div><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;"></div><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;">★</div><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;"></div><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;"></div><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;"></div><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;"></div><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;"></div><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;"></div></div>', '<div style="display:grid;grid-template-columns:18px 18px 18px;grid-template-rows:18px 18px 18px;border:1px solid #142e56;background:#fff;"><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;"></div><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;"></div><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;"></div><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;"></div><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;"></div><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;"></div><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;"></div><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;"></div><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;">🌙</div></div>', '<div style="display:grid;grid-template-columns:18px 18px 18px;grid-template-rows:18px 18px 18px;border:1px solid #142e56;background:#fff;"><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;"></div><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;"></div><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;"></div><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;"></div><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;"></div><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;"></div><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;">★</div><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;"></div><div style="border-right:1px solid #142e56;border-bottom:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;"></div></div>'],
         answer: 2, time: 90, exp: 'The star moves right each column. The moon moves along a diagonal, disappearing off-edge.'
     }
+    ,
+    {
+        title: 'Which image completes the pattern in the corner?',
+        source: 'Perceptual Patterns',
+        imgUrl: '/static/images/iq/q36.jpg',
+        opts: ['A', 'B', 'C', 'D', 'E', 'F'],
+        answer: 3, time: 90, exp: 'The corner lines rotate 90 degrees clockwise while the inner shapes alternate colors.'
+    },
+    {
+        title: 'Find the missing number in the sequence matrix.',
+        source: 'Quantitative Reasoning',
+        imgUrl: '/static/images/iq/q37.jpg',
+        opts: ['10', '7', '8', '21', '5', '14'],
+        answer: 1, time: 90, exp: 'The numbers decrease sequentially down the columns and across the rows by increasing differences: -1, -2, -3, -4, -5, -6, -7. So 15 - 8 = 7.'
+    },
+    {
+        title: 'Which number completes the wheel sequence?',
+        source: 'Quantitative Reasoning',
+        imgUrl: '/static/images/iq/q38.jpg',
+        opts: ['28', '25', '26', '23', '24', '22'],
+        answer: 4, time: 90, exp: 'Each adjacent slice increases by 3: 12, 15, 18, 21, 24.'
+    },
+    {
+        title: 'Complete the pattern matrix.',
+        source: 'Spatial Reasoning',
+        imgUrl: '/static/images/iq/q39.jpg',
+        opts: ['A', 'B', 'C', 'D', 'E', 'F'],
+        answer: 2, time: 90, exp: 'Analyzing the columns and rows reveals the combination rule for inner and outer shapes.'
+    },
+    {
+        title: 'Find the missing number for the bottom hexagon set.',
+        source: 'Quantitative Reasoning',
+        imgUrl: '/static/images/iq/q40.jpg',
+        opts: ['15', '16', '17', '18', '19', '20'],
+        answer: 3, time: 90, exp: 'The number at the bottom is the sum of the three numbers at the top of the hexagon cluster. 5 + 6 + 7 = 18.'
+    }
+    ,
+    {
+        title: 'Which image completes the matrix?',
+        source: 'Perceptual Patterns',
+        imgUrl: '/static/images/iq/q41.jpg',
+        opts: ['A', 'B', 'C', 'D', 'E', 'F'],
+        answer: 0, time: 90, exp: 'The shapes combine and change according to the logic pattern for each row and column.'
+    },
+    {
+        title: 'Find the missing block in the sequence.',
+        source: 'Quantitative Reasoning',
+        imgUrl: '/static/images/iq/q42.jpg',
+        opts: ['A', 'B', 'C', 'D', 'E', 'F'],
+        answer: 2, time: 90, exp: 'The signs and their positions alternate.'
+    },
+    {
+        title: 'Complete the arrow sequence.',
+        source: 'Spatial Reasoning',
+        imgUrl: '/static/images/iq/q43.jpg',
+        opts: ['A', 'B', 'C', 'D', 'E', 'F'],
+        answer: 1, time: 90, exp: 'The arrows rotate 90 degrees clockwise in each step.'
+    },
+    {
+        title: 'Which figure completes the sets?',
+        source: 'Perceptual Logic',
+        imgUrl: '/static/images/iq/q44.jpg',
+        opts: ['A', 'B', 'C', 'D', 'E', 'F'],
+        answer: 3, time: 90, exp: 'The inner circles and triangles transition across the dividers following a set pattern.'
+    },
+    {
+        title: 'Identify the missing grid tile.',
+        source: 'Spatial Matrix',
+        imgUrl: '/static/images/iq/q45.jpg',
+        opts: ['A', 'B', 'C', 'D', 'E', 'F'],
+        answer: 4, time: 90, exp: 'The dots and smaller shapes navigate the 3x3 grids progressively.'
+    }
 ];
 
-(0, 35);
+QUESTIONS = QUESTIONS.slice(0, 44);
 
 
     // ─── State ─────────────────────────────────────────────────────────────────
@@ -600,7 +655,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 var btn = document.createElement('button');
                 btn.className = 'mcq-option pattern-opt';
                 var label = String.fromCharCode(65 + i);
-                btn.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;margin-bottom:8px;"><img src="' + url + '" style="width:100%;height:100%;max-width:64px;max-height:64px;object-fit:contain;border-radius:6px;background:#e2e8f0;padding:4px;" /></div>' + '<div class="opt-label" style="text-align:center;">' + label + '</div>';
+                btn.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;margin-bottom:8px;"><img src="' + url + '" style="width:100%;height:100%;max-width:64px;max-height:64px;object-fit:contain;border-radius:6px;background:#ffffff;padding:4px;" /></div>' + '<div class="opt-label" style="text-align:center;">' + label + '</div>';
                 btn.addEventListener('click', (function (ci) { return function () { selectAnswer(ci); }; })(i));
                 qOpts.appendChild(btn);
             });

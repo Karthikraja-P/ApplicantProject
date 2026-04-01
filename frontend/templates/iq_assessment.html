@@ -30,9 +30,9 @@
                         <div class="step-number" style="font-size:0.65rem;font-weight:800;">IQ</div>
                         <div class="step-title">General IQ</div>
                     </a>
-                    <a href="/assessment/advanced" class="assessment-item step-item">
-                        <div class="step-number" style="font-size:0.65rem;font-weight:800;">ADV</div>
-                        <div class="step-title">Advanced</div>
+                    <a href="/games" class="assessment-item step-item">
+                        <div class="step-number" style="font-size:0.65rem;font-weight:800;">🎮</div>
+                        <div class="step-title">Games</div>
                     </a>
                 </div>
                 <div class="sidebar-decoration">
@@ -45,57 +45,28 @@
 
                 <!-- ── Intro ── -->
                 <div id="screen-intro" class="psych-screen active">
-                    <h2 style="color:#c6e8ff;margin:0 0 6px;">General IQ Assessment</h2>
-                    <p style="color:#5a7ca0;font-size:0.82rem;margin:0 0 14px;">
-                        Based on
-                        <a href="https://github.com/yuis-ice/rpm-iq-exam" target="_blank"
-                           style="color:#00d4ff;text-decoration:none;">yuis-ice / rpm-iq-exam</a>
-                        — Raven's Progressive Matrices
-                    </p>
-                    <p style="color:#aac4e8;margin-bottom:22px;line-height:1.6;">
-                        This assessment measures abstract reasoning and pattern recognition using matrix puzzles.
-                        Each question shows a 3×3 grid with one cell missing — select the image that completes the pattern.
-                    </p>
-
-                    <div class="psych-module-list">
-                        <div class="psych-module-card">
-                            <div class="psych-module-icon" style="font-size:1.2rem;">◈</div>
-                            <div>
-                                <strong>Visual Pattern Matrices</strong>
-                                <span>15 questions · 90 seconds each</span>
-                            </div>
-                            <span class="psych-badge">RPM</span>
+                    <div class="wizard-card active">
+                        <h2 style="color:#c6e8ff;margin:0 0 16px;text-align:center;font-size:1.8rem;">Get Started!</h2>
+                        <div style="color:#aac4e8;margin-bottom:22px;line-height:1.8;padding: 0 20px;">
+                            <p>1. You have approximately 30 minutes to answer a set of 20 questions.</p>
+                            <p>2. Analyze the questions and select the correct options (A, B, C, or D) to replace the missing one, marked by a question mark (?).</p>
+                            <p>3. You can review your answers using the navigation grid, but each question is individually timed.</p>
+                            <p style="margin-top:20px;font-weight:bold;">Good Luck!</p>
                         </div>
-                        <div class="psych-module-card">
-                            <div class="psych-module-icon" style="font-size:1.1rem;">#</div>
-                            <div>
-                                <strong>Number Matrices</strong>
-                                <span>15 questions · 60 seconds each</span>
-                            </div>
-                            <span class="psych-badge">Logic</span>
+                        <div style="display:flex;justify-content:center;margin-top:30px;">
+                            <button id="start-btn" class="nav-btn"
+                                    style="background:linear-gradient(135deg,#2563eb,#3b82f6);color:#fff;min-width:200px;font-size:1.1rem;padding:12px 24px;border:none;border-radius:6px;cursor:pointer;">
+                                Start Test
+                            </button>
                         </div>
                     </div>
-
-                    <div class="psych-tips">
-                        <strong>Tips</strong>
-                        <ul>
-                            <li>Scan rows and columns for consistent rules (shape, size, fill, count)</li>
-                            <li>Eliminate obviously wrong options first</li>
-                            <li>Each question auto-advances when the timer expires</li>
-                        </ul>
-                    </div>
-
-                    <button id="start-btn" class="nav-btn"
-                            style="margin-top:22px;background:linear-gradient(135deg,#00d4ff,#00ff88);color:#000;min-width:160px;font-size:1rem;">
-                        Start Assessment
-                    </button>
                 </div>
 
                 <!-- ── Question ── -->
-                <div id="screen-question" class="psych-screen">
+                <div id="screen-question" class="psych-screen" style="display:none;">
                     <div class="psych-module-header">
                         <div>
-                            <div class="psych-question-num" id="q-num">Question 1 of 10</div>
+                            <div class="psych-question-num" id="q-num">Question 1 of 20</div>
                             <div id="q-source-badge" class="q-source-badge" style="display:none;margin-top:4px;"></div>
                         </div>
                         <div class="psych-timer-block">
@@ -128,7 +99,7 @@
                 </div>
 
                 <!-- ── Results ── -->
-                <div id="screen-results" class="psych-screen">
+                <div id="screen-results" class="psych-screen" style="display:none;">
                     <h2 style="color:#c6e8ff;margin:0 0 18px;">IQ Assessment Results</h2>
 
                     <div class="psych-overall-box">
@@ -152,10 +123,10 @@
                         <a href="/" style="text-decoration:none;">
                             <button class="nav-btn prev-btn">← Back to Application</button>
                         </a>
-                        <a href="/assessment/advanced" style="text-decoration:none;">
+                        <a href="/games" style="text-decoration:none;">
                             <button class="nav-btn"
                                     style="background:linear-gradient(135deg,#00d4ff,#00ff88);color:#000;">
-                                Try Advanced →
+                                Continue to Games →
                             </button>
                         </a>
                     </div>

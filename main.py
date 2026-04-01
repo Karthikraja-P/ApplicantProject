@@ -153,36 +153,16 @@ def next_ai():
 def next_not_sure():
     return render_template('next_not_sure.html')
 
-@app.route('/assessment')
-def assessment():
-    return render_template('assessment.html')
-
-@app.route('/assessment/submit', methods=['POST'])
-def assessment_submit():
-    data = request.get_json(silent=True) or {}
-    timing_log = data.get('timingLog', [])
-
-    if not os.path.exists('saved_applications'):
-        os.makedirs('saved_applications')
-
-    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-    filename  = f"saved_applications/timing_{timestamp}.json"
-    with open(filename, 'w') as f:
-        json.dump({'timestamp': timestamp, 'timingLog': timing_log}, f, indent=2)
-
-    return jsonify({'status': 'saved', 'file': filename})
 
 @app.route('/games')
 def games():
     return render_template('games.html')
 
+
 @app.route('/assessment/iq')
 def assessment_iq():
     return render_template('iq_assessment.html')
 
-@app.route('/assessment/advanced')
-def assessment_advanced():
-    return render_template('advanced_assessment.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -132,352 +132,250 @@ document.addEventListener('DOMContentLoaded', function () {
     // Answer distribution: A(0)×6, B(1)×8, C(2)×8, D(3)×8
 
     var QUESTIONS = [
+    {
+        title: 'Which image completes the pattern?',
+        source: 'IQ Test Academy',
+        imgUrl: 'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619620533832x433131910406034500/Q1.svg',
+        imgOpts: [
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619620616027x749775513973640600/Q%201%20A%20%281%29.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619620604000x436440903663458400/Q%201%20A%20%282%29.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619620628324x813131711903281900/Q%201%20A%20%283%29.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619620647449x949628165349358000/Q%201%20A%20%284%29.svg'
+        ],
+        answer: 0, time: 90, exp: 'Pattern completed according to visual logic.'
+    },
+    {
+        title: 'Which image completes the pattern?',
+        source: 'IQ Test Academy',
+        imgUrl: 'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619611958813x303368106426746600/Q-01.svg',
+        imgOpts: [
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612017708x318234080959034500/Q-02.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612038426x989591692011166200/Q-03.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619621354436x983135457868009200/Q-03.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619621335445x643859524396502800/Q-04.svg'
+        ],
+        answer: 0, time: 90, exp: 'Pattern completed according to visual logic.'
+    },
+    {
+        title: 'Which image completes the pattern?',
+        source: 'IQ Test Academy',
+        imgUrl: 'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619622838404x770376798705511300/Q3.svg',
+        imgOpts: [
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619622871266x487571820856178600/Q%203%20A%20%281%29.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619622884080x109847414543593490/Q%203%20A%20%282%29.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619622894966x491590834046897700/Q%203%20A%20%283%29.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619622905548x566558871071154400/Q%203%20A%20%284%29.svg'
+        ],
+        answer: 0, time: 90, exp: 'Pattern completed according to visual logic.'
+    },
+    {
+        title: 'Which image completes the pattern?',
+        source: 'IQ Test Academy',
+        imgUrl: 'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612164401x306501931139286920/Q-06.svg',
+        imgOpts: [
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612188661x664850454619189400/Q-07.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612206726x152477936947297500/Q-08.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612220629x748943399782868100/Q-09.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612230359x380918791418798340/Q-10.svg'
+        ],
+        answer: 0, time: 90, exp: 'Pattern completed according to visual logic.'
+    },
+    {
+        title: 'Which image completes the pattern?',
+        source: 'IQ Test Academy',
+        imgUrl: 'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612265288x400208747201012900/Q-11.svg',
+        imgOpts: [
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612287573x889196537106714400/Q-12.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612300104x964109325700997000/Q-13.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612312475x204553183506439580/Q-14.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612351189x921323380661548400/Q-15.svg'
+        ],
+        answer: 0, time: 90, exp: 'Pattern completed according to visual logic.'
+    },
+    {
+        title: 'Which image completes the pattern?',
+        source: 'IQ Test Academy',
+        imgUrl: 'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612398948x962512441782625700/Q-16.svg',
+        imgOpts: [
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612425529x766302366875854600/Q-17.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612448264x247045399738077700/Q-18.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619686527995x759109475628974100/Q4A%20%283%29.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1620306315972x996536499471051800/Q4A%20%284%29.svg'
+        ],
+        answer: 0, time: 90, exp: 'Pattern completed according to visual logic.'
+    },
+    {
+        title: 'Which image completes the pattern?',
+        source: 'IQ Test Academy',
+        imgUrl: 'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612510389x136536805538697070/Q17%20%281%29.svg',
+        imgOpts: [
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612527866x688576881155968800/Q17%20%282%29.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612546821x592087015516123100/Q17%20%283%29.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612558109x746314279224892000/Q17%20%284%29.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612571978x656955517216798700/Q17%20%285%29.svg'
+        ],
+        answer: 0, time: 90, exp: 'Pattern completed according to visual logic.'
+    },
+    {
+        title: 'Which image completes the pattern?',
+        source: 'IQ Test Academy',
+        imgUrl: 'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612612457x835481922157760800/Q16%20%281%29.svg',
+        imgOpts: [
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612627554x560054647095815400/Q16%20%282%29.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612638103x700005131404033900/Q16%20%283%29.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612646969x376114876119869800/Q16%20%283%29.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612663555x670628805566238800/Q16%20%285%29.svg'
+        ],
+        answer: 0, time: 90, exp: 'Pattern completed according to visual logic.'
+    },
+    {
+        title: 'Which image completes the pattern?',
+        source: 'IQ Test Academy',
+        imgUrl: 'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612706523x431190232094357060/Q14%20%281%29.svg',
+        imgOpts: [
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612716743x827259021008903300/Q14%20%282%29.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612727270x905122243657644000/Q14%20%283%29.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612737827x275944541088282160/Q14%20%284%29.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612765598x927734180298426500/Q14%20%285%29.svg'
+        ],
+        answer: 0, time: 90, exp: 'Pattern completed according to visual logic.'
+    },
+    {
+        title: 'Which image completes the pattern?',
+        source: 'IQ Test Academy',
+        imgUrl: 'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612790277x988726767292918300/Q15%20%281%29.svg',
+        imgOpts: [
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612800220x790021596360232200/Q15%20%282%29.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612810593x696986591314045600/Q15%20%283%29.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612819009x700448667939488400/Q15%20%284%29.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612827861x660028738277195300/Q15%20%285%29.svg'
+        ],
+        answer: 0, time: 90, exp: 'Pattern completed according to visual logic.'
+    },
+    {
+        title: 'Which image completes the pattern?',
+        source: 'IQ Test Academy',
+        imgUrl: 'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612849663x445410436101785660/Q13%20%281%29.svg',
+        imgOpts: [
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612867903x664841418227566400/Q13%20%282%29.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612877527x595238487156306200/Q13%20%283%29.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612886104x437068441125307800/Q13%20%284%29.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612898109x300024873754223040/Q13%20%285%29.svg'
+        ],
+        answer: 0, time: 90, exp: 'Pattern completed according to visual logic.'
+    },
+    {
+        title: 'Which image completes the pattern?',
+        source: 'IQ Test Academy',
+        imgUrl: 'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612921005x779975298901960800/Q-21.svg',
+        imgOpts: [
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612932521x245939771070535760/Q-22.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612942065x644198582365540500/Q-23.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612952472x830828426872516400/Q-24.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612961889x116950176296859660/Q-25.svg'
+        ],
+        answer: 0, time: 90, exp: 'Pattern completed according to visual logic.'
+    },
+    {
+        title: 'Which image completes the pattern?',
+        source: 'IQ Test Academy',
+        imgUrl: 'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612987757x885511059745649900/Q12%20%281%29.svg',
+        imgOpts: [
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612997505x908466850192346600/Q12%20%282%29.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619613006344x999993148766248000/Q12%20%283%29.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619613013293x456123158923609400/Q12%20%284%29.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619613025056x118005538266389820/Q12%20%285%29.svg'
+        ],
+        answer: 0, time: 90, exp: 'Pattern completed according to visual logic.'
+    },
+    {
+        title: 'Which image completes the pattern?',
+        source: 'IQ Test Academy',
+        imgUrl: 'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619613058202x594037861794896900/Q-26.svg',
+        imgOpts: [
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619613074408x179765709684606370/Q-27.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619613083909x562084557747605440/Q-28.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619613091609x303689851727431100/Q-29.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619686587440x753786085382590300/Q6A%20%284%29.svg'
+        ],
+        answer: 0, time: 90, exp: 'Pattern completed according to visual logic.'
+    },
+    {
+        title: 'Which image completes the pattern?',
+        source: 'IQ Test Academy',
+        imgUrl: 'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619613139077x444131484485090300/Q11%20%281%29.svg',
+        imgOpts: [
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619613153993x567530250040917800/Q11%20%282%29.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619613195220x438082909840419800/Q11%20%283%29.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619613212837x673438854614232000/Q11%20%284%29.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619613186404x225846179982523550/Q11%20%285%29.svg'
+        ],
+        answer: 0, time: 90, exp: 'Pattern completed according to visual logic.'
+    },
+    {
+        title: 'Which image completes the pattern?',
+        source: 'IQ Test Academy',
+        imgUrl: 'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619613234556x942711401849995400/Q-31.svg',
+        imgOpts: [
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619613251703x643791228348411900/Q-32.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619613261579x319041629116795260/Q-33.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619613270705x117131142408966720/Q-34.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619613278384x975411189850408700/Q-35.svg'
+        ],
+        answer: 0, time: 90, exp: 'Pattern completed according to visual logic.'
+    },
+    {
+        title: 'Which image completes the pattern?',
+        source: 'IQ Test Academy',
+        imgUrl: 'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619613300992x105407576843956620/Q-46.svg',
+        imgOpts: [
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619613312329x711165442126142600/Q-47.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619613321557x857329199642974000/Q-48.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619613329792x503449921267319550/Q-49.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619613338349x766906738210504200/Q-50.svg'
+        ],
+        answer: 0, time: 90, exp: 'Pattern completed according to visual logic.'
+    },
+    {
+        title: 'Which image completes the pattern?',
+        source: 'IQ Test Academy',
+        imgUrl: 'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619613378237x254800041398088900/Q-36.svg',
+        imgOpts: [
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619613396593x549741287264651200/Q-37.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619613404244x910607817835188900/Q-38.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619613413192x621279494666961300/Q-39.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619613420671x716825641379112700/Q-40.svg'
+        ],
+        answer: 0, time: 90, exp: 'Pattern completed according to visual logic.'
+    },
+    {
+        title: 'Which image completes the pattern?',
+        source: 'IQ Test Academy',
+        imgUrl: 'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1625674357084x273551967348619300/Q3.svg',
+        imgOpts: [
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1625674464985x267064898882172220/Q3A%20%282%29.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1625674480000x844227647810190000/Q3A%20%281%29.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1625674424059x724234487231742100/Q3A%20%283%29.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1625674409241x936427935592745600/Q3A%20%284%29.svg'
+        ],
+        answer: 0, time: 90, exp: 'Pattern completed according to visual logic.'
+    },
+    {
+        title: 'Which image completes the pattern?',
+        source: 'IQ Test Academy',
+        imgUrl: 'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619702212081x202411985709518340/Group%203.svg',
+        imgOpts: [
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619702227135x806119431202281300/Q%2019%20A%20%281%29.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619702238253x865788033219401500/Q%2019%20A%20%282%29.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619702246991x239834537066900380/Q%2019%20A%20%283%29.svg',
+            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619702258788x435321848650833000/Q%2019%20A%20%284%29.svg'
+        ],
+        answer: 0, time: 90, exp: 'Pattern completed according to visual logic.'
+    }
+];
 
-        // ── Visual 1 ── answer: C (2) ──────────────────────────────────────────
-        {
-            title: 'Which image completes the pattern?',
-            source: 'yuis-ice / rpm-iq-exam',
-            matrix: [sqSVG('none'), ciSVG('none'), trSVG('none'),
-                     sqSVG('half'), ciSVG('half'), trSVG('half'),
-                     sqSVG('full'), ciSVG('full'), null],
-            opts: [trSVG('none'), ciSVG('full'), trSVG('full'), sqSVG('half')],
-            optLabels: ['A','B','C','D'], answer: 2, time: 90,
-            exp: 'Each row shares a fill style (none/half/full); each column has the same shape. Row 3 = full, Col 3 = triangle → filled triangle.'
-        },
+QUESTIONS = QUESTIONS.slice(0, 20);
 
-        // ── Number 1 ── answer: B (1) ──────────────────────────────────────────
-        {
-            title: 'What number replaces the question mark?',
-            source: 'yuis-ice / rpm-iq-exam',
-            matrix: [numFn(8), numFn(3), numFn(11),
-                     numFn(5), numFn(7), numFn(12),
-                     numFn(9), numFn(4), null],
-            numOpts: [14, 13, 12, 15], answer: 1, time: 60,
-            exp: 'Each row: Col1 + Col2 = Col3. 8+3=11, 5+7=12, 9+4=13.'
-        },
-
-        // ── Visual 2 ── answer: D (3) ──────────────────────────────────────────
-        {
-            title: 'Which image completes the pattern?',
-            source: 'yuis-ice / rpm-iq-exam',
-            matrix: [dotsFn(1), dotsFn(2), dotsFn(3),
-                     dotsFn(2), dotsFn(4), dotsFn(6),
-                     dotsFn(3), dotsFn(6), null],
-            opts: [dotsFn(8), dotsFn(6), dotsFn(12), dotsFn(9)],
-            optLabels: ['8','6','12','9'], answer: 3, time: 90,
-            exp: 'Dots = row × column. Row 3, Col 3 = 3×3 = 9 dots.'
-        },
-
-        // ── Number 2 ── answer: C (2) ──────────────────────────────────────────
-        {
-            title: 'What number replaces the question mark?',
-            source: 'yuis-ice / rpm-iq-exam',
-            matrix: [numFn(3), numFn(4), numFn(12),
-                     numFn(5), numFn(3), numFn(15),
-                     numFn(6), numFn(2), null],
-            numOpts: [8, 10, 12, 14], answer: 2, time: 60,
-            exp: 'Each row: Col1 × Col2 = Col3. 3×4=12, 5×3=15, 6×2=12.'
-        },
-
-        // ── Visual 3 ── answer: B (1) ──────────────────────────────────────────
-        {
-            title: 'Which image completes the pattern?',
-            source: 'yuis-ice / rpm-iq-exam',
-            matrix: [arrowFn(0), arrowFn(1), arrowFn(2),
-                     arrowFn(1), arrowFn(2), arrowFn(3),
-                     arrowFn(2), arrowFn(3), null],
-            opts: [arrowFn(0), arrowFn(4), arrowFn(6), arrowFn(2)],
-            optLabels: ['A','B','C','D'], answer: 1, time: 90,
-            exp: 'Each arrow rotates 45° clockwise per step. Row 3: ↓, ↙, ← (dir 4).'
-        },
-
-        // ── Number 3 ── answer: D (3) ──────────────────────────────────────────
-        {
-            title: 'What number replaces the question mark?',
-            source: 'yuis-ice / rpm-iq-exam',
-            matrix: [numFn(1),  numFn(4),  numFn(9),
-                     numFn(4),  numFn(9),  numFn(16),
-                     numFn(9),  numFn(16), null],
-            numOpts: [20, 36, 21, 25], answer: 3, time: 60,
-            exp: 'Numbers are perfect squares shifting one step each row: 1², 2², 3², 4², 5²=25.'
-        },
-
-        // ── Visual 4 ── answer: A (0) ──────────────────────────────────────────
-        {
-            title: 'Which image completes the pattern?',
-            source: 'yuis-ice / rpm-iq-exam',
-            matrix: [sqSVG('full',12), sqSVG('full',20), sqSVG('full',28),
-                     ciSVG('full',12), ciSVG('full',20), ciSVG('full',28),
-                     trSVG('full',12), trSVG('full',20), null],
-            opts: [trSVG('full',28), trSVG('full',12), ciSVG('full',28), sqSVG('full',28)],
-            optLabels: ['A','B','C','D'], answer: 0, time: 90,
-            exp: 'Each row: same shape, size grows small→medium→large. Row 3 = triangle, Col 3 = large.'
-        },
-
-        // ── Number 4 ── answer: C (2) ──────────────────────────────────────────
-        {
-            title: 'What number replaces the question mark?',
-            source: 'yuis-ice / rpm-iq-exam',
-            matrix: [numFn(2),  numFn(5),  numFn(10),
-                     numFn(5),  numFn(10), numFn(17),
-                     numFn(10), numFn(17), null],
-            numOpts: [24, 28, 26, 25], answer: 2, time: 60,
-            exp: 'Values follow n²+1: 1²+1=2, 2²+1=5, 3²+1=10, 4²+1=17, 5²+1=26.'
-        },
-
-        // ── Visual 5 ── answer: B (1) ──────────────────────────────────────────
-        {
-            title: 'Which image completes the pattern?',
-            source: 'yuis-ice / rpm-iq-exam',
-            matrix: [diSVG('none'), ciSVG('none'), sqSVG('none'),
-                     diSVG('full'), ciSVG('none'), sqSVG('none'),
-                     diSVG('full'), ciSVG('full'), null],
-            opts: [sqSVG('none'), sqSVG('full'), ciSVG('full'), diSVG('full')],
-            optLabels: ['A','B','C','D'], answer: 1, time: 90,
-            exp: 'One more shape fills per row: 0 filled → 1 filled → 2 filled. The last shape must be filled.'
-        },
-
-        // ── Number 5 ── answer: D (3) ──────────────────────────────────────────
-        {
-            title: 'What number replaces the question mark?',
-            source: 'yuis-ice / rpm-iq-exam',
-            matrix: [numFn(2), numFn(4),  numFn(8),
-                     numFn(3), numFn(9),  numFn(27),
-                     numFn(4), numFn(16), null],
-            numOpts: [48, 32, 80, 64], answer: 3, time: 60,
-            exp: 'Each row: n, n², n³. Row 3: 4, 4²=16, 4³=64.'
-        },
-
-        // ── Visual 6 ── answer: A (0) ──────────────────────────────────────────
-        {
-            title: 'Which image completes the pattern?',
-            source: 'yuis-ice / rpm-iq-exam',
-            matrix: [arrowFn(6), arrowFn(0), arrowFn(2),
-                     arrowFn(0), arrowFn(2), arrowFn(4),
-                     arrowFn(2), arrowFn(4), null],
-            opts: [arrowFn(6), arrowFn(0), arrowFn(4), arrowFn(3)],
-            optLabels: ['A','B','C','D'], answer: 0, time: 90,
-            exp: 'Each arrow rotates 90° clockwise per step. Row 3: ↓(2), ←(4), ↑(6).'
-        },
-
-        // ── Number 6 ── answer: C (2) ──────────────────────────────────────────
-        {
-            title: 'What number replaces the question mark?',
-            source: 'yuis-ice / rpm-iq-exam',
-            matrix: [numFn(3), numFn(4), numFn(5),
-                     numFn(5), numFn(2), numFn(5),
-                     numFn(4), numFn(3), null],
-            numOpts: [4, 6, 5, 3], answer: 2, time: 60,
-            exp: 'Each row sums to 12: 3+4+5=12, 5+2+5=12, 4+3+?=12 → ?=5.'
-        },
-
-        // ── Visual 7 ── answer: B (1) ──────────────────────────────────────────
-        {
-            title: 'Which image completes the pattern?',
-            source: 'yuis-ice / rpm-iq-exam',
-            matrix: [sqSVG('none'), sqSVG('half'), sqSVG('full'),
-                     ciSVG('none'), ciSVG('half'), ciSVG('full'),
-                     trSVG('none'), trSVG('half'), null],
-            opts: [trSVG('none'), trSVG('full'), ciSVG('full'), sqSVG('half')],
-            optLabels: ['A','B','C','D'], answer: 1, time: 90,
-            exp: 'Each row uses the same shape; fill increases none→half→full across columns. Row 3 = triangle, Col 3 = full → filled triangle.'
-        },
-
-        // ── Number 7 ── answer: D (3) ──────────────────────────────────────────
-        {
-            title: 'What number replaces the question mark?',
-            source: 'yuis-ice / rpm-iq-exam',
-            matrix: [numFn(3), numFn(7), numFn(11),
-                     numFn(5), numFn(8), numFn(11),
-                     numFn(2), numFn(6), null],
-            numOpts: [8, 12, 9, 10], answer: 3, time: 60,
-            exp: 'Each row is arithmetic: Row 1 diff=4, Row 2 diff=3, Row 3 diff=4 → 2+4+4=10.'
-        },
-
-        // ── Visual 8 ── answer: A (0) ──────────────────────────────────────────
-        {
-            title: 'Which image completes the pattern?',
-            source: 'yuis-ice / rpm-iq-exam',
-            matrix: [diSVG('none'), sqSVG('none'), ciSVG('none'),
-                     diSVG('half'), sqSVG('half'), ciSVG('half'),
-                     diSVG('full'), sqSVG('full'), null],
-            opts: [ciSVG('full'), ciSVG('half'), sqSVG('full'), diSVG('none')],
-            optLabels: ['A','B','C','D'], answer: 0, time: 90,
-            exp: 'Each column has the same shape; fill increases down. Col 3 = circle, Row 3 = full → filled circle.'
-        },
-
-        // ── Number 8 ── answer: C (2) ──────────────────────────────────────────
-        {
-            title: 'What number replaces the question mark?',
-            source: 'yuis-ice / rpm-iq-exam',
-            matrix: [numFn(15), numFn(8),  numFn(7),
-                     numFn(12), numFn(3),  numFn(9),
-                     numFn(10), numFn(4),  null],
-            numOpts: [5, 7, 6, 4], answer: 2, time: 60,
-            exp: 'Each row: Col1 − Col2 = Col3. 15−8=7, 12−3=9, 10−4=6.'
-        },
-
-        // ── Visual 9 ── answer: D (3) ──────────────────────────────────────────
-        {
-            title: 'Which image completes the pattern?',
-            source: 'yuis-ice / rpm-iq-exam',
-            matrix: [arrowFn(0), arrowFn(6), arrowFn(4),
-                     arrowFn(6), arrowFn(4), arrowFn(2),
-                     arrowFn(4), arrowFn(2), null],
-            opts: [arrowFn(6), arrowFn(2), arrowFn(3), arrowFn(0)],
-            optLabels: ['A','B','C','D'], answer: 3, time: 90,
-            exp: 'Each arrow rotates 90° counter-clockwise per step. Row 3: ←(4), ↓(2), →(0).'
-        },
-
-        // ── Number 9 ── answer: B (1) ──────────────────────────────────────────
-        {
-            title: 'What number replaces the question mark?',
-            source: 'yuis-ice / rpm-iq-exam',
-            matrix: [numFn(1), numFn(1), numFn(2),
-                     numFn(2), numFn(3), numFn(5),
-                     numFn(3), numFn(5), null],
-            numOpts: [7, 8, 9, 6], answer: 1, time: 60,
-            exp: 'Each row: Col1 + Col2 = Col3 (Fibonacci-like). Row 3: 3+5=8.'
-        },
-
-        // ── Visual 10 ── answer: C (2) ─────────────────────────────────────────
-        {
-            title: 'Which image completes the pattern?',
-            source: 'yuis-ice / rpm-iq-exam',
-            matrix: [sqSVG('none',12), sqSVG('none',26), sqSVG('none',12),
-                     ciSVG('none',26), ciSVG('none',12), ciSVG('none',26),
-                     trSVG('none',12), trSVG('none',26), null],
-            opts: [trSVG('none',26), ciSVG('none',12), trSVG('none',12), sqSVG('none',12)],
-            optLabels: ['A','B','C','D'], answer: 2, time: 90,
-            exp: 'Row 1: S-L-S; Row 2: L-S-L; Row 3: S-L-? = S. The pattern ends on small.'
-        },
-
-        // ── Number 10 ── answer: A (0) ─────────────────────────────────────────
-        {
-            title: 'What number replaces the question mark?',
-            source: 'yuis-ice / rpm-iq-exam',
-            matrix: [numFn(3), numFn(4), numFn(9),
-                     numFn(5), numFn(3), numFn(10),
-                     numFn(4), numFn(5), null],
-            numOpts: [16, 12, 20, 14], answer: 0, time: 60,
-            exp: 'Each row: Col1 × (Col2 − 1) = Col3. 3×3=9, 5×2=10, 4×4=16.'
-        },
-
-        // ── Visual 11 ── answer: D (3) ─────────────────────────────────────────
-        {
-            title: 'Which image completes the pattern?',
-            source: 'yuis-ice / rpm-iq-exam',
-            matrix: [sqSVG('none'), ciSVG('half'), trSVG('full'),
-                     ciSVG('none'), trSVG('half'), sqSVG('full'),
-                     trSVG('none'), sqSVG('half'), null],
-            opts: [ciSVG('half'), sqSVG('full'), trSVG('full'), ciSVG('full')],
-            optLabels: ['A','B','C','D'], answer: 3, time: 90,
-            exp: 'Each column has the same fill (none/half/full). Shapes cycle sq→ci→tr each row. Col 3 fill=full, next shape after sq = ci → filled circle.'
-        },
-
-        // ── Number 11 ── answer: B (1) ─────────────────────────────────────────
-        {
-            title: 'What number replaces the question mark?',
-            source: 'yuis-ice / rpm-iq-exam',
-            matrix: [numFn(4), numFn(3), numFn(13),
-                     numFn(5), numFn(6), numFn(19),
-                     numFn(3), numFn(2), null],
-            numOpts: [5, 7, 9, 6], answer: 1, time: 60,
-            exp: 'Each row: Col1² − Col2 = Col3. 4²−3=13, 5²−6=19, 3²−2=7.'
-        },
-
-        // ── Visual 12 ── answer: C (2) ─────────────────────────────────────────
-        {
-            title: 'Which image completes the pattern?',
-            source: 'yuis-ice / rpm-iq-exam',
-            matrix: [dotsFn(2), dotsFn(3), dotsFn(4),
-                     dotsFn(3), dotsFn(4), dotsFn(5),
-                     dotsFn(4), dotsFn(5), null],
-            opts: [dotsFn(5), dotsFn(7), dotsFn(6), dotsFn(4)],
-            optLabels: ['5','7','6','4'], answer: 2, time: 90,
-            exp: 'Dots = row + col + 1 (1-indexed). Row 3, Col 3: 3+3=6 dots.'
-        },
-
-        // ── Number 12: (col1 + col3) / col2 = 2 ───────────────────────────────
-        {
-            title: 'What number replaces the question mark?',
-            source: 'yuis-ice / rpm-iq-exam',
-            matrix: [numFn(2), numFn(4),  numFn(6),
-                     numFn(3), numFn(6),  numFn(9),
-                     numFn(4), numFn(8),  null],
-            numOpts: [12, 10, 16, 14], answer: 0, time: 60,
-            exp: 'Each row: Col1+Col3 = 2×Col2. 2+6=8=2×4 ✓, 3+9=12=2×6 ✓, 4+?=2×8=16 → ?=12.'
-        },
-
-        // ── Visual 13: Diagonal fill pattern ───────────────────────────────────
-        {
-            title: 'Which image completes the pattern?',
-            source: 'yuis-ice / rpm-iq-exam',
-            matrix: [sqSVG('none'), sqSVG('none'), sqSVG('half'),
-                     sqSVG('none'), sqSVG('half'), sqSVG('full'),
-                     sqSVG('half'), sqSVG('full'), null],
-            opts: [sqSVG('half'), sqSVG('none'), ciSVG('full'), sqSVG('full')],
-            optLabels: ['A','B','C','D'], answer: 3, time: 90,
-            exp: 'Fill increases toward the bottom-right corner. The cell at Row 3, Col 3 is the most distant from the origin → fully filled.'
-        },
-
-        // ── Number 13: col3 = col1 + col2² ────────────────────────────────────
-        {
-            title: 'What number replaces the question mark?',
-            source: 'yuis-ice / rpm-iq-exam',
-            matrix: [numFn(1), numFn(2), numFn(5),
-                     numFn(2), numFn(3), numFn(11),
-                     numFn(3), numFn(4), null],
-            numOpts: [16, 19, 22, 17], answer: 1, time: 60,
-            exp: 'Col3 = Col1 + Col2². 1+2²=5 ✓, 2+3²=11 ✓, 3+4²=19.'
-        },
-
-        // ── Visual 14: Arrow direction = (row+col)×90° mod 360° ────────────────
-        {
-            title: 'Which image completes the pattern?',
-            source: 'yuis-ice / rpm-iq-exam',
-            matrix: [arrowFn(0), arrowFn(2), arrowFn(4),
-                     arrowFn(2), arrowFn(4), arrowFn(6),
-                     arrowFn(4), arrowFn(6), null],
-            opts: [arrowFn(2), arrowFn(6), arrowFn(0), arrowFn(4)],
-            optLabels: ['A','B','C','D'], answer: 2, time: 90,
-            exp: 'Direction = (row+col)×90°. Row 2+Col 2 = 4 steps of 90° = 360° → back to right (→).'
-        },
-
-        // ── Number 14: col3 = col1 + col2 + (row index) ────────────────────────
-        {
-            title: 'What number replaces the question mark?',
-            source: 'yuis-ice / rpm-iq-exam',
-            matrix: [numFn(2), numFn(3), numFn(6),
-                     numFn(4), numFn(5), numFn(11),
-                     numFn(3), numFn(6), null],
-            numOpts: [10, 14, 9, 12], answer: 3, time: 60,
-            exp: 'Col3 = Col1 + Col2 + row (1-indexed). Row1: 2+3+1=6 ✓, Row2: 4+5+2=11 ✓, Row3: 3+6+3=12.'
-        },
-
-        // ── Visual 15: Dots in columns match column number × 2 ─────────────────
-        {
-            title: 'Which image completes the pattern?',
-            source: 'yuis-ice / rpm-iq-exam',
-            matrix: [dotsFn(2), dotsFn(4), dotsFn(6),
-                     dotsFn(2), dotsFn(4), dotsFn(6),
-                     dotsFn(2), dotsFn(4), null],
-            opts: [dotsFn(6), dotsFn(4), dotsFn(8), dotsFn(5)],
-            optLabels: ['6','4','8','5'], answer: 0, time: 90,
-            exp: 'Each column always has the same dot count: Col 1=2, Col 2=4, Col 3=6. All rows follow this rule.'
-        },
-
-        // ── Number 15: triangular numbers ──────────────────────────────────────
-        {
-            title: 'What number replaces the question mark?',
-            source: 'yuis-ice / rpm-iq-exam',
-            matrix: [numFn(1), numFn(3),  numFn(6),
-                     numFn(3), numFn(6),  numFn(10),
-                     numFn(6), numFn(10), null],
-            numOpts: [12, 15, 14, 16], answer: 1, time: 60,
-            exp: 'Triangular numbers: T(1)=1, T(2)=3, T(3)=6, T(4)=10, T(5)=15. Diagonal shifts one step per row.'
-        }
-    ];
 
     // ─── State ─────────────────────────────────────────────────────────────────
     var answers    = new Array(QUESTIONS.length).fill(null);
@@ -494,8 +392,14 @@ document.addEventListener('DOMContentLoaded', function () {
     var numGrid   = document.getElementById('q-number-grid');
 
     function showScreen(id) {
-        screens.forEach(function (el) { el.classList.remove('active'); });
-        document.getElementById(id).classList.add('active');
+        screens.forEach(function (el) { 
+            el.classList.remove('active'); 
+            el.style.display = 'none';
+        });
+        var target = document.getElementById(id);
+        target.classList.add('active');
+        target.style.display = 'block'; // Or flex, let's use block depending on CSS, or just empty string. Actually empty string is best.
+        target.style.display = '';
     }
 
     // ─── Timer ─────────────────────────────────────────────────────────────────
@@ -560,14 +464,33 @@ document.addEventListener('DOMContentLoaded', function () {
         else          { badge.style.display = 'none'; }
 
         // Matrix visual
-        qVisual.innerHTML   = buildMatrix(q.matrix);
+        
+        if (q.imgUrl) {
+            qVisual.innerHTML = '<img src="' + q.imgUrl + '" style="max-width:100%;max-height:270px;border-radius:8px;object-fit:contain;background-color:#e2e8f0;padding:10px;" />';
+        } else if (q.matrix) {
+            qVisual.innerHTML = buildMatrix(q.matrix);
+        } else {
+            qVisual.innerHTML = '';
+        }
         qVisual.style.display = 'flex';
 
         // Build options
         qOpts.innerHTML = '';
-        var isNum = !q.opts && q.numOpts;
+        var isNum = !q.opts && !q.imgOpts && q.numOpts;
+        var isImg = q.imgOpts && q.imgOpts.length > 0;
 
-        if (isNum) {
+
+        if (isImg) {
+            qOpts.className = 'mcq-options psych-opts-row';
+            q.imgOpts.forEach(function (url, i) {
+                var btn = document.createElement('button');
+                btn.className = 'mcq-option pattern-opt';
+                var label = String.fromCharCode(65 + i);
+                btn.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;margin-bottom:8px;"><img src="' + url + '" style="width:100%;height:100%;max-width:64px;max-height:64px;object-fit:contain;border-radius:6px;background:#e2e8f0;padding:4px;" /></div>' + '<div class="opt-label" style="text-align:center;">' + label + '</div>';
+                btn.addEventListener('click', (function (ci) { return function () { selectAnswer(ci); }; })(i));
+                qOpts.appendChild(btn);
+            });
+        } else if (isNum) {
             qOpts.className = 'mcq-options psych-opts-row';
             q.numOpts.forEach(function (n, i) {
                 var btn = document.createElement('button');
@@ -693,8 +616,8 @@ document.addEventListener('DOMContentLoaded', function () {
         var breakdown = document.getElementById('res-breakdown');
         breakdown.innerHTML = '';
         var cats = [
-            { label: 'Visual Patterns', indices: [0,2,4,6,8,10,12,14,16,18,20,22,24,26,28] },
-            { label: 'Number Matrices', indices: [1,3,5,7,9,11,13,15,17,19,21,23,25,27,29] }
+            { label: 'Visual Patterns', indices: [0,2,4,6,8,10,12,14,16,18] },
+            { label: 'Number Matrices', indices: [1,3,5,7,9,11,13,15,17,19] }
         ];
         cats.forEach(function (cat) {
             var correct = cat.indices.filter(function (i) { return answers[i] === QUESTIONS[i].answer; }).length;

@@ -55,7 +55,8 @@
                         </div>
                         <div style="display:flex;justify-content:center;margin-top:35px;">
                             <button id="start-btn" class="nav-btn"
-                                    style="background:linear-gradient(135deg,#3563eb,#3b82f6);color:#fff;min-width:350px;font-size:1.1rem;padding:12px 24px;border:none;border-radius:6px;cursor:pointer;">
+                                    style="background:linear-gradient(135deg,#3563eb,#3b82f6);color:#fff;min-width:350px;font-size:1.1rem;padding:12px 24px;border:none;border-radius:6px;cursor:pointer;"
+                                    onclick="(window.startAssessmentIQ || function(){})()">
                                 Start Test
                             </button>
                         </div>
@@ -136,6 +137,6 @@
         </div><!-- /wizard-layout -->
     </div>
 </div>
-<script src="/static/iq_assessment.js"></script>
+<script src="/static/iq_assessment.js?v=3"></script>
 </body>
 </html>

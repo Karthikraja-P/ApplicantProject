@@ -977,6 +977,20 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById(id).classList.add('active');
     }
 
+    function startAssessment() {
+        console.log('startAssessment() called');
+        if (!startBtn) {
+            console.error('Unable to start: startBtn not found');
+            return;
+        }
+        showScreen('screen-question');
+        renderQuestion(0);
+        startGlobalTimer();
+    }
+
+    // Expose fallback for direct onclick attribute (template-level resilience)
+    window.startAssessment = startAssessment;
+
     // ─── Global countdown ─────────────────────────────────────────────────────
     function fmtTime(secs) {
         var m = Math.floor(secs / 60);
@@ -1213,11 +1227,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // ─── Event listeners ───────────────────────────────────────────────────────
-    startBtn.addEventListener('click', function () {
-        showScreen('screen-question');
-        renderQuestion(0);
-        startGlobalTimer();
-    });
+    startBtn.addEventListener('click', startAssessment);
 
     nextBtn.addEventListener('click', function () {
         if (currentIdx < QUESTIONS.length - 1) goTo(currentIdx + 1);

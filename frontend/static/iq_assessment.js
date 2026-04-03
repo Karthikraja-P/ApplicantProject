@@ -185,10 +185,10 @@ document.addEventListener('DOMContentLoaded', function () {
         source: 'IQ Test Academy',
         imgUrl: 'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612265288x400208747201012900/Q-11.svg',
         imgOpts: [
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612287573x889196537106714400/Q-12.svg',
-            '/static/images/iq/q5_mod_b_v2.svg',
-            '/static/images/iq/q5_mod_c_v2.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612351189x921323380661548400/Q-15.svg'
+            '/static/images/iq/q5_mod_a_fixed.svg',
+            '/static/images/iq/q5_mod_b_fixed.svg',
+            '/static/images/iq/q5_mod_c_fixed.svg',
+            '/static/images/iq/q5_mod_d_fixed.svg'
         ],
         answer: 0, time: 90, exp: 'Pattern completed according to visual logic.'
     },
@@ -263,10 +263,10 @@ document.addEventListener('DOMContentLoaded', function () {
         source: 'IQ Test Academy',
         imgUrl: 'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612849663x445410436101785660/Q13%20%281%29.svg',
         imgOpts: [
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612867903x664841418227566400/Q13%20%282%29.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612877527x595238487156306200/Q13%20%283%29.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612886104x437068441125307800/Q13%20%284%29.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612898109x300024873754223040/Q13%20%285%29.svg'
+            '/static/images/iq/q13_mod_a.svg',
+            '/static/images/iq/q13_mod_b.svg',
+            '/static/images/iq/q13_mod_c.svg',
+            '/static/images/iq/q13_mod_d.svg'
         ],
         answer: 0, time: 90, exp: 'Pattern completed according to visual logic.'
     },
@@ -455,6 +455,7 @@ document.addEventListener('DOMContentLoaded', function () {
     {
         title: 'Which larger shape would be made if the two sections are fitted together?',
         source: 'Perceptual Reasoning',
+<<<<<<< HEAD
         customHtml: `<div style="display:flex; gap:30px; align-items:center; justify-content:center; margin:20px 0; background:#f0f4f8; padding:20px; border-radius:8px;">
             <div style="display:grid; grid-template-columns:repeat(2, 40px); grid-template-rows:repeat(2, 40px); border:2px solid #333;">
                 <div style="border:1px solid #333; background:#0d173c;"></div><div style="border:1px solid #333; background:#00a651;"></div>
@@ -490,6 +491,14 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>`
         ],
         answer: 0, time: 90, exp: 'The two sections complement each other to form a complete pattern where each color appears once per row and column.'
+=======
+        customHtml: '<div style="display:flex;gap:12px;align-items:flex-end;justify-content:center;margin-top:20px;"><div style="display:grid;grid-template-columns:30px 30px;grid-template-rows:30px 30px;border:1px solid #333;background:#fff;"><div style="background:#000044;border:1px solid #333;"></div><div style="background:#00a244;border:1px solid #333;"></div><div style="background:#000044;border:1px solid #333;"></div><div style="background:#ffffff;border:1px solid #333;"></div></div><div style="display:grid;grid-template-columns:30px 30px 30px;grid-template-rows:30px 30px 30px;border:1px solid #333;background:#fff;"><div style="background:#00a244;border:1px solid #333;"></div><div style="background:#000044;border:1px solid #333;"></div><div style="background:#ffffff;border:1px solid #333;"></div><div style="background:#000044;border:1px solid #333;"></div><div style="background:#ffffff;border:1px solid #333;"></div><div style="background:#ffffff;border:1px solid #333;"></div><div style="background:#ffffff;border:1px solid #333;"></div><div style="background:#ffffff;border:1px solid #333;"></div><div style="background:#ffffff;border:1px solid #333;"></div></div></div>',
+        customOptsHtml: ['<div style="display:grid;grid-template-columns:18px 18px 18px;grid-template-rows:18px 18px 18px;border:1px solid #333;background:#fff;"><div style="background:#000044;border:1px solid #333;"></div><div style="background:#00a244;border:1px solid #333;"></div><div style="background:#ffffff;border:1px solid #333;"></div><div style="background:#00a244;border:1px solid #333;"></div><div style="background:#ffffff;border:1px solid #333;"></div><div style="background:#00a244;border:1px solid #333;"></div><div style="background:#ffffff;border:1px solid #333;"></div><div style="background:#00a244;border:1px solid #333;"></div><div style="background:#000044;border:1px solid #333;"></div></div>',
+            '<div style="display:grid;grid-template-columns:18px 18px 18px;grid-template-rows:18px 18px 18px;border:1px solid #333;background:#fff;"><div style="background:#000044;border:1px solid #333;"></div><div style="background:#ffffff;border:1px solid #333;"></div><div style="background:#ffffff;border:1px solid #333;"></div><div style="background:#ffffff;border:1px solid #333;"></div><div style="background:#000044;border:1px solid #333;"></div><div style="background:#00a244;border:1px solid #333;"></div><div style="background:#ffffff;border:1px solid #333;"></div><div style="background:#ffffff;border:1px solid #333;"></div><div style="background:#ffffff;border:1px solid #333;"></div></div>',
+            '<div style="display:grid;grid-template-columns:18px 18px 18px;grid-template-rows:18px 18px 18px;border:1px solid #333;background:#fff;"><div style="background:#000044;border:1px solid #333;"></div><div style="background:#00a244;border:1px solid #333;"></div><div style="background:#ffffff;border:1px solid #333;"></div><div style="background:#ffffff;border:1px solid #333;"></div><div style="background:#ffffff;border:1px solid #333;"></div><div style="background:#00a244;border:1px solid #333;"></div><div style="background:#000044;border:1px solid #333;"></div><div style="background:#ffffff;border:1px solid #333;"></div><div style="background:#ffffff;border:1px solid #333;"></div></div>',
+            '<div style="display:grid;grid-template-columns:18px 18px 18px;grid-template-rows:18px 18px 18px;border:1px solid #333;background:#fff;"><div style="background:#ffffff;border:1px solid #333;"></div><div style="background:#000044;border:1px solid #333;"></div><div style="background:#00a244;border:1px solid #333;"></div><div style="background:#000044;border:1px solid #333;"></div><div style="background:#ffffff;border:1px solid #333;"></div><div style="background:#00a244;border:1px solid #333;"></div><div style="background:#ffffff;border:1px solid #333;"></div><div style="background:#ffffff;border:1px solid #333;"></div><div style="background:#000044;border:1px solid #333;"></div></div>' ],
+        answer: 0, time: 90, exp: 'From the left 2x2 and the right 3x3, the only matching completed 3x3 is option A, with dark top-left + green positions consistent.',
+>>>>>>> bc2663426e22e652dd9ddac0d278a0ce9a985cc3
     },
     {
         title: 'John needs 13 bottles of water from the store. John can only carry 3 at a time. What is the minimum number of trips John needs to make?',

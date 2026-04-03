@@ -159,6 +159,10 @@ def games():
     return render_template('games.html')
 
 
+@app.route('/assessment')
+def assessment():
+    return render_template('assessment.html')
+
 @app.route('/assessment/iq')
 def assessment_iq():
     return render_template('iq_assessment.html')

@@ -21,11 +21,10 @@ The application will start on http://localhost:5000
 ## IQ Assessment
 
 - **IQ Assessment Integration**:
-  - Implemented a native 46-question IQ assessment (replacing the iframe).
+  - Implemented a native 40-question IQ assessment (replacing the iframe).
   - Added "Fitted Together" perceptual reasoning question.
   - Added "Bloops, Razzies, and Lazzies" syllogism as Question 11.
-  - Added "Comb and Needle" series completion as Question 19.
-  - Total assessment count is now 46.
+  - Total assessment count is 40.
 - Question 27 has been updated with a custom SVG layout to match the intended logic for 16 four-sided figures.
 - Question 32 (Arrow Sequence) has been refined for visual parity with stacked horizontal arrows.
 - Question 35 (Stars and Moons Pattern) has been updated with precise (row, col) coordinates to reach 100% visual parity with the reference screenshot.

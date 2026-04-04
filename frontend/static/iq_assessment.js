@@ -262,13 +262,13 @@ document.addEventListener('DOMContentLoaded', function () {
         title: 'Which image completes the pattern?',
         source: 'IQ Test Academy',
         imgUrl: 'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612849663x445410436101785660/Q13%20%281%29.svg',
-        imgOpts: [
-            '/static/images/iq/q13_mod_a.svg',
-            '/static/images/iq/q13_mod_b.svg',
-            '/static/images/iq/q13_mod_c.svg',
-            '/static/images/iq/q13_mod_d.svg'
+        customOptsHtml: [
+            '<div style="text-align:center;"><div style="font-size:12px; font-weight:bold; color:#f0f4f8; margin-bottom:5px;">A</div><div style="width:80px; height:80px; border:1px solid #142e56; display:flex; align-items:center; justify-content:center; font-size:28px; font-weight:bold; color:#142e56; background:#fff; border-radius:4px;">22</div></div>',
+            '<div style="text-align:center;"><div style="font-size:12px; font-weight:bold; color:#f0f4f8; margin-bottom:5px;">B</div><div style="width:80px; height:80px; border:1px solid #142e56; display:flex; align-items:center; justify-content:center; font-size:28px; font-weight:bold; color:#142e56; background:#fff; border-radius:4px;">23</div></div>',
+            '<div style="text-align:center;"><div style="font-size:12px; font-weight:bold; color:#f0f4f8; margin-bottom:5px;">C</div><div style="width:80px; height:80px; border:1px solid #142e56; display:flex; align-items:center; justify-content:center; font-size:28px; font-weight:bold; color:#142e56; background:#fff; border-radius:4px;">24</div></div>',
+            '<div style="text-align:center;"><div style="font-size:12px; font-weight:bold; color:#f0f4f8; margin-bottom:5px;">D</div><div style="width:80px; height:80px; border:1px solid #142e56; display:flex; align-items:center; justify-content:center; font-size:28px; font-weight:bold; color:#142e56; background:#fff; border-radius:4px;">26</div></div>'
         ],
-        answer: 0, time: 90, exp: 'Pattern completed according to visual logic.'
+        answer: 2, time: 90, exp: 'The pattern is Points x 4. (4x4=16, 5x4=20, so 6x4=24).'
     },
     {
         title: 'Which image completes the pattern?',
@@ -282,94 +282,7 @@ document.addEventListener('DOMContentLoaded', function () {
         ],
         answer: 0, time: 90, exp: 'Pattern completed according to visual logic.'
     },
-    {
-        title: 'Which of the figures below the line of drawings best completes the series?',
-        source: 'Free-IQTest.net',
-        customHtml: `
-        <div style="display:flex; gap:12px; justify-content:center; margin:20px 0; background:#f5f5f5; padding:20px; border-radius:4px;">
-            <!-- S1: 5 TL, 1 BR, Needle BL -->
-            <div style="position:relative; width:60px; height:60px; border:1px solid #000; background:#fff;">
-                <div style="position:absolute; top:2px; left:2px; display:flex; gap:3px;">
-                    <div style="width:1.5px; height:12px; background:#000;"></div><div style="width:1.5px; height:12px; background:#000;"></div><div style="width:1.5px; height:12px; background:#000;"></div><div style="width:1.5px; height:12px; background:#000;"></div><div style="width:1.5px; height:12px; background:#000;"></div>
-                </div>
-                <div style="position:absolute; bottom:2px; right:2px; width:1.5px; height:12px; background:#000;"></div>
-                <svg width="60" height="60" style="position:absolute; top:0; left:0;"><line x1="4" y1="56" x2="22" y2="38" stroke="#000" stroke-width="1.8"/><circle cx="4" cy="56" r="3" fill="#000"/></svg>
-            </div>
-            <!-- S2: 4 BL, 2 TR, Needle TR -->
-            <div style="position:relative; width:60px; height:60px; border:1px solid #000; background:#fff;">
-                <div style="position:absolute; top:2px; right:2px; display:flex; gap:3px;">
-                    <div style="width:1.5px; height:12px; background:#000;"></div><div style="width:1.5px; height:12px; background:#000;"></div>
-                </div>
-                <div style="position:absolute; bottom:2px; left:2px; display:flex; gap:3px;">
-                    <div style="width:1.5px; height:12px; background:#000;"></div><div style="width:1.5px; height:12px; background:#000;"></div><div style="width:1.5px; height:12px; background:#000;"></div><div style="width:1.5px; height:12px; background:#000;"></div>
-                </div>
-                <svg width="60" height="60" style="position:absolute; top:0; left:0;"><line x1="56" y1="4" x2="38" y2="22" stroke="#000" stroke-width="1.8"/><circle cx="56" cy="4" r="3" fill="#000"/></svg>
-            </div>
-            <!-- S3: 3 TL, 3 BR, Needle BL -->
-            <div style="position:relative; width:60px; height:60px; border:1px solid #000; background:#fff;">
-                <div style="position:absolute; top:2px; left:2px; display:flex; gap:3px;">
-                    <div style="width:1.5px; height:12px; background:#000;"></div><div style="width:1.5px; height:12px; background:#000;"></div><div style="width:1.5px; height:12px; background:#000;"></div>
-                </div>
-                <div style="position:absolute; bottom:2px; right:2px; display:flex; gap:3px;">
-                    <div style="width:1.5px; height:12px; background:#000;"></div><div style="width:1.5px; height:12px; background:#000;"></div><div style="width:1.5px; height:12px; background:#000;"></div>
-                </div>
-                <svg width="60" height="60" style="position:absolute; top:0; left:0;"><line x1="4" y1="56" x2="22" y2="38" stroke="#000" stroke-width="1.8"/><circle cx="4" cy="56" r="3" fill="#000"/></svg>
-            </div>
-            <!-- S4: 2 BL, 4 TR, Needle TR -->
-            <div style="position:relative; width:60px; height:60px; border:1px solid #000; background:#fff;">
-                <div style="position:absolute; top:2px; right:2px; display:flex; gap:3px;">
-                    <div style="width:1.5px; height:12px; background:#000;"></div><div style="width:1.5px; height:12px; background:#000;"></div><div style="width:1.5px; height:12px; background:#000;"></div><div style="width:1.5px; height:12px; background:#000;"></div>
-                </div>
-                <div style="position:absolute; bottom:2px; left:2px; display:flex; gap:3px;">
-                    <div style="width:1.5px; height:12px; background:#000;"></div><div style="width:1.5px; height:12px; background:#000;"></div>
-                </div>
-                <svg width="60" height="60" style="position:absolute; top:0; left:0;"><line x1="56" y1="4" x2="38" y2="22" stroke="#000" stroke-width="1.8"/><circle cx="56" cy="4" r="3" fill="#000"/></svg>
-            </div>
-            <!-- S5: 1 TL, 5 BR, Needle BL -->
-            <div style="position:relative; width:60px; height:60px; border:1px solid #000; background:#fff;">
-                <div style="position:absolute; top:2px; left:2px; width:1.5px; height:12px; background:#000;"></div>
-                <div style="position:absolute; bottom:2px; right:2px; display:flex; gap:3px;">
-                    <div style="width:1.5px; height:12px; background:#000;"></div><div style="width:1.5px; height:12px; background:#000;"></div><div style="width:1.5px; height:12px; background:#000;"></div><div style="width:1.5px; height:12px; background:#000;"></div><div style="width:1.5px; height:12px; background:#000;"></div>
-                </div>
-                <svg width="60" height="60" style="position:absolute; top:0; left:0;"><line x1="4" y1="56" x2="22" y2="38" stroke="#000" stroke-width="1.8"/><circle cx="4" cy="56" r="3" fill="#000"/></svg>
-            </div>
-        </div>`,
-        customOptsHtml: [
-            // Option A: 5 TL, 4 BL, Needle BL (Incorrect)
-            `<div style="position:relative; width:60px; height:60px; border:1px solid #000; background:#fff; margin:0 auto;">
-                <div style="position:absolute; top:2px; left:2px; display:flex; gap:3px;">
-                    <div style="width:1.5px; height:12px; background:#000;"></div><div style="width:1.5px; height:12px; background:#000;"></div><div style="width:1.5px; height:12px; background:#000;"></div><div style="width:1.5px; height:12px; background:#000;"></div><div style="width:1.5px; height:12px; background:#000;"></div>
-                </div>
-                <div style="position:absolute; bottom:2px; left:2px; display:flex; gap:3px;">
-                    <div style="width:1.5px; height:12px; background:#000;"></div><div style="width:1.5px; height:12px; background:#000;"></div><div style="width:1.5px; height:12px; background:#000;"></div><div style="width:1.5px; height:12px; background:#000;"></div>
-                </div>
-                <svg width="60" height="60" style="position:absolute; top:0; left:0;"><line x1="4" y1="56" x2="22" y2="38" stroke="#000" stroke-width="1.8"/><circle cx="4" cy="56" r="3" fill="#000"/></svg>
-            </div>`,
-            // Option B: 5 BL, 1 TR, Needle TR (Incorrect)
-            `<div style="position:relative; width:60px; height:60px; border:1px solid #000; background:#fff; margin:0 auto;">
-                <div style="position:absolute; top:2px; right:2px; width:1.5px; height:12px; background:#000;"></div>
-                <div style="position:absolute; bottom:2px; left:2px; display:flex; gap:3px;">
-                    <div style="width:1.5px; height:12px; background:#000;"></div><div style="width:1.5px; height:12px; background:#000;"></div><div style="width:1.5px; height:12px; background:#000;"></div><div style="width:1.5px; height:12px; background:#000;"></div><div style="width:1.5px; height:12px; background:#000;"></div>
-                </div>
-                <svg width="60" height="60" style="position:absolute; top:0; left:0;"><line x1="56" y1="4" x2="38" y2="22" stroke="#000" stroke-width="1.8"/><circle cx="56" cy="4" r="3" fill="#000"/></svg>
-            </div>`,
-            // Option C: 6 TR, 0 BL, Needle TR (CORRECT)
-            `<div style="position:relative; width:60px; height:60px; border:1px solid #000; background:#fff; margin:0 auto;">
-                <div style="position:absolute; top:2px; right:2px; display:flex; gap:2.5px;">
-                    <div style="width:1.2px; height:12px; background:#000;"></div><div style="width:1.2px; height:12px; background:#000;"></div><div style="width:1.2px; height:12px; background:#000;"></div><div style="width:1.2px; height:12px; background:#000;"></div><div style="width:1.2px; height:12px; background:#000;"></div><div style="width:1.2px; height:12px; background:#000;"></div>
-                </div>
-                <svg width="60" height="60" style="position:absolute; top:0; left:0;"><line x1="56" y1="4" x2="38" y2="22" stroke="#000" stroke-width="1.8"/><circle cx="56" cy="4" r="3" fill="#000"/></svg>
-            </div>`,
-            // Option D: 6 BR, 0 TL, Needle BL (Incorrect)
-            `<div style="position:relative; width:60px; height:60px; border:1px solid #000; background:#fff; margin:0 auto;">
-                <div style="position:absolute; bottom:2px; right:2px; display:flex; gap:2.5px;">
-                    <div style="width:1.2px; height:12px; background:#000;"></div><div style="width:1.2px; height:12px; background:#000;"></div><div style="width:1.2px; height:12px; background:#000;"></div><div style="width:1.2px; height:12px; background:#000;"></div><div style="width:1.2px; height:12px; background:#000;"></div><div style="width:1.2px; height:12px; background:#000;"></div>
-                </div>
-                <svg width="60" height="60" style="position:absolute; top:0; left:0;"><line x1="4" y1="56" x2="22" y2="38" stroke="#000" stroke-width="1.8"/><circle cx="4" cy="56" r="3" fill="#000"/></svg>
-            </div>`
-        ],
-        answer: 2, time: 90, exp: 'The sequence alternates needle positions (BL to TR) and line group locations. The top-left group decrements (5,4,3,2,1) while the top-right group increments. Square 6 requires Needle TR and 6 lines in the Top-Right.'
-    },
+
     {
         title: 'Which image completes the pattern?',
         source: 'IQ Test Academy',
@@ -418,73 +331,7 @@ document.addEventListener('DOMContentLoaded', function () {
         ],
         answer: 0, time: 90, exp: 'Pattern completed according to visual logic.'
     },
-    {
-        title: 'Which of the figures below the line of drawings best completes the series?',
-        source: 'Perceptual Reasoning',
-        customHtml: `
-        <div style="display:flex; flex-direction:column; align-items:center; gap:20px; padding:20px; background:#f8f9fa; border-radius:8px;">
-            <div style="display:flex; gap:12px; align-items:flex-start; padding-bottom:15px; border-bottom:2px solid #333;">
-                <!-- Box 1: Comb TL, Needle BL -->
-                <svg width="60" height="60" viewBox="0 0 60 60" style="border:2.5px solid #333; background:white;">
-                    <path d="M4 2 V12 M10 2 V12 M16 2 V12 M22 2 V12 M28 2 V12" stroke="#333" stroke-width="2.5"/>
-                    <line x1="4" y1="56" x2="22" y2="38" stroke="#333" stroke-width="3" stroke-linecap="round"/>
-                    <circle cx="22" cy="38" r="3" fill="#333"/>
-                </svg>
-                <!-- Box 2: Comb BL, Needle TR (6 lines) -->
-                <svg width="60" height="60" viewBox="0 0 60 60" style="border:2.5px solid #333; background:white;">
-                    <path d="M4 58 V48 M10 58 V48 M16 58 V48 M22 58 V48 M28 58 V48 M34 58 V48" stroke="#333" stroke-width="2.5"/>
-                    <line x1="56" y1="4" x2="38" y2="22" stroke="#333" stroke-width="3" stroke-linecap="round"/>
-                    <circle cx="38" cy="22" r="3" fill="#333"/>
-                </svg>
-                <!-- Box 3: Comb TR, Needle BR -->
-                <svg width="60" height="60" viewBox="0 0 60 60" style="border:2.5px solid #333; background:white;">
-                    <path d="M32 2 V12 M38 2 V12 M44 2 V12 M50 2 V12 M56 2 V12" stroke="#333" stroke-width="2.5"/>
-                    <line x1="56" y1="56" x2="38" y2="38" stroke="#333" stroke-width="3" stroke-linecap="round"/>
-                    <circle cx="38" cy="38" r="3" fill="#333"/>
-                </svg>
-                <!-- Box 4: Comb BR, Needle TL (6 lines) -->
-                <svg width="60" height="60" viewBox="0 0 60 60" style="border:2.5px solid #333; background:white;">
-                    <path d="M26 58 V48 M32 58 V48 M38 58 V48 M44 58 V48 M50 58 V48 M56 58 V48" stroke="#333" stroke-width="2.5"/>
-                    <line x1="4" y1="4" x2="22" y2="22" stroke="#333" stroke-width="3" stroke-linecap="round"/>
-                    <circle cx="22" cy="22" r="3" fill="#333"/>
-                </svg>
-                <!-- Box 5: Comb TL, Needle BL -->
-                <svg width="60" height="60" viewBox="0 0 60 60" style="border:2.5px solid #333; background:white;">
-                    <path d="M4 2 V12 M10 2 V12 M16 2 V12 M22 2 V12 M28 2 V12" stroke="#333" stroke-width="2.5"/>
-                    <line x1="4" y1="56" x2="22" y2="38" stroke="#333" stroke-width="3" stroke-linecap="round"/>
-                    <circle cx="22" cy="38" r="3" fill="#333"/>
-                </svg>
-            </div>
-        </div>
-        `,
-        customOptsHtml: [
-            // Option 1 (Box 1)
-            `<svg width="60" height="60" viewBox="0 0 60 60" style="border:2.5px solid #333; background:white;">
-                <path d="M4 2 V12 M10 2 V12 M16 2 V12 M22 2 V12 M28 2 V12" stroke="#333" stroke-width="2.5"/>
-                <line x1="4" y1="56" x2="22" y2="38" stroke="#333" stroke-width="3" stroke-linecap="round"/>
-                <circle cx="22" cy="38" r="3" fill="#333"/>
-            </svg>`,
-            // Option 2 (Box 2) - Correct (6 lines)
-            `<svg width="60" height="60" viewBox="0 0 60 60" style="border:2.5px solid #333; background:white;">
-                <path d="M4 58 V48 M10 58 V48 M16 58 V48 M22 58 V48 M28 58 V48 M34 58 V48" stroke="#333" stroke-width="2.5"/>
-                <line x1="56" y1="4" x2="38" y2="22" stroke="#333" stroke-width="3" stroke-linecap="round"/>
-                <circle cx="38" cy="22" r="3" fill="#333"/>
-            </svg>`,
-            // Option 3 (Comb TL, Needle TR)
-            `<svg width="60" height="60" viewBox="0 0 60 60" style="border:2.5px solid #333; background:white;">
-                <path d="M4 2 V12 M10 2 V12 M16 2 V12 M22 2 V12 M28 2 V12" stroke="#333" stroke-width="2.5"/>
-                <line x1="56" y1="4" x2="38" y2="22" stroke="#333" stroke-width="3" stroke-linecap="round"/>
-                <circle cx="38" cy="22" r="3" fill="#333"/>
-            </svg>`,
-            // Option 4 (Comb BL Distractor - Dense lines)
-            `<svg width="60" height="60" viewBox="0 0 60 60" style="border:2.5px solid #333; background:white;">
-                <path d="M4 58 V48 M8 58 V48 M12 58 V48 M16 58 V48 M20 58 V48 M24 58 V48 M28 58 V48 M32 58 V48 M36 58 V48" stroke="#333" stroke-width="2.5"/>
-                <line x1="4" y1="56" x2="22" y2="38" stroke="#333" stroke-width="3" stroke-linecap="round"/>
-                <circle cx="22" cy="38" r="3" fill="#333"/>
-            </svg>`
-        ],
-        answer: 1, time: 90, exp: 'The comb and needle follow a repeating cyclic sequence across corners. Box 6 must follow the same pattern as Box 2.'
-    },
+
     {
         title: 'Which image completes the pattern?',
         source: 'IQ Test Academy',
@@ -687,23 +534,7 @@ document.addEventListener('DOMContentLoaded', function () {
         ],
         answer: 1, time: 90, exp: 'Each row focuses on a column (Left, Center, Right) and builds the pattern up to 3 blocks.'
     },
-    {
-        title: 'Select the correct pattern to complete the sequence:',
-        source: 'Fluid Reasoning',
-        customHtml: `<div style="display:grid;grid-template-columns:60px 60px 60px;gap:20px;justify-content:center;margin:20px auto;">
-            <div style="width:54px;height:54px;border:3px solid #142e56;border-radius:50%;position:relative;transform:rotate(180deg);background:#ebf4ff;"><div style="position:absolute;top:4px;left:21px;width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:12px solid #f59e0b;"></div></div>
-            <div style="width:54px;height:54px;border:3px solid #142e56;border-radius:50%;position:relative;transform:rotate(270deg);background:#ebf4ff;"><div style="position:absolute;top:4px;left:21px;width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:12px solid #f59e0b;"></div></div>
-            <div style="width:54px;height:54px;border:3px solid #142e56;border-radius:50%;position:relative;transform:rotate(0deg);background:#ebf4ff;"><div style="position:absolute;top:4px;left:21px;width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:12px solid #f59e0b;"></div></div>
-            <div style="width:54px;height:54px;border:3px solid #142e56;border-radius:50%;position:relative;transform:rotate(315deg);background:#ebf4ff;"><div style="position:absolute;top:4px;left:21px;width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:12px solid #f59e0b;"></div></div>
-            <div style="width:54px;height:54px;border:3px solid #142e56;border-radius:50%;position:relative;transform:rotate(135deg);background:#ebf4ff;"><div style="position:absolute;top:4px;left:21px;width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:12px solid #f59e0b;"></div></div>
-            <div style="width:54px;height:54px;border:3px solid #142e56;border-radius:50%;position:relative;transform:rotate(90deg);background:#ebf4ff;"><div style="position:absolute;top:4px;left:21px;width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:12px solid #f59e0b;"></div></div>
-            <div style="width:54px;height:54px;border:3px solid #142e56;border-radius:50%;position:relative;transform:rotate(225deg);background:#ebf4ff;"><div style="position:absolute;top:4px;left:21px;width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:12px solid #f59e0b;"></div></div>
-            <div style="width:54px;height:54px;border:3px solid #142e56;border-radius:50%;position:relative;transform:rotate(180deg);background:#ebf4ff;"><div style="position:absolute;top:4px;left:21px;width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:12px solid #f59e0b;"></div></div>
-            <div style="width:54px;height:54px;border-radius:50%;background:#142e56;color:#f59e0b;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:bold;">?</div>
-        </div>`,
-        customOptsHtml: ['<div style="width:54px;height:54px;border:3px solid #142e56;border-radius:50%;position:relative;transform:rotate(45deg);background:#ebf4ff;"><div style="position:absolute;top:4px;left:21px;width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:12px solid #f59e0b;"></div></div>', '<div style="width:54px;height:54px;border:3px solid #142e56;border-radius:50%;position:relative;transform:rotate(135deg);background:#ebf4ff;"><div style="position:absolute;top:4px;left:21px;width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:12px solid #f59e0b;"></div></div>', '<div style="width:54px;height:54px;border:3px solid #142e56;border-radius:50%;position:relative;transform:rotate(90deg);background:#ebf4ff;"><div style="position:absolute;top:4px;left:21px;width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:12px solid #f59e0b;"></div></div>', '<div style="width:54px;height:54px;border:3px solid #142e56;border-radius:50%;position:relative;transform:rotate(225deg);background:#ebf4ff;"><div style="position:absolute;top:4px;left:21px;width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:12px solid #f59e0b;"></div></div>', '<div style="width:54px;height:54px;border:3px solid #142e56;border-radius:50%;position:relative;transform:rotate(270deg);background:#ebf4ff;"><div style="position:absolute;top:4px;left:21px;width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:12px solid #f59e0b;"></div></div>', '<div style="width:54px;height:54px;border:3px solid #142e56;border-radius:50%;position:relative;transform:rotate(315deg);background:#ebf4ff;"><div style="position:absolute;top:4px;left:21px;width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:12px solid #f59e0b;"></div></div>'],
-        answer: 1, time: 90, exp: 'The pattern follows positional rotation and an In-Out tip logic. Cell 9 must be Outward-pointing Bottom-Right (Option B).'
-    },
+
     {
         title: 'Which box completes the grid?',
         source: 'Perceptual Matrix',
@@ -755,27 +586,8 @@ document.addEventListener('DOMContentLoaded', function () {
         ],
         answer: 3, time: 90, exp: 'Each row uses the same direction set (L/D/R, D/R/L, R/L/?). Third row needs Down arrows x3.'
     },
-    {
-        title: 'Which box completes the sequence?',
-        source: 'Visual Patterns',
-        customHtml: '<div style="display:grid;grid-template-columns:60px 60px 60px;border:2px solid #142e56;width:max-content;margin:20px auto;"><div style="width:60px;height:60px;border:1px solid #142e56;background:#fff;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:space-evenly;"><div style="width:10px;height:10px;border-radius:50%;background:#f59e0b;border:1px solid #142e56;z-index:2;"></div></div><div style="width:60px;height:60px;border:1px solid #142e56;background:#fff;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:space-evenly;"><div style="position:absolute;top:29px;width:100%;height:2px;background:#142e56;"></div><div style="width:10px;height:10px;border-radius:50%;background:#f59e0b;border:1px solid #142e56;z-index:2;"></div></div><div style="width:60px;height:60px;border:1px solid #142e56;background:#fff;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:space-evenly;"><div style="position:absolute;top:19px;width:100%;height:2px;background:#142e56;"></div><div style="position:absolute;top:39px;width:100%;height:2px;background:#142e56;"></div><div style="width:10px;height:10px;border-radius:50%;background:#f59e0b;border:1px solid #142e56;z-index:2;"></div></div><div style="width:60px;height:60px;border:1px solid #142e56;background:#fff;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:space-evenly;"><div style="width:10px;height:10px;border-radius:50%;background:#f59e0b;border:1px solid #142e56;z-index:2;"></div><div style="width:10px;height:10px;border-radius:50%;background:#f59e0b;border:1px solid #142e56;z-index:2;"></div></div><div style="width:60px;height:60px;border:1px solid #142e56;background:#fff;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:space-evenly;"><div style="position:absolute;top:29px;width:100%;height:2px;background:#142e56;"></div><div style="width:10px;height:10px;border-radius:50%;background:#f59e0b;border:1px solid #142e56;z-index:2;"></div><div style="width:10px;height:10px;border-radius:50%;background:#f59e0b;border:1px solid #142e56;z-index:2;"></div></div><div style="width:60px;height:60px;border:1px solid #142e56;background:#fff;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:space-evenly;"><div style="position:absolute;top:19px;width:100%;height:2px;background:#142e56;"></div><div style="position:absolute;top:39px;width:100%;height:2px;background:#142e56;"></div><div style="width:10px;height:10px;border-radius:50%;background:#f59e0b;border:1px solid #142e56;z-index:2;"></div><div style="width:10px;height:10px;border-radius:50%;background:#f59e0b;border:1px solid #142e56;z-index:2;"></div></div><div style="width:60px;height:60px;border:1px solid #142e56;background:#fff;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:space-evenly;"><div style="width:10px;height:10px;border-radius:50%;background:#f59e0b;border:1px solid #142e56;z-index:2;"></div><div style="width:10px;height:10px;border-radius:50%;background:#f59e0b;border:1px solid #142e56;z-index:2;"></div><div style="width:10px;height:10px;border-radius:50%;background:#f59e0b;border:1px solid #142e56;z-index:2;"></div></div><div style="width:60px;height:60px;border:1px solid #142e56;background:#fff;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:space-evenly;"><div style="position:absolute;top:29px;width:100%;height:2px;background:#142e56;"></div><div style="width:10px;height:10px;border-radius:50%;background:#f59e0b;border:1px solid #142e56;z-index:2;"></div><div style="width:10px;height:10px;border-radius:50%;background:#f59e0b;border:1px solid #142e56;z-index:2;"></div><div style="width:10px;height:10px;border-radius:50%;background:#f59e0b;border:1px solid #142e56;z-index:2;"></div></div><div style="width:60px;height:60px;background:#142e56;color:#f59e0b;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:bold;">?</div></div>',
-        customOptsHtml: ['<div style="width:60px;height:60px;border:1px solid #142e56;background:#fff;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:space-evenly;"><div style="position:absolute;top:19px;width:100%;height:2px;background:#142e56;"></div><div style="position:absolute;top:39px;width:100%;height:2px;background:#142e56;"></div><div style="width:10px;height:10px;border-radius:50%;background:#f59e0b;border:1px solid #142e56;z-index:2;"></div><div style="width:10px;height:10px;border-radius:50%;background:#f59e0b;border:1px solid #142e56;z-index:2;"></div><div style="width:10px;height:10px;border-radius:50%;background:#f59e0b;border:1px solid #142e56;z-index:2;"></div></div>', '<div style="width:60px;height:60px;border:1px solid #142e56;background:#fff;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:space-evenly;"><div style="position:absolute;top:29px;width:100%;height:2px;background:#142e56;"></div><div style="width:10px;height:10px;border-radius:50%;background:#f59e0b;border:1px solid #142e56;z-index:2;"></div><div style="width:10px;height:10px;border-radius:50%;background:#f59e0b;border:1px solid #142e56;z-index:2;"></div><div style="width:10px;height:10px;border-radius:50%;background:#f59e0b;border:1px solid #142e56;z-index:2;"></div></div>', '<div style="width:60px;height:60px;border:1px solid #142e56;background:#fff;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:space-evenly;"><div style="position:absolute;top:19px;width:100%;height:2px;background:#142e56;"></div><div style="position:absolute;top:39px;width:100%;height:2px;background:#142e56;"></div><div style="width:10px;height:10px;border-radius:50%;background:#f59e0b;border:1px solid #142e56;z-index:2;"></div><div style="width:10px;height:10px;border-radius:50%;background:#f59e0b;border:1px solid #142e56;z-index:2;"></div><div style="width:10px;height:10px;border-radius:50%;background:#f59e0b;border:1px solid #142e56;z-index:2;"></div><div style="width:10px;height:10px;border-radius:50%;background:#f59e0b;border:1px solid #142e56;z-index:2;"></div></div>', '<div style="width:60px;height:60px;border:1px solid #142e56;background:#fff;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:space-evenly;"><div style="position:absolute;top:19px;width:100%;height:2px;background:#142e56;"></div><div style="position:absolute;top:39px;width:100%;height:2px;background:#142e56;"></div><div style="width:10px;height:10px;border-radius:50%;background:#f59e0b;border:1px solid #142e56;z-index:2;"></div><div style="width:10px;height:10px;border-radius:50%;background:#f59e0b;border:1px solid #142e56;z-index:2;"></div></div>', '<div style="width:60px;height:60px;border:1px solid #142e56;background:#fff;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:space-evenly;"><div style="width:10px;height:10px;border-radius:50%;background:#f59e0b;border:1px solid #142e56;z-index:2;"></div><div style="width:10px;height:10px;border-radius:50%;background:#f59e0b;border:1px solid #142e56;z-index:2;"></div><div style="width:10px;height:10px;border-radius:50%;background:#f59e0b;border:1px solid #142e56;z-index:2;"></div></div>', '<div style="width:60px;height:60px;border:1px solid #142e56;background:#fff;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:space-evenly;"><div style="position:absolute;top:29px;width:100%;height:2px;background:#142e56;"></div><div style="width:10px;height:10px;border-radius:50%;background:#f59e0b;border:1px solid #142e56;z-index:2;"></div><div style="width:10px;height:10px;border-radius:50%;background:#f59e0b;border:1px solid #142e56;z-index:2;"></div></div>'],
-        answer: 0, time: 90, exp: 'Dots increase 1-2-3 vertically. Lines increase 0-1-2 horizontally. Cell needs 3 dots + 2 lines.'
-    },
-    {
-        title: 'Select the missing patch:',
-        source: 'Perceptual Patterns',
-        customHtml: '<div style="position:relative;width:200px;height:200px;background:#fbbf24;margin:20px auto;border:3px solid #1e293b;border-radius:6px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.1);"><div style="position:absolute;top:75px;width:100%;height:50px;background:#1e293b;z-index:1;"></div><div style="position:absolute;top:99px;width:100%;height:2px;background:#ffffff;z-index:2;"></div><svg width="200" height="200" style="position:absolute;top:0;left:0;z-index:3;"><line x1="20" y1="0" x2="110" y2="200" stroke="#ef4444" stroke-width="3"/><line x1="180" y1="0" x2="90" y2="200" stroke="#ef4444" stroke-width="3"/><line x1="90" y1="0" x2="180" y2="200" stroke="#ffffff" stroke-width="2"/><line x1="110" y1="0" x2="20" y2="200" stroke="#ffffff" stroke-width="2"/></svg><div style="position:absolute;top:60px;left:60px;width:80px;height:80px;background:#ffffff;display:flex;align-items:center;justify-content:center;font-size:48px;font-weight:bold;color:#1e293b;z-index:4;box-shadow:inset 0 0 10px rgba(0,0,0,0.1), 0 0 15px rgba(0,0,0,0.2); border-radius:2px;">?</div></div>',
-        customOptsHtml: [
-            '<svg width="60" height="60" viewBox="60 60 80 80"><rect x="60" y="60" width="80" height="80" fill="#fbbf24"/><rect x="60" y="75" width="80" height="50" fill="#1e293b"/><rect x="60" y="99" width="80" height="2" fill="#fff"/><line x1="0" y1="0" x2="200" y2="200" stroke="#ef4444" stroke-width="4"/><line x1="200" y1="0" x2="0" y2="200" stroke="#ef4444" stroke-width="4"/><line x1="100" y1="0" x2="100" y2="200" stroke="#ffffff" stroke-width="3"/><line x1="0" y1="100" x2="200" y2="100" stroke="#ffffff" stroke-width="3"/></svg>',
-            '<svg width="60" height="60" viewBox="60 60 80 80"><rect x="60" y="60" width="80" height="80" fill="#fbbf24"/><rect x="60" y="75" width="80" height="50" fill="#1e293b"/><rect x="60" y="99" width="80" height="2" fill="#fff"/><line x1="20" y1="0" x2="110" y2="200" stroke="#ef4444" stroke-width="3"/><line x1="180" y1="0" x2="90" y2="200" stroke="#ef4444" stroke-width="3"/><line x1="90" y1="0" x2="180" y2="200" stroke="#ffffff" stroke-width="2"/><line x1="110" y1="0" x2="20" y2="200" stroke="#ffffff" stroke-width="2"/></svg>',
-            '<svg width="60" height="60" viewBox="60 60 80 80"><rect x="60" y="60" width="80" height="80" fill="#fbbf24"/><rect x="60" y="75" width="80" height="50" fill="#1e293b"/><rect x="60" y="99" width="80" height="2" fill="#fff"/><line x1="30" y1="0" x2="150" y2="200" stroke="#ffffff" stroke-width="2"/><line x1="170" y1="0" x2="50" y2="200" stroke="#ffffff" stroke-width="2"/><line x1="100" y1="0" x2="120" y2="200" stroke="#ef4444" stroke-width="3"/><line x1="120" y1="0" x2="100" y2="200" stroke="#ef4444" stroke-width="3"/></svg>',
-            '<svg width="60" height="60" viewBox="60 60 80 80"><rect x="60" y="60" width="80" height="80" fill="#fbbf24"/><rect x="60" y="75" width="80" height="50" fill="#1e293b"/><rect x="60" y="99" width="80" height="2" fill="#fff"/><line x1="0" y1="50" x2="200" y2="150" stroke="#ef4444" stroke-width="3"/><line x1="200" y1="50" x2="0" y2="150" stroke="#ef4444" stroke-width="3"/><line x1="50" y1="0" x2="150" y2="200" stroke="#ffffff" stroke-width="2"/><line x1="150" y1="0" x2="50" y2="200" stroke="#ffffff" stroke-width="2"/></svg>',
-            '<svg width="60" height="60" viewBox="60 60 80 80"><rect x="60" y="60" width="80" height="80" fill="#fbbf24"/><rect x="60" y="75" width="80" height="50" fill="#1e293b"/><rect x="60" y="99" width="80" height="2" fill="#fff"/><line x1="70" y1="0" x2="70" y2="200" stroke="#ef4444" stroke-width="3"/><line x1="130" y1="0" x2="130" y2="200" stroke="#ef4444" stroke-width="3"/><line x1="0" y1="80" x2="200" y2="80" stroke="#ffffff" stroke-width="2"/><line x1="0" y1="120" x2="200" y2="120" stroke="#ffffff" stroke-width="2"/></svg>',
-            '<svg width="60" height="60" viewBox="60 60 80 80"><rect x="60" y="60" width="80" height="80" fill="#fbbf24"/><rect x="60" y="75" width="80" height="50" fill="#1e293b"/><rect x="60" y="99" width="80" height="2" fill="#fff"/><line x1="40" y1="0" x2="160" y2="200" stroke="#ef4444" stroke-width="3"/><line x1="50" y1="0" x2="170" y2="200" stroke="#ffffff" stroke-width="2"/><line x1="150" y1="0" x2="30" y2="200" stroke="#ef4444" stroke-width="3"/><line x1="160" y1="0" x2="40" y2="200" stroke="#ffffff" stroke-width="2"/></svg>'
-        ],
-        answer: 1, time: 90, exp: 'The patch lines must align with the red and white diagonal lines crossing the puzzle.'
-    },
+
+
     {
         title: 'Complete the pattern of stars and moons:',
         source: 'Perceptual Patterns',
@@ -870,13 +682,6 @@ document.addEventListener('DOMContentLoaded', function () {
         answer: 4, time: 90, exp: 'Each adjacent slice increases by 3: 12, 15, 18, 21, 24.'
     },
     {
-        title: 'Complete the pattern matrix.',
-        source: 'Spatial Reasoning',
-        imgUrl: '/static/images/iq/q39.jpg',
-        opts: ['A', 'B', 'C', 'D', 'E', 'F'],
-        answer: 2, time: 90, exp: 'Analyzing the columns and rows reveals the combination rule for inner and outer shapes.'
-    },
-    {
         title: 'Find the missing number for the bottom hexagon set.',
         source: 'Quantitative Reasoning',
         imgUrl: '/static/images/iq/q40.jpg',
@@ -918,10 +723,33 @@ document.addEventListener('DOMContentLoaded', function () {
         imgUrl: '/static/images/iq/q45.jpg',
         opts: ['A', 'B', 'C', 'D', 'E', 'F'],
         answer: 4, time: 90, exp: 'The dots and smaller shapes navigate the 3x3 grids progressively.'
+    },
+    {
+        title: 'Identify the missing number in the grid:',
+        source: 'Quantitative Reasoning',
+        customHtml: `
+        <div style="display:grid; grid-template-columns:repeat(3, 80px); gap:10px; justify-content:center; margin:20px auto; background:#f0f4f8; padding:20px; border-radius:8px;">
+            <div style="width:80px; height:80px; border:1px solid #142e56; display:flex; align-items:center; justify-content:center; font-size:28px; font-weight:bold; color:#142e56; background:#fff; border-radius:4px;">20</div>
+            <div style="width:80px; height:80px; border:1px solid #142e56; display:flex; align-items:center; justify-content:center; font-size:28px; font-weight:bold; color:#142e56; background:#fff; border-radius:4px;">30</div>
+            <div style="width:80px; height:80px; border:1px solid #142e56; display:flex; align-items:center; justify-content:center; font-size:28px; font-weight:bold; color:#142e56; background:#fff; border-radius:4px;">15</div>
+            <div style="width:80px; height:80px; border:1px solid #142e56; display:flex; align-items:center; justify-content:center; font-size:28px; font-weight:bold; color:#142e56; background:#fff; border-radius:4px;">8</div>
+            <div style="width:80px; height:80px; border:1px solid #142e56; display:flex; align-items:center; justify-content:center; font-size:28px; font-weight:bold; color:#142e56; background:#fff; border-radius:4px;">18</div>
+            <div style="width:80px; height:80px; border:1px solid #142e56; display:flex; align-items:center; justify-content:center; font-size:28px; font-weight:bold; color:#142e56; background:#fff; border-radius:4px;">9</div>
+            <div style="width:80px; height:80px; border:1px solid #142e56; display:flex; align-items:center; justify-content:center; font-size:28px; font-weight:bold; color:#142e56; background:#fff; border-radius:4px;">10</div>
+            <div style="width:80px; height:80px; border:1px solid #142e56; display:flex; align-items:center; justify-content:center; font-size:28px; font-weight:bold; color:#142e56; background:#fff; border-radius:4px;">20</div>
+            <div style="width:80px; height:80px; border:1px solid #142e56; display:flex; align-items:center; justify-content:center; font-size:32px; font-weight:bold; color:#142e56; background:#fff; border-radius:4px;">?</div>
+        </div>`,
+        customOptsHtml: [
+            '<div style="text-align:center;"><div style="font-size:12px; font-weight:bold; color:#f0f4f8; margin-bottom:5px;">A</div><div style="width:80px; height:80px; border:1px solid #142e56; display:flex; align-items:center; justify-content:center; font-size:28px; font-weight:bold; color:#142e56; background:#fff; border-radius:4px;">10</div></div>',
+            '<div style="text-align:center;"><div style="font-size:12px; font-weight:bold; color:#f0f4f8; margin-bottom:5px;">B</div><div style="width:80px; height:80px; border:1px solid #142e56; display:flex; align-items:center; justify-content:center; font-size:28px; font-weight:bold; color:#142e56; background:#fff; border-radius:4px;">12</div></div>',
+            '<div style="text-align:center;"><div style="font-size:12px; font-weight:bold; color:#f0f4f8; margin-bottom:5px;">C</div><div style="width:80px; height:80px; border:1px solid #142e56; display:flex; align-items:center; justify-content:center; font-size:28px; font-weight:bold; color:#142e56; background:#fff; border-radius:4px;">13</div></div>',
+            '<div style="text-align:center;"><div style="font-size:12px; font-weight:bold; color:#f0f4f8; margin-bottom:5px;">D</div><div style="width:80px; height:80px; border:1px solid #142e56; display:flex; align-items:center; justify-content:center; font-size:28px; font-weight:bold; color:#142e56; background:#fff; border-radius:4px;">8</div></div>'
+        ],
+        answer: 0, time: 90, exp: 'In each row, the third entry is half of the second entry (30/2=15; 18/2=9, so 20/2=10).'
     }
 ];
 
-QUESTIONS = QUESTIONS.slice(0, 46);
+QUESTIONS = QUESTIONS.slice(0, 39).concat(QUESTIONS.slice(-1));
 
 
     // ─── State ─────────────────────────────────────────────────────────────────

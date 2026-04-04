@@ -751,6 +751,31 @@ document.addEventListener('DOMContentLoaded', function () {
 
 QUESTIONS = QUESTIONS.slice(0, 39).concat(QUESTIONS.slice(-1));
 
+    // ─── Shuffle options (randomise order, keep answer tracking correct) ───────
+    function shuffleArr(arr) {
+        var a = arr.slice();
+        for (var i = a.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var t = a[i]; a[i] = a[j]; a[j] = t;
+        }
+        return a;
+    }
+
+    QUESTIONS.forEach(function (q) {
+        // Image option questions — shuffle URLs, update answer index
+        if (q.imgOpts && q.imgOpts.length > 0) {
+            var correctUrl = q.imgOpts[q.answer];
+            q.imgOpts = shuffleArr(q.imgOpts);
+            q.answer  = q.imgOpts.indexOf(correctUrl);
+        }
+        // Text/number option questions — skip letter labels (A-F) and True/False
+        else if (q.opts && q.opts.length > 0
+                 && q.opts[0] !== 'A' && q.opts[0] !== 'True' && q.opts[0] !== 'False') {
+            var correctVal = q.opts[q.answer];
+            q.opts   = shuffleArr(q.opts);
+            q.answer = q.opts.indexOf(correctVal);
+        }
+    });
 
     // ─── State ─────────────────────────────────────────────────────────────────
     var answers    = new Array(QUESTIONS.length).fill(null);
@@ -1023,6 +1048,15 @@ QUESTIONS = QUESTIONS.slice(0, 39).concat(QUESTIONS.slice(-1));
                             '<span class="psych-result-val">' + correct + '/' + total + '</span>';
             breakdown.appendChild(row);
         });
+
+        // Save IQ score to localStorage for final submission
+        localStorage.setItem('tf_iq', JSON.stringify({
+            score: score,
+            total: QUESTIONS.length,
+            pct: pct,
+            tier: tier,
+            percentile: percentile
+        }));
 
         showScreen('screen-results');
     }

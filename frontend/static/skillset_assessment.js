@@ -505,6 +505,16 @@ function showResults() {
     });
     document.getElementById('sk-res-by-category').innerHTML = catHtml;
 
+    // Save skillset score to localStorage for final submission
+    localStorage.setItem('tf_skillset', JSON.stringify({
+        track: currentTrack === 'ml' ? 'Financial ML' : 'Database Engineering',
+        correct: correct,
+        total: total,
+        pct: pct,
+        tier: tier,
+        categories: catStats
+    }));
+
     showScreen('screen-results');
 }
 

@@ -499,17 +499,19 @@
                     </div>
 
                     <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px;">
-                        <a href="/assessment/iq" style="text-decoration:none;">
-                            <button class="nav-btn prev-btn">← General IQ</button>
-                        </a>
-                        <a href="/" style="text-decoration:none;">
-                            <button class="nav-btn prev-btn">← Application</button>
+                        <a href="/assessment/skillset" style="text-decoration:none;">
+                            <button class="nav-btn prev-btn">← Skillset</button>
                         </a>
                         <button id="retry-games-btn" class="nav-btn"
-                                style="background:linear-gradient(135deg,#00d4ff,#00ff88);color:#000;">
+                                style="background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.3);color:#00d4ff;">
                             Retry Games
                         </button>
+                        <button id="final-submit-btn" class="nav-btn"
+                                style="background:linear-gradient(135deg,#00d4ff,#00ff88);color:#000;font-weight:700;min-width:200px;">
+                            Submit Application →
+                        </button>
                     </div>
+                    <div id="submit-status" style="margin-top:12px;font-size:0.85rem;color:#5a7ca0;"></div>
                 </div>
 
             </div><!-- /main-content -->

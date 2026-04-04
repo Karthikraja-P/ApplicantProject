@@ -435,6 +435,13 @@ document.addEventListener('DOMContentLoaded', function () {
             'Hard chosen: ' + hardPct + '%' +
             ' · Hard accuracy: ' + hardAcc + '%' +
             ' · Total earned: $' + he.totalEarned.toFixed(2);
+
+        // Save games score to localStorage for final submission
+        localStorage.setItem('tf_games', JSON.stringify({
+            bart: { profile: bartProfile, avg_pumps: avgPumps.toFixed(1), exploded: bart.explodedCount, banked: bart.totalBanked.toFixed(2) },
+            igt:  { profile: igtProfile,  good_pct: goodPct, balance: igt.balance, trials: igt.trial },
+            he:   { profile: heProfile,   hard_pct: hardPct, hard_acc: hardAcc, earned: he.totalEarned.toFixed(2) }
+        }));
     }
 
     // ─── Event listeners ───────────────────────────────────────────────────────
@@ -462,6 +469,62 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('retry-games-btn').addEventListener('click', function () {
         stopGameTimer();
         showScreen('screen-games-intro');
+    });
+
+    document.getElementById('final-submit-btn').addEventListener('click', function () {
+        var btn    = document.getElementById('final-submit-btn');
+        var status = document.getElementById('submit-status');
+
+        // Gather all scores from localStorage
+        var iq       = JSON.parse(localStorage.getItem('tf_iq')       || 'null');
+        var skillset = JSON.parse(localStorage.getItem('tf_skillset') || 'null');
+        var games    = JSON.parse(localStorage.getItem('tf_games')    || 'null');
+        var formData = JSON.parse(localStorage.getItem('formCache')   || 'null');
+
+        if (!iq || !skillset || !games) {
+            var missing = [];
+            if (!iq)       missing.push('IQ Assessment');
+            if (!skillset) missing.push('Skillset Assessment');
+            if (!games)    missing.push('Games Assessment');
+            status.style.color = '#ff6b6b';
+            status.textContent = 'Please complete: ' + missing.join(', ') + ' before submitting.';
+            return;
+        }
+
+        btn.disabled = true;
+        btn.textContent = 'Submitting…';
+        status.style.color = '#5a7ca0';
+        status.textContent = 'Saving your results…';
+
+        fetch('/submit-final', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                applicant: formData || {},
+                scores: { iq: iq, skillset: skillset, games: games }
+            })
+        })
+        .then(function (r) { return r.json(); })
+        .then(function (res) {
+            if (res.status === 'success') {
+                // Clear assessment scores from localStorage
+                localStorage.removeItem('tf_iq');
+                localStorage.removeItem('tf_skillset');
+                localStorage.removeItem('tf_games');
+                window.location.href = '/confirmation';
+            } else {
+                status.style.color = '#ff6b6b';
+                status.textContent = 'Submission failed. Please try again.';
+                btn.disabled = false;
+                btn.textContent = 'Submit Application →';
+            }
+        })
+        .catch(function () {
+            status.style.color = '#ff6b6b';
+            status.textContent = 'Network error. Please try again.';
+            btn.disabled = false;
+            btn.textContent = 'Submit Application →';
+        });
     });
 
 });

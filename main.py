@@ -171,6 +171,42 @@ def assessment_iq():
 def assessment_skillset():
     return render_template('skillset_assessment.html')
 
+@app.route('/submit-final', methods=['POST'])
+def submit_final():
+    data = request.get_json()
+    if not data:
+        return jsonify({'status': 'error', 'message': 'No data received'}), 400
+
+    applicant = data.get('applicant', {})
+    scores    = data.get('scores', {})
+
+    email     = applicant.get('email', 'unknown').replace('@', '_at_')
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+
+    record = {
+        'submitted_at': datetime.now().isoformat(),
+        'applicant': applicant,
+        'scores': {
+            'iq': scores.get('iq'),
+            'skillset': scores.get('skillset'),
+            'games': scores.get('games')
+        }
+    }
+
+    if not os.path.exists('saved_applications'):
+        os.makedirs('saved_applications')
+
+    filename = f"saved_applications/final_{email}_{timestamp}.json"
+    with open(filename, 'w') as f:
+        json.dump(record, f, indent=2)
+
+    print(f"Final submission saved: {filename}")
+    return jsonify({'status': 'success', 'file': filename})
+
+@app.route('/confirmation')
+def confirmation():
+    return render_template('confirmation.html')
+
 
 @app.route('/assessment/skill')
 def assessment_skill():

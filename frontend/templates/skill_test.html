@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technical Assessment — TalentForge</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <!-- Load React and Babel -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        /* Override some styles to match the React components better */
+        body {
+            background-color: #090e1a;
+            color: #fff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        .main-content {
+            padding: 20px;
+        }
+        #root {
+            width: 100%;
+            min-height: 500px;
+        }
+    </style>
+</head>
+<body>
+<div class="container full-screen">
+    <div class="wizard-inner">
+        <header>
+            <h1>TalentForge Candidate Intake</h1>
+        </header>
+
+        <div class="wizard-layout">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <div class="sidebar-steps">
+                    <a href="/" class="step-item" style="text-decoration:none;">
+                        <div class="step-number" style="font-size:1rem;">←</div>
+                        <div class="step-title">Application</div>
+                    </a>
+                </div>
+                <div class="sidebar-divider"></div>
+                <div class="sidebar-section-label">Assessment</div>
+                <div class="sidebar-assessment-items">
+                    <a href="/assessment/iq" class="assessment-item step-item">
+                        <div class="step-number" style="font-size:0.65rem;font-weight:800;">IQ</div>
+                        <div class="step-title">General IQ</div>
+                    </a>
+                    <a href="/games" class="assessment-item step-item">
+                        <div class="step-number" style="font-size:0.65rem;font-weight:800;">🎮</div>
+                        <div class="step-title">Games</div>
+                    </a>
+                    <a href="/assessment/skill" class="assessment-item step-item active">
+                        <div class="step-number" style="font-size:0.65rem;font-weight:800;">⚡</div>
+                        <div class="step-title">Skill Test</div>
+                    </a>
+                </div>
+                <div class="sidebar-decoration">
+                    <img src="/static/sidebar-decoration.svg" alt="">
+                </div>
+            </div>
+
+            <!-- Main content -->
+            <div class="main-content">
+                <div id="root">
+                    <div style="display:flex; justify-content:center; align-items:center; height:300px; color:#5a7ca0;">
+                        Initializing assessment environment...
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Load the appropriate test component -->
+<script type="text/babel" data-presets="react" src="/static/skill_{{ test_type }}.jsx"></script>
+
+<!-- Render the app -->
+<script type="text/babel" data-presets="react">
+    // Since the external JSX file defines a default export named 'App'
+    // in a non-module environment with Babel, it will be available globally
+    // if we remove the 'export default' or if Babel handles it.
+    // However, the cleanest way is to ensure the function 'App' is available.
+    
+    // We'll wait a brief moment for the external script to load and compile
+    window.addEventListener('load', () => {
+        // The external script will have defined 'App'
+        if (typeof App !== 'undefined') {
+            const root = ReactDOM.createRoot(document.getElementById('root'));
+            root.render(<App />);
+        } else {
+            console.error("Failed to load assessment component.");
+            document.getElementById('root').innerHTML = '<div style="color:red; text-align:center; padding:20px;">Error: Failed to load assessment component. Please try refreshing the page.</div>';
+        }
+    });
+</script>
+
+</body>
+</html>

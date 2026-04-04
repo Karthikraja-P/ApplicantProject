@@ -172,5 +172,18 @@ def assessment_skillset():
     return render_template('skillset_assessment.html')
 
 
+@app.route('/assessment/skill')
+def assessment_skill():
+    return render_template('skill_selection.html')
+
+@app.route('/assessment/skill/ml')
+def assessment_skill_ml():
+    return render_template('skill_test.html', test_type='ml')
+
+@app.route('/assessment/skill/db')
+def assessment_skill_db():
+    return render_template('skill_test.html', test_type='db')
+
+
 if __name__ == '__main__':
     app.run(debug=True)

@@ -167,6 +167,10 @@ def assessment():
 def assessment_iq():
     return render_template('iq_assessment.html')
 
+@app.route('/assessment/skillset')
+def assessment_skillset():
+    return render_template('skillset_assessment.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)

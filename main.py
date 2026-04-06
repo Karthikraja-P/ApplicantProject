@@ -195,11 +195,31 @@ def load_draft():
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    error = request.args.get('error')
+    email = request.args.get('email', '')
+    return render_template('index.html', error=error, prefill_email=email)
 
 
 @app.route('/submit', methods=['POST'])
 def submit():
+    email = request.form.get('email', '').strip()
+
+    # ── Duplicate email check ──────────────────────────────────────────────────
+    if email:
+        try:
+            table = get_dynamo_table()
+            resp  = table.query(
+                KeyConditionExpression=Key('email').eq(email)
+            )
+            existing = [
+                item for item in resp.get('Items', [])
+                if str(item.get('submission_type#timestamp', '')).startswith('application#')
+            ]
+            if existing:
+                return redirect(url_for('index', error='already_applied', email=email))
+        except Exception:
+            pass  # if DynamoDB unreachable, fall through and allow submission
+
     # ── CV upload ──────────────────────────────────────────────────────────────
     cv_filename = None
     if 'cv' in request.files:
@@ -211,7 +231,6 @@ def submit():
 
     # ── Build record ────────────────────────────────────────────────────────────
     submitted_at = datetime.now().isoformat()
-    email = request.form.get('email', '').strip()
 
     item = {
         'email':                      email,

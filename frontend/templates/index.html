@@ -7,6 +7,23 @@
     <link rel="stylesheet" href="static/styles.css">
 </head>
 <body>
+    {% if error == 'already_applied' %}
+    <div id="duplicate-banner" style="
+        position:fixed;top:0;left:0;right:0;z-index:9999;
+        background:linear-gradient(135deg,#7b1e1e,#a83232);
+        color:#fff;padding:14px 24px;
+        display:flex;align-items:center;justify-content:space-between;
+        font-size:0.92rem;box-shadow:0 2px 12px rgba(0,0,0,0.4);">
+        <div>
+            <strong>⚠ Application already submitted</strong>&ensp;
+            An application from <strong>{{ prefill_email }}</strong> already exists in our system.
+            If you believe this is an error, please contact <a href="mailto:support@talentforge.io" style="color:#ffd0d0;">support@talentforge.io</a>.
+        </div>
+        <button onclick="document.getElementById('duplicate-banner').style.display='none'"
+            style="background:none;border:none;color:#fff;font-size:1.3rem;cursor:pointer;padding:0 8px;">✕</button>
+    </div>
+    <div style="height:52px;"></div>
+    {% endif %}
     <div class="container full-screen">
         <div class="wizard-inner">
             <header>

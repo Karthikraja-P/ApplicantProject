@@ -802,38 +802,49 @@ QUESTIONS = QUESTIONS.slice(0, 39).concat(QUESTIONS.slice(-1));
         target.style.display = '';
     }
 
-    // ─── Timer ─────────────────────────────────────────────────────────────────
-    function startTimer(seconds, onExpire) {
-        var bar    = document.getElementById('timer-bar');
-        var numEl  = document.getElementById('timer-num');
+    // ─── Section timer (10 minutes for whole IQ section) ───────────────────────
+    var SECTION_SECONDS = 600; // 10 minutes
+
+    function fmtTime(secs) {
+        var m = Math.floor(secs / 60);
+        var s = secs % 60;
+        return m + ':' + (s < 10 ? '0' : '') + s;
+    }
+
+    function startSectionTimer() {
+        var bar   = document.getElementById('timer-bar');
+        var numEl = document.getElementById('timer-num');
         var myEpoch = ++epoch;
         if (ticker) clearInterval(ticker);
 
         bar.classList.remove('warning', 'danger');
         bar.style.transition = 'none';
         bar.style.width = '100%';
-        numEl.textContent = seconds;
+        numEl.textContent = fmtTime(SECTION_SECONDS);
 
         requestAnimationFrame(function () {
-            bar.style.transition = 'width ' + seconds + 's linear';
+            bar.style.transition = 'width ' + SECTION_SECONDS + 's linear';
             bar.style.width = '0%';
         });
 
         var start = Date.now();
         ticker = setInterval(function () {
             if (myEpoch !== epoch) { clearInterval(ticker); return; }
-            var left = Math.max(0, seconds - Math.floor((Date.now() - start) / 1000));
-            numEl.textContent = left;
-            var pct = left / seconds;
+            var left = Math.max(0, SECTION_SECONDS - Math.floor((Date.now() - start) / 1000));
+            numEl.textContent = fmtTime(left);
+            var pct = left / SECTION_SECONDS;
             bar.classList.toggle('warning', pct <= 0.4 && pct > 0.15);
             bar.classList.toggle('danger',  pct <= 0.15);
             if (left <= 0) {
                 clearInterval(ticker);
-                if (answers[currentIdx] === null) answers[currentIdx] = -1;
+                // Mark all unanswered as timed-out
+                for (var i = 0; i < answers.length; i++) {
+                    if (answers[i] === null) answers[i] = -1;
+                }
                 updateNumGrid();
-                onExpire();
+                showResults();
             }
-        }, 250);
+        }, 500);
     }
 
     function stopTimer() {
@@ -929,24 +940,15 @@ QUESTIONS = QUESTIONS.slice(0, 39).concat(QUESTIONS.slice(-1));
             });
         }
 
-        // Restore prior answer
+        // Restore prior answer (section timer keeps running — no per-question timer)
         if (answers[idx] !== null && answers[idx] !== -1) {
-            stopTimer();
             revealAnswer(qOpts.querySelectorAll('.mcq-option'), answers[idx], q.answer, q.exp);
         } else if (answers[idx] === -1) {
-            stopTimer();
             disableOpts(qOpts);
-            qExp.textContent = 'Time expired. ' + q.exp;
+            qExp.textContent = 'Section time expired. ' + q.exp;
             qExp.className   = 'mcq-explanation visible incorrect';
-        } else {
-            startTimer(q.time, function () {
-                disableOpts(document.getElementById('q-options'));
-                var e = document.getElementById('q-explanation');
-                e.textContent = 'Time expired. ' + q.exp;
-                e.className   = 'mcq-explanation visible incorrect';
-                updateNav();
-            });
         }
+        // else: unanswered — section timer is already running, nothing to start here
 
         updateNumGrid();
         updateNav();
@@ -1009,7 +1011,11 @@ QUESTIONS = QUESTIONS.slice(0, 39).concat(QUESTIONS.slice(-1));
     prevBtn.addEventListener('click',  function () { if (currentIdx > 0) goTo(currentIdx - 1); });
     nextBtn.addEventListener('click',  function () { if (currentIdx < QUESTIONS.length - 1) goTo(currentIdx + 1); });
     finishBtn.addEventListener('click', showResults);
-    startBtn.addEventListener('click',  function () { showScreen('screen-question'); renderQuestion(0); });
+    startBtn.addEventListener('click', function () {
+        showScreen('screen-question');
+        renderQuestion(0);
+        startSectionTimer(); // single 10-min timer for the whole section
+    });
 
     // ─── Results ───────────────────────────────────────────────────────────────
     function showResults() {

@@ -132,125 +132,136 @@ document.addEventListener('DOMContentLoaded', function () {
     // Answer distribution: A(0)×6, B(1)×8, C(2)×8, D(3)×8
 
     var QUESTIONS = [
+
+    // ── M1: Shapes grow S→M→L across cols; circle/square/triangle per row ─────
     {
         title: 'Which image completes the pattern?',
-        source: 'IQ Test Academy',
-        imgUrl: 'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619620533832x433131910406034500/Q1.svg',
-        imgOpts: [
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619620616027x749775513973640600/Q%201%20A%20%281%29.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619620604000x436440903663458400/Q%201%20A%20%282%29.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619620628324x813131711903281900/Q%201%20A%20%283%29.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619620647449x949628165349358000/Q%201%20A%20%284%29.svg'
+        source: 'Perceptual Reasoning',
+        matrix: [
+            ciSVG('',12), ciSVG('',22), ciSVG('',32),
+            sqSVG('',12), sqSVG('',22), sqSVG('',32),
+            trSVG('',12), trSVG('',22), null
         ],
-        answer: 0, time: 90, exp: 'Pattern completed according to visual logic.'
+        opts: [trSVG('',32), ciSVG('',32), sqSVG('',32), trSVG('',12)],
+        answer: 0, time: 90,
+        exp: 'Shapes grow left-to-right (small→medium→large). Row 3 uses triangles — the missing piece is a large triangle.'
     },
+    // ── M2: Fill empty→half→full across cols; circle/square/triangle per row ──
     {
         title: 'Which image completes the pattern?',
-        source: 'IQ Test Academy',
-        imgUrl: 'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619611958813x303368106426746600/Q-01.svg',
-        imgOpts: [
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612017708x318234080959034500/Q-02.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612038426x989591692011166200/Q-03.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619621354436x983135457868009200/Q-03.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619621335445x643859524396502800/Q-04.svg'
+        source: 'Perceptual Reasoning',
+        matrix: [
+            ciSVG(''),  ciSVG('half'),  ciSVG('full'),
+            sqSVG(''),  sqSVG('half'),  sqSVG('full'),
+            trSVG(''),  trSVG('half'),  null
         ],
-        answer: 0, time: 90, exp: 'Pattern completed according to visual logic.'
+        opts: [trSVG(''), trSVG('half'), trSVG('full'), sqSVG('full')],
+        answer: 2, time: 90,
+        exp: 'Fill progresses empty→half→full across each row. Row 3 uses triangles — the missing piece is a fully-filled triangle.'
     },
+    // ── M3: Dot count +1 per col; row starting value +1 per row ───────────────
     {
         title: 'Which image completes the pattern?',
-        source: 'IQ Test Academy',
-        imgUrl: 'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619622838404x770376798705511300/Q3.svg',
-        imgOpts: [
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619622871266x487571820856178600/Q%203%20A%20%281%29.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619622884080x109847414543593490/Q%203%20A%20%282%29.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619622894966x491590834046897700/Q%203%20A%20%283%29.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619622905548x566558871071154400/Q%203%20A%20%284%29.svg'
+        source: 'Perceptual Reasoning',
+        matrix: [
+            dotsFn(1), dotsFn(2), dotsFn(3),
+            dotsFn(2), dotsFn(3), dotsFn(4),
+            dotsFn(3), dotsFn(4), null
         ],
-        answer: 0, time: 90, exp: 'Pattern completed according to visual logic.'
+        opts: [dotsFn(3), dotsFn(4), dotsFn(5), dotsFn(6)],
+        answer: 2, time: 90,
+        exp: 'Each row adds 1 dot per column. Row 3 starts at 3 — the last value is 3+2 = 5 dots.'
     },
+    // ── M4: Arrow rotates 90° CW per col; row start shifts 90° per row ────────
     {
         title: 'Which image completes the pattern?',
-        source: 'IQ Test Academy',
-        imgUrl: 'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612164401x306501931139286920/Q-06.svg',
-        imgOpts: [
-            '/static/images/iq/q4_mod_a.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612206726x152477936947297500/Q-08.svg',
-            '/static/images/iq/q4_mod_c.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612230359x380918791418798340/Q-10.svg'
+        source: 'Spatial Reasoning',
+        matrix: [
+            arrowFn(0), arrowFn(2), arrowFn(4),
+            arrowFn(2), arrowFn(4), arrowFn(6),
+            arrowFn(4), arrowFn(6), null
         ],
-        answer: 0, time: 90, exp: 'Pattern completed according to visual logic.'
+        opts: [arrowFn(0), arrowFn(2), arrowFn(5), arrowFn(7)],
+        answer: 0, time: 90,
+        exp: 'Each arrow rotates 90° clockwise across columns. Row 3: ← → ↑ → →. The missing arrow points right (→).'
     },
+    // ── M5: Shape cycles circle→square→triangle (filled), shifting each row ───
     {
         title: 'Which image completes the pattern?',
-        source: 'IQ Test Academy',
-        imgUrl: 'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612265288x400208747201012900/Q-11.svg',
-        imgOpts: [
-            '/static/images/iq/q5_mod_a_fixed.svg',
-            '/static/images/iq/q5_mod_b_fixed.svg',
-            '/static/images/iq/q5_mod_c_fixed.svg',
-            '/static/images/iq/q5_mod_d_fixed.svg'
+        source: 'Perceptual Reasoning',
+        matrix: [
+            ciSVG('full'), sqSVG('full'), trSVG('full'),
+            sqSVG('full'), trSVG('full'), ciSVG('full'),
+            trSVG('full'), ciSVG('full'), null
         ],
-        answer: 0, time: 90, exp: 'Pattern completed according to visual logic.'
+        opts: [ciSVG('full'), trSVG('full'), diSVG('full'), sqSVG('full')],
+        answer: 3, time: 90,
+        exp: 'Shapes cycle circle→square→triangle, shifting by one each row. Row 3 is triangle→circle→square.'
     },
+    // ── M6: Shapes shrink L→M→S; circle/square/diamond per row ───────────────
     {
         title: 'Which image completes the pattern?',
-        source: 'IQ Test Academy',
-        imgUrl: 'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612398948x962512441782625700/Q-16.svg',
-        imgOpts: [
-            '/static/images/iq/q6_mod_a.svg',
-            '/static/images/iq/q6_mod_b.svg',
-            '/static/images/iq/q6_mod_c.svg',
-            '/static/images/iq/q6_mod_d.svg'
+        source: 'Perceptual Reasoning',
+        matrix: [
+            ciSVG('',32), ciSVG('',22), ciSVG('',12),
+            sqSVG('',32), sqSVG('',22), sqSVG('',12),
+            diSVG('',32), diSVG('',22), null
         ],
-        answer: 0, time: 90, exp: 'Pattern completed according to visual logic.'
+        opts: [diSVG('',22), diSVG('',12), ciSVG('',12), sqSVG('',12)],
+        answer: 1, time: 90,
+        exp: 'Shapes shrink right-to-left (large→medium→small). Row 3 uses diamonds — the missing piece is a small diamond.'
     },
+    // ── M7: Fill per row (empty/half/full); circle/square/triangle per col ─────
     {
         title: 'Which image completes the pattern?',
-        source: 'IQ Test Academy',
-        imgUrl: 'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612510389x136536805538697070/Q17%20%281%29.svg',
-        imgOpts: [
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612527866x688576881155968800/Q17%20%282%29.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612546821x592087015516123100/Q17%20%283%29.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612558109x746314279224892000/Q17%20%284%29.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612571978x656955517216798700/Q17%20%285%29.svg'
+        source: 'Perceptual Reasoning',
+        matrix: [
+            ciSVG(''),     sqSVG(''),     trSVG(''),
+            ciSVG('half'), sqSVG('half'), trSVG('half'),
+            ciSVG('full'), sqSVG('full'), null
         ],
-        answer: 0, time: 90, exp: 'Pattern completed according to visual logic.'
+        opts: [trSVG('full'), trSVG('half'), trSVG(''), ciSVG('full')],
+        answer: 0, time: 90,
+        exp: 'Each row shares the same fill state. Row 3 is fully-filled; column 3 uses triangles — the answer is a full triangle.'
     },
+    // ── M8: Numbers double across cols; different row start ───────────────────
     {
-        title: 'Which image completes the pattern?',
-        source: 'IQ Test Academy',
-        imgUrl: 'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612612457x835481922157760800/Q16%20%281%29.svg',
-        imgOpts: [
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612627554x560054647095815400/Q16%20%282%29.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612638103x700005131404033900/Q16%20%283%29.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612646969x376114876119869800/Q16%20%283%29.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612663555x670628805566238800/Q16%20%285%29.svg'
+        title: 'Which number completes the pattern?',
+        source: 'Quantitative Reasoning',
+        matrix: [
+            numFn(2),  numFn(4),  numFn(8),
+            numFn(3),  numFn(6),  numFn(12),
+            numFn(5),  numFn(10), null
         ],
-        answer: 0, time: 90, exp: 'Pattern completed according to visual logic.'
+        numOpts: [15, 18, 20, 25],
+        answer: 2, time: 90,
+        exp: 'Each number doubles across columns (×2). Row 3: 5 → 10 → 20.'
     },
+    // ── M9: Arrow rotates −90° per col; row start shifts per row ──────────────
     {
         title: 'Which image completes the pattern?',
-        source: 'IQ Test Academy',
-        imgUrl: 'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612706523x431190232094357060/Q14%20%281%29.svg',
-        imgOpts: [
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612716743x827259021008903300/Q14%20%282%29.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612727270x905122243657644000/Q14%20%283%29.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612737827x275944541088282160/Q14%20%284%29.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612765598x927734180298426500/Q14%20%285%29.svg'
+        source: 'Spatial Reasoning',
+        matrix: [
+            arrowFn(6), arrowFn(4), arrowFn(2),
+            arrowFn(0), arrowFn(6), arrowFn(4),
+            arrowFn(2), arrowFn(0), null
         ],
-        answer: 0, time: 90, exp: 'Pattern completed according to visual logic.'
+        opts: [arrowFn(2), arrowFn(4), arrowFn(6), arrowFn(0)],
+        answer: 2, time: 90,
+        exp: 'Each arrow rotates 90° anti-clockwise across columns. Row 3: ↓ → → → ↑. The missing arrow points up (↑).'
     },
+    // ── M10: Dot count +2 per col; row starting value +1 per row ─────────────
     {
         title: 'Which image completes the pattern?',
-        source: 'IQ Test Academy',
-        imgUrl: 'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612790277x988726767292918300/Q15%20%281%29.svg',
-        imgOpts: [
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612800220x790021596360232200/Q15%20%282%29.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612810593x696986591314045600/Q15%20%283%29.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612819009x700448667939488400/Q15%20%284%29.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612827861x660028738277195300/Q15%20%285%29.svg'
+        source: 'Perceptual Reasoning',
+        matrix: [
+            dotsFn(3), dotsFn(5), dotsFn(7),
+            dotsFn(4), dotsFn(6), dotsFn(8),
+            dotsFn(5), dotsFn(7), null
         ],
-        answer: 0, time: 90, exp: 'Pattern completed according to visual logic.'
+        opts: [dotsFn(7), dotsFn(8), dotsFn(9), dotsFn(6)],
+        answer: 2, time: 90,
+        exp: 'Each row adds 2 dots per column. Row 3 col 2 = 7, so col 3 = 9 dots.'
     },
     {
         title: 'If all Bloops are Razzies and all Razzies are Lazzies, all Bloops are definitely Lazzies.',
@@ -258,103 +269,114 @@ document.addEventListener('DOMContentLoaded', function () {
         opts: ['True', 'False'],
         answer: 0, time: 90, exp: 'This follows the transitive property of syllogism: if A=B and B=C, then A=C. Therefore, the statement is True.'
     },
+    // ── M11: Numbers ×2 per col (matrix visual); opts show numbers 22-26 ────────
     {
-        title: 'Which image completes the pattern?',
-        source: 'IQ Test Academy',
-        imgUrl: 'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612849663x445410436101785660/Q13%20%281%29.svg',
+        title: 'Which number completes the pattern?',
+        source: 'Quantitative Reasoning',
+        matrix: [
+            numFn(4),  numFn(8),  numFn(16),
+            numFn(5),  numFn(10), numFn(20),
+            numFn(6),  numFn(12), null
+        ],
         customOptsHtml: [
-            '<div style="text-align:center;"><div style="font-size:12px; font-weight:bold; color:#f0f4f8; margin-bottom:5px;">A</div><div style="width:80px; height:80px; border:1px solid #142e56; display:flex; align-items:center; justify-content:center; font-size:28px; font-weight:bold; color:#142e56; background:#fff; border-radius:4px;">22</div></div>',
-            '<div style="text-align:center;"><div style="font-size:12px; font-weight:bold; color:#f0f4f8; margin-bottom:5px;">B</div><div style="width:80px; height:80px; border:1px solid #142e56; display:flex; align-items:center; justify-content:center; font-size:28px; font-weight:bold; color:#142e56; background:#fff; border-radius:4px;">23</div></div>',
-            '<div style="text-align:center;"><div style="font-size:12px; font-weight:bold; color:#f0f4f8; margin-bottom:5px;">C</div><div style="width:80px; height:80px; border:1px solid #142e56; display:flex; align-items:center; justify-content:center; font-size:28px; font-weight:bold; color:#142e56; background:#fff; border-radius:4px;">24</div></div>',
-            '<div style="text-align:center;"><div style="font-size:12px; font-weight:bold; color:#f0f4f8; margin-bottom:5px;">D</div><div style="width:80px; height:80px; border:1px solid #142e56; display:flex; align-items:center; justify-content:center; font-size:28px; font-weight:bold; color:#142e56; background:#fff; border-radius:4px;">26</div></div>'
+            '<div style="text-align:center;"><div style="font-size:12px;font-weight:bold;color:#f0f4f8;margin-bottom:5px;">A</div><div style="width:80px;height:80px;border:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:bold;color:#142e56;background:#fff;border-radius:4px;">22</div></div>',
+            '<div style="text-align:center;"><div style="font-size:12px;font-weight:bold;color:#f0f4f8;margin-bottom:5px;">B</div><div style="width:80px;height:80px;border:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:bold;color:#142e56;background:#fff;border-radius:4px;">23</div></div>',
+            '<div style="text-align:center;"><div style="font-size:12px;font-weight:bold;color:#f0f4f8;margin-bottom:5px;">C</div><div style="width:80px;height:80px;border:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:bold;color:#142e56;background:#fff;border-radius:4px;">24</div></div>',
+            '<div style="text-align:center;"><div style="font-size:12px;font-weight:bold;color:#f0f4f8;margin-bottom:5px;">D</div><div style="width:80px;height:80px;border:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:bold;color:#142e56;background:#fff;border-radius:4px;">26</div></div>'
         ],
-        answer: 2, time: 90, exp: 'The pattern is Points x 4. (4x4=16, 5x4=20, so 6x4=24).'
+        answer: 2, time: 90,
+        exp: 'Each number doubles across columns (×2). Row 3: 6 → 12 → 24.'
     },
+    // ── M12: Arrows rotate +45° per col; row start shifts +45° per row ────────
     {
         title: 'Which image completes the pattern?',
-        source: 'IQ Test Academy',
-        imgUrl: 'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612921005x779975298901960800/Q-21.svg',
-        imgOpts: [
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612932521x245939771070535760/Q-22.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612942065x644198582365540500/Q-23.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612952472x830828426872516400/Q-24.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619612961889x116950176296859660/Q-25.svg'
+        source: 'Spatial Reasoning',
+        matrix: [
+            arrowFn(7), arrowFn(0), arrowFn(1),
+            arrowFn(1), arrowFn(2), arrowFn(3),
+            arrowFn(3), arrowFn(4), null
         ],
-        answer: 0, time: 90, exp: 'Pattern completed according to visual logic.'
+        opts: [arrowFn(5), arrowFn(6), arrowFn(7), arrowFn(0)],
+        answer: 0, time: 90,
+        exp: 'Each arrow rotates 45° clockwise per column. Row 3: ↙ → ← → ↖. The missing arrow points upper-left (↖).'
     },
-
+    // ── M13: Dot count doubles per col: 1→2→4 / 2→4→8 / 1→2→4 ───────────────
     {
         title: 'Which image completes the pattern?',
-        source: 'IQ Test Academy',
-        imgUrl: 'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619613058202x594037861794896900/Q-26.svg',
-        imgOpts: [
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619613074408x179765709684606370/Q-27.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619613083909x562084557747605440/Q-28.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619613091609x303689851727431100/Q-29.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619686587440x753786085382590300/Q6A%20%284%29.svg'
+        source: 'Perceptual Reasoning',
+        matrix: [
+            dotsFn(1), dotsFn(2), dotsFn(4),
+            dotsFn(2), dotsFn(4), dotsFn(8),
+            dotsFn(1), dotsFn(2), null
         ],
-        answer: 0, time: 90, exp: 'Pattern completed according to visual logic.'
+        opts: [dotsFn(3), dotsFn(2), dotsFn(4), dotsFn(6)],
+        answer: 2, time: 90,
+        exp: 'Dot count doubles across each row (×2). Row 3: 1 → 2 → 4.'
     },
+    // ── M14: Uniform size per row; circle/square/diamond per col ─────────────
     {
         title: 'Which image completes the pattern?',
-        source: 'IQ Test Academy',
-        imgUrl: 'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619613139077x444131484485090300/Q11%20%281%29.svg',
-        imgOpts: [
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619613153993x567530250040917800/Q11%20%282%29.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619613195220x438082909840419800/Q11%20%283%29.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619613212837x673438854614232000/Q11%20%284%29.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619613186404x225846179982523550/Q11%20%285%29.svg'
+        source: 'Perceptual Reasoning',
+        matrix: [
+            ciSVG('',14), sqSVG('',14), diSVG('',14),
+            ciSVG('',22), sqSVG('',22), diSVG('',22),
+            ciSVG('',30), sqSVG('',30), null
         ],
-        answer: 0, time: 90, exp: 'Pattern completed according to visual logic.'
+        opts: [ciSVG('',30), sqSVG('',22), diSVG('',22), diSVG('',30)],
+        answer: 3, time: 90,
+        exp: 'Each row uses one consistent size. Column 3 always uses diamonds. Row 3 is large (r=30) — the answer is a large diamond.'
     },
+    // ── M15: Numbers ×3 per col ────────────────────────────────────────────────
+    {
+        title: 'Which number completes the pattern?',
+        source: 'Quantitative Reasoning',
+        matrix: [
+            numFn(1), numFn(3),  numFn(9),
+            numFn(2), numFn(6),  numFn(18),
+            numFn(3), numFn(9),  null
+        ],
+        numOpts: [18, 27, 30, 21],
+        answer: 1, time: 90,
+        exp: 'Each number multiplies by 3 across columns (×3). Row 3: 3 → 9 → 27.'
+    },
+    // ── M16: Fill rotates by 1 position each row (full/half/empty cycle) ──────
     {
         title: 'Which image completes the pattern?',
-        source: 'IQ Test Academy',
-        imgUrl: 'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619613234556x942711401849995400/Q-31.svg',
-        imgOpts: [
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619613251703x643791228348411900/Q-32.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619613261579x319041629116795260/Q-33.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619613270705x117131142408966720/Q-34.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619613278384x975411189850408700/Q-35.svg'
+        source: 'Perceptual Reasoning',
+        matrix: [
+            ciSVG('full'),  ciSVG('half'),  ciSVG(''),
+            sqSVG('half'),  sqSVG(''),      sqSVG('full'),
+            trSVG(''),      trSVG('full'),  null
         ],
-        answer: 0, time: 90, exp: 'Pattern completed according to visual logic.'
+        opts: [trSVG('full'), trSVG('half'), trSVG(''), sqSVG('half')],
+        answer: 1, time: 90,
+        exp: 'Fill states cycle (full→half→empty) and shift by one each row. Row 3 column 3 completes with half-filled.'
     },
+    // ── M17: Full/half/empty per col; circle→square→diamond per row ──────────
     {
         title: 'Which image completes the pattern?',
-        source: 'IQ Test Academy',
-        imgUrl: 'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619613300992x105407576843956620/Q-46.svg',
-        imgOpts: [
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619613312329x711165442126142600/Q-47.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619613321557x857329199642974000/Q-48.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619613329792x503449921267319550/Q-49.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619613338349x766906738210504200/Q-50.svg'
+        source: 'Perceptual Reasoning',
+        matrix: [
+            ciSVG('full'), ciSVG('half'), ciSVG(''),
+            sqSVG('full'), sqSVG('half'), sqSVG(''),
+            diSVG('full'), diSVG('half'), null
         ],
-        answer: 0, time: 90, exp: 'Pattern completed according to visual logic.'
+        opts: [diSVG('full'), diSVG('half'), diSVG(''), ciSVG('')],
+        answer: 2, time: 90,
+        exp: 'Column 3 is always empty-fill. Row 3 uses diamonds — the missing shape is an empty diamond.'
     },
-
+    // ── M18: Mixed fill diagonal; shape constant per col ─────────────────────
     {
         title: 'Which image completes the pattern?',
-        source: 'IQ Test Academy',
-        imgUrl: 'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619613378237x254800041398088900/Q-36.svg',
-        imgOpts: [
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619613396593x549741287264651200/Q-37.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619613404244x910607817835188900/Q-38.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619613413192x621279494666961300/Q-39.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1619613420671x716825641379112700/Q-40.svg'
+        source: 'Perceptual Reasoning',
+        matrix: [
+            ciSVG('full'), ciSVG('half'), ciSVG(''),
+            ciSVG('half'), ciSVG(''),     ciSVG('full'),
+            ciSVG(''),     ciSVG('full'), null
         ],
-        answer: 0, time: 90, exp: 'Pattern completed according to visual logic.'
-    },
-    {
-        title: 'Which image completes the pattern?',
-        source: 'IQ Test Academy',
-        imgUrl: 'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1625674357084x273551967348619300/Q3.svg',
-        imgOpts: [
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1625674464985x267064898882172220/Q3A%20%282%29.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1625674480000x844227647810190000/Q3A%20%281%29.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1625674424059x724234487231742100/Q3A%20%283%29.svg',
-            'https://f867b987572fb5d41ec60f5cee22021a.cdn.bubble.io/f1625674409241x936427935592745600/Q3A%20%284%29.svg'
-        ],
-        answer: 0, time: 90, exp: 'Pattern completed according to visual logic.'
+        opts: [ciSVG('full'), ciSVG('half'), ciSVG(''), sqSVG('half')],
+        answer: 1, time: 90,
+        exp: 'Each row cycles fill states (full/half/empty) shifted by one. Row 3: empty → full → half.'
     },
     {
         title: 'Which image completes the pattern?',
@@ -657,7 +679,7 @@ document.addEventListener('DOMContentLoaded', function () {
             '<div style="display:grid;grid-template-columns:repeat(3,18px);grid-template-rows:repeat(3,18px);border:1px solid #142e56;background:#fff;"><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;">🌙</div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div></div>',
             '<div style="display:grid;grid-template-columns:repeat(3,18px);grid-template-rows:repeat(3,18px);border:1px solid #142e56;background:#fff;"><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;">★</div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div></div>'
         ],
-        answer: 3, time: 90, exp: 'The star follows a row-based traversal in each row set, and the moon moves progressively through the empty corners and centers.'
+        answer: 0, time: 90, exp: 'Star moves top→bottom→middle across each outer column (col 3: [0][2]→[2][2]→[1][2]). Moon moves right→centre→left along each row (col 3: none→[0][1]→[0][0]).'
     }
     ,
     {

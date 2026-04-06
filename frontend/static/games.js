@@ -1,5 +1,27 @@
 document.addEventListener('DOMContentLoaded', function () {
 
+    // ─── Assessment completed lock ─────────────────────────────────────────────
+    var _gamesLocked = localStorage.getItem('games_completed') === 'true'
+                    || localStorage.getItem('assessmentCompleted') === 'true';
+    if (_gamesLocked) {
+        var intro = document.getElementById('screen-games-intro');
+        if (intro) {
+            intro.innerHTML = buildCompletedBanner(
+                '🎮 Games Assessment',
+                localStorage.getItem('assessmentCompleted') === 'true'
+                    ? 'You have already completed and submitted all assessments.'
+                    : 'You have already completed the Games assessment. Results are locked.',
+                localStorage.getItem('assessmentCompleted') === 'true'
+                    ? [{ label: 'Back to Application', href: '/' },
+                       { label: 'Confirmation', href: '/confirmation' }]
+                    : [{ label: 'Back to Application', href: '/' },
+                       { label: 'IQ Assessment', href: '/assessment/iq' },
+                       { label: 'Skillset Assessment', href: '/assessment/skillset' }]
+            );
+        }
+        return; // stop all further JS setup
+    }
+
     var GAME_TIME = 5 * 60; // 5 minutes per game (seconds)
 
     // ─── Pre-generated data ────────────────────────────────────────────────────
@@ -442,6 +464,11 @@ document.addEventListener('DOMContentLoaded', function () {
             igt:  { profile: igtProfile,  good_pct: goodPct, balance: igt.balance, trials: igt.trial },
             he:   { profile: heProfile,   hard_pct: hardPct, hard_acc: hardAcc, earned: he.totalEarned.toFixed(2) }
         }));
+
+        // Lock games — no retry allowed
+        localStorage.setItem('games_completed', 'true');
+        var retryBtn = document.getElementById('retry-games-btn');
+        if (retryBtn) retryBtn.style.display = 'none';
     }
 
     // ─── Event listeners ───────────────────────────────────────────────────────
@@ -466,10 +493,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     document.getElementById('he-next-btn').addEventListener('click', showResults);
 
-    document.getElementById('retry-games-btn').addEventListener('click', function () {
-        stopGameTimer();
-        showScreen('screen-games-intro');
-    });
+    // Retry is disabled — retry button is hidden after results are shown
 
     document.getElementById('final-submit-btn').addEventListener('click', function () {
         var btn    = document.getElementById('final-submit-btn');
@@ -507,10 +531,10 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(function (r) { return r.json(); })
         .then(function (res) {
             if (res.status === 'success') {
-                // Clear assessment scores from localStorage
                 localStorage.removeItem('tf_iq');
                 localStorage.removeItem('tf_skillset');
                 localStorage.removeItem('tf_games');
+                localStorage.setItem('assessmentCompleted', 'true'); // lock all assessments
                 window.location.href = '/confirmation';
             } else {
                 status.style.color = '#ff6b6b';

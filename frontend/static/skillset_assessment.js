@@ -325,6 +325,28 @@ var timerInterval  = null;
 var timeLeft       = 30 * 60; // 30 minutes
 var totalTime      = 30 * 60;
 
+// ─── Assessment completed lock ─────────────────────────────────────────────────
+(function() {
+    var locked = localStorage.getItem('sk_completed') === 'true'
+              || localStorage.getItem('assessmentCompleted') === 'true';
+    if (!locked) return;
+    var track = document.getElementById('screen-track');
+    if (track) {
+        track.innerHTML = buildCompletedBanner(
+            '⚡ Skillset Assessment',
+            'You have already completed this assessment.',
+            [{ label: '← Application', href: '/' },
+             { label: 'IQ Assessment', href: '/assessment/iq' },
+             { label: 'Games', href: '/games' },
+             { label: 'Confirmation', href: '/confirmation' }]
+        );
+        track.classList.add('active');
+    }
+    document.querySelectorAll('.psych-screen:not(#screen-track)').forEach(function(s) {
+        s.style.display = 'none';
+    });
+})();
+
 // ─── Screen helpers ───────────────────────────────────────────────────────────
 function showScreen(id) {
     document.querySelectorAll('.psych-screen').forEach(function(s) {
@@ -514,11 +536,18 @@ function showResults() {
         tier: tier,
         categories: catStats
     }));
+    localStorage.setItem('sk_completed', 'true'); // lock skillset from retry
 
     showScreen('screen-results');
+
+    // Hide retry button — assessment is locked once results are shown
+    var retryBtn = document.querySelector('#screen-results .nav-btn.prev-btn, #screen-results button[onclick*="retry"]');
+    if (retryBtn) retryBtn.style.display = 'none';
 }
 
 function retryAssessment() {
+    // Retry is disabled — once results are shown the assessment is locked
+    console.warn('Retry is not allowed after completing the assessment.');
     answers    = new Array(currentQs.length).fill(null);
     currentIdx = 0;
     timeLeft   = totalTime;

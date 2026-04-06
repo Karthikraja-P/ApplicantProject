@@ -338,18 +338,158 @@ header p {
     filter: brightness(1.05);
 }
 
+/* ── Checkbox pill group ─────────────────────────────────────────────────── */
 .wizard-checkbox {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 8px;
+    margin-bottom: 14px;
 }
 
 .wizard-checkbox label {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    font-size: 0.95rem;
-    color: #c7d5e5;
+    gap: 7px;
+    font-size: 0.86rem;
+    font-weight: 500;
+    color: #a8c4e0;
+    background: rgba(9, 14, 26, 0.85);
+    border: 1.5px solid rgba(52, 102, 162, 0.35);
+    border-radius: 999px;
+    padding: 6px 14px;
+    cursor: pointer;
+    transition: background 0.18s, border-color 0.18s, color 0.18s;
+    user-select: none;
+    line-height: 1.2;
+}
+
+.wizard-checkbox label:hover {
+    background: rgba(0, 212, 255, 0.08);
+    border-color: rgba(0, 212, 255, 0.4);
+    color: #c6e8ff;
+}
+
+.wizard-checkbox input[type="checkbox"] {
+    display: none;          /* hide native box; pill itself is the control */
+    width: auto;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: none;
+}
+
+/* checked state — pill turns accent */
+.wizard-checkbox input[type="checkbox"]:checked + span,
+.wizard-checkbox label:has(input[type="checkbox"]:checked) {
+    background: linear-gradient(135deg, rgba(0,212,255,0.18), rgba(0,255,136,0.14));
+    border-color: #00d4ff;
+    color: #c6f7ff;
+}
+
+/* fallback for browsers without :has() — JS-toggled class */
+.wizard-checkbox label.pill-checked {
+    background: linear-gradient(135deg, rgba(0,212,255,0.18), rgba(0,255,136,0.14));
+    border-color: #00d4ff;
+    color: #c6f7ff;
+}
+
+/* checkmark indicator shown inside pill when checked */
+.wizard-checkbox label::before {
+    content: '';
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(52, 102, 162, 0.5);
+    background: rgba(9,14,26,0.6);
+    flex-shrink: 0;
+    transition: background 0.15s, border-color 0.15s;
+    position: relative;
+}
+
+.wizard-checkbox label:has(input[type="checkbox"]:checked)::before,
+.wizard-checkbox label.pill-checked::before {
+    background: linear-gradient(135deg, #00d4ff, #00ff88);
+    border-color: #00d4ff;
+    box-shadow: 0 0 6px rgba(0,212,255,0.5);
+}
+
+/* ── Field group label (replaces plain <label> above checkboxes) ──────────── */
+.field-group-label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #5a8caa;
+    margin-bottom: 8px;
+    margin-top: 4px;
+}
+
+.field-group-label .multi-hint {
+    font-weight: 400;
+    font-size: 0.74rem;
+    letter-spacing: 0;
+    text-transform: none;
+    color: #3a5a72;
+    margin-left: 4px;
+}
+
+/* ── Specialized sub-section (DB / ML / AI) ──────────────────────────────── */
+.specialized-section {
+    margin-top: 20px;
+    border: 1px solid rgba(0, 212, 255, 0.15);
+    border-radius: 14px;
+    padding: 18px 18px 10px;
+    background: rgba(0, 212, 255, 0.03);
+    position: relative;
+}
+
+.specialized-section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px;
+    height: 100%;
+    border-radius: 14px 0 0 14px;
+    background: linear-gradient(180deg, #00d4ff, #00ff88);
+}
+
+.specialized-section h3 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #00d4ff;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin: 0 0 16px 8px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(0, 212, 255, 0.12);
+}
+
+.specialized-section .field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 20px;
+}
+
+@media (max-width: 640px) {
+    .specialized-section .field-row { grid-template-columns: 1fr; }
+}
+
+/* ── General Skills + Source divider ─────────────────────────────────────── */
+.section-divider {
+    height: 1px;
+    background: rgba(52, 102, 162, 0.2);
+    margin: 22px 0 18px;
+}
+
+.section-sub-heading {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: #4a6a8a;
+    margin-bottom: 12px;
 }
 
 @media (max-width: 900px) {

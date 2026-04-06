@@ -98,6 +98,19 @@ document.addEventListener('DOMContentLoaded', function() {
     locationCountrySelect.addEventListener('change', updateCitySuggestions);
     updatePhoneFormat();
 
+    // ── Pill checkbox sync (fallback for browsers without CSS :has()) ──────────
+    function syncPills() {
+        document.querySelectorAll('.wizard-checkbox input[type="checkbox"]').forEach(function(cb) {
+            cb.closest('label').classList.toggle('pill-checked', cb.checked);
+        });
+    }
+    form.addEventListener('change', function(e) {
+        if (e.target.type === 'checkbox') {
+            e.target.closest('label').classList.toggle('pill-checked', e.target.checked);
+        }
+    });
+    syncPills(); // run once on load
+
     let currentStep = 1;
 
     // ─── Step navigation ────────────────────────────────────────────────────────
@@ -451,9 +464,9 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        // All valid — submit
-        localStorage.removeItem('formCache');
-        localStorage.removeItem('formCacheTimestamp');
+        // Mark as submitted BEFORE posting — page will be read-only on return
+        localStorage.setItem('applicationSubmitted', 'true');
+        // Keep formCache so the review page can still show filled data
         form.submit();
     });
 
@@ -560,6 +573,81 @@ document.addEventListener('DOMContentLoaded', function() {
     form.addEventListener('input', () => { if (!isLoading) { clearTimeout(autoSaveTimeout); autoSaveTimeout = setTimeout(saveFormToCache, 500); } });
     form.addEventListener('change', () => { if (!isLoading) { clearTimeout(autoSaveTimeout); autoSaveTimeout = setTimeout(saveFormToCache, 500); } });
 
+    // ─── Read-only mode (application already submitted) ───────────────────────
+    function applyReadOnlyMode(assessmentDone) {
+        // Disable every field
+        form.querySelectorAll('input, select, textarea').forEach(el => {
+            el.disabled = true;
+        });
+
+        // Hide action buttons
+        if (nextBtn)         nextBtn.style.display         = 'none';
+        if (prevBtn)         prevBtn.style.display         = 'none';
+        if (saveBtn)         saveBtn.style.display         = 'none';
+        if (submitContainer) submitContainer.style.display = 'none';
+
+        // Submitted banner
+        const banner = document.createElement('div');
+        banner.style.cssText = [
+            'display:flex', 'align-items:center', 'gap:12px',
+            'background:linear-gradient(135deg,rgba(0,212,255,0.1),rgba(0,255,136,0.08))',
+            'border:1px solid rgba(0,212,255,0.3)',
+            'border-radius:12px', 'padding:12px 18px', 'margin-bottom:18px',
+            'font-size:0.9rem', 'color:#c6f7ff'
+        ].join(';');
+        const bannerTitle   = assessmentDone ? 'Application &amp; Assessments Completed' : 'Application Submitted';
+        const bannerSubtext = assessmentDone
+            ? 'All assessments have been submitted. This form and assessments are fully locked.'
+            : 'This form is read-only. Use the steps to review your responses.';
+        banner.innerHTML = `
+            <span style="font-size:1.5rem;">&#x2705;</span>
+            <div>
+                <strong style="color:#00ff88;display:block;margin-bottom:3px;">${bannerTitle}</strong>
+                <span style="color:#7aa8c4;font-size:0.82rem;">${bannerSubtext}</span>
+            </div>`;
+        const mainContent = document.querySelector('.main-content');
+        mainContent.insertBefore(banner, mainContent.firstChild);
+
+        // Replace nav buttons with read-only Prev / Next for browsing only
+        const navButtons = document.querySelector('.nav-buttons');
+        if (navButtons) {
+            navButtons.innerHTML = `
+                <button type="button" id="ro-prev" class="nav-btn prev-btn" style="display:none;">&#8592; Previous</button>
+                <button type="button" id="ro-next" class="nav-btn">Next &#8594;</button>`;
+
+            const roPrev = document.getElementById('ro-prev');
+            const roNext = document.getElementById('ro-next');
+
+            function syncRONav() {
+                roPrev.style.display = currentStep > 1           ? 'inline-block' : 'none';
+                roNext.style.display = currentStep < totalSteps  ? 'inline-block' : 'none';
+            }
+            roPrev.addEventListener('click', () => { if (currentStep > 1)          { currentStep--; updateStep(); syncRONav(); } });
+            roNext.addEventListener('click', () => { if (currentStep < totalSteps) { currentStep++; updateStep(); syncRONav(); } });
+            syncRONav();
+            stepItems.forEach(item => item.addEventListener('click', () => setTimeout(syncRONav, 0)));
+        }
+
+        // Locked field appearance
+        const s = document.createElement('style');
+        s.textContent = `
+            #application-form input:disabled,
+            #application-form select:disabled,
+            #application-form textarea:disabled {
+                opacity: 0.6;
+                cursor: not-allowed;
+                border-color: rgba(52,102,162,0.18) !important;
+                background: rgba(6,10,18,0.65) !important;
+                color: #8aa0bc !important;
+            }
+            .wizard-checkbox label {
+                cursor: not-allowed;
+                pointer-events: none;
+            }
+        `;
+        document.head.appendChild(s);
+    }
+
     // ─── Init ─────────────────────────────────────────────────────────────────────
     totalStepsText.textContent = totalSteps;
     updateStep();
@@ -567,6 +655,12 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(() => {
         const loaded = loadFormFromCache();
         if (!loaded) fillSampleData();
+        syncPills();
         isLoading = false;
+
+        if (localStorage.getItem('applicationSubmitted') === 'true') {
+            const assessmentDone = localStorage.getItem('assessmentCompleted') === 'true';
+            applyReadOnlyMode(assessmentDone);
+        }
     }, 150);
 });

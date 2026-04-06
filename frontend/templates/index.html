@@ -191,7 +191,8 @@
                 </div>
 
                 <div class="wizard-card" data-step="6">
-                    <h2>Skills & Source</h2>
+                    <h2>Skills &amp; Source</h2>
+
                     <label>Primary Area of Interest <span class="required">*</span> <span class="help-icon" title="Choose the area that best matches your expertise.">ⓘ</span></label>
                     <select id="area" name="area" required>
                         <option value="">Select...</option>
@@ -201,147 +202,189 @@
                         <option value="not-sure">Not sure</option>
                     </select>
 
-                <!-- Specialized Skill Sections (hidden by default, shown dynamically) -->
-                <div id="specialized-section-database" class="specialized-section" style="display:none; margin-top: 24px;">
-                    <h3>Database / Backend Systems Details</h3>
-                    <label>Databases you have worked with <span style="color:#aaa;">(multi-select)</span></label>
-                    <div class="wizard-checkbox">
-                        <label><input type="checkbox" name="db_databases" value="MySQL"> MySQL</label>
-                        <label><input type="checkbox" name="db_databases" value="PostgreSQL"> PostgreSQL</label>
-                        <label><input type="checkbox" name="db_databases" value="MongoDB"> MongoDB</label>
-                        <label><input type="checkbox" name="db_databases" value="Redis"> Redis</label>
-                        <label><input type="checkbox" name="db_databases" value="Cassandra"> Cassandra</label>
-                        <label><input type="checkbox" name="db_databases" value="DynamoDB"> DynamoDB</label>
-                        <label><input type="checkbox" name="db_databases" value="Other"> Other</label>
-                    </div>
-                    <label>Query Languages / Tools <span style="color:#aaa;">(multi-select)</span></label>
-                    <div class="wizard-checkbox">
-                        <label><input type="checkbox" name="db_query_tools" value="SQL"> SQL</label>
-                        <label><input type="checkbox" name="db_query_tools" value="PL/SQL"> PL/SQL</label>
-                        <label><input type="checkbox" name="db_query_tools" value="ORM tools"> ORM tools (Hibernate, Prisma, etc.)</label>
-                        <label><input type="checkbox" name="db_query_tools" value="None"> None</label>
-                    </div>
-                    <label>Backend Languages <span style="color:#aaa;">(multi-select)</span></label>
-                    <div class="wizard-checkbox">
-                        <label><input type="checkbox" name="db_backend_langs" value="Python"> Python</label>
-                        <label><input type="checkbox" name="db_backend_langs" value="Java"> Java</label>
-                        <label><input type="checkbox" name="db_backend_langs" value="Node.js"> Node.js</label>
-                        <label><input type="checkbox" name="db_backend_langs" value="Go"> Go</label>
-                        <label><input type="checkbox" name="db_backend_langs" value="Other"> Other</label>
-                    </div>
-                    <label>Experience Level</label>
-                    <select name="db_experience" id="db_experience">
-                        <option value="">Select...</option>
-                        <option value="Basic">Basic (learning / coursework)</option>
-                        <option value="Intermediate">Intermediate (projects)</option>
-                        <option value="Advanced">Advanced (production systems)</option>
-                    </select>
-                    <label>Have you designed or optimized a database system?</label>
-                    <select name="db_optimized" id="db_optimized">
-                        <option value="">Select...</option>
-                        <option value="Yes">Yes</option>
-                        <option value="No">No</option>
-                    </select>
-                    <label>Describe a database or backend system you have worked on <span style="color:#aaa;">(optional)</span></label>
-                    <textarea name="db_desc" id="db_desc"></textarea>
-                </div>
+                    <!-- ── Database / Backend ── -->
+                    <div id="specialized-section-database" class="specialized-section" style="display:none;">
+                        <h3>🗄️ Database / Backend Systems</h3>
 
-                <div id="specialized-section-ml" class="specialized-section" style="display:none; margin-top: 24px;">
-                    <h3>Financial Machine Learning Details</h3>
-                    <label>Libraries / Tools used <span style="color:#aaa;">(multi-select)</span></label>
-                    <div class="wizard-checkbox">
-                        <label><input type="checkbox" name="ml_libs" value="Pandas"> Pandas</label>
-                        <label><input type="checkbox" name="ml_libs" value="NumPy"> NumPy</label>
-                        <label><input type="checkbox" name="ml_libs" value="Scikit-learn"> Scikit-learn</label>
-                        <label><input type="checkbox" name="ml_libs" value="PyTorch"> PyTorch</label>
-                        <label><input type="checkbox" name="ml_libs" value="TensorFlow"> TensorFlow</label>
-                        <label><input type="checkbox" name="ml_libs" value="XGBoost"> XGBoost</label>
-                        <label><input type="checkbox" name="ml_libs" value="Other"> Other</label>
-                    </div>
-                    <label>Financial Data Experience <span style="color:#aaa;">(multi-select)</span></label>
-                    <div class="wizard-checkbox">
-                        <label><input type="checkbox" name="ml_fin_data" value="Time-series data"> Time-series data</label>
-                        <label><input type="checkbox" name="ml_fin_data" value="Stock/crypto market data"> Stock/crypto market data</label>
-                        <label><input type="checkbox" name="ml_fin_data" value="Backtesting"> Backtesting</label>
-                        <label><input type="checkbox" name="ml_fin_data" value="Feature engineering for finance"> Feature engineering for finance</label>
-                        <label><input type="checkbox" name="ml_fin_data" value="None"> None</label>
-                    </div>
-                    <label>ML Concepts familiarity <span style="color:#aaa;">(multi-select)</span></label>
-                    <div class="wizard-checkbox">
-                        <label><input type="checkbox" name="ml_concepts" value="Regression"> Regression</label>
-                        <label><input type="checkbox" name="ml_concepts" value="Classification"> Classification</label>
-                        <label><input type="checkbox" name="ml_concepts" value="Time-series forecasting"> Time-series forecasting</label>
-                        <label><input type="checkbox" name="ml_concepts" value="Reinforcement learning"> Reinforcement learning</label>
-                        <label><input type="checkbox" name="ml_concepts" value="None"> None</label>
-                    </div>
-                    <label>Experience Level</label>
-                    <select name="ml_experience" id="ml_experience">
-                        <option value="">Select...</option>
-                        <option value="Basic">Basic</option>
-                        <option value="Intermediate">Intermediate</option>
-                        <option value="Advanced">Advanced</option>
-                    </select>
-                    <label>Have you built or tested an ML model on financial data?</label>
-                    <select name="ml_built" id="ml_built">
-                        <option value="">Select...</option>
-                        <option value="Yes">Yes</option>
-                        <option value="No">No</option>
-                    </select>
-                    <label>Describe a financial ML project or experiment you’ve worked on <span style="color:#aaa;">(optional)</span></label>
-                    <textarea name="ml_desc" id="ml_desc"></textarea>
-                </div>
+                        <span class="field-group-label">Databases worked with <span class="multi-hint">(select all that apply)</span></span>
+                        <div class="wizard-checkbox">
+                            <label><input type="checkbox" name="db_databases" value="MySQL"> MySQL</label>
+                            <label><input type="checkbox" name="db_databases" value="PostgreSQL"> PostgreSQL</label>
+                            <label><input type="checkbox" name="db_databases" value="MongoDB"> MongoDB</label>
+                            <label><input type="checkbox" name="db_databases" value="Redis"> Redis</label>
+                            <label><input type="checkbox" name="db_databases" value="Cassandra"> Cassandra</label>
+                            <label><input type="checkbox" name="db_databases" value="DynamoDB"> DynamoDB</label>
+                            <label><input type="checkbox" name="db_databases" value="Other"> Other</label>
+                        </div>
 
-                <div id="specialized-section-ai" class="specialized-section" style="display:none; margin-top: 24px;">
-                    <h3>AI / LLM Systems Details</h3>
-                    <label>Tools / Frameworks used <span style="color:#aaa;">(multi-select)</span></label>
-                    <div class="wizard-checkbox">
-                        <label><input type="checkbox" name="ai_tools" value="OpenAI APIs"> OpenAI APIs</label>
-                        <label><input type="checkbox" name="ai_tools" value="LangChain"> LangChain</label>
-                        <label><input type="checkbox" name="ai_tools" value="LlamaIndex"> LlamaIndex</label>
-                        <label><input type="checkbox" name="ai_tools" value="Hugging Face"> Hugging Face</label>
-                        <label><input type="checkbox" name="ai_tools" value="Vector DBs"> Vector Databases (Pinecone, FAISS, etc.)</label>
-                        <label><input type="checkbox" name="ai_tools" value="Other"> Other</label>
+                        <span class="field-group-label">Query Languages / Tools <span class="multi-hint">(select all that apply)</span></span>
+                        <div class="wizard-checkbox">
+                            <label><input type="checkbox" name="db_query_tools" value="SQL"> SQL</label>
+                            <label><input type="checkbox" name="db_query_tools" value="PL/SQL"> PL/SQL</label>
+                            <label><input type="checkbox" name="db_query_tools" value="ORM tools"> ORM tools</label>
+                            <label><input type="checkbox" name="db_query_tools" value="None"> None</label>
+                        </div>
+
+                        <span class="field-group-label">Backend Languages <span class="multi-hint">(select all that apply)</span></span>
+                        <div class="wizard-checkbox">
+                            <label><input type="checkbox" name="db_backend_langs" value="Python"> Python</label>
+                            <label><input type="checkbox" name="db_backend_langs" value="Java"> Java</label>
+                            <label><input type="checkbox" name="db_backend_langs" value="Node.js"> Node.js</label>
+                            <label><input type="checkbox" name="db_backend_langs" value="Go"> Go</label>
+                            <label><input type="checkbox" name="db_backend_langs" value="Other"> Other</label>
+                        </div>
+
+                        <div class="field-row">
+                            <div>
+                                <label>Experience Level</label>
+                                <select name="db_experience" id="db_experience">
+                                    <option value="">Select...</option>
+                                    <option value="Basic">Basic — learning / coursework</option>
+                                    <option value="Intermediate">Intermediate — projects</option>
+                                    <option value="Advanced">Advanced — production systems</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label>Designed or optimized a DB system?</label>
+                                <select name="db_optimized" id="db_optimized">
+                                    <option value="">Select...</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <label>Describe a DB / backend system you have worked on <span class="multi-hint">(optional)</span></label>
+                        <textarea name="db_desc" id="db_desc" placeholder="Briefly describe a relevant project..."></textarea>
                     </div>
-                    <label>Areas of experience <span style="color:#aaa;">(multi-select)</span></label>
-                    <div class="wizard-checkbox">
-                        <label><input type="checkbox" name="ai_areas" value="Prompt engineering"> Prompt engineering</label>
-                        <label><input type="checkbox" name="ai_areas" value="RAG"> RAG (Retrieval-Augmented Generation)</label>
-                        <label><input type="checkbox" name="ai_areas" value="Fine-tuning"> Fine-tuning models</label>
-                        <label><input type="checkbox" name="ai_areas" value="AI agents"> AI agents / workflows</label>
-                        <label><input type="checkbox" name="ai_areas" value="Evaluation"> Evaluation / benchmarking</label>
-                        <label><input type="checkbox" name="ai_areas" value="None"> None</label>
+
+                    <!-- ── Financial ML ── -->
+                    <div id="specialized-section-ml" class="specialized-section" style="display:none;">
+                        <h3>🤖 Financial Machine Learning</h3>
+
+                        <span class="field-group-label">Libraries / Tools <span class="multi-hint">(select all that apply)</span></span>
+                        <div class="wizard-checkbox">
+                            <label><input type="checkbox" name="ml_libs" value="Pandas"> Pandas</label>
+                            <label><input type="checkbox" name="ml_libs" value="NumPy"> NumPy</label>
+                            <label><input type="checkbox" name="ml_libs" value="Scikit-learn"> Scikit-learn</label>
+                            <label><input type="checkbox" name="ml_libs" value="PyTorch"> PyTorch</label>
+                            <label><input type="checkbox" name="ml_libs" value="TensorFlow"> TensorFlow</label>
+                            <label><input type="checkbox" name="ml_libs" value="XGBoost"> XGBoost</label>
+                            <label><input type="checkbox" name="ml_libs" value="Other"> Other</label>
+                        </div>
+
+                        <span class="field-group-label">Financial Data Experience <span class="multi-hint">(select all that apply)</span></span>
+                        <div class="wizard-checkbox">
+                            <label><input type="checkbox" name="ml_fin_data" value="Time-series data"> Time-series data</label>
+                            <label><input type="checkbox" name="ml_fin_data" value="Stock/crypto market data"> Stock / Crypto data</label>
+                            <label><input type="checkbox" name="ml_fin_data" value="Backtesting"> Backtesting</label>
+                            <label><input type="checkbox" name="ml_fin_data" value="Feature engineering for finance"> Feature engineering</label>
+                            <label><input type="checkbox" name="ml_fin_data" value="None"> None</label>
+                        </div>
+
+                        <span class="field-group-label">ML Concepts <span class="multi-hint">(select all that apply)</span></span>
+                        <div class="wizard-checkbox">
+                            <label><input type="checkbox" name="ml_concepts" value="Regression"> Regression</label>
+                            <label><input type="checkbox" name="ml_concepts" value="Classification"> Classification</label>
+                            <label><input type="checkbox" name="ml_concepts" value="Time-series forecasting"> Time-series forecasting</label>
+                            <label><input type="checkbox" name="ml_concepts" value="Reinforcement learning"> Reinforcement learning</label>
+                            <label><input type="checkbox" name="ml_concepts" value="None"> None</label>
+                        </div>
+
+                        <div class="field-row">
+                            <div>
+                                <label>Experience Level</label>
+                                <select name="ml_experience" id="ml_experience">
+                                    <option value="">Select...</option>
+                                    <option value="Basic">Basic</option>
+                                    <option value="Intermediate">Intermediate</option>
+                                    <option value="Advanced">Advanced</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label>Built an ML model on financial data?</label>
+                                <select name="ml_built" id="ml_built">
+                                    <option value="">Select...</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <label>Describe a financial ML project <span class="multi-hint">(optional)</span></label>
+                        <textarea name="ml_desc" id="ml_desc" placeholder="Briefly describe a relevant project or experiment..."></textarea>
                     </div>
-                    <label>Programming Languages <span style="color:#aaa;">(multi-select)</span></label>
-                    <div class="wizard-checkbox">
-                        <label><input type="checkbox" name="ai_langs" value="Python"> Python</label>
-                        <label><input type="checkbox" name="ai_langs" value="JavaScript"> JavaScript</label>
-                        <label><input type="checkbox" name="ai_langs" value="Other"> Other</label>
+
+                    <!-- ── AI / LLM ── -->
+                    <div id="specialized-section-ai" class="specialized-section" style="display:none;">
+                        <h3>✨ AI / LLM Systems</h3>
+
+                        <span class="field-group-label">Tools / Frameworks <span class="multi-hint">(select all that apply)</span></span>
+                        <div class="wizard-checkbox">
+                            <label><input type="checkbox" name="ai_tools" value="OpenAI APIs"> OpenAI APIs</label>
+                            <label><input type="checkbox" name="ai_tools" value="LangChain"> LangChain</label>
+                            <label><input type="checkbox" name="ai_tools" value="LlamaIndex"> LlamaIndex</label>
+                            <label><input type="checkbox" name="ai_tools" value="Hugging Face"> Hugging Face</label>
+                            <label><input type="checkbox" name="ai_tools" value="Vector DBs"> Vector DBs</label>
+                            <label><input type="checkbox" name="ai_tools" value="Other"> Other</label>
+                        </div>
+
+                        <span class="field-group-label">Areas of Experience <span class="multi-hint">(select all that apply)</span></span>
+                        <div class="wizard-checkbox">
+                            <label><input type="checkbox" name="ai_areas" value="Prompt engineering"> Prompt engineering</label>
+                            <label><input type="checkbox" name="ai_areas" value="RAG"> RAG</label>
+                            <label><input type="checkbox" name="ai_areas" value="Fine-tuning"> Fine-tuning</label>
+                            <label><input type="checkbox" name="ai_areas" value="AI agents"> AI agents</label>
+                            <label><input type="checkbox" name="ai_areas" value="Evaluation"> Evaluation</label>
+                            <label><input type="checkbox" name="ai_areas" value="None"> None</label>
+                        </div>
+
+                        <span class="field-group-label">Programming Languages <span class="multi-hint">(select all that apply)</span></span>
+                        <div class="wizard-checkbox">
+                            <label><input type="checkbox" name="ai_langs" value="Python"> Python</label>
+                            <label><input type="checkbox" name="ai_langs" value="JavaScript"> JavaScript</label>
+                            <label><input type="checkbox" name="ai_langs" value="Other"> Other</label>
+                        </div>
+
+                        <div class="field-row">
+                            <div>
+                                <label>Experience Level</label>
+                                <select name="ai_experience" id="ai_experience">
+                                    <option value="">Select...</option>
+                                    <option value="Basic">Basic</option>
+                                    <option value="Intermediate">Intermediate</option>
+                                    <option value="Advanced">Advanced</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label>Deployed an AI / LLM application?</label>
+                                <select name="ai_deployed" id="ai_deployed">
+                                    <option value="">Select...</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <label>Describe an AI / LLM project you have built <span class="multi-hint">(optional)</span></label>
+                        <textarea name="ai_desc" id="ai_desc" placeholder="Briefly describe a project or deployment..."></textarea>
                     </div>
-                    <label>Experience Level</label>
-                    <select name="ai_experience" id="ai_experience">
-                        <option value="">Select...</option>
-                        <option value="Basic">Basic</option>
-                        <option value="Intermediate">Intermediate</option>
-                        <option value="Advanced">Advanced</option>
-                    </select>
-                    <label>Have you deployed an AI/LLM-based application?</label>
-                    <select name="ai_deployed" id="ai_deployed">
-                        <option value="">Select...</option>
-                        <option value="Yes">Yes</option>
-                        <option value="No">No</option>
-                    </select>
-                    <label>Describe an AI/LLM project you have built <span style="color:#aaa;">(optional)</span></label>
-                    <textarea name="ai_desc" id="ai_desc"></textarea>
-                </div>
-                    <label>Skills (optional) <span class="help-icon" title="Select all that apply to your skill set.">ⓘ</span></label>
-                    <div class="checkbox-group wizard-checkbox">
+
+                    <!-- ── General Skills + Source ── -->
+                    <div class="section-divider"></div>
+
+                    <p class="section-sub-heading">General Skills &amp; Discovery</p>
+
+                    <label>Additional Skills <span class="help-icon" title="Select all that apply to your skill set.">ⓘ</span></label>
+                    <div class="wizard-checkbox">
                         <label><input type="checkbox" name="skills" value="python"> Python</label>
                         <label><input type="checkbox" name="skills" value="sql"> SQL</label>
                         <label><input type="checkbox" name="skills" value="ml"> Machine Learning</label>
                         <label><input type="checkbox" name="skills" value="data-eng"> Data Engineering</label>
-                        <label><input type="checkbox" name="skills" value="apis"> APIs / Backend Development</label>
+                        <label><input type="checkbox" name="skills" value="apis"> APIs / Backend</label>
                         <label><input type="checkbox" name="skills" value="other"> Other</label>
                     </div>
+
                     <label>Where did you hear about us? <span class="required">*</span> <span class="help-icon" title="How did you learn about this opportunity?">ⓘ</span></label>
                     <select id="source" name="source" required>
                         <option value="">Select...</option>

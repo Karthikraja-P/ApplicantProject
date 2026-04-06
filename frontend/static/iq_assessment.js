@@ -777,6 +777,29 @@ QUESTIONS = QUESTIONS.slice(0, 39).concat(QUESTIONS.slice(-1));
         }
     });
 
+    // ─── Assessment completed lock ─────────────────────────────────────────────
+    var _iqLocked = localStorage.getItem('iq_completed') === 'true'
+                 || localStorage.getItem('assessmentCompleted') === 'true';
+    if (_iqLocked) {
+        var intro = document.getElementById('screen-intro');
+        if (intro) {
+            intro.innerHTML = buildCompletedBanner(
+                '🧠 General IQ Assessment',
+                'You have already completed this assessment.',
+                [{ label: '← Application', href: '/' },
+                 { label: 'Skillset Assessment', href: '/assessment/skillset' },
+                 { label: 'Confirmation', href: '/confirmation' }]
+            );
+            intro.classList.add('active');
+            intro.style.display = '';
+        }
+        // Hide other screens
+        document.querySelectorAll('.psych-screen:not(#screen-intro)').forEach(function(s) {
+            s.style.display = 'none';
+        });
+        return;
+    }
+
     // ─── State ─────────────────────────────────────────────────────────────────
     var answers    = new Array(QUESTIONS.length).fill(null);
     var currentIdx = 0;
@@ -1020,6 +1043,7 @@ QUESTIONS = QUESTIONS.slice(0, 39).concat(QUESTIONS.slice(-1));
     // ─── Results ───────────────────────────────────────────────────────────────
     function showResults() {
         stopTimer();
+        localStorage.setItem('iq_completed', 'true'); // lock IQ from retry
         var score = 0;
         answers.forEach(function (a, i) { if (a === QUESTIONS[i].answer) score++; });
         var pct = Math.round(score / QUESTIONS.length * 100);

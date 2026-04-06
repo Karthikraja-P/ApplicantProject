@@ -116,7 +116,8 @@ def _save_to_sqlite(item, submitted_at):
     """Fallback: persist to local SQLite when DynamoDB is unreachable."""
     try:
         conn = get_db()
-        cols = ', '.join(item.keys())
+        # Quote column names with backticks to handle special chars like #
+        cols = ', '.join(f'`{k}`' for k in item.keys())
         placeholders = ', '.join(['?'] * len(item))
         conn.execute(
             f'INSERT OR REPLACE INTO applications ({cols}) VALUES ({placeholders})',
@@ -271,7 +272,7 @@ def submit():
     try:
         table = get_dynamo_table()
         table.put_item(Item=item)
-        print(f"[DynamoDB] Saved: {email} → {DYNAMO_TABLE}")
+        print(f"[DynamoDB] Saved: {email} -> {DYNAMO_TABLE}")
     except ClientError as e:
         print(f"[DynamoDB ERROR] {e.response['Error']['Code']}: {e.response['Error']['Message']}")
         # Fallback: save to SQLite so no data is lost
@@ -390,28 +391,89 @@ def submit_final():
 
     applicant = data.get('applicant', {})
     scores    = data.get('scores', {})
-    email     = (applicant.get('email') or 'unknown').replace('@', '_at_')
-    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    email     = (applicant.get('email') or '').strip()
+    now       = datetime.now().isoformat()
 
-    record = {
-        'submitted_at': datetime.now().isoformat(),
-        'applicant': applicant,
-        'scores': {
-            'iq': scores.get('iq'),
-            'skillset': scores.get('skillset'),
-            'games': scores.get('games')
-        }
+    iq       = scores.get('iq') or {}
+    skillset = scores.get('skillset') or {}
+    games    = scores.get('games') or {}
+
+    score_attrs = {
+        'scores_updated_at':      now,
+        'iq_score':               str(iq.get('score', '')),
+        'iq_total':               str(iq.get('total', '')),
+        'iq_pct':                 str(iq.get('pct', '')),
+        'iq_tier':                str(iq.get('tier', '')),
+        'iq_percentile':          str(iq.get('percentile', '')),
+        'sk_track':               str(skillset.get('track', '')),
+        'sk_correct':             str(skillset.get('correct', '')),
+        'sk_total':               str(skillset.get('total', '')),
+        'sk_pct':                 str(skillset.get('pct', '')),
+        'sk_tier':                str(skillset.get('tier', '')),
+        'game_bart_profile':      str((games.get('bart') or {}).get('profile', '')),
+        'game_bart_pumps_avg':    str((games.get('bart') or {}).get('avgPumps', '')),
+        'game_igt_profile':       str((games.get('igt') or {}).get('profile', '')),
+        'game_igt_late_good_pct': str((games.get('igt') or {}).get('lateGoodPct', '')),
+        'game_he_profile':        str((games.get('he') or {}).get('profile', '')),
+        'game_he_hard_pct':       str((games.get('he') or {}).get('hardPct', '')),
     }
+    # Drop empty/None values — DynamoDB rejects empty strings
+    score_attrs = {k: v for k, v in score_attrs.items() if v and v != 'None'}
 
+    # ── Update DynamoDB: find the latest application record for this email ──────
+    dynamo_ok = False
+    if email:
+        try:
+            table = get_dynamo_table()
+
+            # Query all items for this email that are application records
+            resp  = table.query(
+                KeyConditionExpression=Key('email').eq(email)
+                    & Key('submission_type#timestamp').begins_with('application#')
+            )
+            items = resp.get('Items', [])
+
+            if items:
+                # Pick the most recently submitted application
+                latest   = sorted(items, key=lambda x: x.get('submitted_at', ''))[-1]
+                sort_key = latest['submission_type#timestamp']
+
+                update_expr  = 'SET ' + ', '.join(f'#{k} = :{k}' for k in score_attrs)
+                expr_names   = {f'#{k}': k for k in score_attrs}
+                expr_values  = {f':{k}': v for k, v in score_attrs.items()}
+
+                table.update_item(
+                    Key={'email': email, 'submission_type#timestamp': sort_key},
+                    UpdateExpression=update_expr,
+                    ExpressionAttributeNames=expr_names,
+                    ExpressionAttributeValues=expr_values
+                )
+                print(f"[DynamoDB] Scores updated for {email} on record {sort_key}")
+                dynamo_ok = True
+            else:
+                # No application record found — store scores as a standalone item
+                table.put_item(Item={
+                    'email': email,
+                    'submission_type#timestamp': f'scores#{now}',
+                    **score_attrs
+                })
+                print(f"[DynamoDB] Scores saved as standalone item for {email}")
+                dynamo_ok = True
+
+        except ClientError as e:
+            print(f"[DynamoDB ERROR] {e.response['Error']['Code']}: {e.response['Error']['Message']}")
+        except Exception as e:
+            print(f"[DynamoDB ERROR] {e}")
+
+    # ── Local JSON backup ───────────────────────────────────────────────────────
     if not os.path.exists('saved_applications'):
         os.makedirs('saved_applications')
-
-    filename = f"saved_applications/final_{email}_{timestamp}.json"
+    safe_email = email.replace('@', '_at_') or 'unknown'
+    filename = f"saved_applications/final_{safe_email}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
     with open(filename, 'w') as f:
-        json.dump(record, f, indent=2)
+        json.dump({'email': email, 'scores': scores, 'saved_at': now}, f, indent=2)
 
-    print(f"Final submission saved: {filename}")
-    return jsonify({'status': 'success', 'file': filename})
+    return jsonify({'status': 'success', 'dynamo': dynamo_ok})
 
 @app.route('/confirmation')
 def confirmation():

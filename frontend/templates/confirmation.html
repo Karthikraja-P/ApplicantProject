@@ -150,9 +150,16 @@
                         </ul>
                     </div>
 
-                    <a href="/" style="text-decoration:none;">
-                        <button class="nav-btn prev-btn">← Back to Home</button>
-                    </a>
+                    <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+                        <a href="/" style="text-decoration:none;">
+                            <button class="nav-btn prev-btn">← Back to Home</button>
+                        </a>
+                        <button class="nav-btn"
+                            style="background:linear-gradient(135deg,#00d4ff,#00ff88);color:#000;font-weight:700;"
+                            onclick="startNewCandidate()">
+                            New Candidate →
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -160,6 +167,17 @@
 </div>
 
 <script>
+function startNewCandidate() {
+    var keys = [
+        'formCache', 'formCacheTimestamp', 'applicationSubmitted',
+        'iq_completed', 'sk_completed', 'games_completed', 'assessmentCompleted',
+        'tf_iq', 'tf_skillset', 'tf_games'
+    ];
+    keys.forEach(function(k) { localStorage.removeItem(k); });
+    localStorage.setItem('new_candidate', 'true');
+    window.location.href = '/';
+}
+
 (function () {
     var iq       = JSON.parse(localStorage.getItem('tf_iq')       || 'null');
     var skillset = JSON.parse(localStorage.getItem('tf_skillset') || 'null');

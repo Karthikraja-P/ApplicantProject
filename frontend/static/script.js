@@ -601,12 +601,29 @@ document.addEventListener('DOMContentLoaded', function() {
             : 'This form is read-only. Use the steps to review your responses.';
         banner.innerHTML = `
             <span style="font-size:1.5rem;">&#x2705;</span>
-            <div>
+            <div style="flex:1;">
                 <strong style="color:#00ff88;display:block;margin-bottom:3px;">${bannerTitle}</strong>
                 <span style="color:#7aa8c4;font-size:0.82rem;">${bannerSubtext}</span>
-            </div>`;
+            </div>
+            <button type="button" id="new-candidate-btn"
+                style="background:linear-gradient(135deg,#00d4ff,#00ff88);color:#000;
+                       border:none;border-radius:8px;padding:8px 16px;
+                       font-size:0.82rem;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0;">
+                New Candidate &#x2192;
+            </button>`;
         const mainContent = document.querySelector('.main-content');
         mainContent.insertBefore(banner, mainContent.firstChild);
+
+        document.getElementById('new-candidate-btn').addEventListener('click', function () {
+            var keys = [
+                'formCache', 'formCacheTimestamp', 'applicationSubmitted',
+                'iq_completed', 'sk_completed', 'games_completed', 'assessmentCompleted',
+                'tf_iq', 'tf_skillset', 'tf_games'
+            ];
+            keys.forEach(function (k) { localStorage.removeItem(k); });
+            localStorage.setItem('new_candidate', 'true');
+            window.location.href = '/';
+        });
 
         // Replace nav buttons with read-only Prev / Next for browsing only
         const navButtons = document.querySelector('.nav-buttons');
@@ -653,8 +670,10 @@ document.addEventListener('DOMContentLoaded', function() {
     updateStep();
 
     setTimeout(() => {
+        const isNewCandidate = localStorage.getItem('new_candidate') === 'true';
+        if (isNewCandidate) localStorage.removeItem('new_candidate');
         const loaded = loadFormFromCache();
-        if (!loaded) fillSampleData();
+        if (!loaded && !isNewCandidate) fillSampleData();
         syncPills();
         isLoading = false;
 

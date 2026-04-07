@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Candidate Application - TalentForge</title>
     <link rel="stylesheet" href="static/styles.css">
+    <script>
+        // Clear any stale localStorage data from old versions of this app
+        ['formCache','formCacheTimestamp','applicationSubmitted','assessmentCompleted',
+         'new_candidate','iq_completed','sk_completed','games_completed',
+         'tf_iq','tf_skillset','tf_games','psychoResults','selectedArea'
+        ].forEach(function(k){ localStorage.removeItem(k); });
+    </script>
 </head>
 <body>
     {% if error == 'already_applied' %}

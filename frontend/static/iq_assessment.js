@@ -806,8 +806,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // ─── Assessment completed lock ─────────────────────────────────────────────
-    var _iqLocked = localStorage.getItem('iq_completed') === 'true'
-                 || localStorage.getItem('assessmentCompleted') === 'true';
+    var _iqLocked = sessionStorage.getItem('iq_completed') === 'true'
+                 || sessionStorage.getItem('assessmentCompleted') === 'true';
     if (_iqLocked) {
         var intro = document.getElementById('screen-intro');
         if (intro) {
@@ -1071,7 +1071,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // ─── Results ───────────────────────────────────────────────────────────────
     function showResults() {
         stopTimer();
-        localStorage.setItem('iq_completed', 'true'); // lock IQ from retry
+        sessionStorage.setItem('iq_completed', 'true'); // lock IQ from retry
         var score = 0;
         answers.forEach(function (a, i) { if (a === QUESTIONS[i].answer) score++; });
         var pct = Math.round(score / QUESTIONS.length * 100);
@@ -1117,8 +1117,8 @@ document.addEventListener('DOMContentLoaded', function () {
             breakdown.appendChild(row);
         });
 
-        // Save IQ score to localStorage for final submission
-        localStorage.setItem('tf_iq', JSON.stringify({
+        // Save IQ score to sessionStorage for final submission
+        sessionStorage.setItem('tf_iq', JSON.stringify({
             score: score,
             total: QUESTIONS.length,
             pct: pct,

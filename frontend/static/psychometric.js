@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
 
     // ─── Guard ─────────────────────────────────────────────────────────────────
-    const selectedArea = localStorage.getItem('selectedArea');
+    const selectedArea = sessionStorage.getItem('selectedArea');
 
     let testInProgress = false;
     window.addEventListener('beforeunload', function (e) {
@@ -559,7 +559,7 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('bar-C').style.width = pct + '%';
         }, 150);
 
-        localStorage.setItem('psychoResults', JSON.stringify({
+        sessionStorage.setItem('psychoResults', JSON.stringify({
             C: { score, max },
             composite: { score, max, percent: pct, tier },
             completedAt: new Date().toISOString(),

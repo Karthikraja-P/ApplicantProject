@@ -465,7 +465,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // Mark as submitted BEFORE posting — page will be read-only on return
-        localStorage.setItem('applicationSubmitted', 'true');
+        sessionStorage.setItem('applicationSubmitted', 'true');
         // Keep formCache so the review page can still show filled data
         form.submit();
     });
@@ -536,12 +536,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 cache[key] = value;
             }
         });
-        localStorage.setItem('formCache', JSON.stringify(cache));
-        localStorage.setItem('formCacheTimestamp', new Date().toISOString());
+        sessionStorage.setItem('formCache', JSON.stringify(cache));
+        sessionStorage.setItem('formCacheTimestamp', new Date().toISOString());
     }
 
     function loadFormFromCache() {
-        const cached = localStorage.getItem('formCache');
+        const cached = sessionStorage.getItem('formCache');
         if (!cached) return false;
         try {
             const cache = JSON.parse(cached);
@@ -620,8 +620,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 'iq_completed', 'sk_completed', 'games_completed', 'assessmentCompleted',
                 'tf_iq', 'tf_skillset', 'tf_games'
             ];
-            keys.forEach(function (k) { localStorage.removeItem(k); });
-            localStorage.setItem('new_candidate', 'true');
+            keys.forEach(function (k) { sessionStorage.removeItem(k); });
+            sessionStorage.setItem('new_candidate', 'true');
             window.location.href = '/';
         });
 
@@ -670,15 +670,15 @@ document.addEventListener('DOMContentLoaded', function() {
     updateStep();
 
     setTimeout(() => {
-        const isNewCandidate = localStorage.getItem('new_candidate') === 'true';
-        if (isNewCandidate) localStorage.removeItem('new_candidate');
+        const isNewCandidate = sessionStorage.getItem('new_candidate') === 'true';
+        if (isNewCandidate) sessionStorage.removeItem('new_candidate');
         const loaded = loadFormFromCache();
         if (!loaded && !isNewCandidate) fillSampleData();
         syncPills();
         isLoading = false;
 
-        if (localStorage.getItem('applicationSubmitted') === 'true') {
-            const assessmentDone = localStorage.getItem('assessmentCompleted') === 'true';
+        if (sessionStorage.getItem('applicationSubmitted') === 'true') {
+            const assessmentDone = sessionStorage.getItem('assessmentCompleted') === 'true';
             applyReadOnlyMode(assessmentDone);
         }
     }, 150);

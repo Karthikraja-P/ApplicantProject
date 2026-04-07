@@ -1,17 +1,17 @@
 document.addEventListener('DOMContentLoaded', function () {
 
     // ─── Assessment completed lock ─────────────────────────────────────────────
-    var _gamesLocked = localStorage.getItem('games_completed') === 'true'
-                    || localStorage.getItem('assessmentCompleted') === 'true';
+    var _gamesLocked = sessionStorage.getItem('games_completed') === 'true'
+                    || sessionStorage.getItem('assessmentCompleted') === 'true';
     if (_gamesLocked) {
         var intro = document.getElementById('screen-games-intro');
         if (intro) {
             intro.innerHTML = buildCompletedBanner(
                 '🎮 Games Assessment',
-                localStorage.getItem('assessmentCompleted') === 'true'
+                sessionStorage.getItem('assessmentCompleted') === 'true'
                     ? 'You have already completed and submitted all assessments.'
                     : 'You have already completed the Games assessment. Results are locked.',
-                localStorage.getItem('assessmentCompleted') === 'true'
+                sessionStorage.getItem('assessmentCompleted') === 'true'
                     ? [{ label: 'Back to Application', href: '/' },
                        { label: 'Confirmation', href: '/confirmation' }]
                     : [{ label: 'Back to Application', href: '/' },
@@ -458,15 +458,15 @@ document.addEventListener('DOMContentLoaded', function () {
             ' · Hard accuracy: ' + hardAcc + '%' +
             ' · Total earned: $' + he.totalEarned.toFixed(2);
 
-        // Save games score to localStorage for final submission
-        localStorage.setItem('tf_games', JSON.stringify({
+        // Save games score to sessionStorage for final submission
+        sessionStorage.setItem('tf_games', JSON.stringify({
             bart: { profile: bartProfile, avg_pumps: avgPumps.toFixed(1), exploded: bart.explodedCount, banked: bart.totalBanked.toFixed(2) },
             igt:  { profile: igtProfile,  good_pct: goodPct, balance: igt.balance, trials: igt.trial },
             he:   { profile: heProfile,   hard_pct: hardPct, hard_acc: hardAcc, earned: he.totalEarned.toFixed(2) }
         }));
 
         // Lock games — no retry allowed
-        localStorage.setItem('games_completed', 'true');
+        sessionStorage.setItem('games_completed', 'true');
         var retryBtn = document.getElementById('retry-games-btn');
         if (retryBtn) retryBtn.style.display = 'none';
     }
@@ -499,11 +499,11 @@ document.addEventListener('DOMContentLoaded', function () {
         var btn    = document.getElementById('final-submit-btn');
         var status = document.getElementById('submit-status');
 
-        // Gather all scores from localStorage
-        var iq       = JSON.parse(localStorage.getItem('tf_iq')       || 'null');
-        var skillset = JSON.parse(localStorage.getItem('tf_skillset') || 'null');
-        var games    = JSON.parse(localStorage.getItem('tf_games')    || 'null');
-        var formData = JSON.parse(localStorage.getItem('formCache')   || 'null');
+        // Gather all scores from sessionStorage
+        var iq       = JSON.parse(sessionStorage.getItem('tf_iq')       || 'null');
+        var skillset = JSON.parse(sessionStorage.getItem('tf_skillset') || 'null');
+        var games    = JSON.parse(sessionStorage.getItem('tf_games')    || 'null');
+        var formData = JSON.parse(sessionStorage.getItem('formCache')   || 'null');
 
         if (!iq || !skillset || !games) {
             var missing = [];
@@ -531,10 +531,10 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(function (r) { return r.json(); })
         .then(function (res) {
             if (res.status === 'success') {
-                localStorage.removeItem('tf_iq');
-                localStorage.removeItem('tf_skillset');
-                localStorage.removeItem('tf_games');
-                localStorage.setItem('assessmentCompleted', 'true'); // lock all assessments
+                sessionStorage.removeItem('tf_iq');
+                sessionStorage.removeItem('tf_skillset');
+                sessionStorage.removeItem('tf_games');
+                sessionStorage.setItem('assessmentCompleted', 'true'); // lock all assessments
                 window.location.href = '/confirmation';
             } else {
                 status.style.color = '#ff6b6b';

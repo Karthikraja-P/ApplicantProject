@@ -327,8 +327,8 @@ var totalTime      = 30 * 60;
 
 // ─── Assessment completed lock ─────────────────────────────────────────────────
 (function() {
-    var locked = localStorage.getItem('sk_completed') === 'true'
-              || localStorage.getItem('assessmentCompleted') === 'true';
+    var locked = sessionStorage.getItem('sk_completed') === 'true'
+              || sessionStorage.getItem('assessmentCompleted') === 'true';
     if (!locked) return;
     var track = document.getElementById('screen-track');
     if (track) {
@@ -527,8 +527,8 @@ function showResults() {
     });
     document.getElementById('sk-res-by-category').innerHTML = catHtml;
 
-    // Save skillset score to localStorage for final submission
-    localStorage.setItem('tf_skillset', JSON.stringify({
+    // Save skillset score to sessionStorage for final submission
+    sessionStorage.setItem('tf_skillset', JSON.stringify({
         track: currentTrack === 'ml' ? 'Financial ML' : 'Database Engineering',
         correct: correct,
         total: total,
@@ -536,7 +536,7 @@ function showResults() {
         tier: tier,
         categories: catStats
     }));
-    localStorage.setItem('sk_completed', 'true'); // lock skillset from retry
+    sessionStorage.setItem('sk_completed', 'true'); // lock skillset from retry
 
     showScreen('screen-results');
 

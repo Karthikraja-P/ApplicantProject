@@ -2,7 +2,17 @@
   "permissions": {
     "allow": [
       "Read(//c/Users/Admin/Desktop/**)",
-      "Bash(python -c ':*)"
+      "Bash(python -c ':*)",
+      "WebFetch(domain:test.iqtestacademy.org)",
+      "Bash(python scrape_iq_questions.py)",
+      "Bash(curl -s http://127.0.0.1:5000/static/images/iq_scraped/q01_main.svg)",
+      "Bash(curl -s http://127.0.0.1:5000/static/images/iq_scraped/q20_opt_e.svg)",
+      "Bash(pip show:*)",
+      "Bash(pip install:*)",
+      "Bash(python:*)",
+      "Bash(where inkscape:*)",
+      "Bash(where rsvg-convert:*)",
+      "Bash(where magick:*)"
     ]
   }
 }

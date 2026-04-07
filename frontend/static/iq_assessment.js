@@ -128,10 +128,18 @@ document.addEventListener('DOMContentLoaded', function () {
         return '<svg width="56" height="56" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" style="background:' + BG + ';border-radius:6px;"><text x="40" y="50" text-anchor="middle" font-size="32" fill="' + COL + '" font-weight="bold">' + n + '</text></svg>';
     }
 
-    // ─── Question Bank (15 visual + 15 number, interleaved) ────────────────────
-    // Answer distribution: A(0)×6, B(1)×8, C(2)×8, D(3)×8
+    // ─── Questions — loaded from iq_question_bank.js ──────────────────────────
+    // To change the question set, replace iq_question_bank.js only.
+    // This engine file must not contain question data.
+    if (typeof IQ_QUESTION_BANK === 'undefined') {
+        console.error('iq_question_bank.js must be loaded before iq_assessment.js');
+    }
+    var QUESTIONS = (typeof IQ_QUESTION_BANK !== 'undefined') ? IQ_QUESTION_BANK.slice() : [];
 
-    var QUESTIONS = [
+    // ── Legacy inline questions (kept for backwards compatibility only) ─────────
+    // These are overridden by IQ_QUESTION_BANK above. Remove this block once the
+    // scraper has been run and iq_question_bank.js is populated.
+    var _LEGACY_QUESTIONS = [
 
     // ── M1: Shapes grow S→M→L across cols; circle/square/triangle per row ─────
     {
@@ -769,9 +777,7 @@ document.addEventListener('DOMContentLoaded', function () {
         ],
         answer: 0, time: 90, exp: 'In each row, the third entry is half of the second entry (30/2=15; 18/2=9, so 20/2=10).'
     }
-];
-
-QUESTIONS = QUESTIONS.slice(0, 39).concat(QUESTIONS.slice(-1));
+]; // end _LEGACY_QUESTIONS
 
     // ─── Shuffle options (randomise order, keep answer tracking correct) ───────
     function shuffleArr(arr) {
@@ -1085,11 +1091,21 @@ QUESTIONS = QUESTIONS.slice(0, 39).concat(QUESTIONS.slice(-1));
 
         var breakdown = document.getElementById('res-breakdown');
         breakdown.innerHTML = '';
-        var cats = [
-            { label: 'Visual Patterns', indices: [0,2,4,6,8,10,12,14,16,18] },
-            { label: 'Number Matrices', indices: [1,3,5,7,9,11,13,15,17,19] }
-        ];
-        cats.forEach(function (cat) {
+
+        // ── Dynamic breakdown by source category ──────────────────────────────
+        // Groups questions by their `source` field so any question bank works.
+        var sourceMap = {};
+        QUESTIONS.forEach(function (q, i) {
+            var src = q.source || 'General';
+            if (!sourceMap[src]) sourceMap[src] = [];
+            sourceMap[src].push(i);
+        });
+        var cats = Object.keys(sourceMap).map(function (src) {
+            return { label: src, indices: sourceMap[src] };
+        });
+        // Limit to top 6 categories for display
+        cats.sort(function (a, b) { return b.indices.length - a.indices.length; });
+        cats.slice(0, 6).forEach(function (cat) {
             var correct = cat.indices.filter(function (i) { return answers[i] === QUESTIONS[i].answer; }).length;
             var total   = cat.indices.length;
             var p       = Math.round(correct / total * 100);

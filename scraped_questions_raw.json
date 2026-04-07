@@ -1,0 +1,362 @@
+[
+  {
+    "id": "q01",
+    "title": "Which image completes the pattern?",
+    "source": "IQ Test Academy",
+    "imgUrl": "/static/images/iq_scraped/q01_opt_a.svg",
+    "imgOpts": [
+      "/static/images/iq_scraped/q01_opt_b.svg",
+      "/static/images/iq_scraped/q01_opt_c.svg",
+      "/static/images/iq_scraped/q01_opt_d.svg",
+      "/static/images/iq_scraped/q01_opt_e.svg"
+    ],
+    "opts": null,
+    "answer": 0,
+    "time": 90,
+    "exp": "",
+    "_screenshot": "_q01_screen.png",
+    "_n_imgs": 6
+  },
+  {
+    "id": "q02",
+    "title": "Which image completes the pattern?",
+    "source": "IQ Test Academy",
+    "imgUrl": "/static/images/iq_scraped/q02_main.png",
+    "imgOpts": [
+      "/static/images/iq_scraped/q02_opt_a.png",
+      "/static/images/iq_scraped/q02_opt_b.png",
+      "/static/images/iq_scraped/q02_opt_c.png",
+      "/static/images/iq_scraped/q02_opt_d.png"
+    ],
+    "opts": null,
+    "answer": 3,
+    "time": 90,
+    "exp": "",
+    "_screenshot": "_q02_screen.png",
+    "_n_imgs": 6
+  },
+  {
+    "id": "q03",
+    "title": "Which image completes the pattern?",
+    "source": "IQ Test Academy",
+    "imgUrl": "/static/images/iq_scraped/q03_main.png",
+    "imgOpts": [
+      "/static/images/iq_scraped/q03_opt_a.png",
+      "/static/images/iq_scraped/q03_opt_b.png",
+      "/static/images/iq_scraped/q03_opt_c.png",
+      "/static/images/iq_scraped/q03_opt_d.png"
+    ],
+    "opts": null,
+    "answer": 2,
+    "time": 90,
+    "exp": "",
+    "_screenshot": "_q03_screen.png",
+    "_n_imgs": 6
+  },
+  {
+    "id": "q04",
+    "title": "Which image completes the pattern?",
+    "source": "IQ Test Academy",
+    "imgUrl": "/static/images/iq_scraped/q04_main.png",
+    "imgOpts": [
+      "/static/images/iq_scraped/q04_opt_a.png",
+      "/static/images/iq_scraped/q04_opt_b.png",
+      "/static/images/iq_scraped/q04_opt_c.png",
+      "/static/images/iq_scraped/q04_opt_d.png"
+    ],
+    "opts": null,
+    "answer": 2,
+    "time": 90,
+    "exp": "",
+    "_screenshot": "_q04_screen.png",
+    "_n_imgs": 6
+  },
+  {
+    "id": "q05",
+    "title": "Which image completes the pattern?",
+    "source": "IQ Test Academy",
+    "imgUrl": "/static/images/iq_scraped/q05_main.png",
+    "imgOpts": [
+      "/static/images/iq_scraped/q05_opt_a.png",
+      "/static/images/iq_scraped/q05_opt_b.png",
+      "/static/images/iq_scraped/q05_opt_c.png",
+      "/static/images/iq_scraped/q05_opt_d.png"
+    ],
+    "opts": null,
+    "answer": 3,
+    "time": 90,
+    "exp": "",
+    "_screenshot": "_q05_screen.png",
+    "_n_imgs": 6
+  },
+  {
+    "id": "q06",
+    "title": "Which image completes the pattern?",
+    "source": "IQ Test Academy",
+    "imgUrl": "/static/images/iq_scraped/q06_main.png",
+    "imgOpts": [
+      "/static/images/iq_scraped/q06_opt_a.png",
+      "/static/images/iq_scraped/q06_opt_b.png",
+      "/static/images/iq_scraped/q06_opt_c.png",
+      "/static/images/iq_scraped/q06_opt_d.png"
+    ],
+    "opts": null,
+    "answer": 3,
+    "time": 90,
+    "exp": "",
+    "_screenshot": "_q06_screen.png",
+    "_n_imgs": 6
+  },
+  {
+    "id": "q07",
+    "title": "Which image completes the pattern?",
+    "source": "IQ Test Academy",
+    "imgUrl": "/static/images/iq_scraped/q07_main.png",
+    "imgOpts": [
+      "/static/images/iq_scraped/q07_opt_a.png",
+      "/static/images/iq_scraped/q07_opt_b.png",
+      "/static/images/iq_scraped/q07_opt_c.png",
+      "/static/images/iq_scraped/q07_opt_d.png"
+    ],
+    "opts": null,
+    "answer": 0,
+    "time": 90,
+    "exp": "",
+    "_screenshot": "_q07_screen.png",
+    "_n_imgs": 6
+  },
+  {
+    "id": "q08",
+    "title": "Which image completes the pattern?",
+    "source": "IQ Test Academy",
+    "imgUrl": "/static/images/iq_scraped/q08_main.png",
+    "imgOpts": [
+      "/static/images/iq_scraped/q08_opt_a.png",
+      "/static/images/iq_scraped/q08_opt_b.png",
+      "/static/images/iq_scraped/q08_opt_c.png",
+      "/static/images/iq_scraped/q08_opt_d.png"
+    ],
+    "opts": null,
+    "answer": 1,
+    "time": 90,
+    "exp": "",
+    "_screenshot": "_q08_screen.png",
+    "_n_imgs": 6
+  },
+  {
+    "id": "q09",
+    "title": "Which image completes the pattern?",
+    "source": "IQ Test Academy",
+    "imgUrl": "/static/images/iq_scraped/q09_main.png",
+    "imgOpts": [
+      "/static/images/iq_scraped/q09_opt_a.png",
+      "/static/images/iq_scraped/q09_opt_b.png",
+      "/static/images/iq_scraped/q09_opt_c.png",
+      "/static/images/iq_scraped/q09_opt_d.png"
+    ],
+    "opts": null,
+    "answer": 2,
+    "time": 90,
+    "exp": "",
+    "_screenshot": "_q09_screen.png",
+    "_n_imgs": 6
+  },
+  {
+    "id": "q10",
+    "title": "Which image completes the pattern?",
+    "source": "IQ Test Academy",
+    "imgUrl": "/static/images/iq_scraped/q10_main.png",
+    "imgOpts": [
+      "/static/images/iq_scraped/q10_opt_a.png",
+      "/static/images/iq_scraped/q10_opt_b.png",
+      "/static/images/iq_scraped/q10_opt_c.png",
+      "/static/images/iq_scraped/q10_opt_d.png"
+    ],
+    "opts": null,
+    "answer": 3,
+    "time": 90,
+    "exp": "",
+    "_screenshot": "_q10_screen.png",
+    "_n_imgs": 6
+  },
+  {
+    "id": "q11",
+    "title": "Which image completes the pattern?",
+    "source": "IQ Test Academy",
+    "imgUrl": "/static/images/iq_scraped/q11_main.png",
+    "imgOpts": [
+      "/static/images/iq_scraped/q11_opt_a.png",
+      "/static/images/iq_scraped/q11_opt_b.png",
+      "/static/images/iq_scraped/q11_opt_c.png",
+      "/static/images/iq_scraped/q11_opt_d.png"
+    ],
+    "opts": null,
+    "answer": 2,
+    "time": 90,
+    "exp": "",
+    "_screenshot": "_q11_screen.png",
+    "_n_imgs": 6
+  },
+  {
+    "id": "q12",
+    "title": "Which image completes the pattern?",
+    "source": "IQ Test Academy",
+    "imgUrl": "/static/images/iq_scraped/q12_main.png",
+    "imgOpts": [
+      "/static/images/iq_scraped/q12_opt_a.png",
+      "/static/images/iq_scraped/q12_opt_b.png",
+      "/static/images/iq_scraped/q12_opt_c.png",
+      "/static/images/iq_scraped/q12_opt_d.png"
+    ],
+    "opts": null,
+    "answer": 3,
+    "time": 90,
+    "exp": "",
+    "_screenshot": "_q12_screen.png",
+    "_n_imgs": 6
+  },
+  {
+    "id": "q13",
+    "title": "Which image completes the pattern?",
+    "source": "IQ Test Academy",
+    "imgUrl": "/static/images/iq_scraped/q13_main.png",
+    "imgOpts": [
+      "/static/images/iq_scraped/q13_opt_a.png",
+      "/static/images/iq_scraped/q13_opt_b.png",
+      "/static/images/iq_scraped/q13_opt_c.png",
+      "/static/images/iq_scraped/q13_opt_d.png"
+    ],
+    "opts": null,
+    "answer": 0,
+    "time": 90,
+    "exp": "",
+    "_screenshot": "_q13_screen.png",
+    "_n_imgs": 6
+  },
+  {
+    "id": "q14",
+    "title": "Which image completes the pattern?",
+    "source": "IQ Test Academy",
+    "imgUrl": "/static/images/iq_scraped/q14_main.png",
+    "imgOpts": [
+      "/static/images/iq_scraped/q14_opt_a.png",
+      "/static/images/iq_scraped/q14_opt_b.png",
+      "/static/images/iq_scraped/q14_opt_c.png",
+      "/static/images/iq_scraped/q14_opt_d.png"
+    ],
+    "opts": null,
+    "answer": 2,
+    "time": 90,
+    "exp": "",
+    "_screenshot": "_q14_screen.png",
+    "_n_imgs": 6
+  },
+  {
+    "id": "q15",
+    "title": "Which image completes the pattern?",
+    "source": "IQ Test Academy",
+    "imgUrl": "/static/images/iq_scraped/q15_main.png",
+    "imgOpts": [
+      "/static/images/iq_scraped/q15_opt_a.png",
+      "/static/images/iq_scraped/q15_opt_b.png",
+      "/static/images/iq_scraped/q15_opt_c.png",
+      "/static/images/iq_scraped/q15_opt_d.png"
+    ],
+    "opts": null,
+    "answer": 1,
+    "time": 90,
+    "exp": "",
+    "_screenshot": "_q15_screen.png",
+    "_n_imgs": 6
+  },
+  {
+    "id": "q16",
+    "title": "Which image completes the pattern?",
+    "source": "IQ Test Academy",
+    "imgUrl": "/static/images/iq_scraped/q16_main.png",
+    "imgOpts": [
+      "/static/images/iq_scraped/q16_opt_a.png",
+      "/static/images/iq_scraped/q16_opt_b.png",
+      "/static/images/iq_scraped/q16_opt_c.png",
+      "/static/images/iq_scraped/q16_opt_d.png"
+    ],
+    "opts": null,
+    "answer": 0,
+    "time": 90,
+    "exp": "",
+    "_screenshot": "_q16_screen.png",
+    "_n_imgs": 6
+  },
+  {
+    "id": "q17",
+    "title": "Which image completes the pattern?",
+    "source": "IQ Test Academy",
+    "imgUrl": "/static/images/iq_scraped/q17_main.png",
+    "imgOpts": [
+      "/static/images/iq_scraped/q17_opt_a.png",
+      "/static/images/iq_scraped/q17_opt_b.png",
+      "/static/images/iq_scraped/q17_opt_c.png",
+      "/static/images/iq_scraped/q17_opt_d.png"
+    ],
+    "opts": null,
+    "answer": 3,
+    "time": 90,
+    "exp": "",
+    "_screenshot": "_q17_screen.png",
+    "_n_imgs": 6
+  },
+  {
+    "id": "q18",
+    "title": "Which image completes the pattern?",
+    "source": "IQ Test Academy",
+    "imgUrl": "/static/images/iq_scraped/q18_main.png",
+    "imgOpts": [
+      "/static/images/iq_scraped/q18_opt_a.png",
+      "/static/images/iq_scraped/q18_opt_b.png",
+      "/static/images/iq_scraped/q18_opt_c.png",
+      "/static/images/iq_scraped/q18_opt_d.png"
+    ],
+    "opts": null,
+    "answer": 2,
+    "time": 90,
+    "exp": "",
+    "_screenshot": "_q18_screen.png",
+    "_n_imgs": 6
+  },
+  {
+    "id": "q19",
+    "title": "Which image completes the pattern?",
+    "source": "IQ Test Academy",
+    "imgUrl": "/static/images/iq_scraped/q19_main.png",
+    "imgOpts": [
+      "/static/images/iq_scraped/q19_opt_a.png",
+      "/static/images/iq_scraped/q19_opt_b.png",
+      "/static/images/iq_scraped/q19_opt_c.png",
+      "/static/images/iq_scraped/q19_opt_d.png"
+    ],
+    "opts": null,
+    "answer": 2,
+    "time": 90,
+    "exp": "",
+    "_screenshot": "_q19_screen.png",
+    "_n_imgs": 6
+  },
+  {
+    "id": "q20",
+    "title": "Which image completes the pattern?",
+    "source": "IQ Test Academy",
+    "imgUrl": "/static/images/iq_scraped/q20_main.png",
+    "imgOpts": [
+      "/static/images/iq_scraped/q20_opt_a.png",
+      "/static/images/iq_scraped/q20_opt_b.png",
+      "/static/images/iq_scraped/q20_opt_c.png",
+      "/static/images/iq_scraped/q20_opt_d.png"
+    ],
+    "opts": null,
+    "answer": 3,
+    "time": 90,
+    "exp": "",
+    "_screenshot": "_q20_screen.png",
+    "_n_imgs": 6
+  }
+]

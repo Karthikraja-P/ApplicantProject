@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="942px" height="942px" viewBox="0 0 942 942" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch -->
+    <title>Q-03</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard-2" transform="translate(-2717.000000, -1402.000000)" fill="#28527A" fill-rule="nonzero">
+            <g id="Q-03" transform="translate(2717.000000, 1402.000000)">
+                <path d="M941.51,941.51 L0.51,941.51 L0.51,0.51 L941.51,0.51 L941.51,941.51 Z M7.79,934.21 L934.21,934.21 L934.21,7.79 L7.79,7.79 L7.79,934.21 Z" id="Shape"></path>
+                <rect id="Rectangle-path" transform="translate(470.993808, 471.003536) rotate(-45.000000) translate(-470.993808, -471.003536) " x="467.348808" y="-189.236464" width="7.29" height="1320.48"></rect>
+                <path d="M885.65,253.92 L804.91,211.48 L724.17,253.92 L739.59,164 L674.27,100.33 L764.54,87.21 L804.91,5.41 L845.28,87.21 L935.55,100.33 L870.23,164 L885.65,253.92 Z M804.91,203.24 L876,240.59 L862.4,161.47 L919.88,105.47 L840.44,93.92 L804.91,21.92 L769.38,93.92 L689.94,105.47 L747.43,161.47 L733.86,240.59 L804.91,203.24 Z" id="Shape"></path>
+                <polygon id="Shape" transform="translate(243.935000, 748.800000) rotate(180.000000) translate(-243.935000, -748.800000) " points="283.12 834.77 378.04 748.8 283.12 662.83 283.12 707.91 109.83 707.91 109.83 789.68 283.12 789.68"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>

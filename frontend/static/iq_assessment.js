@@ -768,10 +768,89 @@ document.addEventListener('DOMContentLoaded', function () {
             '<div style="text-align:center;"><div style="font-size:12px; font-weight:bold; color:#f0f4f8; margin-bottom:5px;">D</div><div style="width:80px; height:80px; border:1px solid #142e56; display:flex; align-items:center; justify-content:center; font-size:28px; font-weight:bold; color:#142e56; background:#fff; border-radius:4px;">8</div></div>'
         ],
         answer: 0, time: 90, exp: 'In each row, the third entry is half of the second entry (30/2=15; 18/2=9, so 20/2=10).'
+    },
+    // ── Q27: Row pattern col2 = col1−12, col3 = col2+9 ───────────────────────
+    {
+        title: 'Which number completes the pattern?',
+        source: 'Quantitative Reasoning',
+        matrix: [
+            numFn(73), numFn(61), numFn(70),
+            numFn(58), numFn(46), numFn(55),
+            numFn(81), numFn(69), null
+        ],
+        numOpts: [76, 78, 75, 79],
+        answer: 1, time: 90,
+        exp: 'Each row: column 2 = column 1 − 12, column 3 = column 2 + 9. Row 3: 81 → 69 → 78.'
+    },
+    // ── Q28: Row pattern col2 = col1+10, col3 = col2÷2 ──────────────────────
+    {
+        title: 'Which number completes the pattern?',
+        source: 'Quantitative Reasoning',
+        matrix: [
+            numFn(20), numFn(30), numFn(15),
+            numFn(8),  numFn(18), numFn(9),
+            numFn(10), numFn(20), null
+        ],
+        numOpts: [10, 12, 13, 8],
+        answer: 0, time: 90,
+        exp: 'Each row: column 2 = column 1 + 10, column 3 = column 2 ÷ 2. Row 3: 10 → 20 → 10.'
+    },
+    // ── Q29: Card-circle pattern — circle alternates filled/empty, lines decrease ─
+    {
+        title: 'Which image completes the pattern?',
+        source: 'Perceptual Reasoning',
+        customHtml: `<div style="text-align:center;margin:10px 0;">
+<svg width="270" height="190" viewBox="0 0 270 190" xmlns="http://www.w3.org/2000/svg" style="background:#0d1b2a;border-radius:8px;">
+  <line x1="90" y1="0" x2="90" y2="190" stroke="#2a3a55" stroke-width="1"/>
+  <line x1="180" y1="0" x2="180" y2="190" stroke="#2a3a55" stroke-width="1"/>
+  <line x1="0" y1="95" x2="270" y2="95" stroke="#2a3a55" stroke-width="1"/>
+  <!-- R1C1: filled large, 3 top (varying lengths), 1 bottom (short centered) -->
+  <rect x="10" y="5" width="70" height="85" fill="none" stroke="#c8d8f0" stroke-width="1.5" rx="2"/>
+  <line x1="16" y1="13" x2="74" y2="13" stroke="#c8d8f0" stroke-width="1.2"/>
+  <line x1="16" y1="19" x2="68" y2="19" stroke="#c8d8f0" stroke-width="1.2"/>
+  <line x1="16" y1="25" x2="60" y2="25" stroke="#c8d8f0" stroke-width="1.2"/>
+  <circle cx="45" cy="57" r="18" fill="#c8d8f0" stroke="#c8d8f0" stroke-width="1.5"/>
+  <line x1="19" y1="79" x2="71" y2="79" stroke="#c8d8f0" stroke-width="1.2"/>
+  <!-- R1C2: empty small, 3 top (varying lengths), 1 bottom (short centered) -->
+  <rect x="100" y="5" width="70" height="85" fill="none" stroke="#c8d8f0" stroke-width="1.5" rx="2"/>
+  <line x1="106" y1="13" x2="164" y2="13" stroke="#c8d8f0" stroke-width="1.2"/>
+  <line x1="106" y1="19" x2="158" y2="19" stroke="#c8d8f0" stroke-width="1.2"/>
+  <line x1="106" y1="25" x2="150" y2="25" stroke="#c8d8f0" stroke-width="1.2"/>
+  <circle cx="135" cy="57" r="11" fill="none" stroke="#c8d8f0" stroke-width="1.5"/>
+  <line x1="109" y1="79" x2="161" y2="79" stroke="#c8d8f0" stroke-width="1.2"/>
+  <!-- R1C3: filled medium, 2 top (varying lengths), 1 bottom -->
+  <rect x="190" y="5" width="70" height="85" fill="none" stroke="#c8d8f0" stroke-width="1.5" rx="2"/>
+  <line x1="196" y1="13" x2="254" y2="13" stroke="#c8d8f0" stroke-width="1.2"/>
+  <line x1="196" y1="19" x2="248" y2="19" stroke="#c8d8f0" stroke-width="1.2"/>
+  <circle cx="225" cy="57" r="15" fill="#c8d8f0" stroke="#c8d8f0" stroke-width="1.5"/>
+  <line x1="199" y1="79" x2="251" y2="79" stroke="#c8d8f0" stroke-width="1.2"/>
+  <!-- R2C1: empty small, 2 top (varying lengths), 1 bottom -->
+  <rect x="10" y="100" width="70" height="85" fill="none" stroke="#c8d8f0" stroke-width="1.5" rx="2"/>
+  <line x1="16" y1="108" x2="74" y2="108" stroke="#c8d8f0" stroke-width="1.2"/>
+  <line x1="16" y1="114" x2="68" y2="114" stroke="#c8d8f0" stroke-width="1.2"/>
+  <circle cx="45" cy="150" r="11" fill="none" stroke="#c8d8f0" stroke-width="1.5"/>
+  <line x1="19" y1="174" x2="71" y2="174" stroke="#c8d8f0" stroke-width="1.2"/>
+  <!-- R2C2: filled large, 2 top (varying lengths), 0 bottom -->
+  <rect x="100" y="100" width="70" height="85" fill="none" stroke="#c8d8f0" stroke-width="1.5" rx="2"/>
+  <line x1="106" y1="108" x2="164" y2="108" stroke="#c8d8f0" stroke-width="1.2"/>
+  <line x1="106" y1="114" x2="158" y2="114" stroke="#c8d8f0" stroke-width="1.2"/>
+  <circle cx="135" cy="150" r="18" fill="#c8d8f0" stroke="#c8d8f0" stroke-width="1.5"/>
+  <!-- R2C3: ? -->
+  <text x="225" y="152" text-anchor="middle" font-size="42" fill="#3a4a5a" font-weight="bold">?</text>
+</svg></div>`,
+        customOptsHtml: [
+            `<div style="text-align:center;"><div style="font-size:12px;font-weight:bold;color:#f0f4f8;margin-bottom:5px;">A</div><svg width="70" height="90" viewBox="0 0 70 90" xmlns="http://www.w3.org/2000/svg" style="background:#0d1b2a;border-radius:6px;"><rect x="5" y="4" width="60" height="82" fill="none" stroke="#c8d8f0" stroke-width="1.5" rx="2"/><circle cx="35" cy="38" r="16" fill="#c8d8f0" stroke="#c8d8f0" stroke-width="1.5"/><line x1="9" y1="74" x2="61" y2="74" stroke="#c8d8f0" stroke-width="1.2"/></svg></div>`,
+            `<div style="text-align:center;"><div style="font-size:12px;font-weight:bold;color:#f0f4f8;margin-bottom:5px;">B</div><svg width="70" height="90" viewBox="0 0 70 90" xmlns="http://www.w3.org/2000/svg" style="background:#0d1b2a;border-radius:6px;"><rect x="5" y="4" width="60" height="82" fill="none" stroke="#c8d8f0" stroke-width="1.5" rx="2"/><line x1="9" y1="14" x2="61" y2="14" stroke="#c8d8f0" stroke-width="1.2"/><circle cx="35" cy="50" r="11" fill="none" stroke="#c8d8f0" stroke-width="1.5"/></svg></div>`,
+            `<div style="text-align:center;"><div style="font-size:12px;font-weight:bold;color:#f0f4f8;margin-bottom:5px;">C</div><svg width="70" height="90" viewBox="0 0 70 90" xmlns="http://www.w3.org/2000/svg" style="background:#0d1b2a;border-radius:6px;"><rect x="5" y="4" width="60" height="82" fill="none" stroke="#c8d8f0" stroke-width="1.5" rx="2"/><circle cx="35" cy="44" r="16" fill="#c8d8f0" stroke="#c8d8f0" stroke-width="1.5"/><line x1="9" y1="78" x2="61" y2="78" stroke="#c8d8f0" stroke-width="1.2"/></svg></div>`,
+            `<div style="text-align:center;"><div style="font-size:12px;font-weight:bold;color:#f0f4f8;margin-bottom:5px;">D</div><svg width="70" height="90" viewBox="0 0 70 90" xmlns="http://www.w3.org/2000/svg" style="background:#0d1b2a;border-radius:6px;"><rect x="5" y="4" width="60" height="82" fill="none" stroke="#c8d8f0" stroke-width="1.5" rx="2"/><circle cx="35" cy="38" r="11" fill="none" stroke="#c8d8f0" stroke-width="1.5"/><line x1="9" y1="74" x2="61" y2="74" stroke="#c8d8f0" stroke-width="1.2"/></svg></div>`
+        ],
+        answer: 3, time: 90,
+        exp: 'The circle alternates filled (large) and empty (small) across the grid. Row 2, column 3 continues with an empty small circle and one bottom line — answer D.'
     }
 ];
 
-QUESTIONS = QUESTIONS.slice(0, 39).concat(QUESTIONS.slice(-1));
+// Keep questions 8,11,12,16,20 from first 20, Q27 as 6th, Q28 as 7th, Q29 as 8th, plus all questions 21-40 (28 total)
+QUESTIONS = [QUESTIONS[7], QUESTIONS[10], QUESTIONS[11], QUESTIONS[15], QUESTIONS[19], QUESTIONS[40], QUESTIONS[41], QUESTIONS[42]].concat(QUESTIONS.slice(20));
 
     // ─── Shuffle options (randomise order, keep answer tracking correct) ───────
     function shuffleArr(arr) {

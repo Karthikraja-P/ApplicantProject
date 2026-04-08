@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assessment — TalentForge</title>
+    <link rel="stylesheet" href="static/styles.css?v=1775607446">
+    <style>
+        .cat-badge {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            margin-bottom: 10px;
+            background: rgba(0,212,255,0.12);
+            color: #00d4ff;
+            border: 1px solid rgba(0,212,255,0.3);
+        }
+        .q-grid-table {
+            border-collapse: collapse;
+            margin: 12px auto 18px;
+            background: #0d1b2a;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .q-grid-table td {
+            width: 72px; height: 52px;
+            text-align: center; vertical-align: middle;
+            font-size: 1.1rem; font-weight: 700;
+            color: #c8d8f0;
+            border: 1px solid #2a3a55;
+            padding: 4px 8px;
+        }
+        .q-grid-table td.missing {
+            color: #3a4a5a;
+            font-size: 1.6rem;
+        }
+        .cat-summary-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+        .cat-summary-card {
+            flex: 1 1 140px;
+            background: rgba(0,212,255,0.06);
+            border: 1px solid rgba(0,212,255,0.18);
+            border-radius: 8px;
+            padding: 10px 14px;
+            min-width: 130px;
+        }
+        .cat-summary-card .cat-name { font-size: 0.78rem; color: #5a9fc8; font-weight: 600; }
+        .cat-summary-card .cat-count { font-size: 1.3rem; font-weight: 800; color: #c6e8ff; }
+        .mcq-options-row {
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .mcq-options-row .mcq-option {
+            flex: 1 1 auto;
+            min-width: 80px;
+            text-align: center;
+            padding: 12px 10px;
+        }
+        /* ── Visual Pattern Grid ── */
+        .v-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 70px);
+            grid-template-rows: repeat(3, 70px);
+            gap: 0;
+            border: 2px solid #2a3a55;
+            margin: 12px auto 18px;
+            width: fit-content;
+            background: #0d1b2a;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        .v-cell {
+            width: 70px; height: 70px;
+            display: flex; align-items: center; justify-content: center;
+            border: 1px solid #2a3a55;
+        }
+        .v-cell svg { display: block; width: 60px; height: 60px; }
+        .v-qmark {
+            font-size: 2rem; font-weight: 800; color: #4a6a8a;
+            line-height: 1;
+        }
+        /* ── Visual option buttons ── */
+        .mcq-options-visual {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            gap: 10px;
+            justify-content: center;
+        }
+        .v-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 12px;
+            flex: 1 1 0;
+        }
+        .v-option svg { width: 80px; height: 80px; pointer-events: none; }
+        .v-opt-lbl {
+            font-size: 0.85rem; font-weight: 700; color: #aac4e8;
+        }
+        .res-cat-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 14px;
+            border-radius: 8px;
+            background: rgba(0,212,255,0.05);
+            border: 1px solid rgba(0,212,255,0.12);
+            margin-bottom: 8px;
+            gap: 8px;
+        }
+        .res-cat-name  { font-size: 0.85rem; color: #aac4e8; flex: 1; }
+        .res-cat-score { font-size: 0.95rem; font-weight: 700; color: #00ff88; }
+        .res-cat-score.low { color: #ff6b6b; }
+        .res-cat-score.mid { color: #ffcc44; }
+        .res-cat-time  { font-size: 0.8rem; color: #5a7ca0; min-width: 70px; text-align: right; }
+    </style>
+</head>
+<body>
+<div class="container full-screen">
+    <div class="wizard-inner">
+        <header>
+            <h1>TalentForge Candidate Intake</h1>
+        </header>
+
+        <div class="wizard-layout">
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <div class="sidebar-steps">
+                    <a href="index.html" class="step-item" style="text-decoration:none;">
+                        <div class="step-number" style="font-size:1rem;">←</div>
+                        <div class="step-title">Application</div>
+                    </a>
+                </div>
+                <div class="sidebar-divider"></div>
+                <div class="sidebar-section-label">Assessment</div>
+                <div class="sidebar-assessment-items">
+                    <a href="/assessment" class="assessment-item step-item active">
+                        <div class="step-number" style="font-size:0.6rem;font-weight:800;">IQ</div>
+                        <div class="step-title">IQ Assessment</div>
+                    </a>
+                    <a href="skillset_assessment.html" class="assessment-item step-item">
+                        <div class="step-number" style="font-size:0.6rem;font-weight:800;">SK</div>
+                        <div class="step-title">Skillset</div>
+                    </a>
+                    <a href="games.html" class="assessment-item step-item">
+                        <div class="step-number" style="font-size:0.6rem;font-weight:800;">🎮</div>
+                        <div class="step-title">Games</div>
+                    </a>
+                </div>
+                <div class="sidebar-decoration">
+                    <img src="static/sidebar-decoration.svg" alt="">
+                </div>
+            </div>
+
+            <!-- Main content -->
+            <div class="main-content">
+
+                <!-- ── Intro ── -->
+                <div id="screen-intro" class="psych-screen active">
+                    <h2 style="color:#c6e8ff;margin:0 0 6px;">IQ Assessment</h2>
+                    <p style="color:#5a7ca0;font-size:0.82rem;margin:0 0 16px;">
+                        40 visual pattern questions · 40 minutes total
+                    </p>
+
+                    <div class="cat-summary-row">
+                        <div class="cat-summary-card">
+                            <div class="cat-name">Rotation</div>
+                            <div class="cat-count">5 Q</div>
+                        </div>
+                        <div class="cat-summary-card">
+                            <div class="cat-name">Progression</div>
+                            <div class="cat-count">5 Q</div>
+                        </div>
+                        <div class="cat-summary-card">
+                            <div class="cat-name">Sequence</div>
+                            <div class="cat-count">5 Q</div>
+                        </div>
+                        <div class="cat-summary-card">
+                            <div class="cat-name">Combined</div>
+                            <div class="cat-count">5 Q</div>
+                        </div>
+                    </div>
+
+                    <div class="psych-tips">
+                        <strong>Tips</strong>
+                        <ul>
+                            <li>Each puzzle shows a 3×3 grid — find the rule governing rows and columns</li>
+                            <li>Look for patterns in shape, rotation, size, fill, and count</li>
+                            <li>You can navigate back to review previous answers</li>
+                            <li>A single 20-minute timer covers all 20 questions</li>
+                        </ul>
+                    </div>
+
+                    <button id="start-btn" class="nav-btn"
+                            style="margin-top:22px;background:linear-gradient(135deg,#00d4ff,#00ff88);color:#000;min-width:160px;font-size:1rem;"
+                            onclick="(window.startAssessment || function(){})()">
+                        Start Assessment
+                    </button>
+                </div>
+
+                <!-- ── Question ── -->
+                <div id="screen-question" class="psych-screen">
+                    <div class="psych-module-header">
+                        <div>
+                            <div class="psych-question-num" id="q-num">Question 1 of 40</div>
+                            <div id="q-cat-badge" class="cat-badge" style="margin-top:4px;"></div>
+                        </div>
+                        <div class="psych-timer-block">
+                            <span class="psych-timer-number" id="timer-num" style="font-size:1.5rem;letter-spacing:0.04em;">40:00</span>
+                            <span class="psych-timer-label">remaining</span>
+                        </div>
+                    </div>
+                    <div class="timer-bar-wrap">
+                        <div class="timer-bar" id="timer-bar"></div>
+                    </div>
+
+                    <div class="wizard-card active" style="margin-bottom:12px;">
+                        <h3 id="q-title" style="color:#c6e8ff;margin:0 0 14px;font-size:0.97rem;font-weight:600;line-height:1.5;white-space:pre-wrap;"></h3>
+                        <div id="q-grid" style="display:none;"></div>
+                        <div id="q-options" class="mcq-options"></div>
+                        <div id="q-explanation" class="mcq-explanation"></div>
+                    </div>
+
+                    <div class="psych-q-nav">
+                        <button id="q-prev-btn" class="nav-btn prev-btn" style="display:none;">← Prev</button>
+                        <div class="q-number-grid" id="q-number-grid"></div>
+                        <button id="q-next-btn" class="nav-btn">Next →</button>
+                    </div>
+                    <div style="display:flex;justify-content:flex-end;margin-top:10px;">
+                        <button id="q-finish-btn" class="nav-btn q-finish-btn"
+                                style="display:none;background:linear-gradient(135deg,#00d4ff,#00ff88);color:#000;">
+                            View Results →
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ── Results ── -->
+                <div id="screen-results" class="psych-screen">
+                    <h2 style="color:#c6e8ff;margin:0 0 18px;">Assessment Results</h2>
+
+                    <div class="psych-overall-box">
+                        <div>
+                            <div class="psych-overall-label">Score</div>
+                            <div class="psych-overall-score" id="res-score">—</div>
+                        </div>
+                        <div>
+                            <div class="psych-overall-label">Percentile</div>
+                            <div class="psych-overall-tier" id="res-percentile" style="color:#00ff88;">—</div>
+                        </div>
+                        <div>
+                            <div class="psych-overall-label">Rating</div>
+                            <div class="psych-overall-tier" id="res-tier" style="color:#ffcc44;">—</div>
+                        </div>
+                    </div>
+
+                    <div id="res-by-category" style="margin-bottom:22px;"></div>
+
+                    <div style="display:flex;gap:12px;flex-wrap:wrap;">
+                        <a href="index.html" style="text-decoration:none;">
+                            <button class="nav-btn prev-btn">← Back to Application</button>
+                        </a>
+                        <button id="retry-btn" class="nav-btn"
+                                style="background:linear-gradient(135deg,#00d4ff,#00ff88);color:#000;">
+                            Retry Assessment
+                        </button>
+                    </div>
+                </div>
+
+            </div><!-- /main-content -->
+        </div><!-- /wizard-layout -->
+    </div>
+</div>
+<script src="static/assessment.js"></script>
+</body>
+</html>

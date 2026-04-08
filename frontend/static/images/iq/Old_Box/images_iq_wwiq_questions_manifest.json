@@ -1,0 +1,142 @@
+[
+  {
+    "qnum": 1,
+    "title": "Which Shape is missing?",
+    "imgUrl": "/static/images/iq/wwiq/2020_12_Q27_main.svg",
+    "imgOpts": [
+      "/static/images/iq/wwiq/2020_12_22-a.png",
+      "/static/images/iq/wwiq/2020_12_22-b.png",
+      "/static/images/iq/wwiq/2020_12_22-c.png",
+      "/static/images/iq/wwiq/2020_12_22-d.png",
+      "/static/images/iq/wwiq/2020_12_22-e.png",
+      "/static/images/iq/wwiq/2020_12_22-f.png"
+    ],
+    "answer": -1
+  },
+  {
+    "qnum": 2,
+    "title": "Which Shape is missing?",
+    "imgUrl": "/static/images/iq/wwiq/2023_09_Q6_main.svg",
+    "imgOpts": [
+      "/static/images/iq/wwiq/2023_09_6-a.png",
+      "/static/images/iq/wwiq/2023_09_6-b.png",
+      "/static/images/iq/wwiq/2023_09_6-c.png",
+      "/static/images/iq/wwiq/2023_09_6-d.png",
+      "/static/images/iq/wwiq/2023_09_6-e.png",
+      "/static/images/iq/wwiq/2023_09_6-f.png"
+    ],
+    "answer": -1
+  },
+  {
+    "qnum": 3,
+    "title": "Which number is missing?",
+    "imgUrl": "/static/images/iq/wwiq/2023_09_Q9_main.svg",
+    "imgOpts": [
+      "/static/images/iq/wwiq/2023_09_4-a.png",
+      "/static/images/iq/wwiq/2023_09_4-b.png",
+      "/static/images/iq/wwiq/2023_09_4-c.png",
+      "/static/images/iq/wwiq/2023_09_4-d.png",
+      "/static/images/iq/wwiq/2023_09_4-e.png",
+      "/static/images/iq/wwiq/2023_09_4-f.png"
+    ],
+    "answer": -1
+  },
+  {
+    "qnum": 4,
+    "title": "How many triangles are in the picture?",
+    "imgUrl": "/static/images/iq/wwiq/2020_12_Q7_main.svg",
+    "imgOpts": [
+      "/static/images/iq/wwiq/2020_12_6-a-1.png",
+      "/static/images/iq/wwiq/2020_12_6-b-1.png",
+      "/static/images/iq/wwiq/2020_12_6-c-1.png",
+      "/static/images/iq/wwiq/2020_12_6-d-1.png",
+      "/static/images/iq/wwiq/2020_12_6-e-1.png",
+      "/static/images/iq/wwiq/2020_12_6-f-1.png"
+    ],
+    "answer": -1
+  },
+  {
+    "qnum": 5,
+    "title": "Which Shape is missing?",
+    "imgUrl": "/static/images/iq/wwiq/2020_12_Q21_main.svg",
+    "imgOpts": [
+      "/static/images/iq/wwiq/2020_12_17-a.png",
+      "/static/images/iq/wwiq/2020_12_17-f.png",
+      "/static/images/iq/wwiq/2020_12_17-e.png",
+      "/static/images/iq/wwiq/2020_12_17-d.png",
+      "/static/images/iq/wwiq/2020_12_17-c.png",
+      "/static/images/iq/wwiq/2020_12_17-b.png"
+    ],
+    "answer": -1
+  },
+  {
+    "qnum": 6,
+    "title": "Which Shape is missing?",
+    "imgUrl": "/static/images/iq/wwiq/2020_12_Q15_main.svg",
+    "imgOpts": [
+      "/static/images/iq/wwiq/2020_12_12-a-new2-1.png",
+      "/static/images/iq/wwiq/2020_12_12-e.png",
+      "/static/images/iq/wwiq/2020_12_12-d.png",
+      "/static/images/iq/wwiq/2020_12_12-c.png",
+      "/static/images/iq/wwiq/2020_12_12-b.png",
+      "/static/images/iq/wwiq/2020_12_12-f-new2-2.png"
+    ],
+    "answer": -1
+  },
+  {
+    "qnum": 7,
+    "title": "Which Shape is missing?",
+    "imgUrl": "/static/images/iq/wwiq/2021_07_Q17_main.svg",
+    "imgOpts": [
+      "/static/images/iq/wwiq/2021_07_11.png",
+      "/static/images/iq/wwiq/2021_07_12.png",
+      "/static/images/iq/wwiq/2021_07_13.png",
+      "/static/images/iq/wwiq/2021_07_14.png",
+      "/static/images/iq/wwiq/2021_07_15.png",
+      "/static/images/iq/wwiq/2021_07_16.png"
+    ],
+    "answer": -1
+  },
+  {
+    "qnum": 8,
+    "title": "Which Shape is missing?",
+    "imgUrl": "/static/images/iq/wwiq/2023_09_Q29_main.svg",
+    "imgOpts": [
+      "/static/images/iq/wwiq/2023_09_7-a.png",
+      "/static/images/iq/wwiq/2023_09_7-b.png",
+      "/static/images/iq/wwiq/2023_09_7-c.png",
+      "/static/images/iq/wwiq/2023_09_7-d.png",
+      "/static/images/iq/wwiq/2023_09_7-e.png",
+      "/static/images/iq/wwiq/2023_09_7-f.png"
+    ],
+    "answer": -1
+  },
+  {
+    "qnum": 9,
+    "title": "What box was created from the image?",
+    "imgUrl": "/static/images/iq/wwiq/2020_12_Q5_main.svg",
+    "imgOpts": [
+      "/static/images/iq/wwiq/2020_12_5-a.png",
+      "/static/images/iq/wwiq/2020_12_5-f-1.png",
+      "/static/images/iq/wwiq/2020_12_5-e.png",
+      "/static/images/iq/wwiq/2020_12_5-d.png",
+      "/static/images/iq/wwiq/2020_12_5-c.png",
+      "/static/images/iq/wwiq/2020_12_5-b.png"
+    ],
+    "answer": -1
+  },
+  {
+    "qnum": 10,
+    "title": "Which Shape is missing?",
+    "imgUrl": "/static/images/iq/wwiq/2020_12_Q10_main.svg",
+    "imgOpts": [
+      "/static/images/iq/wwiq/2020_12_8-f.png",
+      "/static/images/iq/wwiq/2020_12_8-a.png",
+      "/static/images/iq/wwiq/2020_12_8-b.png",
+      "/static/images/iq/wwiq/2020_12_8-d-1.png",
+      "/static/images/iq/wwiq/2020_12_8-d.png",
+      "/static/images/iq/wwiq/2020_12_8-e.png"
+    ],
+    "answer": -1
+  }
+]

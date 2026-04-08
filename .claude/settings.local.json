@@ -1,8 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Read(//c/Users/Admin/Desktop/**)",
-      "Bash(python -c ':*)"
-    ]
-  }
-}

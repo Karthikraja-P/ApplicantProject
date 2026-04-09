@@ -687,7 +687,7 @@ document.addEventListener('DOMContentLoaded', function () {
             source: 'Perceptual Patterns',
             imgUrl: '/static/images/iq/q36.jpg',
             opts: ['A', 'B', 'C', 'D', 'E', 'F'],
-            answer: 3, time: 90, exp: 'The corner lines rotate 90 degrees clockwise while the inner shapes alternate colors.'
+            answer: 5, time: 90, exp: 'The corner lines rotate 90 degrees clockwise while the inner shapes alternate colors.'
         },
         {
             title: 'Find the missing number in the sequence matrix.',
@@ -814,10 +814,10 @@ document.addEventListener('DOMContentLoaded', function () {
         var intro = document.getElementById('screen-intro');
         if (intro) {
             intro.innerHTML = buildCompletedBanner(
-                '🧠 General IQ Assessment',
+                '🧠 Psychometric Test',
                 'You have already completed this assessment.',
                 [{ label: '← Application', href: '/' },
-                { label: 'Skillset Assessment', href: '/assessment/skillset' },
+                { label: 'Technical Assessment', href: '/assessment/skillset' },
                 { label: 'Confirmation', href: '/confirmation' }]
             );
             intro.classList.add('active');
@@ -1093,9 +1093,9 @@ document.addEventListener('DOMContentLoaded', function () {
         var intro = document.getElementById('screen-intro');
         if (intro) {
             intro.innerHTML = buildCompletedBanner(
-                'General IQ Assessment',
+                'Psychometric Test',
                 'You have already completed this assessment.',
-                [{ label: 'Skillset Assessment →', href: '/skillset_assessment.html' }]
+                [{ label: 'Technical Assessment →', href: '/skillset_assessment.html' }]
             );
             intro.classList.add('active');
             intro.style.display = '';

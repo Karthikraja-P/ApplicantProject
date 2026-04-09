@@ -557,6 +557,19 @@
             font-size: 0.78rem;
             color: #5a7ca0;
             line-height: 1.4;
+            margin-bottom: 8px;
+        }
+
+        .gi-steps {
+            margin: 6px 0 0 0;
+            padding-left: 18px;
+            font-size: 0.76rem;
+            color: #bbcce0;
+            line-height: 1.5;
+        }
+
+        .gi-steps li {
+            margin-bottom: 4px;
         }
     </style>
 </head>
@@ -582,7 +595,7 @@
                     <div class="sidebar-assessment-items">
                         <a href="iq_assessment.html" class="assessment-item step-item">
                             <div class="step-number" style="font-size:0.6rem;font-weight:800;">IQ</div>
-                            <div class="step-title">General IQ</div>
+                            <div class="step-title">Psychometric Test</div>
                         </a>
                         <a href="games.html" class="assessment-item step-item active">
                             <div class="step-number" style="font-size:0.6rem;font-weight:800;">🎮</div>
@@ -608,18 +621,43 @@
                             2 games · 5 minutes each · 10 minutes total
                         </p>
 
+                        <div
+                            style="background:rgba(0,212,255,0.06); border:1px solid rgba(0,212,255,0.15); border-radius:12px; padding:16px; margin-bottom:20px; line-height:1.6; color:#aac4e8; font-size:0.92rem;">
+                            <strong>Why Games?</strong><br>
+                            Traditional tests ask what you know, but games show how you <em>think</em> under pressure
+                            and
+                            uncertainty. These assessments identify your unique cognitive style—how you manage risk,
+                            detect
+                            patterns, and balance effort vs reward.
+                            <br><br>
+                            Play naturally and follow your intuition. There are no "right" or "wrong" choices, only
+                            different strategies that reflect your mental strengths.
+                        </div>
+
                         <div class="game-intro-cards">
                             <div class="game-intro-card">
                                 <div class="gi-title">🎈 Game 1 — Balloon Game (BART)</div>
                                 <div class="gi-measure">Measures: Risk Appetite vs. Reward</div>
-                                <div class="gi-desc">Pump a balloon to earn money — but it may pop. Bank your earnings
-                                    before it bursts. Find the optimal pump point based on probability.</div>
+                                <div class="gi-desc">Earn virtual money by pumping a balloon. The bigger it gets, the
+                                    more it's worth—but if it pops, you lose everything for that round.</div>
+                                <ul class="gi-steps">
+                                    <li>Click <strong>"Pump"</strong> to increase balloon size and potential value.</li>
+                                    <li>Click <strong>"Collect & Bank"</strong> to secure your earnings before it pops.
+                                    </li>
+                                    <li>Find the balance between playing it safe and taking risks!</li>
+                                </ul>
                             </div>
                             <div class="game-intro-card">
                                 <div class="gi-title">🃏 Game 2 — Cards Game (Iowa Gambling Task)</div>
                                 <div class="gi-measure">Measures: Pattern Recognition &amp; Expected Value (EV)</div>
-                                <div class="gi-desc">Draw cards from 4 decks. Some decks have hidden large losses.
-                                    Identify the high-value decks and maximise your balance.</div>
+                                <div class="gi-desc">Draw cards from 4 different decks. Your goal is to maximize your
+                                    total balance over many rounds.</div>
+                                <ul class="gi-steps">
+                                    <li>Click on <strong>any deck</strong> to draw a card.</li>
+                                    <li>Decks have different reward/penalty profiles (some yield high wins but huge
+                                        losses).</li>
+                                    <li>Identify the most profitable decks through experience as you play.</li>
+                                </ul>
                             </div>
                         </div>
 

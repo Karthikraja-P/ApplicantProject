@@ -1,9 +1,18 @@
 ﻿/* Dark, full-screen wizard style */
-* { box-sizing: border-box; }
+* {
+    box-sizing: border-box;
+}
 
 @keyframes slideIn {
-    from { transform: translateX(400px); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
 }
 
 body {
@@ -268,13 +277,17 @@ header p {
     display: block;
 }
 
-.required { color: #ff8080; }
+.required {
+    color: #ff8080;
+}
 
 .wizard-actions {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     gap: 12px;
-    margin-top: 20px;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .nav-btn,
@@ -370,7 +383,8 @@ header p {
 }
 
 .wizard-checkbox input[type="checkbox"] {
-    display: none;          /* hide native box; pill itself is the control */
+    display: none;
+    /* hide native box; pill itself is the control */
     width: auto;
     margin: 0;
     padding: 0;
@@ -379,16 +393,16 @@ header p {
 }
 
 /* checked state — pill turns accent */
-.wizard-checkbox input[type="checkbox"]:checked + span,
+.wizard-checkbox input[type="checkbox"]:checked+span,
 .wizard-checkbox label:has(input[type="checkbox"]:checked) {
-    background: linear-gradient(135deg, rgba(0,212,255,0.18), rgba(0,255,136,0.14));
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.18), rgba(0, 255, 136, 0.14));
     border-color: #00d4ff;
     color: #c6f7ff;
 }
 
 /* fallback for browsers without :has() — JS-toggled class */
 .wizard-checkbox label.pill-checked {
-    background: linear-gradient(135deg, rgba(0,212,255,0.18), rgba(0,255,136,0.14));
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.18), rgba(0, 255, 136, 0.14));
     border-color: #00d4ff;
     color: #c6f7ff;
 }
@@ -401,7 +415,7 @@ header p {
     height: 14px;
     border-radius: 50%;
     border: 1.5px solid rgba(52, 102, 162, 0.5);
-    background: rgba(9,14,26,0.6);
+    background: rgba(9, 14, 26, 0.6);
     flex-shrink: 0;
     transition: background 0.15s, border-color 0.15s;
     position: relative;
@@ -411,7 +425,27 @@ header p {
 .wizard-checkbox label.pill-checked::before {
     background: linear-gradient(135deg, #00d4ff, #00ff88);
     border-color: #00d4ff;
-    box-shadow: 0 0 6px rgba(0,212,255,0.5);
+    box-shadow: 0 0 6px rgba(0, 212, 255, 0.5);
+}
+
+.pill-select {
+    display: none;
+    background: rgba(8, 13, 22, 0.9);
+    border: 1px solid rgba(0, 212, 255, 0.2);
+    color: #eef2ff;
+    font-size: 0.65rem;
+    padding: 0px 4px;
+    border-radius: 4px;
+    margin-left: 6px;
+    cursor: pointer;
+    vertical-align: middle;
+    width: auto !important;
+    margin-bottom: 0 !important;
+}
+
+.wizard-checkbox label:has(input:checked) .pill-select,
+.wizard-checkbox label.pill-checked .pill-select {
+    display: inline-block;
 }
 
 /* ── Field group label (replaces plain <label> above checkboxes) ──────────── */
@@ -448,7 +482,8 @@ header p {
 .specialized-section::before {
     content: '';
     position: absolute;
-    top: 0; left: 0;
+    top: 0;
+    left: 0;
     width: 4px;
     height: 100%;
     border-radius: 14px 0 0 14px;
@@ -473,7 +508,9 @@ header p {
 }
 
 @media (max-width: 640px) {
-    .specialized-section .field-row { grid-template-columns: 1fr; }
+    .specialized-section .field-row {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* ── General Skills + Source divider ─────────────────────────────────────── */
@@ -493,15 +530,48 @@ header p {
 }
 
 @media (max-width: 900px) {
-    .wizard-inner { padding: 18px; }
-    .wizard-layout { flex-direction: column; }
-    .sidebar { width: 100%; margin-bottom: 20px; }
-    .sidebar-steps { flex-direction: row; overflow-x: auto; padding-bottom: 8px; }
-    .step-item { flex-shrink: 0; min-width: 120px; }
-    .nav-btn, .save-btn, .submit-btn { width: 100%; }
-    .wizard-actions { flex-direction: column; justify-content: center; }
-    .phone-input { flex-direction: column; }
-    .phone-input select { width: 100%; }
+    .wizard-inner {
+        padding: 18px;
+    }
+
+    .wizard-layout {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .sidebar-steps {
+        flex-direction: row;
+        overflow-x: auto;
+        padding-bottom: 8px;
+    }
+
+    .step-item {
+        flex-shrink: 0;
+        min-width: 120px;
+    }
+
+    .nav-btn,
+    .save-btn,
+    .submit-btn {
+        width: 100%;
+    }
+
+    .wizard-actions {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .phone-input {
+        flex-direction: column;
+    }
+
+    .phone-input select {
+        width: 100%;
+    }
 }
 
 /* Confirmation pages */
@@ -544,16 +614,29 @@ header p {
    ═══════════════════════════════════════════════════════════════ */
 
 /* Screen visibility */
-.psych-screen            { display: none; animation: slideIn 0.25s ease; }
-.psych-screen.active     { display: block; }
+.psych-screen {
+    display: none;
+    animation: slideIn 0.25s ease;
+}
+
+.psych-screen.active {
+    display: block;
+}
 
 /* Sidebar nav items — extends .step-item; disable interaction */
-.psych-nav-item          { cursor: default; pointer-events: none; }
+.psych-nav-item {
+    cursor: default;
+    pointer-events: none;
+}
+
 .psych-nav-item.done .step-number {
     background: linear-gradient(135deg, #00d4ff, #00ff88);
     color: #000;
 }
-.psych-nav-item.active   { /* inherits .step-item.active */ }
+
+.psych-nav-item.active {
+    /* inherits .step-item.active */
+}
 
 /* ── Module header (question title + live timer) ── */
 .psych-module-header {
@@ -570,9 +653,25 @@ header p {
     letter-spacing: 0.03em;
 }
 
-.psych-timer-block   { text-align: right; flex-shrink: 0; }
-.psych-timer-number  { font-size: 2.4rem; font-weight: 700; color: #00d4ff; line-height: 1; display: block; }
-.psych-timer-label   { font-size: 0.72rem; color: #7a9cc4; text-transform: uppercase; letter-spacing: 0.08em; }
+.psych-timer-block {
+    text-align: right;
+    flex-shrink: 0;
+}
+
+.psych-timer-number {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #00d4ff;
+    line-height: 1;
+    display: block;
+}
+
+.psych-timer-label {
+    font-size: 0.72rem;
+    color: #7a9cc4;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
 
 /* ── Timer bar ── */
 .timer-bar-wrap {
@@ -592,12 +691,25 @@ header p {
     transition: background 0.4s;
 }
 
-.timer-bar.warning  { background: linear-gradient(90deg, #f0a500, #ffcc55); }
-.timer-bar.danger   { background: linear-gradient(90deg, #ff6f6f, #ff9a9a); }
+.timer-bar.warning {
+    background: linear-gradient(90deg, #f0a500, #ffcc55);
+}
+
+.timer-bar.danger {
+    background: linear-gradient(90deg, #ff6f6f, #ff9a9a);
+}
 
 /* ── Question area ── */
-.psych-question-area { padding: 4px 0; }
-.psych-hint          { font-size: 0.85rem; color: #7a9cc4; text-align: center; margin-bottom: 18px; }
+.psych-question-area {
+    padding: 4px 0;
+}
+
+.psych-hint {
+    font-size: 0.85rem;
+    color: #7a9cc4;
+    text-align: center;
+    margin-bottom: 18px;
+}
 
 /* ── Module A: Mental Arithmetic ── */
 .arith-question {
@@ -631,7 +743,9 @@ header p {
     font-variant-numeric: tabular-nums;
 }
 
-.psych-number-input:focus { border-color: #00d4ff; }
+.psych-number-input:focus {
+    border-color: #00d4ff;
+}
 
 .psych-feedback {
     min-height: 1.5em;
@@ -679,7 +793,7 @@ header p {
     color: #eef2ff;
 }
 
-.mcq-option.correct  {
+.mcq-option.correct {
     border-color: #00ff88;
     background: rgba(0, 255, 136, 0.12);
     color: #00ff88;
@@ -691,7 +805,9 @@ header p {
     color: #ff9a9a;
 }
 
-.mcq-option.revealed { pointer-events: none; }
+.mcq-option.revealed {
+    pointer-events: none;
+}
 
 .mcq-explanation {
     display: none;
@@ -703,12 +819,16 @@ header p {
     margin-top: 4px;
 }
 
-.mcq-explanation.visible { display: block; }
-.mcq-explanation.correct  {
+.mcq-explanation.visible {
+    display: block;
+}
+
+.mcq-explanation.correct {
     background: rgba(0, 255, 136, 0.08);
     border-left-color: #00ff88;
     color: #00ff88;
 }
+
 .mcq-explanation.incorrect {
     background: rgba(255, 111, 111, 0.08);
     border-left-color: #ff6f6f;
@@ -832,8 +952,17 @@ header p {
     gap: 12px;
 }
 
-.psych-result-label { font-size: 0.88rem; color: #7a9cc4; }
-.psych-result-val   { font-size: 0.95rem; font-weight: 600; color: #eef2ff; text-align: right; }
+.psych-result-label {
+    font-size: 0.88rem;
+    color: #7a9cc4;
+}
+
+.psych-result-val {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #eef2ff;
+    text-align: right;
+}
 
 .psych-bar-wrap {
     height: 8px;
@@ -851,7 +980,12 @@ header p {
 }
 
 /* ── Intro module cards ── */
-.psych-module-list  { display: flex; flex-direction: column; gap: 12px; margin-bottom: 22px; }
+.psych-module-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 22px;
+}
 
 .psych-module-card {
     display: flex;
@@ -877,8 +1011,17 @@ header p {
     flex-shrink: 0;
 }
 
-.psych-module-card strong { display: block; color: #eef2ff; margin-bottom: 2px; font-size: 0.97rem; }
-.psych-module-card span   { font-size: 0.82rem; color: #7a9cc4; }
+.psych-module-card strong {
+    display: block;
+    color: #eef2ff;
+    margin-bottom: 2px;
+    font-size: 0.97rem;
+}
+
+.psych-module-card span {
+    font-size: 0.82rem;
+    color: #7a9cc4;
+}
 
 .psych-badge {
     margin-left: auto;
@@ -902,15 +1045,35 @@ header p {
     margin-bottom: 4px;
 }
 
-.psych-tips strong { color: #00d4ff; }
-.psych-tips ul     { margin: 8px 0 0; padding-left: 18px; color: #aac4e8; line-height: 1.9; }
+.psych-tips strong {
+    color: #00d4ff;
+}
+
+.psych-tips ul {
+    margin: 8px 0 0;
+    padding-left: 18px;
+    color: #aac4e8;
+    line-height: 1.9;
+}
 
 /* ── Responsive overrides ── */
 @media (max-width: 900px) {
-    .arith-question  { font-size: 2rem; }
-    .psych-result-row { grid-template-columns: 120px 1fr 48px; }
-    .psych-overall-box { gap: 20px; }
-    .reaction-circle { width: 130px; height: 130px; }
+    .arith-question {
+        font-size: 2rem;
+    }
+
+    .psych-result-row {
+        grid-template-columns: 120px 1fr 48px;
+    }
+
+    .psych-overall-box {
+        gap: 20px;
+    }
+
+    .reaction-circle {
+        width: 130px;
+        height: 130px;
+    }
 }
 
 /* ── Assessment sidebar section ── */
@@ -984,9 +1147,9 @@ header p {
     font-weight: 600;
     text-align: center;
     border-radius: 8px 8px 0 0;
-    border: 1px solid rgba(255,255,255,0.08);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-bottom: none;
-    background: rgba(255,255,255,0.04);
+    background: rgba(255, 255, 255, 0.04);
     color: #5a7ca0;
     cursor: pointer;
     letter-spacing: 0.03em;
@@ -994,14 +1157,14 @@ header p {
 }
 
 .sidebar-tab:hover {
-    background: rgba(0,212,255,0.08);
+    background: rgba(0, 212, 255, 0.08);
     color: #aac4e8;
 }
 
 .sidebar-tab.active {
-    background: rgba(0,212,255,0.13);
+    background: rgba(0, 212, 255, 0.13);
     color: #00d4ff;
-    border-color: rgba(0,212,255,0.25);
+    border-color: rgba(0, 212, 255, 0.25);
 }
 
 /* ── Clickable nav items (assessment navigation) ── */
@@ -1043,6 +1206,7 @@ header p {
     justify-content: center;
     margin-bottom: 14px;
 }
+
 .pattern-visual svg {
     max-width: 100%;
     max-height: 150px;
@@ -1089,22 +1253,26 @@ header p {
     max-width: 64px;
     max-height: 64px;
 }
+
 .pattern-svg {
     max-width: 100%;
     height: auto;
     display: block;
 }
+
 .pattern-caption {
     text-align: center;
     color: #aac4e8;
     font-size: 0.95rem;
     margin-bottom: 18px;
 }
+
 .mcq-options.pattern-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 12px;
 }
+
 .mcq-option.pattern-opt {
     display: flex;
     flex-direction: column;
@@ -1113,9 +1281,11 @@ header p {
     height: auto;
     gap: 6px;
 }
+
 .mcq-option.pattern-opt svg {
     display: block;
 }
+
 .mcq-option.pattern-opt .opt-label {
     font-size: 0.8rem;
     color: #5a7ca0;

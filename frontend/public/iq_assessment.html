@@ -1,147 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>General IQ Assessment — TalentForge</title>
+    <title>Psychometric Test — TalentForge</title>
     <link rel="stylesheet" href="/static/styles.css?v=1775607446">
 </head>
+
 <body>
-<div class="container full-screen">
-    <div class="wizard-inner">
-        <header>
-            <h1>TalentForge Candidate Intake</h1>
-        </header>
+    <div class="container full-screen">
+        <div class="wizard-inner">
+            <header>
+                <h1>TalentForge Candidate Intake</h1>
+            </header>
 
-        <div class="wizard-layout">
+            <div class="wizard-layout">
 
-            <!-- Sidebar -->
-            <div class="sidebar">
-                <div class="sidebar-steps">
-                    <a href="index.html" class="step-item" style="text-decoration:none;">
-                        <div class="step-number" style="font-size:1rem;">←</div>
-                        <div class="step-title">Application</div>
-                    </a>
+                <!-- Sidebar -->
+                <div class="sidebar">
+                    <div class="sidebar-steps">
+                        <a href="index.html" class="step-item" style="text-decoration:none;">
+                            <div class="step-number" style="font-size:1rem;">←</div>
+                            <div class="step-title">Application</div>
+                        </a>
+                    </div>
+                    <div class="sidebar-divider"></div>
+                    <div class="sidebar-section-label">Assessment</div>
+                    <div class="sidebar-assessment-items">
+                        <a href="iq_assessment.html" class="assessment-item step-item active">
+                            <div class="step-number" style="font-size:0.65rem;font-weight:800;">IQ</div>
+                            <div class="step-title">Psychometric Test</div>
+                        </a>
+                        <a href="skillset_assessment.html" class="assessment-item step-item">
+                            <div class="step-number" style="font-size:0.65rem;font-weight:800;">SK</div>
+                            <div class="step-title">Technical Assessment</div>
+                        </a>
+                        <a href="games.html" class="assessment-item step-item">
+                            <div class="step-number" style="font-size:0.65rem;font-weight:800;">🎮</div>
+                            <div class="step-title">Games</div>
+                        </a>
+                    </div>
+                    <div class="sidebar-decoration">
+                        <img src="/static/sidebar-decoration.svg" alt="">
+                    </div>
                 </div>
-                <div class="sidebar-divider"></div>
-                <div class="sidebar-section-label">Assessment</div>
-                <div class="sidebar-assessment-items">
-                    <a href="iq_assessment.html" class="assessment-item step-item active">
-                        <div class="step-number" style="font-size:0.65rem;font-weight:800;">IQ</div>
-                        <div class="step-title">General IQ</div>
-                    </a>
-                    <a href="skillset_assessment.html" class="assessment-item step-item">
-                        <div class="step-number" style="font-size:0.65rem;font-weight:800;">SK</div>
-                        <div class="step-title">Skillset</div>
-                    </a>
-                    <a href="games.html" class="assessment-item step-item">
-                        <div class="step-number" style="font-size:0.65rem;font-weight:800;">🎮</div>
-                        <div class="step-title">Games</div>
-                    </a>
-                </div>
-                <div class="sidebar-decoration">
-                    <img src="/static/sidebar-decoration.svg" alt="">
-                </div>
-            </div>
 
-            <!-- Main content -->
-            <div class="main-content">
+                <!-- Main content -->
+                <div class="main-content">
 
-                <!-- ── Intro ── -->
-                <div id="screen-intro" class="psych-screen active">
-                    <div class="wizard-card active">
-                        <h2 style="color:#c6e8ff;margin:0 0 16px;text-align:center;font-size:1.8rem;">Get Started!</h2>
-                        <div style="color:#aac4e8;margin-bottom:22px;line-height:1.8;padding: 0 35px;">
-                            <p>1. You have <strong style="color:#00d4ff;">10 minutes</strong> to answer a set of 40 questions.</p>
-                            <p>2. Analyze the questions and select the correct options (A, B, C, or D) to replace the missing one, marked by a question mark (?).</p>
-                            <p>3. You can navigate between questions freely — the timer runs for the whole section, not per question.</p>
-                            <p style="margin-top:35px;font-weight:bold;">Good Luck!</p>
-                        </div>
-                        <div style="display:flex;justify-content:center;margin-top:35px;">
-                            <button id="start-btn" class="nav-btn"
+                    <!-- ── Intro ── -->
+                    <div id="screen-intro" class="psych-screen active">
+                        <div class="wizard-card active">
+                            <h2 style="color:#c6e8ff;margin:0 0 16px;text-align:center;font-size:1.8rem;">Get Started!
+                            </h2>
+                            <div style="color:#aac4e8;margin-bottom:22px;line-height:1.8;padding: 0 35px;">
+                                <p>1. You have <strong style="color:#00d4ff;">10 minutes</strong> to answer a set of 40
+                                    questions.</p>
+                                <p>2. Analyze the questions and select the correct options (A, B, C, or D) to replace
+                                    the missing one, marked by a question mark (?).</p>
+                                <p>3. You can navigate between questions freely — the timer runs for the whole section,
+                                    not per question.</p>
+                                <p style="margin-top:35px;font-weight:bold;">Good Luck!</p>
+                            </div>
+                            <div style="display:flex;justify-content:center;margin-top:35px;">
+                                <button id="start-btn" class="nav-btn"
                                     style="background:linear-gradient(135deg,#3563eb,#3b82f6);color:#fff;min-width:350px;font-size:1.1rem;padding:12px 24px;border:none;border-radius:6px;cursor:pointer;"
                                     onclick="(window.startAssessmentIQ || function(){})()">
-                                Start Test
+                                    Start Test
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ── Question ── -->
+                    <div id="screen-question" class="psych-screen" style="display:none;">
+                        <div class="psych-module-header">
+                            <div>
+                                <div class="psych-question-num" id="q-num">Question 1 of 40</div>
+                                <div id="q-source-badge" class="q-source-badge" style="display:none;margin-top:4px;">
+                                </div>
+                            </div>
+                            <div class="psych-timer-block">
+                                <span class="psych-timer-number" id="timer-num">10:00</span>
+                                <span class="psych-timer-label">remaining</span>
+                            </div>
+                        </div>
+                        <div class="timer-bar-wrap">
+                            <div class="timer-bar" id="timer-bar"></div>
+                        </div>
+
+                        <div class="wizard-card active" style="margin-bottom:12px;">
+                            <h3 id="q-title" style="color:#c6e8ff;margin:0 0 14px;font-size:1rem;font-weight:600;"></h3>
+                            <div id="q-visual" class="psych-viz-center"
+                                style="justify-content:center;margin-bottom:16px;display:none;"></div>
+                            <div id="q-options" class="mcq-options"></div>
+                            <div id="q-explanation" class="mcq-explanation"></div>
+                        </div>
+
+                        <div class="psych-q-nav">
+                            <button id="q-prev-btn" class="nav-btn prev-btn" style="display:none;">← Prev</button>
+                            <div class="q-number-grid" id="q-number-grid"></div>
+                            <button id="q-next-btn" class="nav-btn">Next →</button>
+                        </div>
+                        <div style="display:flex;justify-content:flex-end;margin-top:10px;">
+                            <button id="q-finish-btn" class="nav-btn q-finish-btn"
+                                style="display:none;background:linear-gradient(135deg,#00d4ff,#00ff88);color:#000;">
+                                View Results →
                             </button>
                         </div>
                     </div>
-                </div>
 
-                <!-- ── Question ── -->
-                <div id="screen-question" class="psych-screen" style="display:none;">
-                    <div class="psych-module-header">
-                        <div>
-                            <div class="psych-question-num" id="q-num">Question 1 of 40</div>
-                            <div id="q-source-badge" class="q-source-badge" style="display:none;margin-top:4px;"></div>
+                    <!-- ── Results ── -->
+                    <div id="screen-results" class="psych-screen" style="display:none;">
+                        <h2 style="color:#c6e8ff;margin:0 0 18px;">Psychometric Test Results</h2>
+
+                        <div class="psych-overall-box">
+                            <div>
+                                <div class="psych-overall-label">Score</div>
+                                <div class="psych-overall-score" id="res-score">—</div>
+                            </div>
+                            <div>
+                                <div class="psych-overall-label">Percentile</div>
+                                <div class="psych-overall-tier" id="res-percentile" style="color:#00ff88;">—</div>
+                            </div>
+                            <div>
+                                <div class="psych-overall-label">Rating</div>
+                                <div class="psych-overall-tier" id="res-tier" style="color:#ffcc44;">—</div>
+                            </div>
                         </div>
-                        <div class="psych-timer-block">
-                            <span class="psych-timer-number" id="timer-num">10:00</span>
-                            <span class="psych-timer-label">remaining</span>
-                        </div>
-                    </div>
-                    <div class="timer-bar-wrap">
-                        <div class="timer-bar" id="timer-bar"></div>
-                    </div>
 
-                    <div class="wizard-card active" style="margin-bottom:12px;">
-                        <h3 id="q-title" style="color:#c6e8ff;margin:0 0 14px;font-size:1rem;font-weight:600;"></h3>
-                        <div id="q-visual" class="psych-viz-center"
-                             style="justify-content:center;margin-bottom:16px;display:none;"></div>
-                        <div id="q-options" class="mcq-options"></div>
-                        <div id="q-explanation" class="mcq-explanation"></div>
-                    </div>
+                        <div class="psych-results-grid" id="res-breakdown" style="margin-bottom:22px;"></div>
 
-                    <div class="psych-q-nav">
-                        <button id="q-prev-btn" class="nav-btn prev-btn" style="display:none;">← Prev</button>
-                        <div class="q-number-grid" id="q-number-grid"></div>
-                        <button id="q-next-btn" class="nav-btn">Next →</button>
-                    </div>
-                    <div style="display:flex;justify-content:flex-end;margin-top:10px;">
-                        <button id="q-finish-btn" class="nav-btn q-finish-btn" style="display:none;background:linear-gradient(135deg,#00d4ff,#00ff88);color:#000;">
-                            View Results →
-                        </button>
-                    </div>
-                </div>
-
-                <!-- ── Results ── -->
-                <div id="screen-results" class="psych-screen" style="display:none;">
-                    <h2 style="color:#c6e8ff;margin:0 0 18px;">IQ Assessment Results</h2>
-
-                    <div class="psych-overall-box">
-                        <div>
-                            <div class="psych-overall-label">Score</div>
-                            <div class="psych-overall-score" id="res-score">—</div>
-                        </div>
-                        <div>
-                            <div class="psych-overall-label">Percentile</div>
-                            <div class="psych-overall-tier" id="res-percentile" style="color:#00ff88;">—</div>
-                        </div>
-                        <div>
-                            <div class="psych-overall-label">Rating</div>
-                            <div class="psych-overall-tier" id="res-tier" style="color:#ffcc44;">—</div>
-                        </div>
-                    </div>
-
-                    <div class="psych-results-grid" id="res-breakdown" style="margin-bottom:22px;"></div>
-
-                    <div style="display:flex;gap:12px;flex-wrap:wrap;">
-                        <a href="index.html" style="text-decoration:none;">
-                            <button class="nav-btn prev-btn">← Back to Application</button>
-                        </a>
-                        <a href="skillset_assessment.html" style="text-decoration:none;">
-                            <button class="nav-btn"
+                        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+                            <a href="index.html" style="text-decoration:none;">
+                                <button class="nav-btn prev-btn">← Back to Application</button>
+                            </a>
+                            <a href="skillset_assessment.html" style="text-decoration:none;">
+                                <button class="nav-btn"
                                     style="background:linear-gradient(135deg,#00d4ff,#00ff88);color:#000;">
-                                Next: Skillset Assessment →
-                            </button>
-                        </a>
+                                    Next: Technical Assessment →
+                                </button>
+                            </a>
+                        </div>
                     </div>
-                </div>
 
-            </div><!-- /main-content -->
-        </div><!-- /wizard-layout -->
+                </div><!-- /main-content -->
+            </div><!-- /wizard-layout -->
+        </div>
     </div>
-</div>
-<script src="/static/assessment_lock.js?v=1775596569"></script>
-<script src="/static/iq_assessment.js?v=1775596569?v=3.4"></script>
+    <script src="/static/assessment_lock.js?v=1775596569"></script>
+    <script src="/static/iq_assessment.js?v=1775596569?v=3.4"></script>
 </body>
+
 </html>

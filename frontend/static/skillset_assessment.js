@@ -567,7 +567,7 @@ var finishTime = null;
     var track = document.getElementById('screen-track');
     if (track) {
       track.innerHTML = buildCompletedBanner(
-        '⚡ Skillset Assessment',
+        '⚡ Technical Assessment',
         'You have already completed this assessment.',
         [{ label: 'Games Assessment →', href: '/games.html' }]
       );

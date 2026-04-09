@@ -94,6 +94,13 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     syncPills(); // run once on load
 
+    // Prevent checkbox toggling when clicking the experience select
+    document.addEventListener('click', function (e) {
+        if (e.target.classList.contains('pill-select')) {
+            e.stopPropagation();
+        }
+    }, true); // use capture phase to be safe
+
     let currentStep = 1;
     let maxReachedStep = parseInt(localStorage.getItem('maxReachedStep')) || 1;
 

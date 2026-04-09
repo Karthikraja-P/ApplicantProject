@@ -84,12 +84,12 @@
                         <a href="iq_assessment.html" class="assessment-item step-item">
                             <div class="step-number" style="font-size:0.6rem;font-weight:800;letter-spacing:0.02em;">IQ
                             </div>
-                            <div class="step-title">General IQ</div>
+                            <div class="step-title">Psychometric Test</div>
                         </a>
                         <a href="skillset_assessment.html" class="assessment-item step-item">
                             <div class="step-number" style="font-size:0.6rem;font-weight:800;letter-spacing:0.02em;">SK
                             </div>
-                            <div class="step-title">Skillset</div>
+                            <div class="step-title">Technical Assessment</div>
                         </a>
                         <a href="games.html" class="assessment-item step-item">
                             <div class="step-number" style="font-size:0.6rem;font-weight:800;letter-spacing:0.02em;">🎮
@@ -240,6 +240,12 @@
 
                         <div class="wizard-card" data-step="6">
                             <h2>Skills &amp; Source</h2>
+                            <p class="step-hint"
+                                style="font-size: 0.88rem; color: #c6f7ff; margin-bottom: 22px; padding: 10px; background: rgba(0, 212, 255, 0.05); border-left: 3px solid #00d4ff; border-radius: 4px;">
+                                <strong style="color: #00d4ff;">Important:</strong> For every skill you select, you
+                                <strong>must</strong> choose your years of experience or awareness level from the
+                                dropdown.
+                            </p>
 
                             <label>Primary Area of Interest <span class="required">*</span> <span class="help-icon"
                                     title="Choose the area that best matches your expertise.">ⓘ</span></label>
@@ -256,48 +262,51 @@
                                 <span class="field-group-label">Databases worked with <span class="multi-hint">(select
                                         all that apply)</span></span>
                                 <div class="wizard-checkbox">
-                                    <label><input type="checkbox" name="db_databases" value="MySQL"> MySQL</label>
-                                    <label><input type="checkbox" name="db_databases" value="PostgreSQL">
-                                        PostgreSQL</label>
-                                    <label><input type="checkbox" name="db_databases" value="MongoDB"> MongoDB</label>
-                                    <label><input type="checkbox" name="db_databases" value="Redis"> Redis</label>
-                                    <label><input type="checkbox" name="db_databases" value="Cassandra">
-                                        Cassandra</label>
-                                    <label><input type="checkbox" name="db_databases" value="DynamoDB"> DynamoDB</label>
-                                    <label><input type="checkbox" name="db_databases" value="Other"> Other</label>
+                                    <label><input type="checkbox" name="db_databases" value="MySQL"> MySQL <select
+                                            name="exp_MySQL" class="pill-select"><option value="Awareness" selected>Choose Awareness</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="4">4 yrs</option><option value="5">5 yrs</option><option value="6">6 yrs</option><option value="7">7 yrs</option><option value="8">8 yrs</option><option value="9">9 yrs</option><option value="10+">10+ yrs</option></select></label>
+                                    <label><input type="checkbox" name="db_databases" value="PostgreSQL"> PostgreSQL
+                                        <select name="exp_PostgreSQL" class="pill-select"><option value="Awareness" selected>Choose Awareness</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="4">4 yrs</option><option value="5">5 yrs</option><option value="6">6 yrs</option><option value="7">7 yrs</option><option value="8">8 yrs</option><option value="9">9 yrs</option><option value="10+">10+ yrs</option></select></label>
+                                    <label><input type="checkbox" name="db_databases" value="MongoDB"> MongoDB <select
+                                            name="exp_MongoDB" class="pill-select"><option value="Awareness" selected>Choose Awareness</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="4">4 yrs</option><option value="5">5 yrs</option><option value="6">6 yrs</option><option value="7">7 yrs</option><option value="8">8 yrs</option><option value="9">9 yrs</option><option value="10+">10+ yrs</option></select></label>
+                                    <label><input type="checkbox" name="db_databases" value="Redis"> Redis <select
+                                            name="exp_Redis" class="pill-select"><option value="Awareness" selected>Choose Awareness</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="4">4 yrs</option><option value="5">5 yrs</option><option value="6">6 yrs</option><option value="7">7 yrs</option><option value="8">8 yrs</option><option value="9">9 yrs</option><option value="10+">10+ yrs</option></select></label>
+                                    <label><input type="checkbox" name="db_databases" value="Cassandra"> Cassandra
+                                        <select name="exp_Cassandra" class="pill-select"><option value="Awareness" selected>Choose Awareness</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="4">4 yrs</option><option value="5">5 yrs</option><option value="6">6 yrs</option><option value="7">7 yrs</option><option value="8">8 yrs</option><option value="9">9 yrs</option><option value="10+">10+ yrs</option></select></label>
+                                    <label><input type="checkbox" name="db_databases" value="DynamoDB"> DynamoDB <select
+                                            name="exp_DynamoDB" class="pill-select"><option value="Awareness" selected>Choose Awareness</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="4">4 yrs</option><option value="5">5 yrs</option><option value="6">6 yrs</option><option value="7">7 yrs</option><option value="8">8 yrs</option><option value="9">9 yrs</option><option value="10+">10+ yrs</option></select></label>
+                                    <label><input type="checkbox" name="db_databases" value="Other"> Other <select
+                                            name="exp_DB_Other" class="pill-select"><option value="Awareness" selected>Choose Awareness</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="4">4 yrs</option><option value="5">5 yrs</option><option value="6">6 yrs</option><option value="7">7 yrs</option><option value="8">8 yrs</option><option value="9">9 yrs</option><option value="10+">10+ yrs</option></select></label>
                                 </div>
 
                                 <span class="field-group-label">Query Languages / Tools <span class="multi-hint">(select
                                         all that apply)</span></span>
                                 <div class="wizard-checkbox">
-                                    <label><input type="checkbox" name="db_query_tools" value="SQL"> SQL</label>
-                                    <label><input type="checkbox" name="db_query_tools" value="PL/SQL"> PL/SQL</label>
-                                    <label><input type="checkbox" name="db_query_tools" value="ORM tools"> ORM
-                                        tools</label>
+                                    <label><input type="checkbox" name="db_query_tools" value="SQL"> SQL <select
+                                            name="exp_SQL" class="pill-select"><option value="Awareness" selected>Choose Awareness</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="4">4 yrs</option><option value="5">5 yrs</option><option value="6">6 yrs</option><option value="7">7 yrs</option><option value="8">8 yrs</option><option value="9">9 yrs</option><option value="10+">10+ yrs</option></select></label>
+                                    <label><input type="checkbox" name="db_query_tools" value="PL/SQL"> PL/SQL <select
+                                            name="exp_PLSQL" class="pill-select"><option value="Awareness" selected>Choose Awareness</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="4">4 yrs</option><option value="5">5 yrs</option><option value="6">6 yrs</option><option value="7">7 yrs</option><option value="8">8 yrs</option><option value="9">9 yrs</option><option value="10+">10+ yrs</option></select></label>
+                                    <label><input type="checkbox" name="db_query_tools" value="ORM tools"> ORM tools
+                                        <select name="exp_ORM" class="pill-select"><option value="Awareness" selected>Choose Awareness</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="4">4 yrs</option><option value="5">5 yrs</option><option value="6">6 yrs</option><option value="7">7 yrs</option><option value="8">8 yrs</option><option value="9">9 yrs</option><option value="10+">10+ yrs</option></select></label>
                                     <label><input type="checkbox" name="db_query_tools" value="None"> None</label>
                                 </div>
 
                                 <span class="field-group-label">Backend Languages <span class="multi-hint">(select all
                                         that apply)</span></span>
                                 <div class="wizard-checkbox">
-                                    <label><input type="checkbox" name="db_backend_langs" value="Python"> Python</label>
-                                    <label><input type="checkbox" name="db_backend_langs" value="Java"> Java</label>
-                                    <label><input type="checkbox" name="db_backend_langs" value="Node.js">
-                                        Node.js</label>
-                                    <label><input type="checkbox" name="db_backend_langs" value="Go"> Go</label>
-                                    <label><input type="checkbox" name="db_backend_langs" value="Other"> Other</label>
+                                    <label><input type="checkbox" name="db_backend_langs" value="Python"> Python <select
+                                            name="exp_Python" class="pill-select"><option value="Awareness" selected>Choose Awareness</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="4">4 yrs</option><option value="5">5 yrs</option><option value="6">6 yrs</option><option value="7">7 yrs</option><option value="8">8 yrs</option><option value="9">9 yrs</option><option value="10+">10+ yrs</option></select></label>
+                                    <label><input type="checkbox" name="db_backend_langs" value="Java"> Java <select
+                                            name="exp_Java" class="pill-select"><option value="Awareness" selected>Choose Awareness</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="4">4 yrs</option><option value="5">5 yrs</option><option value="6">6 yrs</option><option value="7">7 yrs</option><option value="8">8 yrs</option><option value="9">9 yrs</option><option value="10+">10+ yrs</option></select></label>
+                                    <label><input type="checkbox" name="db_backend_langs" value="Node.js"> Node.js
+                                        <select name="exp_NodeJS" class="pill-select"><option value="Awareness" selected>Choose Awareness</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="4">4 yrs</option><option value="5">5 yrs</option><option value="6">6 yrs</option><option value="7">7 yrs</option><option value="8">8 yrs</option><option value="9">9 yrs</option><option value="10+">10+ yrs</option></select></label>
+                                    <label><input type="checkbox" name="db_backend_langs" value="Go"> Go <select
+                                            name="exp_Go" class="pill-select"><option value="Awareness" selected>Choose Awareness</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="4">4 yrs</option><option value="5">5 yrs</option><option value="6">6 yrs</option><option value="7">7 yrs</option><option value="8">8 yrs</option><option value="9">9 yrs</option><option value="10+">10+ yrs</option></select></label>
+                                    <label><input type="checkbox" name="db_backend_langs" value="Other"> Other <select
+                                            name="exp_BE_Other" class="pill-select"><option value="Awareness" selected>Choose Awareness</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="4">4 yrs</option><option value="5">5 yrs</option><option value="6">6 yrs</option><option value="7">7 yrs</option><option value="8">8 yrs</option><option value="9">9 yrs</option><option value="10+">10+ yrs</option></select></label>
                                 </div>
 
+
                                 <div class="field-row">
-                                    <div>
-                                        <label>Experience Level</label>
-                                        <select name="db_experience" id="db_experience">
-                                            <option value="">Select...</option>
-                                            <option value="Basic">Basic — learning / coursework</option>
-                                            <option value="Intermediate">Intermediate — projects</option>
-                                            <option value="Advanced">Advanced — production systems</option>
-                                        </select>
-                                    </div>
                                     <div>
                                         <label>Designed or optimized a DB system?</label>
                                         <select name="db_optimized" id="db_optimized">
@@ -321,54 +330,53 @@
                                 <span class="field-group-label">Libraries / Tools <span class="multi-hint">(select all
                                         that apply)</span></span>
                                 <div class="wizard-checkbox">
-                                    <label><input type="checkbox" name="ml_libs" value="Pandas"> Pandas</label>
-                                    <label><input type="checkbox" name="ml_libs" value="NumPy"> NumPy</label>
-                                    <label><input type="checkbox" name="ml_libs" value="Scikit-learn">
-                                        Scikit-learn</label>
-                                    <label><input type="checkbox" name="ml_libs" value="PyTorch"> PyTorch</label>
-                                    <label><input type="checkbox" name="ml_libs" value="TensorFlow"> TensorFlow</label>
-                                    <label><input type="checkbox" name="ml_libs" value="XGBoost"> XGBoost</label>
-                                    <label><input type="checkbox" name="ml_libs" value="Other"> Other</label>
+                                    <label><input type="checkbox" name="ml_libs" value="Pandas"> Pandas <select
+                                            name="exp_ML_Pandas" class="pill-select"><option value="Awareness" selected>Choose Awareness</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="4">4 yrs</option><option value="5">5 yrs</option><option value="6">6 yrs</option><option value="7">7 yrs</option><option value="8">8 yrs</option><option value="9">9 yrs</option><option value="10+">10+ yrs</option></select></label>
+                                    <label><input type="checkbox" name="ml_libs" value="NumPy"> NumPy <select
+                                            name="exp_ML_NumPy" class="pill-select"><option value="Awareness" selected>Choose Awareness</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="4">4 yrs</option><option value="5">5 yrs</option><option value="6">6 yrs</option><option value="7">7 yrs</option><option value="8">8 yrs</option><option value="9">9 yrs</option><option value="10+">10+ yrs</option></select></label>
+                                    <label><input type="checkbox" name="ml_libs" value="Scikit-learn"> Scikit-learn
+                                        <select name="exp_ML_Scikit" class="pill-select"><option value="Awareness" selected>Choose Awareness</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="4">4 yrs</option><option value="5">5 yrs</option><option value="6">6 yrs</option><option value="7">7 yrs</option><option value="8">8 yrs</option><option value="9">9 yrs</option><option value="10+">10+ yrs</option></select></label>
+                                    <label><input type="checkbox" name="ml_libs" value="PyTorch"> PyTorch <select
+                                            name="exp_ML_PyTorch" class="pill-select"><option value="Awareness" selected>Choose Awareness</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="4">4 yrs</option><option value="5">5 yrs</option><option value="6">6 yrs</option><option value="7">7 yrs</option><option value="8">8 yrs</option><option value="9">9 yrs</option><option value="10+">10+ yrs</option></select></label>
+                                    <label><input type="checkbox" name="ml_libs" value="TensorFlow"> TensorFlow <select
+                                            name="exp_ML_TF" class="pill-select"><option value="Awareness" selected>Choose Awareness</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="4">4 yrs</option><option value="5">5 yrs</option><option value="6">6 yrs</option><option value="7">7 yrs</option><option value="8">8 yrs</option><option value="9">9 yrs</option><option value="10+">10+ yrs</option></select></label>
+                                    <label><input type="checkbox" name="ml_libs" value="XGBoost"> XGBoost <select
+                                            name="exp_ML_XGB" class="pill-select"><option value="Awareness" selected>Choose Awareness</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="4">4 yrs</option><option value="5">5 yrs</option><option value="6">6 yrs</option><option value="7">7 yrs</option><option value="8">8 yrs</option><option value="9">9 yrs</option><option value="10+">10+ yrs</option></select></label>
+                                    <label><input type="checkbox" name="ml_libs" value="Other"> Other <select
+                                            name="exp_ML_Other" class="pill-select"><option value="Awareness" selected>Choose Awareness</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="4">4 yrs</option><option value="5">5 yrs</option><option value="6">6 yrs</option><option value="7">7 yrs</option><option value="8">8 yrs</option><option value="9">9 yrs</option><option value="10+">10+ yrs</option></select></label>
                                 </div>
 
                                 <span class="field-group-label">Financial Data Experience <span
-                                        class="multi-hint">(select all that apply)</span></span>
+                                        class="multi-hint">(select
+                                        all that apply)</span></span>
                                 <div class="wizard-checkbox">
                                     <label><input type="checkbox" name="ml_fin_data" value="Time-series data">
-                                        Time-series data</label>
+                                        Time-series <select name="exp_ML_TimeSeries" class="pill-select"><option value="Awareness" selected>Choose Awareness</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="4">4 yrs</option><option value="5">5 yrs</option><option value="6">6 yrs</option><option value="7">7 yrs</option><option value="8">8 yrs</option><option value="9">9 yrs</option><option value="10+">10+ yrs</option></select></label>
                                     <label><input type="checkbox" name="ml_fin_data" value="Stock/crypto market data">
-                                        Stock / Crypto data</label>
-                                    <label><input type="checkbox" name="ml_fin_data" value="Backtesting">
-                                        Backtesting</label>
+                                        Stock/Crypto <select name="exp_ML_MarketData" class="pill-select"><option value="Awareness" selected>Choose Awareness</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="4">4 yrs</option><option value="5">5 yrs</option><option value="6">6 yrs</option><option value="7">7 yrs</option><option value="8">8 yrs</option><option value="9">9 yrs</option><option value="10+">10+ yrs</option></select></label>
+                                    <label><input type="checkbox" name="ml_fin_data" value="Backtesting"> Backtesting
+                                        <select name="exp_ML_Backtesting" class="pill-select"><option value="Awareness" selected>Choose Awareness</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="4">4 yrs</option><option value="5">5 yrs</option><option value="6">6 yrs</option><option value="7">7 yrs</option><option value="8">8 yrs</option><option value="9">9 yrs</option><option value="10+">10+ yrs</option></select></label>
                                     <label><input type="checkbox" name="ml_fin_data"
-                                            value="Feature engineering for finance"> Feature engineering</label>
+                                            value="Feature engineering for finance"> Feature Eng <select
+                                            name="exp_ML_FeatEng" class="pill-select"><option value="Awareness" selected>Choose Awareness</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="4">4 yrs</option><option value="5">5 yrs</option><option value="6">6 yrs</option><option value="7">7 yrs</option><option value="8">8 yrs</option><option value="9">9 yrs</option><option value="10+">10+ yrs</option></select></label>
                                     <label><input type="checkbox" name="ml_fin_data" value="None"> None</label>
                                 </div>
 
                                 <span class="field-group-label">ML Concepts <span class="multi-hint">(select all that
                                         apply)</span></span>
                                 <div class="wizard-checkbox">
-                                    <label><input type="checkbox" name="ml_concepts" value="Regression">
-                                        Regression</label>
+                                    <label><input type="checkbox" name="ml_concepts" value="Regression"> Regression
+                                        <select name="exp_ML_Reg" class="pill-select"><option value="Awareness" selected>Choose Awareness</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="4">4 yrs</option><option value="5">5 yrs</option><option value="6">6 yrs</option><option value="7">7 yrs</option><option value="8">8 yrs</option><option value="9">9 yrs</option><option value="10+">10+ yrs</option></select></label>
                                     <label><input type="checkbox" name="ml_concepts" value="Classification">
-                                        Classification</label>
+                                        Classification <select name="exp_ML_Class" class="pill-select"><option value="Awareness" selected>Choose Awareness</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="4">4 yrs</option><option value="5">5 yrs</option><option value="6">6 yrs</option><option value="7">7 yrs</option><option value="8">8 yrs</option><option value="9">9 yrs</option><option value="10+">10+ yrs</option></select></label>
                                     <label><input type="checkbox" name="ml_concepts" value="Time-series forecasting">
-                                        Time-series forecasting</label>
-                                    <label><input type="checkbox" name="ml_concepts" value="Reinforcement learning">
-                                        Reinforcement learning</label>
+                                        Forecasting <select name="exp_ML_Forecast" class="pill-select"><option value="Awareness" selected>Choose Awareness</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="4">4 yrs</option><option value="5">5 yrs</option><option value="6">6 yrs</option><option value="7">7 yrs</option><option value="8">8 yrs</option><option value="9">9 yrs</option><option value="10+">10+ yrs</option></select></label>
+                                    <label><input type="checkbox" name="ml_concepts" value="Reinforcement learning"> RL
+                                        <select name="exp_ML_RL" class="pill-select"><option value="Awareness" selected>Choose Awareness</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="4">4 yrs</option><option value="5">5 yrs</option><option value="6">6 yrs</option><option value="7">7 yrs</option><option value="8">8 yrs</option><option value="9">9 yrs</option><option value="10+">10+ yrs</option></select></label>
                                     <label><input type="checkbox" name="ml_concepts" value="None"> None</label>
                                 </div>
 
                                 <div class="field-row">
-                                    <div>
-                                        <label>Experience Level</label>
-                                        <select name="ml_experience" id="ml_experience">
-                                            <option value="">Select...</option>
-                                            <option value="Basic">Basic</option>
-                                            <option value="Intermediate">Intermediate</option>
-                                            <option value="Advanced">Advanced</option>
-                                        </select>
-                                    </div>
                                     <div>
                                         <label>Built an ML model on financial data?</label>
                                         <select name="ml_built" id="ml_built">
@@ -392,47 +400,48 @@
                                 <span class="field-group-label">Tools / Frameworks <span class="multi-hint">(select all
                                         that apply)</span></span>
                                 <div class="wizard-checkbox">
-                                    <label><input type="checkbox" name="ai_tools" value="OpenAI APIs"> OpenAI
-                                        APIs</label>
-                                    <label><input type="checkbox" name="ai_tools" value="LangChain"> LangChain</label>
-                                    <label><input type="checkbox" name="ai_tools" value="LlamaIndex"> LlamaIndex</label>
-                                    <label><input type="checkbox" name="ai_tools" value="Hugging Face"> Hugging
-                                        Face</label>
-                                    <label><input type="checkbox" name="ai_tools" value="Vector DBs"> Vector DBs</label>
-                                    <label><input type="checkbox" name="ai_tools" value="Other"> Other</label>
+                                    <label><input type="checkbox" name="ai_tools" value="OpenAI APIs"> OpenAI <select
+                                            name="exp_AI_OpenAI" class="pill-select"><option value="Awareness" selected>Choose Awareness</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="4">4 yrs</option><option value="5">5 yrs</option><option value="6">6 yrs</option><option value="7">7 yrs</option><option value="8">8 yrs</option><option value="9">9 yrs</option><option value="10+">10+ yrs</option></select></label>
+                                    <label><input type="checkbox" name="ai_tools" value="LangChain"> LangChain <select
+                                            name="exp_AI_LangChain" class="pill-select"><option value="Awareness" selected>Choose Awareness</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="4">4 yrs</option><option value="5">5 yrs</option><option value="6">6 yrs</option><option value="7">7 yrs</option><option value="8">8 yrs</option><option value="9">9 yrs</option><option value="10+">10+ yrs</option></select></label>
+                                    <label><input type="checkbox" name="ai_tools" value="LlamaIndex"> LlamaIndex <select
+                                            name="exp_AI_LlamaIndex" class="pill-select"><option value="Awareness" selected>Choose Awareness</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="4">4 yrs</option><option value="5">5 yrs</option><option value="6">6 yrs</option><option value="7">7 yrs</option><option value="8">8 yrs</option><option value="9">9 yrs</option><option value="10+">10+ yrs</option></select></label>
+                                    <label><input type="checkbox" name="ai_tools" value="Hugging Face"> HF <select
+                                            name="exp_AI_HF" class="pill-select"><option value="Awareness" selected>Choose Awareness</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="4">4 yrs</option><option value="5">5 yrs</option><option value="6">6 yrs</option><option value="7">7 yrs</option><option value="8">8 yrs</option><option value="9">9 yrs</option><option value="10+">10+ yrs</option></select></label>
+                                    <label><input type="checkbox" name="ai_tools" value="Vector DBs"> VectorDB <select
+                                            name="exp_AI_VectorDB" class="pill-select"><option value="Awareness" selected>Choose Awareness</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="4">4 yrs</option><option value="5">5 yrs</option><option value="6">6 yrs</option><option value="7">7 yrs</option><option value="8">8 yrs</option><option value="9">9 yrs</option><option value="10+">10+ yrs</option></select></label>
+                                    <label><input type="checkbox" name="ai_tools" value="Other"> Other <select
+                                            name="exp_AI_Other" class="pill-select"><option value="Awareness" selected>Choose Awareness</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="4">4 yrs</option><option value="5">5 yrs</option><option value="6">6 yrs</option><option value="7">7 yrs</option><option value="8">8 yrs</option><option value="9">9 yrs</option><option value="10+">10+ yrs</option></select></label>
                                 </div>
 
                                 <span class="field-group-label">Areas of Experience <span class="multi-hint">(select all
                                         that apply)</span></span>
                                 <div class="wizard-checkbox">
-                                    <label><input type="checkbox" name="ai_areas" value="Prompt engineering"> Prompt
-                                        engineering</label>
-                                    <label><input type="checkbox" name="ai_areas" value="RAG"> RAG</label>
-                                    <label><input type="checkbox" name="ai_areas" value="Fine-tuning">
-                                        Fine-tuning</label>
-                                    <label><input type="checkbox" name="ai_areas" value="AI agents"> AI agents</label>
-                                    <label><input type="checkbox" name="ai_areas" value="Evaluation"> Evaluation</label>
+                                    <label><input type="checkbox" name="ai_areas" value="Prompt engineering"> Prompting
+                                        <select name="exp_AI_Prompting" class="pill-select"><option value="Awareness" selected>Choose Awareness</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="4">4 yrs</option><option value="5">5 yrs</option><option value="6">6 yrs</option><option value="7">7 yrs</option><option value="8">8 yrs</option><option value="9">9 yrs</option><option value="10+">10+ yrs</option></select></label>
+                                    <label><input type="checkbox" name="ai_areas" value="RAG"> RAG <select
+                                            name="exp_AI_RAG" class="pill-select"><option value="Awareness" selected>Choose Awareness</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="4">4 yrs</option><option value="5">5 yrs</option><option value="6">6 yrs</option><option value="7">7 yrs</option><option value="8">8 yrs</option><option value="9">9 yrs</option><option value="10+">10+ yrs</option></select></label>
+                                    <label><input type="checkbox" name="ai_areas" value="Fine-tuning"> Fine-tuning
+                                        <select name="exp_AI_FineTuning" class="pill-select"><option value="Awareness" selected>Choose Awareness</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="4">4 yrs</option><option value="5">5 yrs</option><option value="6">6 yrs</option><option value="7">7 yrs</option><option value="8">8 yrs</option><option value="9">9 yrs</option><option value="10+">10+ yrs</option></select></label>
+                                    <label><input type="checkbox" name="ai_areas" value="AI agents"> Agents <select
+                                            name="exp_AI_Agents" class="pill-select"><option value="Awareness" selected>Choose Awareness</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="4">4 yrs</option><option value="5">5 yrs</option><option value="6">6 yrs</option><option value="7">7 yrs</option><option value="8">8 yrs</option><option value="9">9 yrs</option><option value="10+">10+ yrs</option></select></label>
+                                    <label><input type="checkbox" name="ai_areas" value="Evaluation"> Eval <select
+                                            name="exp_AI_Eval" class="pill-select"><option value="Awareness" selected>Choose Awareness</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="4">4 yrs</option><option value="5">5 yrs</option><option value="6">6 yrs</option><option value="7">7 yrs</option><option value="8">8 yrs</option><option value="9">9 yrs</option><option value="10+">10+ yrs</option></select></label>
                                     <label><input type="checkbox" name="ai_areas" value="None"> None</label>
                                 </div>
 
                                 <span class="field-group-label">Programming Languages <span class="multi-hint">(select
                                         all that apply)</span></span>
                                 <div class="wizard-checkbox">
-                                    <label><input type="checkbox" name="ai_langs" value="Python"> Python</label>
-                                    <label><input type="checkbox" name="ai_langs" value="JavaScript"> JavaScript</label>
-                                    <label><input type="checkbox" name="ai_langs" value="Other"> Other</label>
+                                    <label><input type="checkbox" name="ai_langs" value="Python"> Python <select
+                                            name="exp_AI_Python" class="pill-select"><option value="Awareness" selected>Choose Awareness</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="4">4 yrs</option><option value="5">5 yrs</option><option value="6">6 yrs</option><option value="7">7 yrs</option><option value="8">8 yrs</option><option value="9">9 yrs</option><option value="10+">10+ yrs</option></select></label>
+                                    <label><input type="checkbox" name="ai_langs" value="JavaScript"> JS <select
+                                            name="exp_AI_JS" class="pill-select"><option value="Awareness" selected>Choose Awareness</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="4">4 yrs</option><option value="5">5 yrs</option><option value="6">6 yrs</option><option value="7">7 yrs</option><option value="8">8 yrs</option><option value="9">9 yrs</option><option value="10+">10+ yrs</option></select></label>
+                                    <label><input type="checkbox" name="ai_langs" value="Other"> Other <select
+                                            name="exp_AI_OtherLang" class="pill-select"><option value="Awareness" selected>Choose Awareness</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="4">4 yrs</option><option value="5">5 yrs</option><option value="6">6 yrs</option><option value="7">7 yrs</option><option value="8">8 yrs</option><option value="9">9 yrs</option><option value="10+">10+ yrs</option></select></label>
                                 </div>
 
                                 <div class="field-row">
-                                    <div>
-                                        <label>Experience Level</label>
-                                        <select name="ai_experience" id="ai_experience">
-                                            <option value="">Select...</option>
-                                            <option value="Basic">Basic</option>
-                                            <option value="Intermediate">Intermediate</option>
-                                            <option value="Advanced">Advanced</option>
-                                        </select>
-                                    </div>
                                     <div>
                                         <label>Deployed an AI / LLM application?</label>
                                         <select name="ai_deployed" id="ai_deployed">
@@ -457,12 +466,18 @@
                             <label>Additional Skills <span class="help-icon"
                                     title="Select all that apply to your skill set.">ⓘ</span></label>
                             <div class="wizard-checkbox">
-                                <label><input type="checkbox" name="skills" value="python"> Python</label>
-                                <label><input type="checkbox" name="skills" value="sql"> SQL</label>
-                                <label><input type="checkbox" name="skills" value="ml"> Machine Learning</label>
-                                <label><input type="checkbox" name="skills" value="data-eng"> Data Engineering</label>
-                                <label><input type="checkbox" name="skills" value="apis"> APIs / Backend</label>
-                                <label><input type="checkbox" name="skills" value="other"> Other</label>
+                                <label><input type="checkbox" name="skills" value="python"> Python <select
+                                        name="exp_General_Python" class="pill-select"><option value="Awareness" selected>Choose Awareness</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="4">4 yrs</option><option value="5">5 yrs</option><option value="6">6 yrs</option><option value="7">7 yrs</option><option value="8">8 yrs</option><option value="9">9 yrs</option><option value="10+">10+ yrs</option></select></label>
+                                <label><input type="checkbox" name="skills" value="sql"> SQL <select
+                                        name="exp_General_SQL" class="pill-select"><option value="Awareness" selected>Choose Awareness</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="4">4 yrs</option><option value="5">5 yrs</option><option value="6">6 yrs</option><option value="7">7 yrs</option><option value="8">8 yrs</option><option value="9">9 yrs</option><option value="10+">10+ yrs</option></select></label>
+                                <label><input type="checkbox" name="skills" value="ml"> Machine Learning <select
+                                        name="exp_General_ML" class="pill-select"><option value="Awareness" selected>Choose Awareness</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="4">4 yrs</option><option value="5">5 yrs</option><option value="6">6 yrs</option><option value="7">7 yrs</option><option value="8">8 yrs</option><option value="9">9 yrs</option><option value="10+">10+ yrs</option></select></label>
+                                <label><input type="checkbox" name="skills" value="data-eng"> Data Engineering <select
+                                        name="exp_General_DataEng" class="pill-select"><option value="Awareness" selected>Choose Awareness</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="4">4 yrs</option><option value="5">5 yrs</option><option value="6">6 yrs</option><option value="7">7 yrs</option><option value="8">8 yrs</option><option value="9">9 yrs</option><option value="10+">10+ yrs</option></select></label>
+                                <label><input type="checkbox" name="skills" value="apis"> APIs / Backend <select
+                                        name="exp_General_APIs" class="pill-select"><option value="Awareness" selected>Choose Awareness</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="4">4 yrs</option><option value="5">5 yrs</option><option value="6">6 yrs</option><option value="7">7 yrs</option><option value="8">8 yrs</option><option value="9">9 yrs</option><option value="10+">10+ yrs</option></select></label>
+                                <label><input type="checkbox" name="skills" value="other"> Other <select
+                                        name="exp_General_Other" class="pill-select"><option value="Awareness" selected>Choose Awareness</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="4">4 yrs</option><option value="5">5 yrs</option><option value="6">6 yrs</option><option value="7">7 yrs</option><option value="8">8 yrs</option><option value="9">9 yrs</option><option value="10+">10+ yrs</option></select></label>
                             </div>
 
                             <label>Where did you hear about us? <span class="required">*</span> <span class="help-icon"
@@ -480,7 +495,8 @@
                             <h2>Review Your Application</h2>
                             <p>Please confirm your responses below before submitting.</p>
                             <ul id="review-content"
-                                style="line-height: 1.6; margin: 0; padding-left: 16px; color: #c2d7f2;"></ul>
+                                style="line-height: 1.6; margin: 0; padding-left: 16px; color: #c2d7f2;">
+                            </ul>
                         </div>
 
                         <div class="wizard-actions">

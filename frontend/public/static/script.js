@@ -42,33 +42,12 @@ document.addEventListener('DOMContentLoaded', function () {
         '+33': { digits: 9 }, '+86': { digits: 11 }, '+7': { digits: 10 }, '+55': { digits: 11 }
     };
 
-    const countryCities = {
-        'USA': ['New York', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix', 'San Francisco', 'Seattle', 'Boston'],
-        'UK': ['London', 'Manchester', 'Birmingham', 'Leeds', 'Glasgow', 'Liverpool', 'Bristol'],
-        'India': ['Mumbai', 'Delhi', 'Bangalore', 'Hyderabad', 'Chennai', 'Kolkata', 'Pune', 'Ahmedabad'],
-        'Australia': ['Sydney', 'Melbourne', 'Brisbane', 'Perth', 'Adelaide', 'Gold Coast'],
-        'Japan': ['Tokyo', 'Osaka', 'Yokohama', 'Nagoya', 'Sapporo', 'Fukuoka'],
-        'Germany': ['Berlin', 'Munich', 'Frankfurt', 'Hamburg', 'Cologne', 'Stuttgart'],
-        'France': ['Paris', 'Lyon', 'Marseille', 'Toulouse', 'Nice', 'Nantes'],
-        'China': ['Beijing', 'Shanghai', 'Guangzhou', 'Shenzhen', 'Chengdu', 'Hangzhou'],
-        'Russia': ['Moscow', 'St. Petersburg', 'Novosibirsk', 'Yekaterinburg', 'Nizhny Novgorod'],
-        'Brazil': ['São Paulo', 'Rio de Janeiro', 'Salvador', 'Fortaleza', 'Belo Horizonte'],
-        'Canada': ['Toronto', 'Vancouver', 'Montreal', 'Calgary', 'Ottawa', 'Edmonton'],
-        'Singapore': ['Singapore'],
-        'UAE': ['Dubai', 'Abu Dhabi', 'Sharjah', 'Ajman', 'Ras Al Khaimah'],
-        'Mexico': ['Mexico City', 'Guadalajara', 'Monterrey', 'Cancun', 'Playa del Carmen'],
-        'Netherlands': ['Amsterdam', 'Rotterdam', 'The Hague', 'Utrecht', 'Eindhoven'],
-        'Switzerland': ['Zurich', 'Geneva', 'Basel', 'Bern', 'Lucerne'],
-        'Sweden': ['Stockholm', 'Gothenburg', 'Malmö', 'Uppsala', 'Västerås'],
-        'Italy': ['Rome', 'Milan', 'Naples', 'Turin', 'Venice', 'Florence'],
-        'Spain': ['Madrid', 'Barcelona', 'Valencia', 'Bilbao', 'Seville'],
-        'South Korea': ['Seoul', 'Busan', 'Incheon', 'Daegu', 'Daejeon']
-    };
+
 
     const countryCodeSelect = document.getElementById('country_code');
     const phoneInput = document.getElementById('phone');
     const locationCountrySelect = document.getElementById('location_country');
-    const cityLocations = document.getElementById('city-locations');
+
     const areaSelect = document.getElementById('area');
     const sectionDB = document.getElementById('specialized-section-database');
     const sectionML = document.getElementById('specialized-section-ml');
@@ -96,20 +75,10 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    function updateCitySuggestions() {
-        const country = locationCountrySelect.value;
-        cityLocations.innerHTML = '';
-        if (country && countryCities[country]) {
-            countryCities[country].forEach(city => {
-                const opt = document.createElement('option');
-                opt.value = city;
-                cityLocations.appendChild(opt);
-            });
-        }
-    }
+
 
     countryCodeSelect.addEventListener('change', updatePhoneFormat);
-    locationCountrySelect.addEventListener('change', updateCitySuggestions);
+
     updatePhoneFormat();
 
     // ── Pill checkbox sync (fallback for browsers without CSS :has()) ──────────

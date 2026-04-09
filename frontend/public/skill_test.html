@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Technical Assessment — TalentForge</title>
-    <link rel="stylesheet" href="static/styles.css?v=1775607446">
+    <link rel="stylesheet" href="/static/styles.css?v=1775607446">
     <!-- Load React and Babel -->
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
@@ -62,7 +62,7 @@
                         </a>
                     </div>
                     <div class="sidebar-decoration">
-                        <img src="static/sidebar-decoration.svg" alt="">
+                        <img src="/static/sidebar-decoration.svg" alt="">
                     </div>
                 </div>
 
@@ -87,7 +87,7 @@
             const script = document.createElement('script');
             script.type = 'text/babel';
             script.dataset.presets = 'react';
-            script.src = `static/skill_${type}.jsx`;
+            script.src = `/static/skill_${type}.jsx`;
             document.head.appendChild(script);
         })();
     </script>

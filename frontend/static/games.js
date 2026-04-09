@@ -1,19 +1,51 @@
 document.addEventListener('DOMContentLoaded', function () {
     window.isTestActive = false;
-    // ─── Force Start Rule (3 min) ──────────────────────────────────────────────
+
+    // ─── Force Submission & Start Rule (3 min) ───────────────────────────────
+    var _active = localStorage.getItem('current_assessment_active');
     var _subTime = parseInt(localStorage.getItem('submissionTime') || '0');
     var _now = Date.now();
-    var _MAX_WAIT = 3 * 60 * 1000;
+    var _MAX_WAIT = 60 * 60 * 1000;
 
-    if (_subTime > 0 && (_now - _subTime) > _MAX_WAIT) {
+    if (_subTime === 0) {
+        window.location.href = '/';
+        return;
+    }
+
+    if ((_now - _subTime) > _MAX_WAIT && localStorage.getItem('tf_assessment_stage') < 4) {
         var intro = document.getElementById('screen-games-intro');
         if (intro) {
             intro.innerHTML = buildCompletedBanner(
                 '⏰ Time Expired',
-                'You were required to start assessments within 3 minutes of form submission. Session expired.',
+                'You were required to start assessments within 60 minutes of form submission. Session expired.',
                 [{ label: 'Return to Application', href: '/' }]
             );
         }
+        return;
+    }
+
+    // ─── Stage-Based Locking ──────────────────────────────────────────────────
+    var _stage = parseInt(localStorage.getItem('tf_assessment_stage') || '0');
+    if (_stage < 3) {
+        window.location.href = '/skillset_assessment.html';
+        return;
+    }
+
+    if (_stage >= 4) {
+        var intro = document.getElementById('screen-games-intro');
+        if (intro) {
+            intro.innerHTML = buildCompletedBanner(
+                '🎮 Games Assessment',
+                'You have already completed this assessment.',
+                [{ label: 'Finish Application →', href: '/confirmation.html' }]
+            );
+        }
+        return;
+    }
+
+    // ─── Prevent Round Switching ──────────────────────────────────────────────
+    if (_active && _active !== 'games') {
+        window.location.href = '/' + _active + '_assessment.html';
         return;
     }
 
@@ -33,30 +65,9 @@ document.addEventListener('DOMContentLoaded', function () {
         setTimeout(function () {
             if (_gStep === 'bart') startBART(true);
             else if (_gStep === 'igt') startIGT(true);
-            else if (_gStep === 'he') startHE(true);
+
         }, 100);
         return;
-    }
-    // ─── Assessment completed lock ─────────────────────────────────────────────
-    var _gamesLocked = localStorage.getItem('games_completed') === 'true'
-        || localStorage.getItem('assessmentCompleted') === 'true';
-    if (_gamesLocked) {
-        var intro = document.getElementById('screen-games-intro');
-        if (intro) {
-            intro.innerHTML = buildCompletedBanner(
-                '🎮 Games Assessment',
-                localStorage.getItem('assessmentCompleted') === 'true'
-                    ? 'You have already completed and submitted all assessments.'
-                    : 'You have already completed the Games assessment. Results are locked.',
-                localStorage.getItem('assessmentCompleted') === 'true'
-                    ? [{ label: 'Back to Application', href: '/' },
-                    { label: 'Confirmation', href: '/confirmation' }]
-                    : [{ label: 'Back to Application', href: '/' },
-                    { label: 'IQ Assessment', href: '/assessment/iq' },
-                    { label: 'Skillset Assessment', href: '/assessment/skillset' }]
-            );
-        }
-        return; // stop all further JS setup
     }
 
     var GAME_TIME = 5 * 60; // 5 minutes per game (seconds)
@@ -78,30 +89,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var IGT_TRIALS = 40;
     var IGT_START = 2000;
 
-    // Hard/Easy question pairs
-    var HE_QS = [
-        { easy: { q: '5 + 3', a: 8 }, hard: { q: '34 + 27', a: 61 } },
-        { easy: { q: '9 - 4', a: 5 }, hard: { q: '56 + 38', a: 94 } },
-        { easy: { q: '6 + 7', a: 13 }, hard: { q: '73 - 28', a: 45 } },
-        { easy: { q: '8 - 3', a: 5 }, hard: { q: '45 + 36', a: 81 } },
-        { easy: { q: '4 + 9', a: 13 }, hard: { q: '62 - 37', a: 25 } },
-        { easy: { q: '7 + 6', a: 13 }, hard: { q: '84 + 19', a: 103 } },
-        { easy: { q: '9 - 5', a: 4 }, hard: { q: '51 + 49', a: 100 } },
-        { easy: { q: '3 + 8', a: 11 }, hard: { q: '76 - 29', a: 47 } },
-        { easy: { q: '6 - 2', a: 4 }, hard: { q: '38 + 47', a: 85 } },
-        { easy: { q: '7 + 4', a: 11 }, hard: { q: '93 - 46', a: 47 } },
-        { easy: { q: '8 + 5', a: 13 }, hard: { q: '67 + 25', a: 92 } },
-        { easy: { q: '9 - 3', a: 6 }, hard: { q: '54 - 18', a: 36 } },
-        { easy: { q: '4 + 6', a: 10 }, hard: { q: '82 + 13', a: 95 } },
-        { easy: { q: '7 - 4', a: 3 }, hard: { q: '46 + 37', a: 83 } },
-        { easy: { q: '5 + 8', a: 13 }, hard: { q: '71 - 24', a: 47 } },
-        { easy: { q: '9 + 2', a: 11 }, hard: { q: '58 + 36', a: 94 } },
-        { easy: { q: '6 + 3', a: 9 }, hard: { q: '43 - 17', a: 26 } },
-        { easy: { q: '8 - 6', a: 2 }, hard: { q: '69 + 28', a: 97 } },
-        { easy: { q: '7 + 3', a: 10 }, hard: { q: '85 - 39', a: 46 } },
-        { easy: { q: '5 - 2', a: 3 }, hard: { q: '77 + 16', a: 93 } },
-    ];
-    var HE_TRIALS = 20;
+
 
     // ─── State ─────────────────────────────────────────────────────────────────
 
@@ -114,12 +102,7 @@ document.addEventListener('DOMContentLoaded', function () {
         trial: 0, balance: IGT_START, deckChoices: [], done: false,
     };
 
-    var he = {
-        trial: 0, totalEarned: 0,
-        hardChosen: 0, hardCorrect: 0,
-        easyChosen: 0, easyCorrect: 0,
-        phase: 'choose', currentChoice: null, currentAnswer: 0, done: false,
-    };
+
 
     var gameTicker = null;
     var startTime = null;
@@ -199,11 +182,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Warn before leaving
         window.onbeforeunload = function () { if (window.isTestActive) return "Assessment in progress."; };
-        // Disable sidebar links
-        document.querySelectorAll('.sidebar a').forEach(a => {
-            a.style.pointerEvents = 'none';
-            a.style.opacity = '0.5';
-        });
+
+        // Re-apply global sidebar lock
+        if (window.applySidebarLock) window.applySidebarLock();
 
         bart.balloon = 0; bart.pumps = 0; bart.roundEarnings = 0;
         bart.totalBanked = 0; bart.adjustedPumps = []; bart.explodedCount = 0; bart.done = false;
@@ -345,102 +326,14 @@ document.addEventListener('DOMContentLoaded', function () {
         document.querySelectorAll('.card-deck').forEach(function (btn) { btn.disabled = !on; });
     }
 
-    // ══════════════════════════════════════════════════════════════════════════
-    //  GAME 3 — Hard / Easy Task
-    // ══════════════════════════════════════════════════════════════════════════
 
-    function startHE() {
-        he.trial = 0; he.totalEarned = 0;
-        he.hardChosen = 0; he.hardCorrect = 0;
-        he.easyChosen = 0; he.easyCorrect = 0;
-        he.phase = 'choose'; he.done = false;
-        showScreen('screen-he');
-        document.getElementById('he-next-btn').style.display = 'none';
-        renderHEChoose();
-        startGameTimer('he-bar', 'he-timer', function () {
-            he.done = true;
-            document.getElementById('he-choose-wrap').style.display = 'none';
-            document.getElementById('he-question-wrap').style.display = 'none';
-            setFeedback('he-feedback', 'Time\'s up!', '');
-            document.getElementById('he-next-btn').style.display = 'inline-flex';
-        });
-    }
-
-    function renderHEChoose() {
-        document.getElementById('he-trial').textContent = 'Trial ' + (he.trial + 1) + ' of ' + HE_TRIALS;
-        document.getElementById('he-earned').textContent = '$' + he.totalEarned.toFixed(2);
-        document.getElementById('he-hard-count').textContent = he.hardChosen;
-        document.getElementById('he-easy-count').textContent = he.easyChosen;
-        document.getElementById('he-choose-wrap').style.display = 'flex';
-        document.getElementById('he-question-wrap').style.display = 'none';
-        setFeedback('he-feedback', '', '');
-        document.getElementById('he-answer').value = '';
-        // Re-enable choice buttons
-        document.querySelectorAll('.he-choice-btn').forEach(function (b) { b.disabled = false; });
-    }
-
-    function chooseTask(type) {
-        if (he.done || he.phase !== 'choose') return;
-        he.currentChoice = type;
-        he.phase = 'answer';
-        var q = HE_QS[he.trial][type];
-        he.currentAnswer = q.a;
-
-        document.getElementById('he-choose-wrap').style.display = 'none';
-        document.getElementById('he-question-wrap').style.display = 'block';
-        document.getElementById('he-q-text').textContent = q.q + ' = ?';
-        document.getElementById('he-answer').value = '';
-        document.getElementById('he-answer').focus();
-        setFeedback('he-feedback', '', '');
-    }
-
-    function submitHEAnswer() {
-        if (he.phase !== 'answer' || he.done) return;
-        var val = parseInt(document.getElementById('he-answer').value, 10);
-        var correct = val === he.currentAnswer;
-        var reward = he.currentChoice === 'hard' ? 3 : 1;
-        var earned = correct ? reward : 0;
-
-        he.totalEarned += earned;
-        if (he.currentChoice === 'hard') {
-            he.hardChosen++;
-            if (correct) he.hardCorrect++;
-        } else {
-            he.easyChosen++;
-            if (correct) he.easyCorrect++;
-        }
-
-        var feedEl = document.getElementById('he-feedback');
-        if (correct) {
-            feedEl.textContent = '✓ Correct!  +$' + reward;
-            feedEl.style.color = '#00ff88';
-        } else {
-            feedEl.textContent = '✗ Wrong — answer was ' + he.currentAnswer + '.  +$0';
-            feedEl.style.color = '#ff6b6b';
-        }
-
-        he.phase = 'feedback';
-        he.trial++;
-
-        setTimeout(function () {
-            if (he.trial >= HE_TRIALS) {
-                he.done = true;
-                stopGameTimer();
-                document.getElementById('he-question-wrap').style.display = 'none';
-                document.getElementById('he-next-btn').style.display = 'inline-flex';
-            } else {
-                he.phase = 'choose';
-                renderHEChoose();
-            }
-        }, 950);
-    }
 
     // ─── Shared feedback helper ────────────────────────────────────────────────
 
     function setFeedback(id, text, cls) {
         var el = document.getElementById(id);
         el.textContent = text;
-        el.className = id === 'bart-feedback' ? 'bart-feedback' + (cls ? ' ' + cls : '') : 'he-feedback';
+        el.className = id === 'bart-feedback' ? 'bart-feedback' + (cls ? ' ' + cls : '') : '';
     }
 
     // ══════════════════════════════════════════════════════════════════════════
@@ -451,7 +344,7 @@ document.addEventListener('DOMContentLoaded', function () {
         window.isTestActive = false;
         window.onbeforeunload = null;
         finishTime = Date.now();
-        localStorage.setItem('games_completed', 'true');
+        localStorage.setItem('tf_assessment_stage', '4'); // Final stage
         localStorage.removeItem('current_assessment_active');
         // Re-enable sidebar
         document.querySelectorAll('.sidebar a').forEach(a => {
@@ -506,34 +399,13 @@ document.addEventListener('DOMContentLoaded', function () {
             ' · Good-deck % (last 20): ' + goodPct + '%' +
             ' · Trials: ' + igt.trial;
 
-        // ── Hard/Easy ──
-        var totalTrials = he.hardChosen + he.easyChosen;
-        var hardPct = totalTrials > 0 ? Math.round((he.hardChosen / totalTrials) * 100) : 0;
-        var hardAcc = he.hardChosen > 0 ? Math.round((he.hardCorrect / he.hardChosen) * 100) : 0;
-        var heProfile, heDetail;
-        if (hardPct >= 60) {
-            heProfile = 'High Effort / High Reward';
-            heDetail = 'Consistently chose challenge — demonstrates intrinsic motivation and confidence.';
-        } else if (hardPct >= 35) {
-            heProfile = 'Balanced Effort Strategy';
-            heDetail = 'Mixed approach — pragmatically weighs effort cost against reward value.';
-        } else {
-            heProfile = 'Effort Conserving';
-            heDetail = 'Preferred easy tasks — may underperform in high-demand, high-complexity environments.';
-        }
-        document.getElementById('res-he-profile').textContent = heProfile;
-        document.getElementById('res-he-detail').textContent = heDetail;
-        document.getElementById('res-he-stat').textContent =
-            'Hard chosen: ' + hardPct + '%' +
-            ' · Hard accuracy: ' + hardAcc + '%' +
-            ' · Total earned: $' + he.totalEarned.toFixed(2);
+
 
         // Save games score to localStorage for final submission
         var timeTakenSec = Math.floor((finishTime - startTime) / 1000);
         var gameResults = {
             bart: { profile: bartProfile, avg_pumps: avgPumps.toFixed(1), exploded: bart.explodedCount, banked: bart.totalBanked.toFixed(2), responses: bart.adjustedPumps },
             igt: { profile: igtProfile, good_pct: goodPct, balance: igt.balance, trials: igt.trial, responses: igt.deckChoices },
-            he: { profile: heProfile, hard_pct: hardPct, hard_acc: hardAcc, earned: he.totalEarned.toFixed(2), responses: { hard_chosen: he.hardChosen, hard_correct: he.hardCorrect, easy_chosen: he.easyChosen, easy_correct: he.easyCorrect } },
             time_taken: timeTakenSec
         };
         localStorage.setItem('tf_games', JSON.stringify(gameResults));
@@ -565,16 +437,9 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.card-deck').forEach(function (btn, i) {
         btn.addEventListener('click', function () { pickDeck(i); });
     });
-    document.getElementById('igt-next-btn').addEventListener('click', startHE);
+    document.getElementById('igt-next-btn').addEventListener('click', showResults);
 
-    document.querySelectorAll('.he-choice-btn').forEach(function (btn) {
-        btn.addEventListener('click', function () { chooseTask(btn.dataset.type); });
-    });
-    document.getElementById('he-submit-btn').addEventListener('click', submitHEAnswer);
-    document.getElementById('he-answer').addEventListener('keydown', function (e) {
-        if (e.key === 'Enter') submitHEAnswer();
-    });
-    document.getElementById('he-next-btn').addEventListener('click', showResults);
+
 
     // Retry is disabled — retry button is hidden after results are shown
 
@@ -603,16 +468,19 @@ document.addEventListener('DOMContentLoaded', function () {
         status.style.color = '#5a7ca0';
         status.textContent = 'Saving your results…';
 
-        const API_BASE_URL = window.API_BASE_URL || '/api';
-        fetch(`${API_BASE_URL}/submit`, {
+        const API_BASE_URL = window.API_BASE_URL || '';
+        fetch(`${API_BASE_URL}/submit-final`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                ...formData,
-                assessments: { iq: iq, skillset: skillset, games: games }
+                applicant: { email: formData.email },
+                scores: { iq: iq, skillset: skillset, games: games }
             })
         })
-            .then(function (r) { return r.json(); })
+            .then(function (r) {
+                if (!r.ok) throw new Error('Server returned ' + r.status);
+                return r.json();
+            })
             .then(function (res) {
                 localStorage.setItem('applicationSubmitted', 'true');
                 localStorage.setItem('assessmentCompleted', 'true');

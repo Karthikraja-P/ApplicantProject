@@ -146,7 +146,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 '/static/images/iq/wwiq/2020_12_22-e.png',
                 '/static/images/iq/wwiq/2020_12_22-f.png'
             ],
-            answer: -1, time: 90, exp: 'Pattern completed according to visual logic.'
+            answer: 1, time: 90, exp: 'Pattern completed according to visual logic.'
         },
 
         {
@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 '/static/images/iq/wwiq/2023_09_6-e.png',
                 '/static/images/iq/wwiq/2023_09_6-f.png'
             ],
-            answer: -1, time: 90, exp: 'Pattern completed according to visual logic.'
+            answer: 4, time: 90, exp: 'Pattern completed according to visual logic.'
         },
 
         {
@@ -176,7 +176,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 '/static/images/iq/wwiq/2023_09_4-e.png',
                 '/static/images/iq/wwiq/2023_09_4-f.png'
             ],
-            answer: -1, time: 90, exp: 'Pattern completed according to visual logic.'
+            answer: 1, time: 90, exp: 'Pattern completed according to visual logic.'
         },
 
         {
@@ -191,7 +191,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 '/static/images/iq/wwiq/2020_12_6-e-1.png',
                 '/static/images/iq/wwiq/2020_12_6-f-1.png'
             ],
-            answer: -1, time: 90, exp: 'Pattern completed according to visual logic.'
+            answer: 4, time: 90, exp: 'Pattern completed according to visual logic.'
         },
 
         {
@@ -206,7 +206,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 '/static/images/iq/wwiq/2020_12_17-c.png',
                 '/static/images/iq/wwiq/2020_12_17-b.png'
             ],
-            answer: -1, time: 90, exp: 'Pattern completed according to visual logic.'
+            answer: 5, time: 90, exp: 'Pattern completed according to visual logic.'
         },
 
         {
@@ -221,7 +221,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 '/static/images/iq/wwiq/2020_12_12-b.png',
                 '/static/images/iq/wwiq/2020_12_12-f-new2-2.png'
             ],
-            answer: -1, time: 90, exp: 'Pattern completed according to visual logic.'
+            answer: 5, time: 90, exp: 'Pattern completed according to visual logic.'
         },
 
         {
@@ -236,7 +236,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 '/static/images/iq/wwiq/2021_07_15.png',
                 '/static/images/iq/wwiq/2021_07_16.png'
             ],
-            answer: -1, time: 90, exp: 'Pattern completed according to visual logic.'
+            answer: 5, time: 90, exp: 'Pattern completed according to visual logic.'
         },
 
         {
@@ -251,7 +251,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 '/static/images/iq/wwiq/2023_09_7-e.png',
                 '/static/images/iq/wwiq/2023_09_7-f.png'
             ],
-            answer: -1, time: 90, exp: 'Pattern completed according to visual logic.'
+            answer: 0, time: 90, exp: 'Pattern completed according to visual logic.'
         },
 
         {
@@ -266,7 +266,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 '/static/images/iq/wwiq/2020_12_5-c.png',
                 '/static/images/iq/wwiq/2020_12_5-b.png'
             ],
-            answer: -1, time: 90, exp: 'Pattern completed according to visual logic.'
+            answer: 4, time: 90, exp: 'Pattern completed according to visual logic.'
         },
 
         {
@@ -281,7 +281,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 '/static/images/iq/wwiq/2020_12_8-d.png',
                 '/static/images/iq/wwiq/2020_12_8-e.png'
             ],
-            answer: -1, time: 90, exp: 'Pattern completed according to visual logic.'
+            answer: 1, time: 90, exp: 'Pattern completed according to visual logic.'
         },
 
         {
@@ -289,7 +289,7 @@ document.addEventListener('DOMContentLoaded', function () {
             source: 'Quantitative Reasoning',
             imgUrl: '/static/images/iq/wwiq/11.png',
             opts: ['A', 'B', 'C', 'D'],
-            answer: -1, time: 90, exp: 'Missing number identified from sequence/matrix.'
+            answer: 0, time: 90, exp: 'Missing number identified from sequence/matrix.'
         },
 
         {
@@ -297,7 +297,7 @@ document.addEventListener('DOMContentLoaded', function () {
             source: 'Quantitative Reasoning',
             imgUrl: '/static/images/iq/wwiq/12.png',
             opts: ['A', 'B', 'C', 'D'],
-            answer: -1, time: 90, exp: 'Missing number identified from sequence/matrix.'
+            answer: 1, time: 90, exp: 'Missing number identified from sequence/matrix.'
         },
 
         {
@@ -305,7 +305,7 @@ document.addEventListener('DOMContentLoaded', function () {
             source: 'Visual Reasoning',
             imgUrl: '/static/images/iq/wwiq/13.png',
             opts: ['A', 'B', 'C', 'D'],
-            answer: -1, time: 90, exp: 'Missing pattern identified from visual logic.'
+            answer: 1, time: 90, exp: 'Missing pattern identified from visual logic.'
         },
 
         {
@@ -313,7 +313,7 @@ document.addEventListener('DOMContentLoaded', function () {
             source: 'Visual Reasoning',
             imgUrl: '/static/images/iq/wwiq/14.png',
             opts: ['A', 'B', 'C', 'D'],
-            answer: -1, time: 90, exp: 'Missing pattern identified from visual logic.'
+            answer: 1, time: 90, exp: 'Missing pattern identified from visual logic.'
         },
 
         {
@@ -321,7 +321,7 @@ document.addEventListener('DOMContentLoaded', function () {
             source: 'Visual Reasoning',
             imgUrl: '/static/images/iq/wwiq/15.png',
             opts: ['A', 'B', 'C', 'D'],
-            answer: -1, time: 90, exp: 'Missing pattern identified from visual logic.'
+            answer: 1, time: 90, exp: 'Missing pattern identified from visual logic.'
         },
 
         // ── M8: Numbers double across cols; different row start ───────────────────
@@ -388,7 +388,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 '/static/images/iq/q17_mod_c.svg',
                 '/static/images/iq/q17_mod_d.svg'
             ],
-            answer: 0, time: 90, exp: 'Pattern completed according to visual logic.'
+            answer: 3, time: 90, exp: 'Pattern completed according to visual logic.'
         }
         ,
         {
@@ -789,6 +789,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return a;
     }
 
+    /*
     QUESTIONS.forEach(function (q) {
         // Image option questions — shuffle URLs, update answer index
         if (q.imgOpts && q.imgOpts.length > 0) {
@@ -804,6 +805,7 @@ document.addEventListener('DOMContentLoaded', function () {
             q.answer = q.opts.indexOf(correctVal);
         }
     });
+    */
 
     // ─── Assessment completed lock ─────────────────────────────────────────────
     var _iqLocked = localStorage.getItem('iq_completed') === 'true'
@@ -1060,42 +1062,52 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // ─── Force Start Rule (3 min) ──────────────────────────────────────────────
+    // ─── Force Submission & Start Rule (3 min) ───────────────────────────────
     var _subTime = parseInt(localStorage.getItem('submissionTime') || '0');
     var _now = Date.now();
-    var _MAX_WAIT = 3 * 60 * 1000; // 3 minutes
+    var _MAX_WAIT = 60 * 60 * 1000;
 
-    if (_subTime > 0 && (_now - _subTime) > _MAX_WAIT) {
+    if (_subTime === 0) {
+        window.location.href = '/';
+        return;
+    }
+
+    if ((_now - _subTime) > _MAX_WAIT && localStorage.getItem('tf_assessment_stage') < 2) {
         var intro = document.getElementById('screen-intro');
         if (intro) {
             intro.innerHTML = buildCompletedBanner(
                 '⏰ Time Expired',
-                'You were required to start the assessment within 3 minutes of submission. Your session has expired.',
+                'You were required to start the assessment within 60 minutes of submission. Your session has expired.',
                 [{ label: 'Return to Application', href: '/' }]
             );
             intro.classList.add('active');
             intro.style.display = '';
         }
-        // Hide others
-        document.querySelectorAll('.psych-screen:not(#screen-intro)').forEach(function (s) {
-            s.style.display = 'none';
-        });
+        document.querySelectorAll('.psych-screen:not(#screen-intro)').forEach(function (s) { s.style.display = 'none'; });
+        return;
+    }
+
+    // ─── Stage-Based Locking ──────────────────────────────────────────────────
+    var _stage = parseInt(localStorage.getItem('tf_assessment_stage') || '0');
+    if (_stage >= 2) {
+        var intro = document.getElementById('screen-intro');
+        if (intro) {
+            intro.innerHTML = buildCompletedBanner(
+                'General IQ Assessment',
+                'You have already completed this assessment.',
+                [{ label: 'Skillset Assessment →', href: '/skillset_assessment.html' }]
+            );
+            intro.classList.add('active');
+            intro.style.display = '';
+        }
+        document.querySelectorAll('.psych-screen:not(#screen-intro)').forEach(function (s) { s.style.display = 'none'; });
         return;
     }
 
     // ─── Prevent Round Switching ──────────────────────────────────────────────
     var _activeRound = localStorage.getItem('current_assessment_active');
     if (_activeRound && _activeRound !== 'iq') {
-        var intro = document.getElementById('screen-intro');
-        if (intro) {
-            intro.innerHTML = buildCompletedBanner(
-                '🔒 Assessment Locked',
-                'You have an active assessment in another round (' + _activeRound.toUpperCase() + '). Please complete that first.',
-                [{ label: 'Return to ' + _activeRound.toUpperCase(), href: '/assessment/' + _activeRound }]
-            );
-            intro.classList.add('active');
-            intro.style.display = '';
-        }
+        window.location.href = _activeRound === 'games' ? '/games.html' : '/' + _activeRound + '_assessment.html';
         return;
     }
 
@@ -1122,28 +1134,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
     }
 
-    // ─── Assessment completed lock ─────────────────────────────────────────────
-    var _iqLocked = localStorage.getItem('iq_completed') === 'true'
-        || localStorage.getItem('assessmentCompleted') === 'true';
-    if (_iqLocked) {
-        // ... (UI shown)
-        var intro = document.getElementById('screen-intro');
-        if (intro) {
-            intro.innerHTML = buildCompletedBanner(
-                'General IQ Assessment',
-                'You have already completed this assessment.',
-                [{ label: '← Application', href: '/' },
-                { label: 'Skillset Assessment', href: '/assessment/skillset' },
-                { label: 'Games', href: '/games' }]
-            );
-            intro.classList.add('active');
-            intro.style.display = '';
-        }
-        document.querySelectorAll('.psych-screen:not(#screen-intro)').forEach(function (s) {
-            s.style.display = 'none';
-        });
-        return;
-    }
+
 
     function goTo(idx) { currentIdx = idx; renderQuestion(idx); }
 
@@ -1162,17 +1153,16 @@ document.addEventListener('DOMContentLoaded', function () {
     startBtn.addEventListener('click', function () {
         // Lock this round
         localStorage.setItem('current_assessment_active', 'iq');
+        localStorage.setItem('tf_assessment_stage', '1');
         localStorage.setItem('iq_start_time', Date.now().toString());
         window.isTestActive = true;
         // Warn before leaving
         window.onbeforeunload = function () {
             if (window.isTestActive) return "Assessment in progress. Your changes will be lost if you leave.";
         };
-        // Disable sidebar links
-        document.querySelectorAll('.sidebar a').forEach(a => {
-            a.style.pointerEvents = 'none';
-            a.style.opacity = '0.5';
-        });
+
+        // Re-apply global sidebar lock (will disable all links since current_assessment_active is set)
+        if (window.applySidebarLock) window.applySidebarLock();
 
         showScreen('screen-question');
         renderQuestion(0);
@@ -1192,7 +1182,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         stopTimer();
         finishTime = Date.now();
-        localStorage.setItem('iq_completed', 'true'); // lock IQ from retry
+        localStorage.setItem('tf_assessment_stage', '2'); // Move to stage 2
         localStorage.removeItem('current_assessment_active'); // Unlock for next round
         localStorage.removeItem('iq_start_time'); // Clear start time
         localStorage.removeItem('tf_iq_answers'); // Clear answers cache

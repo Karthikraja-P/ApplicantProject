@@ -532,15 +532,22 @@ var finishTime = null;
 (function () {
   var _active = localStorage.getItem('current_assessment_active');
 
-  // 3-min Rule
+  // ─── Force Submission & Start Rule (3 min) ───────────────────────────────
   var _subTime = parseInt(localStorage.getItem('submissionTime') || '0');
-  var _MAX_WAIT = 3 * 60 * 1000;
-  if (_subTime > 0 && (Date.now() - _subTime) > _MAX_WAIT) {
+  var _now = Date.now();
+  var _MAX_WAIT = 60 * 60 * 1000;
+
+  if (_subTime === 0) {
+    window.location.href = '/';
+    return;
+  }
+
+  if ((_now - _subTime) > _MAX_WAIT && localStorage.getItem('tf_assessment_stage') < 3) {
     var track = document.getElementById('screen-track');
     if (track) {
       track.innerHTML = buildCompletedBanner(
         '⏰ Time Expired',
-        'You must start assessments within 3 minutes of form submission.',
+        'You must start assessments within 60 minutes of form submission.',
         [{ label: 'Return to Application', href: '/' }]
       );
       track.classList.add('active');
@@ -549,18 +556,30 @@ var finishTime = null;
     return;
   }
 
-  // Lock Check
-  if (_active && _active !== 'skillset') {
+  // ─── Stage-Based Locking ──────────────────────────────────────────────────
+  var _stage = parseInt(localStorage.getItem('tf_assessment_stage') || '0');
+  if (_stage < 2) {
+    window.location.href = '/iq_assessment.html';
+    return;
+  }
+
+  if (_stage >= 3) {
     var track = document.getElementById('screen-track');
     if (track) {
       track.innerHTML = buildCompletedBanner(
-        '🔒 Assessment Locked',
-        'You have an active round in (' + _active.toUpperCase() + '). Complete it first.',
-        [{ label: 'Return to ' + _active.toUpperCase(), href: '/assessment/' + _active }]
+        '⚡ Skillset Assessment',
+        'You have already completed this assessment.',
+        [{ label: 'Games Assessment →', href: '/games.html' }]
       );
       track.classList.add('active');
     }
     document.querySelectorAll('.psych-screen:not(#screen-track)').forEach(function (s) { s.style.display = 'none'; });
+    return;
+  }
+
+  // ─── Prevent Round Switching ──────────────────────────────────────────────
+  if (_active && _active !== 'skillset') {
+    window.location.href = _active === 'games' ? '/games.html' : '/' + _active + '_assessment.html';
     return;
   }
 
@@ -590,22 +609,7 @@ var finishTime = null;
     return;
   }
 
-  var locked = localStorage.getItem('sk_completed') === 'true'
-    || localStorage.getItem('assessmentCompleted') === 'true';
-  if (locked) {
-    var track = document.getElementById('screen-track');
-    if (track) {
-      track.innerHTML = buildCompletedBanner(
-        '⚡ Skillset Assessment',
-        'You have already completed this assessment.',
-        [{ label: '← Application', href: '/' },
-        { label: 'IQ Assessment', href: '/assessment/iq' },
-        { label: 'Games', href: '/games' }]
-      );
-      track.classList.add('active');
-    }
-    document.querySelectorAll('.psych-screen:not(#screen-track)').forEach(function (s) { s.style.display = 'none'; });
-  }
+
 })();
 
 // ─── Screen helpers ───────────────────────────────────────────────────────────
@@ -661,11 +665,9 @@ function startAssessment() {
   window.onbeforeunload = function () {
     if (window.isTestActive) return "Assessment in progress. Your changes will be lost if you leave.";
   };
-  // Disable sidebar links
-  document.querySelectorAll('.sidebar a').forEach(a => {
-    a.style.pointerEvents = 'none';
-    a.style.opacity = '0.5';
-  });
+
+  // Re-apply global sidebar lock
+  if (window.applySidebarLock) window.applySidebarLock();
 
   currentIdx = 0;
   timeLeft = totalTime;
@@ -771,7 +773,7 @@ function showResults() {
   finishTime = Date.now();
 
   if (timerInterval) clearInterval(timerInterval);
-  localStorage.setItem('sk_completed', 'true');
+  localStorage.setItem('tf_assessment_stage', '3'); // Move to stage 3
   localStorage.removeItem('current_assessment_active');
   localStorage.removeItem('sk_start_time');
   localStorage.removeItem('sk_track');

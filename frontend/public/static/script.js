@@ -1,4 +1,18 @@
 document.addEventListener('DOMContentLoaded', function () {
+    // ─── Assessment Flow Block ───────────────────────────────────────────────
+    const _stage = parseInt(localStorage.getItem('tf_assessment_stage') || '0');
+    if (_stage >= 1) {
+        const routes = {
+            1: '/iq_assessment.html',
+            2: '/skillset_assessment.html',
+            3: '/games.html',
+            4: '/confirmation.html'
+        };
+        const next = routes[_stage] || '/confirmation.html';
+        window.location.href = next;
+        return;
+    }
+
     const form = document.getElementById('application-form');
     const steps = Array.from(document.querySelectorAll('.wizard-card'));
     const totalSteps = steps.length;
@@ -544,17 +558,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (!submitResponse.ok) {
                 const errData = await submitResponse.json();
-                if (errData.error === 'already_applied') {
-                    showDuplicateBanner(val('email'));
-                    throw new Error('Already applied');
+                if (submitResponse.status === 409 || errData.status === 'duplicate' || errData.error === 'already_applied') {
+                    showDuplicateBanner(document.getElementById('email').value);
+                    throw new Error('Application already exists.');
                 }
-                throw new Error('Submission failed');
+                throw new Error(errData.message || 'Submission failed');
             }
 
             // Success!
             const res = await submitResponse.json();
             localStorage.setItem('applicationSubmitted', 'true');
             localStorage.setItem('submissionTime', Date.now().toString());
+            localStorage.setItem('tf_assessment_stage', '1');
             // Clear any previous locked states
             localStorage.removeItem('current_assessment_active');
             window.location.href = res.next || 'confirmation.html';

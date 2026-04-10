@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Candidate Application - TalentForge</title>
+    <title>Singularity</title>
     <link rel="stylesheet" href="/static/styles.css?v=1775607446">
     <script>
         (function () {
@@ -43,7 +43,7 @@
     <div class="container full-screen">
         <div class="wizard-inner">
             <header>
-                <h1>TalentForge Candidate Intake</h1>
+                <h1>Singularity</h1>
             </header>
 
             <div class="wizard-layout">
@@ -78,6 +78,34 @@
                             <div class="step-title">Review</div>
                         </div>
                     </div>
+
+                    <!-- New Candidate / Reset Button -->
+                    <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.08);">
+                        <button id="reset-session-btn" style="
+                            width: 100%;
+                            padding: 12px;
+                            background: rgba(0, 212, 255, 0.05);
+                            border: 1px solid rgba(0, 212, 255, 0.2);
+                            color: #72dbff;
+                            border-radius: 8px;
+                            cursor: pointer;
+                            font-size: 0.82rem;
+                            font-weight: 600;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            gap: 8px;
+                            transition: all 0.2s;
+                        " onmouseover="this.style.background='rgba(0, 212, 255, 0.12)'; this.style.borderColor='rgba(0, 212, 255, 0.4)';"
+                            onmouseout="this.style.background='rgba(0, 212, 255, 0.05)'; this.style.borderColor='rgba(0, 212, 255, 0.2)';">
+                            <span style="font-size: 1rem;">🔄</span> New Registration / Reset
+                        </button>
+                        <p
+                            style="margin-top: 10px; font-size: 0.72rem; color: #6e7d91; text-align: center; line-height: 1.4;">
+                            Clears all saved data and starts a fresh application.
+                        </p>
+                    </div>
+
                     <div class="sidebar-divider"></div>
                     <div class="sidebar-section-label">Assessment</div>
                     <div class="sidebar-assessment-items">
@@ -383,7 +411,7 @@
                                 <div class="field-row">
                                     <div>
                                         <label>Designed or optimized a DB system?</label>
-                                        <select name="db_optimized" id="db_optimized">
+                                        <select name="db_optimized" id="db_optimized" required>
                                             <option value="">Select...</option>
                                             <option value="Yes">Yes</option>
                                             <option value="No">No</option>
@@ -528,7 +556,7 @@
                                 <div class="field-row">
                                     <div>
                                         <label>Built an ML model on financial data?</label>
-                                        <select name="ml_built" id="ml_built">
+                                        <select name="ml_built" id="ml_built" required>
                                             <option value="">Select...</option>
                                             <option value="Yes">Yes</option>
                                             <option value="No">No</option>
@@ -663,7 +691,7 @@
                                 <div class="field-row">
                                     <div>
                                         <label>Deployed an AI / LLM application?</label>
-                                        <select name="ai_deployed" id="ai_deployed">
+                                        <select name="ai_deployed" id="ai_deployed" required>
                                             <option value="">Select...</option>
                                             <option value="Yes">Yes</option>
                                             <option value="No">No</option>

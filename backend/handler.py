@@ -7,7 +7,7 @@ from botocore.exceptions import ClientError
 
 # Configuration from environment variables
 DYNAMO_TABLE = os.environ.get('DYNAMO_TABLE', 'applicant-submissions-dev')
-S3_BUCKET    = os.environ.get('S3_UPLOAD_BUCKET', 'talentforge-uploads-dev')
+S3_BUCKET    = os.environ.get('S3_UPLOAD_BUCKET', 'singularity-uploads-dev')
 AWS_REGION   = os.environ.get('AWS_REGION', 'ap-south-1')
 
 s3_client = boto3.client('s3', region_name=AWS_REGION)

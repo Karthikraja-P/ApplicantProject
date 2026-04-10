@@ -1,5 +1,5 @@
 /**
- * TalentForge API Utilities
+ * Singularity API Utilities
  * Used for communication with AWS Lambda backend via API Gateway.
  */
 

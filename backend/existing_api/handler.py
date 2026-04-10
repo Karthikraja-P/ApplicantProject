@@ -1,5 +1,5 @@
 """
-TalentForge Applicant System — Lambda Handler
+Singularity Applicant System — Lambda Handler
 Endpoints:
   POST /submit           — submit application (duplicate check + DynamoDB put)
   POST /get-upload-url   — generate S3 presigned URL for CV upload
@@ -325,7 +325,7 @@ def handle_admin_list(event):
         for i, item in enumerate(items)
     )
 
-    html = f"""<!DOCTYPE html><html><head><title>Applications — TalentForge</title>
+    html = f"""<!DOCTYPE html><html><head><title>Applications — Singularity</title>
     <style>
       body{{font-family:monospace;padding:24px;background:#0d1b2e;color:#c2d7f2}}
       h2{{color:#00d4ff}}

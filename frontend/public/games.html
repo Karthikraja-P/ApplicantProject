@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Games Assessment — TalentForge</title>
+    <title>Singularity</title>
     <link rel="stylesheet" href="/static/styles.css?v=1775607446">
     <style>
         /* ── Balloon ── */
@@ -578,7 +578,7 @@
     <div class="container full-screen">
         <div class="wizard-inner">
             <header>
-                <h1>TalentForge Candidate Intake</h1>
+                <h1>Singularity</h1>
             </header>
             <div class="wizard-layout">
 
@@ -606,6 +606,37 @@
                             <div class="step-title">Skill Test</div>
                         </a>
                     </div>
+
+                    <!-- Reset / Start New Application -->
+                    <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.08);">
+                        <button id="reset-session-btn" style="
+                            width: 100%;
+                            padding: 12px;
+                            background: rgba(0, 212, 255, 0.05);
+                            border: 1px solid rgba(0, 212, 255, 0.2);
+                            color: #72dbff;
+                            border-radius: 8px;
+                            cursor: pointer;
+                            font-size: 0.82rem;
+                            font-weight: 600;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            gap: 8px;
+                            transition: all 0.2s;
+                        ">
+                            <span style="font-size: 1rem;">🔄</span> New Application
+                        </button>
+                        <script>
+                            document.getElementById('reset-session-btn').onclick = function () {
+                                if (confirm('This will clear all your progress and application data. Continue?')) {
+                                    localStorage.clear();
+                                    location.href = '/index.html';
+                                }
+                            };
+                        </script>
+                    </div>
+
                     <div class="sidebar-decoration">
                         <img src="/static/sidebar-decoration.svg" alt="">
                     </div>
@@ -622,7 +653,7 @@
                         </p>
 
                         <div
-                            style="background:rgba(0,212,255,0.06); border:1px solid rgba(0,212,255,0.15); border-radius:12px; padding:16px; margin-bottom:20px; line-height:1.6; color:#aac4e8; font-size:0.92rem;">
+                            style="background:rgba(0,212,255,0.06); border:1px solid rgba(0,212,255,0.15); border-radius:12px; padding:20px; margin-bottom:20px; line-height:1.7; color:#aac4e8; font-size:0.95rem;">
                             <strong>Why Games?</strong><br>
                             Traditional tests ask what you know, but games show how you <em>think</em> under pressure
                             and
@@ -630,49 +661,57 @@
                             detect
                             patterns, and balance effort vs reward.
                             <br><br>
-                            Play naturally and follow your intuition. There are no "right" or "wrong" choices, only
-                            different strategies that reflect your mental strengths.
+                            Unlike multiple-choice tests, these games capture your natural decision-making process.
+                            Play naturally and follow your intuition. There are no "right" or "wrong" personalities,
+                            only different strategies that reflect your mental strengths.
                         </div>
 
-                        <div class="game-intro-cards">
-                            <div class="game-intro-card">
-                                <div class="gi-title">🎈 Game 1 — Balloon Game (BART)</div>
-                                <div class="gi-measure">Measures: Risk Appetite vs. Reward</div>
-                                <div class="gi-desc">Earn virtual money by pumping a balloon. The bigger it gets, the
-                                    more it's worth—but if it pops, you lose everything for that round.</div>
-                                <ul class="gi-steps">
-                                    <li>Click <strong>"Pump"</strong> to increase balloon size and potential value.</li>
-                                    <li>Click <strong>"Collect & Bank"</strong> to secure your earnings before it pops.
-                                    </li>
-                                    <li>Find the balance between playing it safe and taking risks!</li>
-                                </ul>
-                            </div>
-                            <div class="game-intro-card">
-                                <div class="gi-title">🃏 Game 2 — Cards Game (Iowa Gambling Task)</div>
-                                <div class="gi-measure">Measures: Pattern Recognition &amp; Expected Value (EV)</div>
-                                <div class="gi-desc">Draw cards from 4 different decks. Your goal is to maximize your
-                                    total balance over many rounds.</div>
-                                <ul class="gi-steps">
-                                    <li>Click on <strong>any deck</strong> to draw a card.</li>
-                                    <li>Decks have different reward/penalty profiles (some yield high wins but huge
-                                        losses).</li>
-                                    <li>Identify the most profitable decks through experience as you play.</li>
-                                </ul>
-                            </div>
+                        <button id="show-bart-intro-btn" class="nav-btn"
+                            style="margin-top:20px;background:linear-gradient(135deg,#00d4ff,#00ff88);color:#000;min-width:180px;font-size:1rem;font-weight:700;">
+                            Continue to Game 1 →
+                        </button>
+                    </div>
+
+                    <!-- ── Game 1 Intro: BART ── -->
+                    <div id="screen-bart-intro" class="psych-screen">
+                        <div class="game-dots">
+                            <div class="game-dot active"></div>
+                            <div class="game-dot"></div>
+                        </div>
+                        <h2 style="color:#c6e8ff;margin:0 0 6px;">🎈 Game 1 — Balloon Game (BART)</h2>
+                        <div class="gi-measure" style="color:#00d4ff; font-weight:700; margin-bottom:12px;">Measures:
+                            Risk Appetite & Reward Sensitivity</div>
+
+                        <div style="line-height:1.6; color:#aac4e8; font-size:0.92rem; margin-bottom:20px;">
+                            The **Balloon Analogue Risk Task (BART)** is a widely respected cognitive assessment used to
+                            understand how you navigate risk and reward in real-time.
+                            <br><br>
+                            In this game, you earn virtual money by pumping a balloon. Every pump increases its value,
+                            but also the risk of it bursting. If it pops, you lose everything for that specific balloon.
+                            <br><br>
+                            **How it works:**
+                            <ul class="gi-steps" style="margin-top:10px;">
+                                <li>Click <strong>"Pump"</strong> to inflate the balloon. Each pump adds **$0.05** to
+                                    your potential earnings.</li>
+                                <li>Click <strong>"Collect & Bank"</strong> at any time to secure your earnings for that
+                                    round.</li>
+                                <li>If you pump too much and it pops, you earn **$0.00** for that round.</li>
+                            </ul>
+                            <br>
+                            Your goal is to maximize your **Total Banked** amount over 15 balloons. There is no single
+                            "best" pump number; we are looking for how consistently you stick to your chosen risk
+                            strategy.
                         </div>
 
                         <div class="psych-tips">
-                            <strong>Tips</strong>
-                            <ul>
-                                <li>Each game has its own 5-minute timer — manage within each window</li>
-                                <li>There are no right or wrong personalities — play naturally</li>
-                                <li>Results measure cognitive style, not just score</li>
-                            </ul>
+                            <strong>Strategy Tip:</strong>
+                            Pay attention to the point at which balloons tend to pop. Is it better to go for the "big
+                            win" or take many "small wins"?
                         </div>
 
-                        <button id="start-games-btn" class="nav-btn"
+                        <button id="start-bart-real-btn" class="nav-btn"
                             style="margin-top:20px;background:linear-gradient(135deg,#00d4ff,#00ff88);color:#000;min-width:160px;font-size:1rem;">
-                            Start Games →
+                            Start Balloon Game →
                         </button>
                     </div>
 
@@ -730,9 +769,51 @@
                         <div style="display:flex;justify-content:flex-end;margin-top:12px;">
                             <button id="bart-next-btn" class="nav-btn"
                                 style="display:none;background:linear-gradient(135deg,#00d4ff,#00ff88);color:#000;">
-                                Next Game →
+                                Next: Card Game →
                             </button>
                         </div>
+                    </div>
+
+                    <!-- ── Game 2 Intro: IGT ── -->
+                    <div id="screen-igt-intro" class="psych-screen">
+                        <div class="game-dots">
+                            <div class="game-dot done"></div>
+                            <div class="game-dot active"></div>
+                        </div>
+                        <h2 style="color:#c6e8ff;margin:0 0 6px;">🃏 Game 2 — Cards Game (Iowa Gambling Task)</h2>
+                        <div class="gi-measure" style="color:#00d4ff; font-weight:700; margin-bottom:12px;">Measures:
+                            Pattern Recognition & Decision Learning</div>
+
+                        <div style="line-height:1.6; color:#aac4e8; font-size:0.92rem; margin-bottom:20px;">
+                            The **Iowa Gambling Task (IGT)** simulates real-world decision-making under uncertainty. It
+                            measures your ability to identify patterns and learn which choices provide long-term
+                            benefits versus short-term lures.
+                            <br><br>
+                            You will see 4 decks of cards (A, B, C, and D). Some decks are "good" over the long run,
+                            while others are "bad" (they offer big wins but even bigger losses).
+                            <br><br>
+                            **How it works:**
+                            <ul class="gi-steps" style="margin-top:10px;">
+                                <li>Click on **any deck** to draw a card.</li>
+                                <li>Each card will either add to or subtract from your total balance.</li>
+                                <li>You start with **$2,000**. Your goal is to end with as much as possible.</li>
+                            </ul>
+                            <br>
+                            Don't try to calculate the math—follow your gut! As you play, you'll start to feel which
+                            decks are friendlier than others.
+                        </div>
+
+                        <div class="psych-tips"
+                            style="background:rgba(255,107,107,0.06); border-color:rgba(255,107,107,0.2);">
+                            <strong>Careful:</strong>
+                            Some decks might look very profitable at first but hide massive penalties later. Only
+                            experience will reveal the truth!
+                        </div>
+
+                        <button id="start-igt-real-btn" class="nav-btn"
+                            style="margin-top:20px;background:linear-gradient(135deg,#00d4ff,#00ff88);color:#000;min-width:160px;font-size:1rem;">
+                            Start Cards Game →
+                        </button>
                     </div>
 
                     <!-- ══════════════════════════════════════ -->

@@ -161,8 +161,11 @@ document.addEventListener('DOMContentLoaded', function () {
         const value = (field.value || '').trim();
 
         if (field.hasAttribute('required') && !value) {
-            showError(field, 'This field is required.');
-            return false;
+            // Only care if visible
+            if (field.offsetWidth > 0 || field.offsetHeight > 0 || field.getClientRects().length > 0) {
+                showError(field, 'This field is required.');
+                return false;
+            }
         }
         if (value) {
             if (field.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
@@ -195,6 +198,34 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (!validateField(field)) valid = false;
             }
         });
+
+        // Specialized check for Step 6: Skill Checkboxes + Experience Dropdowns
+        if (stepNum === 6) {
+            const checkedSkills = card.querySelectorAll('.wizard-checkbox input[type="checkbox"]:checked');
+            checkedSkills.forEach(cb => {
+                const label = cb.closest('label');
+                const select = label.querySelector('.pill-select');
+                if (select && !select.value) {
+                    valid = false;
+                    select.style.borderColor = '#ff6f6f';
+                    // Show error hint if not already there
+                    if (!card.querySelector('.skill-error')) {
+                        const err = document.createElement('div');
+                        err.className = 'error-message skill-error';
+                        err.style.cssText = 'color:#ff6f6f;font-size:0.85rem;margin-bottom:12px;padding:8px;background:rgba(255,111,111,0.05);border-radius:4px;';
+                        err.textContent = '⚠ Please select an experience level for all checked skills.';
+                        const hint = card.querySelector('.step-hint');
+                        if (hint) hint.insertAdjacentElement('afterend', err);
+                    }
+                } else if (select) {
+                    select.style.borderColor = '';
+                }
+            });
+            if (valid) {
+                const err = card.querySelector('.skill-error');
+                if (err) err.remove();
+            }
+        }
         return valid;
     }
 
@@ -605,7 +636,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('work_preference').value = 'hybrid';
         document.getElementById('constraints').value = 'Prefer not to travel more than once a month.';
 
-        document.getElementById('interest').value = 'I am deeply interested in TalentForge because of its cutting-edge use of AI and data systems to solve real-world hiring challenges. Working on impactful products at scale aligns perfectly with my career goals.';
+        document.getElementById('interest').value = 'I am deeply interested in Singularity because of its cutting-edge use of AI and data systems to solve real-world hiring challenges. Working on impactful products at scale aligns perfectly with my career goals.';
         document.getElementById('problems').value = 'I enjoy solving scalability problems in data pipelines and building intelligent systems that reduce manual effort through automation and smart design.';
 
         document.getElementById('area').value = 'ai';
@@ -770,6 +801,18 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         `;
         document.head.appendChild(s);
+    }
+
+    // ─── Reset / New Candidate ──────────────────────────────────────────────────
+    const resetBtn = document.getElementById('reset-session-btn');
+    if (resetBtn) {
+        resetBtn.addEventListener('click', function () {
+            if (confirm('This will permanently clear all your progress and current application data. Are you sure?')) {
+                localStorage.clear();
+                localStorage.setItem('new_candidate', 'true');
+                window.location.href = '/index.html';
+            }
+        });
     }
 
     // ─── Init ─────────────────────────────────────────────────────────────────────

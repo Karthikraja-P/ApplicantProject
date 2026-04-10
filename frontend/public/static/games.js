@@ -428,11 +428,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // ─── Event listeners ───────────────────────────────────────────────────────
 
-    document.getElementById('start-games-btn').addEventListener('click', startBART);
+    document.getElementById('show-bart-intro-btn').addEventListener('click', function () {
+        showScreen('screen-bart-intro');
+    });
+
+    document.getElementById('start-bart-real-btn').addEventListener('click', function () {
+        startBART();
+    });
 
     document.getElementById('bart-pump-btn').addEventListener('click', pumpBART);
     document.getElementById('bart-bank-btn').addEventListener('click', bankBART);
-    document.getElementById('bart-next-btn').addEventListener('click', startIGT);
+    document.getElementById('bart-next-btn').addEventListener('click', function () {
+        showScreen('screen-igt-intro');
+    });
+
+    document.getElementById('start-igt-real-btn').addEventListener('click', function () {
+        startIGT();
+    });
 
     document.querySelectorAll('.card-deck').forEach(function (btn, i) {
         btn.addEventListener('click', function () { pickDeck(i); });

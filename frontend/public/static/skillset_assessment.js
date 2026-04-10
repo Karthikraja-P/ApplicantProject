@@ -724,8 +724,8 @@ function renderNumberGrid() {
   var html = '';
   currentQs.forEach(function (_, i) {
     var cls = 'q-num-btn';
-    if (i === currentIdx) cls += ' active';
-    else if (answers[i] !== null) cls += ' answered';
+    if (i === currentIdx) cls += ' qn-current';
+    else if (answers[i] !== null) cls += ' qn-answered';
     html += '<button class="' + cls + '" onclick="jumpTo(' + i + ')">' + (i + 1) + '</button>';
   });
   document.getElementById('sk-number-grid').innerHTML = html;

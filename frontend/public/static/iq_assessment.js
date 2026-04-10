@@ -997,11 +997,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Restore prior answer (section timer keeps running — no per-question timer)
         if (answers[idx] !== null && answers[idx] !== -1) {
+            var qOpts = document.getElementById('q-options');
             revealAnswer(qOpts.querySelectorAll('.mcq-option'), answers[idx], q.answer, q.exp);
         } else if (answers[idx] === -1) {
+            var qOpts = document.getElementById('q-options');
             disableOpts(qOpts);
-            qExp.textContent = 'Section time expired. ' + q.exp;
-            qExp.className = 'mcq-explanation visible incorrect';
+            qExp.textContent = 'Section time expired.';
+            qExp.className = 'mcq-explanation visible';
         }
         // else: unanswered — section timer is already running, nothing to start here
 
@@ -1029,14 +1031,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function revealAnswer(opts, chosen, correct, exp) {
         opts.forEach(function (o, i) {
-            o.disabled = true; o.classList.add('revealed');
-            if (i === correct) o.classList.add('correct');
-            else if (i === chosen && chosen !== correct) o.classList.add('incorrect');
+            o.disabled = true;
+            o.classList.add('revealed');
+            if (i === chosen) {
+                o.classList.add('selected');
+            }
         });
         var expEl = document.getElementById('q-explanation');
-        var isCorrect = chosen === correct;
-        expEl.textContent = (isCorrect ? '✓ Correct. ' : '✗ Incorrect. ') + exp;
-        expEl.className = 'mcq-explanation visible ' + (isCorrect ? 'correct' : 'incorrect');
+        expEl.className = 'mcq-explanation'; // Keep hidden
     }
 
     // ─── Navigation ────────────────────────────────────────────────────────────

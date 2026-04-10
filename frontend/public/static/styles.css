@@ -809,6 +809,13 @@ header p {
     pointer-events: none;
 }
 
+.mcq-option.selected {
+    border-color: #00d4ff;
+    background: rgba(0, 212, 255, 0.15);
+    color: #eef2ff;
+    box-shadow: 0 0 8px rgba(0, 212, 255, 0.3);
+}
+
 .mcq-explanation {
     display: none;
     padding: 12px 16px;

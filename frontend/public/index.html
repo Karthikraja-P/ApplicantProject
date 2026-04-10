@@ -33,17 +33,17 @@
             <strong>⚠ Application already submitted</strong>&ensp;
             An application from <strong id="duplicate-email"></strong> already exists in our system.
             If you believe this is an error, please contact <a href="mailto:Admin@quantsingularity.in"
-                style="color:#ffd0d0;">Admin@quantsingularity.in</a>.
+                >Admin@quantsingularity.in</a>.
         </div>
         <button onclick="document.getElementById('duplicate-banner').style.display='none'"
-            style="background:none;border:none;color:#fff;font-size:1.3rem;cursor:pointer;padding:0 8px;">✕</button>
+            >✕</button>
     </div>
-    <div style="height:52px; display:none;" id="banner-spacer"></div>
+    <div  id="banner-spacer"></div>
 
     <div class="container full-screen">
         <div class="wizard-inner">
             <header>
-                <h1>Singularity</h1>
+                <div class="brand-container"><img src="/static/images/singularity_logo.jpg" class="brand-logo-small" alt="Logo"><span class="brand-text">SINGULΛRITY</span></div>
             </header>
 
             <div class="wizard-layout">
@@ -80,7 +80,7 @@
                     </div>
 
                     <!-- New Candidate / Reset Button -->
-                    <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.08);">
+                    <div >
                         <button id="reset-session-btn" style="
                             width: 100%;
                             padding: 12px;
@@ -96,12 +96,12 @@
                             justify-content: center;
                             gap: 8px;
                             transition: all 0.2s;
-                        " onmouseover="this.style.background='rgba(0, 212, 255, 0.12)'; this.style.borderColor='rgba(0, 212, 255, 0.4)';"
-                            onmouseout="this.style.background='rgba(0, 212, 255, 0.05)'; this.style.borderColor='rgba(0, 212, 255, 0.2)';">
-                            <span style="font-size: 1rem;">🔄</span> New Registration / Reset
+                        " 
+                            >
+                            🔄 New Registration / Reset
                         </button>
                         <p
-                            style="margin-top: 10px; font-size: 0.72rem; color: #6e7d91; text-align: center; line-height: 1.4;">
+                            >
                             Clears all saved data and starts a fresh application.
                         </p>
                     </div>
@@ -110,17 +110,17 @@
                     <div class="sidebar-section-label">Assessment</div>
                     <div class="sidebar-assessment-items">
                         <a href="iq_assessment.html" class="assessment-item step-item">
-                            <div class="step-number" style="font-size:0.6rem;font-weight:800;letter-spacing:0.02em;">IQ
+                            <div class="step-number" >IQ
                             </div>
                             <div class="step-title">Psychometric Test</div>
                         </a>
                         <a href="skillset_assessment.html" class="assessment-item step-item">
-                            <div class="step-number" style="font-size:0.6rem;font-weight:800;letter-spacing:0.02em;">SK
+                            <div class="step-number" >SK
                             </div>
                             <div class="step-title">Technical Assessment</div>
                         </a>
                         <a href="games.html" class="assessment-item step-item">
-                            <div class="step-number" style="font-size:0.6rem;font-weight:800;letter-spacing:0.02em;">🎮
+                            <div class="step-number" >🎮
                             </div>
                             <div class="step-title">Games</div>
                         </a>
@@ -269,8 +269,8 @@
                         <div class="wizard-card" data-step="6">
                             <h2>Skills &amp; Source</h2>
                             <p class="step-hint"
-                                style="font-size: 0.88rem; color: #c6f7ff; margin-bottom: 22px; padding: 10px; background: rgba(0, 212, 255, 0.05); border-left: 3px solid #00d4ff; border-radius: 4px;">
-                                <strong style="color: #00d4ff;">Important:</strong> For every skill you select, you
+                                >
+                                <strong >Important:</strong> For every skill you select, you
                                 <strong>must</strong> choose your experience level from the dropdown.
                             </p>
 
@@ -283,7 +283,7 @@
                             </select>
 
                             <!-- ── Database / Backend ── -->
-                            <div id="specialized-section-database" class="specialized-section" style="display:none;">
+                            <div id="specialized-section-database" class="specialized-section" >
                                 <h3>🗄️ Database / Backend Systems</h3>
 
                                 <span class="field-group-label">Databases worked with <span class="multi-hint">(select
@@ -426,7 +426,7 @@
                             </div>
 
                             <!-- ── Financial ML ── -->
-                            <div id="specialized-section-ml" class="specialized-section" style="display:none;">
+                            <div id="specialized-section-ml" class="specialized-section" >
                                 <h3>🤖 Financial Machine Learning</h3>
 
                                 <span class="field-group-label">Libraries / Tools <span class="multi-hint">(select all
@@ -571,7 +571,7 @@
                             </div>
 
                             <!-- ── AI / LLM ── -->
-                            <div id="specialized-section-ai" class="specialized-section" style="display:none;">
+                            <div id="specialized-section-ai" class="specialized-section" >
                                 <h3>✨ AI / LLM Systems</h3>
 
                                 <span class="field-group-label">Tools / Frameworks <span class="multi-hint">(select all
@@ -772,20 +772,20 @@
                             <h2>Review Your Application</h2>
                             <p>Please confirm your responses below before submitting.</p>
                             <ul id="review-content"
-                                style="line-height: 1.6; margin: 0; padding-left: 16px; color: #c2d7f2;">
+                                >
                             </ul>
                         </div>
 
                         <div class="wizard-actions">
                             <button type="button" id="save-btn" class="save-btn">Save Progress</button>
                             <div class="nav-buttons">
-                                <button type="button" id="prev-btn" class="nav-btn prev-btn" style="display:none;">←
+                                <button type="button" id="prev-btn" class="nav-btn prev-btn" >←
                                     Previous</button>
                                 <button type="button" id="next-btn" class="nav-btn">Next</button>
                             </div>
                         </div>
 
-                        <div class="submit-container" style="display:none;">
+                        <div class="submit-container" >
                             <button type="submit" class="submit-btn">Submit Application</button>
                         </div>
                     </form>

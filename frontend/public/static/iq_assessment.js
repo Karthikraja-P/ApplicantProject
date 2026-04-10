@@ -413,22 +413,22 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>
         </div>`,
             customOptsHtml: [
-                `<div style="display:grid; grid-template-columns:repeat(3, 20px); grid-template-rows:repeat(3, 20px); border:1px solid #333;">
+                `<div style="display:grid; grid-template-columns:repeat(3, 1fr); grid-template-rows:repeat(3, 20px); border:1px solid #333;">
                 <div style="border:0.5px solid #333; background:#0d173c;"></div><div style="border:0.5px solid #333; background:#00a651;"></div><div style="border:0.5px solid #333; background:#fff;"></div>
                 <div style="border:0.5px solid #333; background:#00a651;"></div><div style="border:0.5px solid #333; background:#fff;"></div><div style="border:0.5px solid #333; background:#fff;"></div>
                 <div style="border:0.5px solid #333; background:#fff;"></div><div style="border:0.5px solid #333; background:#00a651;"></div><div style="border:0.5px solid #333; background:#0d173c;"></div>
             </div>`,
-                `<div style="display:grid; grid-template-columns:repeat(3, 20px); grid-template-rows:repeat(3, 20px); border:1px solid #333;">
+                `<div style="display:grid; grid-template-columns:repeat(3, 1fr); grid-template-rows:repeat(3, 20px); border:1px solid #333;">
                 <div style="border:0.5px solid #333; background:#0d173c;"></div><div style="border:0.5px solid #333; background:#fff;"></div><div style="border:0.5px solid #333; background:#fff;"></div>
                 <div style="border:0.5px solid #333; background:#fff;"></div><div style="border:0.5px solid #333; background:#00a651;"></div><div style="border:0.5px solid #333; background:#0d173c;"></div>
                 <div style="border:0.5px solid #333; background:#fff;"></div><div style="border:0.5px solid #333; background:#0d173c;"></div><div style="border:0.5px solid #333; background:#00a651;"></div>
             </div>`,
-                `<div style="display:grid; grid-template-columns:repeat(3, 20px); grid-template-rows:repeat(3, 20px); border:1px solid #333;">
+                `<div style="display:grid; grid-template-columns:repeat(3, 1fr); grid-template-rows:repeat(3, 20px); border:1px solid #333;">
                 <div style="border:0.5px solid #333; background:#00a651;"></div><div style="border:0.5px solid #333; background:#0d173c;"></div><div style="border:0.5px solid #333; background:#fff;"></div>
                 <div style="border:0.5px solid #333; background:#0d173c;"></div><div style="border:0.5px solid #333; background:#fff;"></div><div style="border:0.5px solid #333; background:#fff;"></div>
                 <div style="border:0.5px solid #333; background:#fff;"></div><div style="border:0.5px solid #333; background:#00a651;"></div><div style="border:0.5px solid #333; background:#0d173c;"></div>
             </div>`,
-                `<div style="display:grid; grid-template-columns:repeat(3, 20px); grid-template-rows:repeat(3, 20px); border:1px solid #333;">
+                `<div style="display:grid; grid-template-columns:repeat(3, 1fr); grid-template-rows:repeat(3, 20px); border:1px solid #333;">
                 <div style="border:0.5px solid #333; background:#fff;"></div><div style="border:0.5px solid #333; background:#fff;"></div><div style="border:0.5px solid #333; background:#fff;"></div>
                 <div style="border:0.5px solid #333; background:#0d173c;"></div><div style="border:0.5px solid #333; background:#00a651;"></div><div style="border:0.5px solid #333; background:#0d173c;"></div>
                 <div style="border:0.5px solid #333; background:#fff;"></div><div style="border:0.5px solid #333; background:#0d173c;"></div><div style="border:0.5px solid #333; background:#00a651;"></div>
@@ -472,86 +472,90 @@ document.addEventListener('DOMContentLoaded', function () {
             title: 'Select the missing matrix:',
             source: 'Perceptual Reasoning',
             customHtml: `
-        <div style="display:grid; grid-template-columns:repeat(3, 80px); gap:15px; justify-content:center; margin:20px auto; background:#f8fafc; padding:20px; border-radius:8px;">
+        <div style="display:grid; grid-template-columns:repeat(3, 80px); gap:15px; justify-content:center; margin:20px auto; background:#f8fafc; padding:20px; border-radius:8px; box-sizing:border-box;">
             <!-- Row 1 -->
-            <div style="display:grid; grid-template-columns:repeat(3, 18px); background:#142e56; padding:2px; width:54px; height:54px; border:2px solid #142e56;">
-                <div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div>
-                <div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div>
-                <div style="width:18px;height:18px;border:0.5px solid #142e56;background:#f59e0b;"></div><div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div>
+            <div style="display:grid; grid-template-columns:repeat(3, 1fr); grid-template-rows:repeat(3, 1fr); background:#142e56; padding:6px; box-sizing:border-box; border:2px solid #142e56; width:72px; height:72px;">
+                ${Array(8).fill('<div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div>').join('')}
+                <div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#f59e0b;box-sizing:border-box;"></div>
             </div>
-            <div style="display:grid; grid-template-columns:repeat(3, 18px); background:#142e56; padding:2px; width:54px; height:54px; border:2px solid #142e56;">
-                <div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div>
-                <div style="width:18px;height:18px;border:0.5px solid #142e56;background:#f59e0b;"></div><div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div>
-                <div style="width:18px;height:18px;border:0.5px solid #142e56;background:#f59e0b;"></div><div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div>
+            <div style="display:grid; grid-template-columns:repeat(3, 1fr); grid-template-rows:repeat(3, 1fr); background:#142e56; padding:6px; box-sizing:border-box; border:2px solid #142e56; width:72px; height:72px;">
+                ${Array(3).fill('<div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div>').join('')}
+                <div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#f59e0b;box-sizing:border-box;"></div>
+                ${Array(2).fill('<div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div>').join('')}
+                <div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#f59e0b;box-sizing:border-box;"></div>
+                ${Array(2).fill('<div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div>').join('')}
             </div>
-            <div style="display:grid; grid-template-columns:repeat(3, 18px); background:#142e56; padding:2px; width:54px; height:54px; border:2px solid #142e56;">
-                <div style="width:18px;height:18px;border:0.5px solid #142e56;background:#f59e0b;"></div><div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div>
-                <div style="width:18px;height:18px;border:0.5px solid #142e56;background:#f59e0b;"></div><div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div>
-                <div style="width:18px;height:18px;border:0.5px solid #142e56;background:#f59e0b;"></div><div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div>
+            <div style="display:grid; grid-template-columns:repeat(3, 1fr); grid-template-rows:repeat(3, 1fr); background:#142e56; padding:6px; box-sizing:border-box; border:2px solid #142e56; width:72px; height:72px;">
+                <div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#f59e0b;box-sizing:border-box;"></div>
+                ${Array(2).fill('<div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div>').join('')}
+                <div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#f59e0b;box-sizing:border-box;"></div>
+                ${Array(2).fill('<div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div>').join('')}
+                <div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#f59e0b;box-sizing:border-box;"></div>
+                ${Array(2).fill('<div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div>').join('')}
             </div>
             <!-- Row 2 -->
-            <div style="display:grid; grid-template-columns:repeat(3, 18px); background:#142e56; padding:2px; width:54px; height:54px; border:2px solid #142e56;">
-                <div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:18px;height:18px;border:0.5px solid #142e56;background:#f59e0b;"></div><div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div>
-                <div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:18px;height:18px;border:0.5px solid #142e56;background:#f59e0b;"></div><div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div>
-                <div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:18px;height:18px;border:0.5px solid #142e56;background:#f59e0b;"></div><div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div>
+            <div style="display:grid; grid-template-columns:repeat(3, 1fr); grid-template-rows:repeat(3, 1fr); background:#142e56; padding:6px; box-sizing:border-box; border:2px solid #142e56; width:72px; height:72px;">
+                <div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div><div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#f59e0b;box-sizing:border-box;"></div><div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div>
+                <div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div><div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#f59e0b;box-sizing:border-box;"></div><div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div>
+                <div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div><div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#f59e0b;box-sizing:border-box;"></div><div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div>
             </div>
-            <div style="display:grid; grid-template-columns:repeat(3, 18px); background:#142e56; padding:2px; width:54px; height:54px; border:2px solid #142e56;">
-                <div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div>
-                <div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:18px;height:18px;border:0.5px solid #142e56;background:#f59e0b;"></div><div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div>
-                <div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div>
+            <div style="display:grid; grid-template-columns:repeat(3, 1fr); grid-template-rows:repeat(3, 1fr); background:#142e56; padding:6px; box-sizing:border-box; border:2px solid #142e56; width:72px; height:72px;">
+                <div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div><div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div><div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div>
+                <div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div><div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#f59e0b;box-sizing:border-box;"></div><div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div>
+                <div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div><div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div><div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div>
             </div>
-            <div style="display:grid; grid-template-columns:repeat(3, 18px); background:#142e56; padding:2px; width:54px; height:54px; border:2px solid #142e56;">
-                <div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:18px;height:18px;border:0.5px solid #142e56;background:#f59e0b;"></div><div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div>
-                <div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:18px;height:18px;border:0.5px solid #142e56;background:#f59e0b;"></div><div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div>
-                <div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:18px;height:18px;border:0.5px solid #142e56;background:#f59e0b;"></div><div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div>
+            <div style="display:grid; grid-template-columns:repeat(3, 1fr); grid-template-rows:repeat(3, 1fr); background:#142e56; padding:6px; box-sizing:border-box; border:2px solid #142e56; width:72px; height:72px;">
+                <div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div><div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#f59e0b;box-sizing:border-box;"></div><div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div>
+                <div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div><div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#f59e0b;box-sizing:border-box;"></div><div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div>
+                <div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div><div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#f59e0b;box-sizing:border-box;"></div><div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div>
             </div>
             <!-- Row 3 -->
-            <div style="display:grid; grid-template-columns:repeat(3, 18px); background:#142e56; padding:2px; width:54px; height:54px; border:2px solid #142e56;">
-                <div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div>
-                <div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div>
-                <div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:18px;height:18px;border:0.5px solid #142e56;background:#f59e0b;"></div>
+            <div style="display:grid; grid-template-columns:repeat(3, 1fr); grid-template-rows:repeat(3, 1fr); background:#142e56; padding:6px; box-sizing:border-box; border:2px solid #142e56; width:72px; height:72px;">
+                ${Array(8).fill('<div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div>').join('')}
+                <div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#f59e0b;box-sizing:border-box;"></div>
             </div>
-            <div style="display:grid; grid-template-columns:repeat(3, 18px); background:#142e56; padding:2px; width:54px; height:54px; border:2px solid #142e56;">
-                <div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div>
-                <div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:18px;height:18px;border:0.5px solid #142e56;background:#f59e0b;"></div>
-                <div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:18px;height:18px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:18px;height:18px;border:0.5px solid #142e56;background:#f59e0b;"></div>
+            <div style="display:grid; grid-template-columns:repeat(3, 1fr); grid-template-rows:repeat(3, 1fr); background:#142e56; padding:6px; box-sizing:border-box; border:2px solid #142e56; width:72px; height:72px;">
+                ${Array(5).fill('<div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div>').join('')}
+                <div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#f59e0b;box-sizing:border-box;"></div>
+                ${Array(2).fill('<div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div>').join('')}
+                <div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#f59e0b;box-sizing:border-box;"></div>
             </div>
-            <div style="background:#142e56; color:#f59e0b; display:flex; align-items:center; justify-content:center; font-size:32px; font-weight:bold; width:58px; height:58px; border-radius:4px;">?</div>
+            <div style="background:#142e56; color:#f59e0b; display:flex; align-items:center; justify-content:center; font-size:32px; font-weight:bold; width:72px; height:72px; border-radius:4px; box-sizing:border-box; border:2px solid #142e56;">?</div>
         </div>`,
             customOptsHtml: [
                 // A - Empty
-                `<div style="display:grid; grid-template-columns:repeat(3, 14px); background:#142e56; width:42px; height:42px; border:2px solid #142e56;">
-                ${Array(9).fill('<div style="width:14px;height:14px;border:0.5px solid #142e56;background:#fff;"></div>').join('')}
+                `<div style="display:grid; grid-template-columns:repeat(3, 1fr); grid-template-rows:repeat(3, 1fr); background:#142e56; padding:4px; border:2px solid #142e56; box-sizing:border-box; width:64px; height:64px;">
+                ${Array(9).fill('<div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div>').join('')}
             </div>`,
                 // B - Solution (Right Column)
-                `<div style="display:grid; grid-template-columns:repeat(3, 14px); background:#142e56; width:42px; height:42px; border:2px solid #142e56;">
-                <div style="width:14px;height:14px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:14px;height:14px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:14px;height:14px;border:0.5px solid #142e56;background:#f59e0b;"></div>
-                <div style="width:14px;height:14px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:14px;height:14px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:14px;height:14px;border:0.5px solid #142e56;background:#f59e0b;"></div>
-                <div style="width:14px;height:14px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:14px;height:14px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:14px;height:14px;border:0.5px solid #142e56;background:#f59e0b;"></div>
+                `<div style="display:grid; grid-template-columns:repeat(3, 1fr); grid-template-rows:repeat(3, 1fr); background:#142e56; padding:4px; border:2px solid #142e56; box-sizing:border-box; width:64px; height:64px;">
+                <div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div><div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div><div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#f59e0b;box-sizing:border-box;"></div>
+                <div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div><div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div><div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#f59e0b;box-sizing:border-box;"></div>
+                <div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div><div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div><div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#f59e0b;box-sizing:border-box;"></div>
             </div>`,
                 // C - Middle Column
-                `<div style="display:grid; grid-template-columns:repeat(3, 14px); background:#142e56; width:42px; height:42px; border:2px solid #142e56;">
-                <div style="width:14px;height:14px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:14px;height:14px;border:0.5px solid #142e56;background:#f59e0b;"></div><div style="width:14px;height:14px;border:0.5px solid #142e56;background:#fff;"></div>
-                <div style="width:14px;height:14px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:14px;height:14px;border:0.5px solid #142e56;background:#f59e0b;"></div><div style="width:14px;height:14px;border:0.5px solid #142e56;background:#fff;"></div>
-                <div style="width:14px;height:14px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:14px;height:14px;border:0.5px solid #142e56;background:#f59e0b;"></div><div style="width:14px;height:14px;border:0.5px solid #142e56;background:#fff;"></div>
+                `<div style="display:grid; grid-template-columns:repeat(3, 1fr); grid-template-rows:repeat(3, 1fr); background:#142e56; padding:4px; border:2px solid #142e56; box-sizing:border-box; width:64px; height:64px;">
+                <div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div><div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#f59e0b;box-sizing:border-box;"></div><div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div>
+                <div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div><div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#f59e0b;box-sizing:border-box;"></div><div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div>
+                <div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div><div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#f59e0b;box-sizing:border-box;"></div><div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div>
             </div>`,
                 // D - Top segment
-                `<div style="display:grid; grid-template-columns:repeat(3, 14px); background:#142e56; width:42px; height:42px; border:2px solid #142e56;">
-                <div style="width:14px;height:14px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:14px;height:14px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:14px;height:14px;border:0.5px solid #142e56;background:#f59e0b;"></div>
-                <div style="width:14px;height:14px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:14px;height:14px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:14px;height:14px;border:0.5px solid #142e56;background:#f59e0b;"></div>
-                <div style="width:14px;height:14px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:14px;height:14px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:14px;height:14px;border:0.5px solid #142e56;background:#fff;"></div>
+                `<div style="display:grid; grid-template-columns:repeat(3, 1fr); grid-template-rows:repeat(3, 1fr); background:#142e56; padding:4px; border:2px solid #142e56; box-sizing:border-box; width:64px; height:64px;">
+                <div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div><div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div><div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#f59e0b;box-sizing:border-box;"></div>
+                <div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div><div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div><div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#f59e0b;box-sizing:border-box;"></div>
+                <div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div><div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div><div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div>
             </div>`,
                 // E - Diagonal
-                `<div style="display:grid; grid-template-columns:repeat(3, 14px); background:#142e56; width:42px; height:42px; border:2px solid #142e56;">
-                <div style="width:14px;height:14px;border:0.5px solid #142e56;background:#f59e0b;"></div><div style="width:14px;height:14px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:14px;height:14px;border:0.5px solid #142e56;background:#fff;"></div>
-                <div style="width:14px;height:14px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:14px;height:14px;border:0.5px solid #142e56;background:#f59e0b;"></div><div style="width:14px;height:14px;border:0.5px solid #142e56;background:#fff;"></div>
-                <div style="width:14px;height:14px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:14px;height:14px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:14px;height:14px;border:0.5px solid #142e56;background:#f59e0b;"></div>
+                `<div style="display:grid; grid-template-columns:repeat(3, 1fr); grid-template-rows:repeat(3, 1fr); background:#142e56; padding:4px; border:2px solid #142e56; box-sizing:border-box; width:64px; height:64px;">
+                <div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#f59e0b;box-sizing:border-box;"></div><div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div><div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div>
+                <div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div><div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#f59e0b;box-sizing:border-box;"></div><div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div>
+                <div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div><div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div><div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#f59e0b;box-sizing:border-box;"></div>
             </div>`,
                 // F - Middle Horiz
-                `<div style="display:grid; grid-template-columns:repeat(3, 14px); background:#142e56; width:42px; height:42px; border:2px solid #142e56;">
-                <div style="width:14px;height:14px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:14px;height:14px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:14px;height:14px;border:0.5px solid #142e56;background:#fff;"></div>
-                <div style="width:14px;height:14px;border:0.5px solid #142e56;background:#f59e0b;"></div><div style="width:14px;height:14px;border:0.5px solid #142e56;background:#f59e0b;"></div><div style="width:14px;height:14px;border:0.5px solid #142e56;background:#f59e0b;"></div>
-                <div style="width:14px;height:14px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:14px;height:14px;border:0.5px solid #142e56;background:#fff;"></div><div style="width:14px;height:14px;border:0.5px solid #142e56;background:#fff;"></div>
+                `<div style="display:grid; grid-template-columns:repeat(3, 1fr); grid-template-rows:repeat(3, 1fr); background:#142e56; padding:4px; border:2px solid #142e56; box-sizing:border-box; width:64px; height:64px;">
+                <div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div><div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div><div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div>
+                <div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#f59e0b;box-sizing:border-box;"></div><div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#f59e0b;box-sizing:border-box;"></div><div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#f59e0b;box-sizing:border-box;"></div>
+                <div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div><div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div><div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div>
             </div>`
             ],
             answer: 1, time: 90, exp: 'Each row focuses on a column (Left, Center, Right) and builds the pattern up to 3 blocks.'
@@ -614,70 +618,70 @@ document.addEventListener('DOMContentLoaded', function () {
             title: 'Complete the pattern of stars and moons:',
             source: 'Perceptual Patterns',
             customHtml: `
-        <div style="display:grid;grid-template-columns:54px 54px 54px;gap:20px;width:max-content;margin:20px auto;background:#fff;padding:15px;border:1px solid #142e56;">
+        <div style="display:grid;grid-template-columns:repeat(3, 60px);gap:20px;width:max-content;margin:20px auto;background:#fff;padding:15px;border:1px solid #142e56;box-sizing:border-box;">
             <!-- G1 -->
-            <div style="display:grid;grid-template-columns:repeat(3,18px);grid-template-rows:repeat(3,18px);border:1px solid #142e56;">
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);border:1px solid #142e56;box-sizing:border-box;">
                 <div style="border:0.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;">★</div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div>
                 <div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div>
                 <div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;">🌙</div>
             </div>
             <!-- G2 -->
-            <div style="display:grid;grid-template-columns:repeat(3,18px);grid-template-rows:repeat(3,18px);border:1px solid #142e56;">
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);border:1px solid #142e56;box-sizing:border-box;">
                 <div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;">★</div><div style="border:0.5px solid #d1d5db;"></div>
                 <div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;">🌙</div>
                 <div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div>
             </div>
             <!-- G3 -->
-            <div style="display:grid;grid-template-columns:repeat(3,18px);grid-template-rows:repeat(3,18px);border:1px solid #142e56;">
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);border:1px solid #142e56;box-sizing:border-box;">
                 <div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;">★</div>
                 <div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div>
                 <div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div>
             </div>
             <!-- G4 -->
-            <div style="display:grid;grid-template-columns:repeat(3,18px);grid-template-rows:repeat(3,18px);border:1px solid #142e56;">
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);border:1px solid #142e56;box-sizing:border-box;">
                 <div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div>
                 <div style="border:0.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;">★</div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div>
                 <div style="border:0.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;">🌙</div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div>
             </div>
             <!-- G5 -->
-            <div style="display:grid;grid-template-columns:repeat(3,18px);grid-template-rows:repeat(3,18px);border:1px solid #142e56;">
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);border:1px solid #142e56;box-sizing:border-box;">
                 <div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div>
                 <div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;">🌙</div><div style="border:0.5px solid #d1d5db;"></div>
                 <div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;">★</div><div style="border:0.5px solid #d1d5db;"></div>
             </div>
             <!-- G6 -->
-            <div style="display:grid;grid-template-columns:repeat(3,18px);grid-template-rows:repeat(3,18px);border:1px solid #142e56;">
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);border:1px solid #142e56;box-sizing:border-box;">
                 <div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;">🌙</div><div style="border:0.5px solid #d1d5db;"></div>
                 <div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div>
                 <div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;">★</div>
             </div>
             <!-- G7 -->
-            <div style="display:grid;grid-template-columns:repeat(3,18px);grid-template-rows:repeat(3,18px);border:1px solid #142e56;">
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);border:1px solid #142e56;box-sizing:border-box;">
                 <div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div>
                 <div style="border:0.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;">★</div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div>
                 <div style="border:0.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;">🌙</div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div>
             </div>
             <!-- G8 -->
-            <div style="display:grid;grid-template-columns:repeat(3,18px);grid-template-rows:repeat(3,18px);border:1px solid #142e56;">
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);border:1px solid #142e56;box-sizing:border-box;">
                 <div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div>
                 <div style="border:0.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;">🌙</div><div style="border:0.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;">★</div><div style="border:0.5px solid #d1d5db;"></div>
                 <div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div>
             </div>
             <!-- G9 (Question Mark) -->
-            <div style="display:grid;grid-template-columns:repeat(3,18px);grid-template-rows:repeat(3,18px);border:1px solid #142e56;background:#142e56;color:#f59e0b;position:relative;">
-                <div style="border:0.5px solid rgba(255,255,255,0.1);"></div><div style="border:0.5px solid rgba(255,255,255,0.1);"></div><div style="border:0.5px solid rgba(255,255,255,0.1);"></div>
-                <div style="border:0.5px solid rgba(255,255,255,0.1);"></div><div style="border:0.5px solid rgba(255,255,255,0.1);"></div><div style="border:0.5px solid rgba(255,255,255,0.1);"></div>
-                <div style="border:0.5px solid rgba(255,255,255,0.1);"></div><div style="border:0.5px solid rgba(255,255,255,0.1);"></div><div style="border:0.5px solid rgba(255,255,255,0.1);"></div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);border:1px solid #142e56;background:#142e56;color:#f59e0b;position:relative;width:72px;height:72px;box-sizing:border-box;">
+                <div style="border:0.5px solid rgba(255,255,255,0.1);width:100\%;height:100\%;box-sizing:border-box;"></div><div style="border:0.5px solid rgba(255,255,255,0.1);width:100\%;height:100\%;box-sizing:border-box;"></div><div style="border:0.5px solid rgba(255,255,255,0.1);width:100\%;height:100\%;box-sizing:border-box;"></div>
+                <div style="border:0.5px solid rgba(255,255,255,0.1);width:100\%;height:100\%;box-sizing:border-box;"></div><div style="border:0.5px solid rgba(255,255,255,0.1);width:100\%;height:100\%;box-sizing:border-box;"></div><div style="border:0.5px solid rgba(255,255,255,0.1);width:100\%;height:100\%;box-sizing:border-box;"></div>
+                <div style="border:0.5px solid rgba(255,255,255,0.1);width:100\%;height:100\%;box-sizing:border-box;"></div><div style="border:0.5px solid rgba(255,255,255,0.1);width:100\%;height:100\%;box-sizing:border-box;"></div><div style="border:0.5px solid rgba(255,255,255,0.1);width:100\%;height:100\%;box-sizing:border-box;"></div>
                 <div style="position:absolute;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:bold;z-index:10;">?</div>
             </div>
         </div>`,
             customOptsHtml: [
-                '<div style="display:grid;grid-template-columns:repeat(3,18px);grid-template-rows:repeat(3,18px);border:1px solid #142e56;background:#fff;"><div style="border:0.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;">🌙</div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;">★</div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div></div>',
-                '<div style="display:grid;grid-template-columns:repeat(3,18px);grid-template-rows:repeat(3,18px);border:1px solid #142e56;background:#fff;"><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;">🌙</div><div style="border:0.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;">★</div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div></div>',
-                '<div style="display:grid;grid-template-columns:repeat(3,18px);grid-template-rows:repeat(3,18px);border:1px solid #142e56;background:#fff;"><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5 solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;">🌙</div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;">★</div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div></div>',
-                '<div style="display:grid;grid-template-columns:repeat(3,18px);grid-template-rows:repeat(3,18px);border:1px solid #142e56;background:#fff;"><div style="border:0.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;">🌙</div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;">★</div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div></div>',
-                '<div style="display:grid;grid-template-columns:repeat(3,18px);grid-template-rows:repeat(3,18px);border:1px solid #142e56;background:#fff;"><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;">🌙</div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div></div>',
-                '<div style="display:grid;grid-template-columns:repeat(3,18px);grid-template-rows:repeat(3,18px);border:1px solid #142e56;background:#fff;"><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;">★</div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div></div>'
+                '<div style="display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);border:1px solid #142e56;background:#fff;box-sizing:border-box;"><div style="border:0.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;">🌙</div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;">★</div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div></div>',
+                '<div style="display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);border:1px solid #142e56;background:#fff;box-sizing:border-box;"><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;">🌙</div><div style="border:0.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;">★</div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div></div>',
+                '<div style="display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);border:1px solid #142e56;background:#fff;box-sizing:border-box;"><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5 solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;">🌙</div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;">★</div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div></div>',
+                '<div style="display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);border:1px solid #142e56;background:#fff;box-sizing:border-box;"><div style="border:0.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;">🌙</div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;">★</div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div></div>',
+                '<div style="display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);border:1px solid #142e56;background:#fff;box-sizing:border-box;"><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;">🌙</div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div></div>',
+                '<div style="display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);border:1px solid #142e56;background:#fff;box-sizing:border-box;"><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;">★</div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div></div>'
             ],
             answer: 0, time: 90, exp: 'Star moves top→bottom→middle across each outer column (col 3: [0][2]→[2][2]→[1][2]). Moon moves right→centre→left along each row (col 3: none→[0][1]→[0][0]).'
         }
@@ -714,7 +718,7 @@ document.addEventListener('DOMContentLoaded', function () {
         {
             title: 'Which image completes the matrix?',
             source: 'Perceptual Patterns',
-            customHtml: '<div style="position:relative; display:inline-block; max-width:100%; border-radius:8px; overflow:hidden; background:#e2e8f0; padding:10px;"><img src="/static/images/iq/q41.jpg" style="max-width:100%; max-height:270px; display:block; object-fit:contain; border-radius:4px;" /><div style="position:absolute; top:12px; left:12px; width:120px; height:28px; background:#fff; z-index:10;"></div><div style="position:absolute; top:12px; right:12px; width:75px; height:28px; background:#fff; z-index:10;"></div></div>',
+            customHtml: '<div style="position:relative; display:inline-block; max-width:100%; border-radius:12px; overflow:visible; background:#e2e8f0; padding:15px;"><img src="/static/images/iq/q41.jpg" style="max-width:100%; max-height:270px; display:block; object-fit:contain;" /><div style="position:absolute; top:17px; left:17px; width:120px; height:28px; background:#fff; z-index:10;"></div><div style="position:absolute; top:17px; right:17px; width:75px; height:28px; background:#fff; z-index:10;"></div></div>',
             opts: ['A', 'B', 'C', 'D', 'E', 'F'],
             answer: 0, time: 90, exp: 'The shapes combine and change according to the logic pattern for each row and column.'
         },
@@ -934,7 +938,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (q.customHtml) {
             qVisual.innerHTML = q.customHtml;
         } else if (q.imgUrl) {
-            qVisual.innerHTML = '<img src="' + q.imgUrl + '" style="max-width:100%;max-height:270px;border-radius:8px;object-fit:contain;background-color:#e2e8f0;padding:10px;" />';
+            qVisual.innerHTML = '<div style="background-color:#e2e8f0; padding:15px; border-radius:12px; display:inline-block; max-width:100%; overflow:visible;"><img src="' + q.imgUrl + '" style="max-width:100%; max-height:270px; display:block; object-fit:contain;" /></div>';
         } else if (q.matrix) {
             qVisual.innerHTML = buildMatrix(q.matrix);
         } else {
@@ -966,7 +970,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 var btn = document.createElement('button');
                 btn.className = 'mcq-option pattern-opt';
                 var label = String.fromCharCode(65 + i);
-                btn.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;margin-bottom:8px;"><img src="' + url + '" style="width:100%;height:100%;max-width:64px;max-height:64px;object-fit:contain;border-radius:6px;background:#ffffff;padding:4px;" /></div>' + '<div class="opt-label" style="text-align:center;">' + label + '</div>';
+                btn.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;margin-bottom:8px;"><div style="background:#ffffff; padding:6px; border-radius:8px; display:inline-block;"><img src="' + url + '" style="width:auto;height:auto;max-width:54px;max-height:54px;object-fit:contain;display:block;" /></div></div>' + '<div class="opt-label" style="text-align:center;">' + label + '</div>';
                 btn.addEventListener('click', (function (ci) { return function () { selectAnswer(ci); }; })(i));
                 qOpts.appendChild(btn);
             });

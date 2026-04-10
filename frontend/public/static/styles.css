@@ -5,11 +5,12 @@
     --accent: #00b7d7;
     --success: #10b981;
     --error: #ef4444;
-    --bg-dark: #030712;
-    --bg-card: rgba(17, 24, 39, 0.7);
+    --bg-dark: #000000;
+    --bg-card: rgba(0, 0, 0, 0.3);
     --border-subtle: rgba(255, 255, 255, 0.08);
     --text-main: #f8fafc;
     --text-muted: #94a3b8;
+    --font-main: "SF Pro Display", "Helvetica Neue", -apple-system, BlinkMacSystemFont, sans-serif;
     --gradient-brand: linear-gradient(135deg, var(--secondary), var(--primary), var(--accent));
 }
 
@@ -33,11 +34,39 @@ body {
     margin: 0;
     padding: 0;
     min-height: 100vh;
-    background: radial-gradient(circle at top, #09090b, #030712);
+    background-color: #000000;
+    /* Clean & Clear Background System */
+    background-image:
+        /* Subtle Atmospheric Glows (Near transparent) */
+        radial-gradient(circle at 10% 10%, rgba(59, 130, 246, 0.05), transparent 30%),
+        radial-gradient(circle at 90% 90%, rgba(139, 92, 246, 0.05), transparent 30%),
+        /* Minimalist Blackhole Asset */
+        url("/static/images/blackhole_bg.png"),
+        /* Faint Starfield Overlay */
+        url("data:image/svg+xml,%3Csvg width='400' height='400' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='50' cy='50' r='1' fill='%23FFF' opacity='0.2'/%3E%3Ccircle cx='150' cy='250' r='0.5' fill='%23FFF' opacity='0.1'/%3E%3Ccircle cx='300' cy='100' r='1.2' fill='%23FFF' opacity='0.3'/%3E%3Ccircle cx='250' cy='350' r='0.5' fill='%23FFF' opacity='0.2'/%3E%3Ccircle cx='380' cy='200' r='1' fill='%23FFF' opacity='0.2'/%3E%3Ccircle cx='80' cy='300' r='0.5' fill='%23FFF' opacity='0.1'/%3E%3Ccircle cx='200' cy='20' r='1' fill='%23FFF' opacity='0.2'/%3E%3Ccircle cx='350' cy='380' r='0.5' fill='%23FFF' opacity='0.1'/%3E%3C/svg%3E");
+    background-attachment: fixed;
+    background-size: 100% 100%, 100% 100%, contain, 400px 400px;
+    background-position: center, center, center center, 0 0;
+    background-repeat: no-repeat, no-repeat, no-repeat, repeat;
     color: var(--text-main);
-    font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+    font-family: var(--font-main);
     line-height: 1.5;
+    letter-spacing: 0.01em;
     -webkit-font-smoothing: antialiased;
+}
+
+/* Base smoothing layer */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    /* Darken the asset for "clean" feel */
+    pointer-events: none;
+    z-index: -1;
 }
 
 .full-screen {
@@ -51,8 +80,8 @@ body {
 .wizard-inner {
     width: min(1200px, 100%);
     background: var(--bg-card);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(20px) saturate(1.4);
+    -webkit-backdrop-filter: blur(20px) saturate(1.4);
     border: 1px solid var(--border-subtle);
     border-radius: 24px;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
@@ -98,22 +127,26 @@ body {
     padding: 14px 20px;
     border-radius: 12px;
     cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    background: transparent;
-    border: 1px solid transparent;
-    color: var(--text-muted);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: rgba(133, 77, 14, 0.05);
+    border: 1px solid rgba(133, 77, 14, 0.12);
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 6px;
 }
 
 .step-item:hover {
-    background: rgba(255, 255, 255, 0.03);
-    color: var(--text-main);
+    background: rgba(133, 77, 14, 0.1);
+    border-color: rgba(234, 179, 8, 0.3);
+    color: #ffffff;
+    transform: scale(1.02);
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.1);
 }
 
 .step-item.active {
-    background: rgba(48, 128, 255, 0.1);
-    border-color: rgba(48, 128, 255, 0.3);
-    color: var(--primary);
-    box-shadow: 0 0 20px rgba(48, 128, 255, 0.1);
+    background: rgba(133, 77, 14, 0.15);
+    border-color: rgba(234, 179, 8, 0.4);
+    color: #ffffff;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
 }
 
 .step-number {
@@ -159,11 +192,51 @@ header h1 {
     font-size: 2rem;
     margin: 0;
     color: #22d4ff;
+    display: none;
+    /* Hide text as it's replaced by logo */
+}
+
+.brand-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.brand-logo-small {
+    width: 32px;
+    height: 32px;
+    transition: transform 0.3s ease;
+}
+
+.brand-container:hover .brand-logo-small {
+    transform: scale(1.1);
+}
+
+.brand-text {
+    font-size: 1.8rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    color: #ffffff;
+    text-transform: uppercase;
+    /* Gradient Text Effect */
+    background: linear-gradient(to right, #ffffff, #93c5fd, #ffffff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    transition: all 0.5s ease;
+}
+
+.brand-container:hover .brand-text {
+    filter: brightness(1.2);
 }
 
 header p {
-    margin: 8px 0 0 0;
-    color: #96a2ba;
+    margin: -10px 0 0 0;
+    color: #94a3b8;
+    font-size: 0.95rem;
+    opacity: 0.8;
 }
 
 .wizard-progress {
@@ -181,8 +254,9 @@ header p {
 .progress-bar {
     height: 100%;
     width: 0;
-    background: var(--gradient-brand);
+    background: linear-gradient(90deg, #854d0e, #eab308, #facc15);
     transition: width 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+    box-shadow: 0 0 10px rgba(234, 179, 8, 0.4);
 }
 
 .progress-text {
@@ -192,8 +266,8 @@ header p {
 }
 
 .wizard-card {
-    background: rgba(30, 41, 59, 0.4);
-    border: 1px solid var(--border-subtle);
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 20px;
     padding: 24px;
     margin-bottom: 24px;
@@ -217,9 +291,11 @@ header p {
     display: grid;
     place-items: center;
     font-size: 1.1rem;
-    background: rgba(27, 86, 196, 0.35);
+    background: rgba(59, 130, 246, 0.2);
+    border: 1px solid rgba(59, 130, 246, 0.3);
     border-radius: 50%;
     margin-bottom: 14px;
+    color: #60a5fa;
 }
 
 .wizard-card h2 {
@@ -327,15 +403,20 @@ header p {
 
 #next-btn,
 .nav-btn:not(.prev-btn) {
-    background: var(--gradient-brand);
-    color: #fff;
-    box-shadow: 0 4px 14px 0 rgba(48, 128, 255, 0.39);
+    background: rgba(255, 255, 255, 0.05) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: #ffffff;
+    border: 0.5px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
 #next-btn:hover,
 .nav-btn:not(.prev-btn):hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(48, 128, 255, 0.23);
+    transform: translateY(-2px) scale(1.02);
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
 }
 
 #prev-btn,
@@ -372,8 +453,10 @@ header p {
 }
 
 .submit-btn {
-    background: linear-gradient(135deg, #00ff88, #00d4ff);
-    color: #000;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    color: #ffffff;
+    border: 0.5px solid rgba(255, 255, 255, 0.2);
 }
 
 .submit-btn:disabled {
@@ -675,10 +758,6 @@ header p {
 .psych-nav-item.done .step-number {
     background: linear-gradient(135deg, #00d4ff, #00ff88);
     color: #000;
-}
-
-.psych-nav-item.active {
-    /* inherits .step-item.active */
 }
 
 /* ── Module header (question title + live timer) ── */
@@ -1263,10 +1342,10 @@ header p {
 
 .psych-viz-center svg {
     display: block;
-    width: 148px;
-    height: 148px;
-    max-width: 148px;
-    max-height: 148px;
+    max-width: 100%;
+    max-height: 280px;
+    width: auto;
+    height: auto;
 }
 
 /* Horizontal single-row options for visual questions */
@@ -1360,6 +1439,29 @@ header p {
     border-top: 1px solid rgba(110, 173, 255, 0.1);
 }
 
+.step-number {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(133, 77, 14, 0.2);
+    border: 1px solid rgba(234, 179, 8, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #eab308;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.step-item.active .step-number {
+    background: #eab308;
+    border-color: #eab308;
+    color: #000;
+    box-shadow: 0 0 15px rgba(234, 179, 8, 0.4);
+}
+
 .q-num-btn {
     width: 34px;
     height: 34px;
@@ -1405,4 +1507,69 @@ header p {
     margin-bottom: 10px;
     letter-spacing: 0.04em;
     text-transform: uppercase;
+}
+
+/* ── Reset Session Button (Sidebar) ────────────────────────────────────────── */
+#reset-session-btn {
+    width: 100%;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: rgba(255, 255, 255, 0.6) !important;
+    border-radius: 12px !important;
+    cursor: pointer;
+    font-size: 0.82rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(8px);
+    margin-top: 10px;
+}
+
+#reset-session-btn:hover {
+    background: rgba(255, 255, 255, 0.08) !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+    color: #ffffff !important;
+    transform: translateY(-1px);
+}
+
+#reset-session-btn img,
+#reset-session-btn svg {
+    filter: grayscale(1) brightness(1.5);
+    opacity: 0.6;
+}
+
+#reset-session-btn:hover img,
+#reset-session-btn:hover svg {
+    filter: none;
+    opacity: 1;
+}
+
+/* ── Sidebar Structural Elements ─────────────────────────────────────────── */
+.sidebar-divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.08);
+    margin: 24px 0 16px;
+}
+
+.sidebar-section-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: rgba(255, 255, 255, 0.3);
+    margin: 0 0 12px 14px;
+}
+
+.assessment-item.step-item {
+    /* Styles are now inherited from .step-item */
+}
+
+.assessment-item.step-item .step-number {
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
 }

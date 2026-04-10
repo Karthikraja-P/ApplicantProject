@@ -588,7 +588,19 @@ var finishTime = null;
   var _skStartTime = parseInt(localStorage.getItem('sk_start_time') || '0');
   if (_active === 'skillset' && _skTrack && _skStartTime > 0) {
     currentTrack = _skTrack;
-    currentQs = currentTrack === 'ml' ? QUESTIONS_ML : QUESTIONS_DB;
+
+    // Load shuffled questions if available
+    var shuffledSaved = localStorage.getItem('tf_sk_shuffled_qs');
+    if (shuffledSaved) {
+      try {
+        currentQs = JSON.parse(shuffledSaved);
+      } catch (_) {
+        currentQs = currentTrack === 'ml' ? QUESTIONS_ML : QUESTIONS_DB;
+      }
+    } else {
+      currentQs = currentTrack === 'ml' ? QUESTIONS_ML : QUESTIONS_DB;
+    }
+
     var saved = localStorage.getItem('tf_sk_answers');
     if (saved) {
       try {
@@ -611,6 +623,41 @@ var finishTime = null;
 
 
 })();
+
+// ─── Shuffle Utilities ────────────────────────────────────────────────────────
+function shuffleArray(array) {
+  for (var i = array.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+  }
+}
+
+function prepSessionQuestions(source) {
+  // 1. Deep clone question objects to avoid mutating original banks
+  var qs = source.map(function (q) {
+    return {
+      id: q.id,
+      cat: q.cat,
+      q: q.q,
+      opts: q.opts.slice(), // shallow copy of opts
+      ans: q.ans
+    };
+  });
+
+  // 2. Shuffle questions
+  shuffleArray(qs);
+
+  // 3. Shuffle options for each and adjust 'ans' index
+  qs.forEach(function (q) {
+    var correctText = q.opts[q.ans];
+    shuffleArray(q.opts);
+    q.ans = q.opts.indexOf(correctText);
+  });
+
+  return qs;
+}
 
 // ─── Screen helpers ───────────────────────────────────────────────────────────
 function showScreen(id) {
@@ -659,6 +706,11 @@ function startAssessment() {
   localStorage.setItem('current_assessment_active', 'skillset');
   localStorage.setItem('sk_track', currentTrack);
   localStorage.setItem('sk_start_time', Date.now().toString());
+
+  // Shuffle and save
+  currentQs = prepSessionQuestions(currentTrack === 'ml' ? QUESTIONS_ML : QUESTIONS_DB);
+  localStorage.setItem('tf_sk_shuffled_qs', JSON.stringify(currentQs));
+
   window.isTestActive = true;
   startTime = Date.now();
   // Warn before leaving
@@ -778,6 +830,7 @@ function showResults() {
   localStorage.removeItem('sk_start_time');
   localStorage.removeItem('sk_track');
   localStorage.removeItem('tf_sk_answers');
+  localStorage.removeItem('tf_sk_shuffled_qs');
 
   var score = 0;
   currentQs.forEach(function (q, i) {

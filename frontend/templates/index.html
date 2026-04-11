@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Singularity</title>
     <link rel="stylesheet" href="static/styles.css">
 </head>
+
 <body>
     {% if error == 'already_applied' %}
     <div id="duplicate-banner" style="
@@ -17,7 +19,8 @@
         <div>
             <strong>⚠ Application already submitted</strong>&ensp;
             An application from <strong>{{ prefill_email }}</strong> already exists in our system.
-            If you believe this is an error, please contact <a href="mailto:support@singularity.io" style="color:#ffd0d0;">support@singularity.io</a>.
+            If you believe this is an error, please contact <a href="mailto:support@singularity.io"
+                style="color:#ffd0d0;">support@singularity.io</a>.
         </div>
         <button onclick="document.getElementById('duplicate-banner').style.display='none'"
             style="background:none;border:none;color:#fff;font-size:1.3rem;cursor:pointer;padding:0 8px;">✕</button>
@@ -47,15 +50,15 @@
                         </div>
                         <div class="step-item" data-step="4">
                             <div class="step-number">4</div>
-                            <div class="step-title">Eligibility</div>
+                            <div class="step-title">Availability</div>
                         </div>
                         <div class="step-item" data-step="5">
                             <div class="step-number">5</div>
-                            <div class="step-title">Motivation</div>
+                            <div class="step-title">Skill Mapping</div>
                         </div>
                         <div class="step-item" data-step="6">
                             <div class="step-number">6</div>
-                            <div class="step-title">Skills & Source</div>
+                            <div class="step-title">Motivation</div>
                         </div>
                         <div class="step-item" data-step="7">
                             <div class="step-number">7</div>
@@ -66,15 +69,18 @@
                     <div class="sidebar-section-label">Assessment</div>
                     <div class="sidebar-assessment-items">
                         <a href="/assessment/iq" class="assessment-item step-item">
-                            <div class="step-number" style="font-size:0.6rem;font-weight:800;letter-spacing:0.02em;">IQ</div>
+                            <div class="step-number" style="font-size:0.6rem;font-weight:800;letter-spacing:0.02em;">IQ
+                            </div>
                             <div class="step-title">General IQ</div>
                         </a>
                         <a href="/assessment/skillset" class="assessment-item step-item">
-                            <div class="step-number" style="font-size:0.6rem;font-weight:800;letter-spacing:0.02em;">SK</div>
-                            <div class="step-title">Skillset</div>
+                            <div class="step-number" style="font-size:0.6rem;font-weight:800;letter-spacing:0.02em;">💻
+                            </div>
+                            <div class="step-title">Technical Test</div>
                         </a>
                         <a href="/games" class="assessment-item step-item">
-                            <div class="step-number" style="font-size:0.6rem;font-weight:800;letter-spacing:0.02em;">🎮</div>
+                            <div class="step-number" style="font-size:0.6rem;font-weight:800;letter-spacing:0.02em;">🎮
+                            </div>
                             <div class="step-title">Games</div>
                         </a>
                     </div>
@@ -86,350 +92,418 @@
                 <div class="main-content">
                     <div class="progress-container wizard-progress">
                         <div class="progress-bar" id="progress-bar"></div>
-                        <div class="progress-text">Step <span id="current-step">1</span> of <span id="total-steps">7</span></div>
+                        <div class="progress-text">Step <span id="current-step">1</span> of <span
+                                id="total-steps">7</span></div>
                     </div>
 
-                    <form id="application-form" action="{{ url_for('submit') }}" method="post" enctype="multipart/form-data" novalidate>
-                <div class="wizard-card active" data-step="1">
-                    <h2>Personal Information</h2>
-                    <label>Full Name <span class="required">*</span></label>
-                    <input type="text" id="full_name" name="full_name" required>
-                    <label>Email Address <span class="required">*</span></label>
-                    <input type="email" id="email" name="email" required>
-                    <label>Phone Number</label>
-                    <div class="phone-input">
-                        <select id="country_code" name="country_code">
-                            <option value="+1" data-digits="10">+1 (US)</option>
-                            <option value="+44" data-digits="10">+44 (UK)</option>
-                            <option value="+91" data-digits="10">+91 (India)</option>
-                            <option value="+61" data-digits="9">+61 (Australia)</option>
-                            <option value="+81" data-digits="10">+81 (Japan)</option>
-                            <option value="+49" data-digits="10">+49 (Germany)</option>
-                            <option value="+33" data-digits="9">+33 (France)</option>
-                            <option value="+86" data-digits="11">+86 (China)</option>
-                            <option value="+7" data-digits="10">+7 (Russia)</option>
-                            <option value="+55" data-digits="11">+55 (Brazil)</option>
-                        </select>
-                        <input type="tel" id="phone" name="phone" maxlength="10" placeholder="1234567890" data-digits="10">
-                    </div>
-                    <label>Country <span class="required">*</span></label>
-                    <select id="location_country" name="location_country" required>
-                        <option value="">Select Country...</option>
-                        <option value="USA">United States</option>
-                        <option value="UK">United Kingdom</option>
-                        <option value="India">India</option>
-                        <option value="Australia">Australia</option>
-                        <option value="Japan">Japan</option>
-                        <option value="Germany">Germany</option>
-                        <option value="France">France</option>
-                        <option value="China">China</option>
-                        <option value="Russia">Russia</option>
-                        <option value="Brazil">Brazil</option>
-                        <option value="Canada">Canada</option>
-                        <option value="Singapore">Singapore</option>
-                        <option value="UAE">United Arab Emirates</option>
-                        <option value="Mexico">Mexico</option>
-                        <option value="Netherlands">Netherlands</option>
-                        <option value="Switzerland">Switzerland</option>
-                        <option value="Sweden">Sweden</option>
-                        <option value="Italy">Italy</option>
-                        <option value="Spain">Spain</option>
-                        <option value="South Korea">South Korea</option>
-                    </select>
-                    <label>City <span class="required">*</span></label>
-                    <input type="text" id="location" name="location" placeholder="Enter your city" required list="city-locations">
-                    <datalist id="city-locations"></datalist>
-                    <label>LinkedIn URL <span class="required">*</span> <span class="help-icon" title="Provide your LinkedIn profile URL for professional background check.">ⓘ</span></label>
-                    <input type="url" id="linkedin" name="linkedin" required>
-                </div>
-
-                <div class="wizard-card" data-step="2">
-                    <h2>Professional Snapshot</h2>
-                    <label>Current Role / Title <span class="required">*</span></label>
-                    <input type="text" id="current_role" name="current_role" required>
-                    <label>Current Company or Institution <span class="required">*</span></label>
-                    <input type="text" id="current_company" name="current_company" required>
-                    <label>Years of Experience <span class="required">*</span></label>
-                    <select id="experience" name="experience" required>
-                        <option value="">Select...</option>
-                        <option value="0-1">0–1</option>
-                        <option value="1-3">1–3</option>
-                        <option value="3-5">3–5</option>
-                        <option value="5+">5+</option>
-                    </select>
-                    <label>Degree <span class="required">*</span></label>
-                    <input type="text" id="degree" name="degree" required>
-                    <label>Field of Study <span class="required">*</span> <span class="help-icon" title="Your major or area of specialization.">ⓘ</span></label>
-                    <input type="text" id="field" name="field" required>
-                    <label>University <span class="required">*</span></label>
-                    <input type="text" id="university" name="university" required>
-                </div>
-
-                <div class="wizard-card" data-step="3">
-                    <h2>CV & Portfolio</h2>
-                    <label>Upload CV (PDF only) <span class="required">*</span> <span class="help-icon" title="Upload your resume in PDF format (max 10MB).">ⓘ</span></label>
-                    <input type="file" id="cv" name="cv" accept=".pdf" required>
-                    <label>Portfolio URL <span class="help-icon" title="Link to your portfolio or project showcase.">ⓘ</span></label>
-                    <input type="url" id="portfolio" name="portfolio" placeholder="https://yourportfolio.com">
-                    <label>GitHub URL <span class="help-icon" title="Link to your GitHub profile.">ⓘ</span></label>
-                    <input type="url" id="github" name="github" placeholder="https://github.com/yourprofile">
-                    <label>Website / Blog <span class="help-icon" title="Link to your personal website or blog.">ⓘ</span></label>
-                    <input type="url" id="website" name="website" placeholder="https://yourwebsite.com">
-                </div>
-
-                <div class="wizard-card" data-step="4">
-                    <h2>Eligibility & Availability</h2>
-                    <label>Preferred Work Type <span class="required">*</span></label>
-                    <select id="work_type" name="work_type" required>
-                        <option value="">Select...</option>
-                        <option value="full-time">Full-time</option>
-                        <option value="internship">Internship</option>
-                        <option value="contract">Contract</option>
-                    </select>
-                    <label>Available Start Date <span class="required">*</span></label>
-                    <input type="date" id="start_date" name="start_date" required>
-                    <label>Work Preference <span class="required">*</span></label>
-                    <select id="work_preference" name="work_preference" required>
-                        <option value="">Select...</option>
-                        <option value="remote">Remote</option>
-                        <option value="on-site">On-site</option>
-                        <option value="hybrid">Hybrid</option>
-                    </select>
-                    <label>Any Constraints or Additional Notes <span class="help-icon" title="Any limitations or additional information about your availability.">ⓘ</span></label>
-                    <textarea id="constraints" name="constraints"></textarea>
-                </div>
-
-                <div class="wizard-card" data-step="5">
-                    <h2>Motivation</h2>
-                    <label>Why are you interested in working with us? <span class="required">*</span> <span class="help-icon" title="Tell us what attracts you to our company and role.">ⓘ</span></label>
-                    <textarea id="interest" name="interest" required></textarea>
-                    <label>What problems do you enjoy solving? <span class="help-icon" title="Describe the types of challenges you find engaging.">ⓘ</span></label>
-                    <textarea id="problems" name="problems"></textarea>
-                </div>
-
-                <div class="wizard-card" data-step="6">
-                    <h2>Skills &amp; Source</h2>
-
-                    <label>Primary Area of Interest <span class="required">*</span> <span class="help-icon" title="Choose the area that best matches your expertise.">ⓘ</span></label>
-                    <select id="area" name="area" required>
-                        <option value="">Select...</option>
-                        <option value="database">Database / Backend Systems</option>
-                        <option value="ml">Financial Machine Learning</option>
-                        <option value="ai">AI / LLM Systems</option>
-                        <option value="not-sure">Not sure</option>
-                    </select>
-
-                    <!-- ── Database / Backend ── -->
-                    <div id="specialized-section-database" class="specialized-section" style="display:none;">
-                        <h3>🗄️ Database / Backend Systems</h3>
-
-                        <span class="field-group-label">Databases worked with <span class="multi-hint">(select all that apply)</span></span>
-                        <div class="wizard-checkbox">
-                            <label><input type="checkbox" name="db_databases" value="MySQL"> MySQL</label>
-                            <label><input type="checkbox" name="db_databases" value="PostgreSQL"> PostgreSQL</label>
-                            <label><input type="checkbox" name="db_databases" value="MongoDB"> MongoDB</label>
-                            <label><input type="checkbox" name="db_databases" value="Redis"> Redis</label>
-                            <label><input type="checkbox" name="db_databases" value="Cassandra"> Cassandra</label>
-                            <label><input type="checkbox" name="db_databases" value="DynamoDB"> DynamoDB</label>
-                            <label><input type="checkbox" name="db_databases" value="Other"> Other</label>
-                        </div>
-
-                        <span class="field-group-label">Query Languages / Tools <span class="multi-hint">(select all that apply)</span></span>
-                        <div class="wizard-checkbox">
-                            <label><input type="checkbox" name="db_query_tools" value="SQL"> SQL</label>
-                            <label><input type="checkbox" name="db_query_tools" value="PL/SQL"> PL/SQL</label>
-                            <label><input type="checkbox" name="db_query_tools" value="ORM tools"> ORM tools</label>
-                            <label><input type="checkbox" name="db_query_tools" value="None"> None</label>
-                        </div>
-
-                        <span class="field-group-label">Backend Languages <span class="multi-hint">(select all that apply)</span></span>
-                        <div class="wizard-checkbox">
-                            <label><input type="checkbox" name="db_backend_langs" value="Python"> Python</label>
-                            <label><input type="checkbox" name="db_backend_langs" value="Java"> Java</label>
-                            <label><input type="checkbox" name="db_backend_langs" value="Node.js"> Node.js</label>
-                            <label><input type="checkbox" name="db_backend_langs" value="Go"> Go</label>
-                            <label><input type="checkbox" name="db_backend_langs" value="Other"> Other</label>
-                        </div>
-
-                        <div class="field-row">
-                            <div>
-                                <label>Experience Level</label>
-                                <select name="db_experience" id="db_experience">
-                                    <option value="">Select...</option>
-                                    <option value="Basic">Basic — learning / coursework</option>
-                                    <option value="Intermediate">Intermediate — projects</option>
-                                    <option value="Advanced">Advanced — production systems</option>
+                    <form id="application-form" action="{{ url_for('submit') }}" method="post"
+                        enctype="multipart/form-data" novalidate>
+                        <div class="wizard-card active" data-step="1">
+                            <h2>Personal Information</h2>
+                            <label>Full Name <span class="required">*</span></label>
+                            <input type="text" id="full_name" name="full_name" required>
+                            <label>Email Address <span class="required">*</span></label>
+                            <input type="email" id="email" name="email" required>
+                            <label>Phone Number</label>
+                            <div class="phone-input">
+                                <select id="country_code" name="country_code">
+                                    <option value="+1" data-digits="10">+1 (US)</option>
+                                    <option value="+44" data-digits="10">+44 (UK)</option>
+                                    <option value="+91" data-digits="10">+91 (India)</option>
+                                    <option value="+61" data-digits="9">+61 (Australia)</option>
+                                    <option value="+81" data-digits="10">+81 (Japan)</option>
+                                    <option value="+49" data-digits="10">+49 (Germany)</option>
+                                    <option value="+33" data-digits="9">+33 (France)</option>
+                                    <option value="+86" data-digits="11">+86 (China)</option>
+                                    <option value="+7" data-digits="10">+7 (Russia)</option>
+                                    <option value="+55" data-digits="11">+55 (Brazil)</option>
                                 </select>
+                                <input type="tel" id="phone" name="phone" maxlength="10" placeholder="1234567890"
+                                    data-digits="10">
                             </div>
-                            <div>
-                                <label>Designed or optimized a DB system?</label>
-                                <select name="db_optimized" id="db_optimized">
-                                    <option value="">Select...</option>
-                                    <option value="Yes">Yes</option>
-                                    <option value="No">No</option>
-                                </select>
+                            <label>Country <span class="required">*</span></label>
+                            <select id="location_country" name="location_country" required>
+                                <option value="">Select Country...</option>
+                                <option value="USA">United States</option>
+                                <option value="UK">United Kingdom</option>
+                                <option value="India">India</option>
+                                <option value="Australia">Australia</option>
+                                <option value="Japan">Japan</option>
+                                <option value="Germany">Germany</option>
+                                <option value="France">France</option>
+                                <option value="China">China</option>
+                                <option value="Russia">Russia</option>
+                                <option value="Brazil">Brazil</option>
+                                <option value="Canada">Canada</option>
+                                <option value="Singapore">Singapore</option>
+                                <option value="UAE">United Arab Emirates</option>
+                                <option value="Mexico">Mexico</option>
+                                <option value="Netherlands">Netherlands</option>
+                                <option value="Switzerland">Switzerland</option>
+                                <option value="Sweden">Sweden</option>
+                                <option value="Italy">Italy</option>
+                                <option value="Spain">Spain</option>
+                                <option value="South Korea">South Korea</option>
+                            </select>
+                            <label>City <span class="required">*</span></label>
+                            <input type="text" id="location" name="location" placeholder="Enter your city" required
+                                list="city-locations">
+                            <datalist id="city-locations"></datalist>
+                            <label>LinkedIn URL <span class="required">*</span> <span class="help-icon"
+                                    title="Provide your LinkedIn profile URL for professional background check.">ⓘ</span></label>
+                            <input type="url" id="linkedin" name="linkedin" required>
+                        </div>
+
+                        <div class="wizard-card" data-step="2">
+                            <h2>Professional Snapshot</h2>
+                            <label>Current Role / Title <span class="required">*</span></label>
+                            <input type="text" id="current_role" name="current_role" required>
+                            <label>Current Company or Institution <span class="required">*</span></label>
+                            <input type="text" id="current_company" name="current_company" required>
+                            <label>Years of Experience <span class="required">*</span></label>
+                            <select id="experience" name="experience" required>
+                                <option value="">Select...</option>
+                                <option value="0-1">0–1</option>
+                                <option value="1-3">1–3</option>
+                                <option value="3-5">3–5</option>
+                                <option value="5+">5+</option>
+                            </select>
+                            <label>Degree <span class="required">*</span></label>
+                            <input type="text" id="degree" name="degree" required>
+                            <label>Field of Study <span class="required">*</span> <span class="help-icon"
+                                    title="Your major or area of specialization.">ⓘ</span></label>
+                            <input type="text" id="field" name="field" required>
+                            <label>University <span class="required">*</span></label>
+                            <input type="text" id="university" name="university" required>
+                        </div>
+
+                        <div class="wizard-card" data-step="3">
+                            <h2>CV & Portfolio</h2>
+                            <label>Upload CV (PDF only) <span class="required">*</span> <span class="help-icon"
+                                    title="Upload your resume in PDF format (max 10MB).">ⓘ</span></label>
+                            <input type="file" id="cv" name="cv" accept=".pdf" required>
+                            <label>Portfolio URL <span class="help-icon"
+                                    title="Link to your portfolio or project showcase.">ⓘ</span></label>
+                            <input type="url" id="portfolio" name="portfolio" placeholder="https://yourportfolio.com">
+                            <label>GitHub URL <span class="help-icon"
+                                    title="Link to your GitHub profile.">ⓘ</span></label>
+                            <input type="url" id="github" name="github" placeholder="https://github.com/yourprofile">
+                            <label>Website / Blog <span class="help-icon"
+                                    title="Link to your personal website or blog.">ⓘ</span></label>
+                            <input type="url" id="website" name="website" placeholder="https://yourwebsite.com">
+                        </div>
+
+                        <div class="wizard-card" data-step="4">
+                            <h2>Availability</h2>
+                            <label>Preferred Work Type <span class="required">*</span></label>
+                            <select id="work_type" name="work_type" required>
+                                <option value="">Select...</option>
+                                <option value="full-time">Full-time</option>
+                                <option value="internship">Internship</option>
+                                <option value="contract">Contract</option>
+                            </select>
+                            <label>Available Start Date <span class="required">*</span></label>
+                            <input type="date" id="start_date" name="start_date" required>
+                            <label>Work Preference <span class="required">*</span></label>
+                            <select id="work_preference" name="work_preference" required>
+                                <option value="">Select...</option>
+                                <option value="remote">Remote</option>
+                                <option value="on-site">On-site</option>
+                                <option value="hybrid">Hybrid</option>
+                            </select>
+                            <label>Any Constraints or Additional Notes <span class="help-icon"
+                                    title="Any limitations or additional information about your availability.">ⓘ</span></label>
+                            <textarea id="constraints" name="constraints"></textarea>
+                        </div>
+
+                        <div class="wizard-card" data-step="6">
+                            <h2>Motivation</h2>
+                            <label>Why are you interested in working with us? <span class="required">*</span> <span
+                                    class="help-icon"
+                                    title="Tell us what attracts you to our company and role.">ⓘ</span></label>
+                            <textarea id="interest" name="interest" required></textarea>
+                            <label>What problems do you enjoy solving? <span class="help-icon"
+                                    title="Describe the types of challenges you find engaging.">ⓘ</span></label>
+                            <textarea id="problems" name="problems"></textarea>
+                        </div>
+
+                        <div class="wizard-card" data-step="5">
+                            <h2>Skill Mapping</h2>
+
+                            <label>Primary Area of Interest <span class="required">*</span> <span class="help-icon"
+                                    title="Choose the area that best matches your expertise.">ⓘ</span></label>
+                            <select id="area" name="area" required>
+                                <option value="">Select...</option>
+                                <option value="database">Database / Backend Systems</option>
+                                <option value="ml">Financial Machine Learning</option>
+                                <option value="ai">AI / LLM Systems</option>
+                                <option value="not-sure">Not sure</option>
+                            </select>
+
+                            <!-- ── Database / Backend ── -->
+                            <div id="specialized-section-database" class="specialized-section" style="display:none;">
+                                <h3>🗄️ Database / Backend Systems</h3>
+
+                                <span class="field-group-label">Databases worked with <span class="multi-hint">(select
+                                        all that apply)</span></span>
+                                <div class="wizard-checkbox">
+                                    <label><input type="checkbox" name="db_databases" value="MySQL"> MySQL</label>
+                                    <label><input type="checkbox" name="db_databases" value="PostgreSQL">
+                                        PostgreSQL</label>
+                                    <label><input type="checkbox" name="db_databases" value="MongoDB"> MongoDB</label>
+                                    <label><input type="checkbox" name="db_databases" value="Redis"> Redis</label>
+                                    <label><input type="checkbox" name="db_databases" value="Cassandra">
+                                        Cassandra</label>
+                                    <label><input type="checkbox" name="db_databases" value="DynamoDB"> DynamoDB</label>
+                                    <label><input type="checkbox" name="db_databases" value="Other"> Other</label>
+                                </div>
+
+                                <span class="field-group-label">Query Languages / Tools <span class="multi-hint">(select
+                                        all that apply)</span></span>
+                                <div class="wizard-checkbox">
+                                    <label><input type="checkbox" name="db_query_tools" value="SQL"> SQL</label>
+                                    <label><input type="checkbox" name="db_query_tools" value="PL/SQL"> PL/SQL</label>
+                                    <label><input type="checkbox" name="db_query_tools" value="ORM tools"> ORM
+                                        tools</label>
+                                    <label><input type="checkbox" name="db_query_tools" value="None"> None</label>
+                                </div>
+
+                                <span class="field-group-label">Backend Languages <span class="multi-hint">(select all
+                                        that apply)</span></span>
+                                <div class="wizard-checkbox">
+                                    <label><input type="checkbox" name="db_backend_langs" value="Python"> Python</label>
+                                    <label><input type="checkbox" name="db_backend_langs" value="Java"> Java</label>
+                                    <label><input type="checkbox" name="db_backend_langs" value="Node.js">
+                                        Node.js</label>
+                                    <label><input type="checkbox" name="db_backend_langs" value="Go"> Go</label>
+                                    <label><input type="checkbox" name="db_backend_langs" value="Other"> Other</label>
+                                </div>
+
+                                <div class="field-row">
+                                    <div>
+                                        <label>Experience Level</label>
+                                        <select name="db_experience" id="db_experience">
+                                            <option value="">Select...</option>
+                                            <option value="Basic">Basic — learning / coursework</option>
+                                            <option value="Intermediate">Intermediate — projects</option>
+                                            <option value="Advanced">Advanced — production systems</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label>Designed or optimized a DB system?</label>
+                                        <select name="db_optimized" id="db_optimized">
+                                            <option value="">Select...</option>
+                                            <option value="Yes">Yes</option>
+                                            <option value="No">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <label>Describe a DB / backend system you have worked on <span
+                                        class="multi-hint">(optional)</span></label>
+                                <textarea name="db_desc" id="db_desc"
+                                    placeholder="Briefly describe a relevant project..."></textarea>
+                            </div>
+
+                            <!-- ── Financial ML ── -->
+                            <div id="specialized-section-ml" class="specialized-section" style="display:none;">
+                                <h3>🤖 Financial Machine Learning</h3>
+
+                                <span class="field-group-label">Libraries / Tools <span class="multi-hint">(select all
+                                        that apply)</span></span>
+                                <div class="wizard-checkbox">
+                                    <label><input type="checkbox" name="ml_libs" value="Pandas"> Pandas</label>
+                                    <label><input type="checkbox" name="ml_libs" value="NumPy"> NumPy</label>
+                                    <label><input type="checkbox" name="ml_libs" value="Scikit-learn">
+                                        Scikit-learn</label>
+                                    <label><input type="checkbox" name="ml_libs" value="PyTorch"> PyTorch</label>
+                                    <label><input type="checkbox" name="ml_libs" value="TensorFlow"> TensorFlow</label>
+                                    <label><input type="checkbox" name="ml_libs" value="XGBoost"> XGBoost</label>
+                                    <label><input type="checkbox" name="ml_libs" value="Other"> Other</label>
+                                </div>
+
+                                <span class="field-group-label">Financial Data Experience <span
+                                        class="multi-hint">(select all that apply)</span></span>
+                                <div class="wizard-checkbox">
+                                    <label><input type="checkbox" name="ml_fin_data" value="Time-series data">
+                                        Time-series data</label>
+                                    <label><input type="checkbox" name="ml_fin_data" value="Stock/crypto market data">
+                                        Stock / Crypto data</label>
+                                    <label><input type="checkbox" name="ml_fin_data" value="Backtesting">
+                                        Backtesting</label>
+                                    <label><input type="checkbox" name="ml_fin_data"
+                                            value="Feature engineering for finance"> Feature engineering</label>
+                                    <label><input type="checkbox" name="ml_fin_data" value="None"> None</label>
+                                </div>
+
+                                <span class="field-group-label">ML Concepts <span class="multi-hint">(select all that
+                                        apply)</span></span>
+                                <div class="wizard-checkbox">
+                                    <label><input type="checkbox" name="ml_concepts" value="Regression">
+                                        Regression</label>
+                                    <label><input type="checkbox" name="ml_concepts" value="Classification">
+                                        Classification</label>
+                                    <label><input type="checkbox" name="ml_concepts" value="Time-series forecasting">
+                                        Time-series forecasting</label>
+                                    <label><input type="checkbox" name="ml_concepts" value="Reinforcement learning">
+                                        Reinforcement learning</label>
+                                    <label><input type="checkbox" name="ml_concepts" value="None"> None</label>
+                                </div>
+
+                                <div class="field-row">
+                                    <div>
+                                        <label>Experience Level</label>
+                                        <select name="ml_experience" id="ml_experience">
+                                            <option value="">Select...</option>
+                                            <option value="Basic">Basic</option>
+                                            <option value="Intermediate">Intermediate</option>
+                                            <option value="Advanced">Advanced</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label>Built an ML model on financial data?</label>
+                                        <select name="ml_built" id="ml_built">
+                                            <option value="">Select...</option>
+                                            <option value="Yes">Yes</option>
+                                            <option value="No">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <label>Describe a financial ML project <span
+                                        class="multi-hint">(optional)</span></label>
+                                <textarea name="ml_desc" id="ml_desc"
+                                    placeholder="Briefly describe a relevant project or experiment..."></textarea>
+                            </div>
+
+                            <!-- ── AI / LLM ── -->
+                            <div id="specialized-section-ai" class="specialized-section" style="display:none;">
+                                <h3>✨ AI / LLM Systems</h3>
+
+                                <span class="field-group-label">Tools / Frameworks <span class="multi-hint">(select all
+                                        that apply)</span></span>
+                                <div class="wizard-checkbox">
+                                    <label><input type="checkbox" name="ai_tools" value="OpenAI APIs"> OpenAI
+                                        APIs</label>
+                                    <label><input type="checkbox" name="ai_tools" value="LangChain"> LangChain</label>
+                                    <label><input type="checkbox" name="ai_tools" value="LlamaIndex"> LlamaIndex</label>
+                                    <label><input type="checkbox" name="ai_tools" value="Hugging Face"> Hugging
+                                        Face</label>
+                                    <label><input type="checkbox" name="ai_tools" value="Vector DBs"> Vector DBs</label>
+                                    <label><input type="checkbox" name="ai_tools" value="Other"> Other</label>
+                                </div>
+
+                                <span class="field-group-label">Areas of Experience <span class="multi-hint">(select all
+                                        that apply)</span></span>
+                                <div class="wizard-checkbox">
+                                    <label><input type="checkbox" name="ai_areas" value="Prompt engineering"> Prompt
+                                        engineering</label>
+                                    <label><input type="checkbox" name="ai_areas" value="RAG"> RAG</label>
+                                    <label><input type="checkbox" name="ai_areas" value="Fine-tuning">
+                                        Fine-tuning</label>
+                                    <label><input type="checkbox" name="ai_areas" value="AI agents"> AI agents</label>
+                                    <label><input type="checkbox" name="ai_areas" value="Evaluation"> Evaluation</label>
+                                    <label><input type="checkbox" name="ai_areas" value="None"> None</label>
+                                </div>
+
+                                <span class="field-group-label">Programming Languages <span class="multi-hint">(select
+                                        all that apply)</span></span>
+                                <div class="wizard-checkbox">
+                                    <label><input type="checkbox" name="ai_langs" value="Python"> Python</label>
+                                    <label><input type="checkbox" name="ai_langs" value="JavaScript"> JavaScript</label>
+                                    <label><input type="checkbox" name="ai_langs" value="Other"> Other</label>
+                                </div>
+
+                                <div class="field-row">
+                                    <div>
+                                        <label>Experience Level</label>
+                                        <select name="ai_experience" id="ai_experience">
+                                            <option value="">Select...</option>
+                                            <option value="Basic">Basic</option>
+                                            <option value="Intermediate">Intermediate</option>
+                                            <option value="Advanced">Advanced</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label>Deployed an AI / LLM application?</label>
+                                        <select name="ai_deployed" id="ai_deployed">
+                                            <option value="">Select...</option>
+                                            <option value="Yes">Yes</option>
+                                            <option value="No">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <label>Describe an AI / LLM project you have built <span
+                                        class="multi-hint">(optional)</span></label>
+                                <textarea name="ai_desc" id="ai_desc"
+                                    placeholder="Briefly describe a project or deployment..."></textarea>
+                            </div>
+
+                            <!-- ── General Skills + Source ── -->
+                            <div class="section-divider"></div>
+
+                            <p class="section-sub-heading">General Skills &amp; Discovery</p>
+
+                            <label>Additional Skills <span class="help-icon"
+                                    title="Select all that apply to your skill set.">ⓘ</span></label>
+                            <div class="wizard-checkbox">
+                                <label><input type="checkbox" name="skills" value="python"> Python</label>
+                                <label><input type="checkbox" name="skills" value="sql"> SQL</label>
+                                <label><input type="checkbox" name="skills" value="ml"> Machine Learning</label>
+                                <label><input type="checkbox" name="skills" value="data-eng"> Data Engineering</label>
+                                <label><input type="checkbox" name="skills" value="apis"> APIs / Backend</label>
+                                <label><input type="checkbox" name="skills" value="other"> Other</label>
+                            </div>
+
+                            <label>Where did you hear about us? <span class="required">*</span> <span class="help-icon"
+                                    title="How did you learn about this opportunity?">ⓘ</span></label>
+                            <select id="source" name="source" required>
+                                <option value="">Select...</option>
+                                <option value="linkedin">LinkedIn</option>
+                                <option value="referral">Referral</option>
+                                <option value="website">Website</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="wizard-card" data-step="6">
+                            <h2>Motivation</h2>
+                            <label>Why are you interested in working with us? <span class="required">*</span> <span
+                                    class="help-icon"
+                                    title="Tell us what attracts you to our company and role.">ⓘ</span></label>
+                            <textarea id="interest" name="interest" required></textarea>
+                            <label>What problems do you enjoy solving? <span class="help-icon"
+                                    title="Describe the types of challenges you find engaging.">ⓘ</span></label>
+                            <textarea id="problems" name="problems"></textarea>
+                        </div>
+
+                        <div class="wizard-card" data-step="7">
+                            <h2>Review Your Application</h2>
+                            <p>Please confirm your responses below before submitting.</p>
+                            <ul id="review-content"
+                                style="line-height: 1.6; margin: 0; padding-left: 16px; color: #c2d7f2;"></ul>
+                        </div>
+
+                        <div class="wizard-actions"
+                            style="display: flex !important; justify-content: space-between !important; align-items: center !important; gap: 12px !important; margin-top: 24px !important; padding-top: 20px !important; border-top: 1px solid rgba(255, 255, 255, 0.05) !important;">
+                            <div class="action-left" style="flex: 1; text-align: left;">
+                                <button type="button" id="save-btn" class="save-btn">Save Progress</button>
+                            </div>
+                            <div id="submit-container" class="submit-container"
+                                style="flex: 1; text-align: center; display: none;">
+                                <button type="submit" class="submit-btn"
+                                    style="width: auto !important; min-width: 180px !important; color: #ffffff !important; font-weight: 700 !important; background: rgba(255, 255, 255, 0.1) !important; padding: 12px 28px !important; border-radius: 12px !important; border: 1px solid rgba(255, 255, 255, 0.2) !important;">Submit
+                                    Application</button>
+                            </div>
+                            <div class="nav-buttons"
+                                style="flex: 1; text-align: right; display: flex; justify-content: flex-end; gap: 12px;">
+                                <button type="button" id="prev-btn" class="nav-btn prev-btn"
+                                    style="display:none;">Previous</button>
+                                <button type="button" id="next-btn" class="nav-btn">Next</button>
                             </div>
                         </div>
-
-                        <label>Describe a DB / backend system you have worked on <span class="multi-hint">(optional)</span></label>
-                        <textarea name="db_desc" id="db_desc" placeholder="Briefly describe a relevant project..."></textarea>
-                    </div>
-
-                    <!-- ── Financial ML ── -->
-                    <div id="specialized-section-ml" class="specialized-section" style="display:none;">
-                        <h3>🤖 Financial Machine Learning</h3>
-
-                        <span class="field-group-label">Libraries / Tools <span class="multi-hint">(select all that apply)</span></span>
-                        <div class="wizard-checkbox">
-                            <label><input type="checkbox" name="ml_libs" value="Pandas"> Pandas</label>
-                            <label><input type="checkbox" name="ml_libs" value="NumPy"> NumPy</label>
-                            <label><input type="checkbox" name="ml_libs" value="Scikit-learn"> Scikit-learn</label>
-                            <label><input type="checkbox" name="ml_libs" value="PyTorch"> PyTorch</label>
-                            <label><input type="checkbox" name="ml_libs" value="TensorFlow"> TensorFlow</label>
-                            <label><input type="checkbox" name="ml_libs" value="XGBoost"> XGBoost</label>
-                            <label><input type="checkbox" name="ml_libs" value="Other"> Other</label>
-                        </div>
-
-                        <span class="field-group-label">Financial Data Experience <span class="multi-hint">(select all that apply)</span></span>
-                        <div class="wizard-checkbox">
-                            <label><input type="checkbox" name="ml_fin_data" value="Time-series data"> Time-series data</label>
-                            <label><input type="checkbox" name="ml_fin_data" value="Stock/crypto market data"> Stock / Crypto data</label>
-                            <label><input type="checkbox" name="ml_fin_data" value="Backtesting"> Backtesting</label>
-                            <label><input type="checkbox" name="ml_fin_data" value="Feature engineering for finance"> Feature engineering</label>
-                            <label><input type="checkbox" name="ml_fin_data" value="None"> None</label>
-                        </div>
-
-                        <span class="field-group-label">ML Concepts <span class="multi-hint">(select all that apply)</span></span>
-                        <div class="wizard-checkbox">
-                            <label><input type="checkbox" name="ml_concepts" value="Regression"> Regression</label>
-                            <label><input type="checkbox" name="ml_concepts" value="Classification"> Classification</label>
-                            <label><input type="checkbox" name="ml_concepts" value="Time-series forecasting"> Time-series forecasting</label>
-                            <label><input type="checkbox" name="ml_concepts" value="Reinforcement learning"> Reinforcement learning</label>
-                            <label><input type="checkbox" name="ml_concepts" value="None"> None</label>
-                        </div>
-
-                        <div class="field-row">
-                            <div>
-                                <label>Experience Level</label>
-                                <select name="ml_experience" id="ml_experience">
-                                    <option value="">Select...</option>
-                                    <option value="Basic">Basic</option>
-                                    <option value="Intermediate">Intermediate</option>
-                                    <option value="Advanced">Advanced</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label>Built an ML model on financial data?</label>
-                                <select name="ml_built" id="ml_built">
-                                    <option value="">Select...</option>
-                                    <option value="Yes">Yes</option>
-                                    <option value="No">No</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <label>Describe a financial ML project <span class="multi-hint">(optional)</span></label>
-                        <textarea name="ml_desc" id="ml_desc" placeholder="Briefly describe a relevant project or experiment..."></textarea>
-                    </div>
-
-                    <!-- ── AI / LLM ── -->
-                    <div id="specialized-section-ai" class="specialized-section" style="display:none;">
-                        <h3>✨ AI / LLM Systems</h3>
-
-                        <span class="field-group-label">Tools / Frameworks <span class="multi-hint">(select all that apply)</span></span>
-                        <div class="wizard-checkbox">
-                            <label><input type="checkbox" name="ai_tools" value="OpenAI APIs"> OpenAI APIs</label>
-                            <label><input type="checkbox" name="ai_tools" value="LangChain"> LangChain</label>
-                            <label><input type="checkbox" name="ai_tools" value="LlamaIndex"> LlamaIndex</label>
-                            <label><input type="checkbox" name="ai_tools" value="Hugging Face"> Hugging Face</label>
-                            <label><input type="checkbox" name="ai_tools" value="Vector DBs"> Vector DBs</label>
-                            <label><input type="checkbox" name="ai_tools" value="Other"> Other</label>
-                        </div>
-
-                        <span class="field-group-label">Areas of Experience <span class="multi-hint">(select all that apply)</span></span>
-                        <div class="wizard-checkbox">
-                            <label><input type="checkbox" name="ai_areas" value="Prompt engineering"> Prompt engineering</label>
-                            <label><input type="checkbox" name="ai_areas" value="RAG"> RAG</label>
-                            <label><input type="checkbox" name="ai_areas" value="Fine-tuning"> Fine-tuning</label>
-                            <label><input type="checkbox" name="ai_areas" value="AI agents"> AI agents</label>
-                            <label><input type="checkbox" name="ai_areas" value="Evaluation"> Evaluation</label>
-                            <label><input type="checkbox" name="ai_areas" value="None"> None</label>
-                        </div>
-
-                        <span class="field-group-label">Programming Languages <span class="multi-hint">(select all that apply)</span></span>
-                        <div class="wizard-checkbox">
-                            <label><input type="checkbox" name="ai_langs" value="Python"> Python</label>
-                            <label><input type="checkbox" name="ai_langs" value="JavaScript"> JavaScript</label>
-                            <label><input type="checkbox" name="ai_langs" value="Other"> Other</label>
-                        </div>
-
-                        <div class="field-row">
-                            <div>
-                                <label>Experience Level</label>
-                                <select name="ai_experience" id="ai_experience">
-                                    <option value="">Select...</option>
-                                    <option value="Basic">Basic</option>
-                                    <option value="Intermediate">Intermediate</option>
-                                    <option value="Advanced">Advanced</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label>Deployed an AI / LLM application?</label>
-                                <select name="ai_deployed" id="ai_deployed">
-                                    <option value="">Select...</option>
-                                    <option value="Yes">Yes</option>
-                                    <option value="No">No</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <label>Describe an AI / LLM project you have built <span class="multi-hint">(optional)</span></label>
-                        <textarea name="ai_desc" id="ai_desc" placeholder="Briefly describe a project or deployment..."></textarea>
-                    </div>
-
-                    <!-- ── General Skills + Source ── -->
-                    <div class="section-divider"></div>
-
-                    <p class="section-sub-heading">General Skills &amp; Discovery</p>
-
-                    <label>Additional Skills <span class="help-icon" title="Select all that apply to your skill set.">ⓘ</span></label>
-                    <div class="wizard-checkbox">
-                        <label><input type="checkbox" name="skills" value="python"> Python</label>
-                        <label><input type="checkbox" name="skills" value="sql"> SQL</label>
-                        <label><input type="checkbox" name="skills" value="ml"> Machine Learning</label>
-                        <label><input type="checkbox" name="skills" value="data-eng"> Data Engineering</label>
-                        <label><input type="checkbox" name="skills" value="apis"> APIs / Backend</label>
-                        <label><input type="checkbox" name="skills" value="other"> Other</label>
-                    </div>
-
-                    <label>Where did you hear about us? <span class="required">*</span> <span class="help-icon" title="How did you learn about this opportunity?">ⓘ</span></label>
-                    <select id="source" name="source" required>
-                        <option value="">Select...</option>
-                        <option value="linkedin">LinkedIn</option>
-                        <option value="referral">Referral</option>
-                        <option value="website">Website</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-
-                <div class="wizard-card" data-step="7">
-                    <h2>Review Your Application</h2>
-                    <p>Please confirm your responses below before submitting.</p>
-                    <ul id="review-content" style="line-height: 1.6; margin: 0; padding-left: 16px; color: #c2d7f2;"></ul>
-                </div>
-
-                <div class="wizard-actions">
-                    <button type="button" id="save-btn" class="save-btn">Save Progress</button>
-                    <div class="nav-buttons">
-                        <button type="button" id="prev-btn" class="nav-btn prev-btn" style="display:none;">← Previous</button>
-                        <button type="button" id="next-btn" class="nav-btn">Next</button>
-                    </div>
-                </div>
-
-                <div class="submit-container" style="display:none;">
-                    <button type="submit" class="submit-btn">Submit Application</button>
-                </div>
-            </form>
+                    </form>
                 </div>
             </div>
         </div>
@@ -437,4 +511,5 @@
 
     <script src="static/script.js"></script>
 </body>
+
 </html>

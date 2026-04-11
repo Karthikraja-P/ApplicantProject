@@ -413,22 +413,22 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>
         </div>`,
             customOptsHtml: [
-                `<div style="display:grid; grid-template-columns:repeat(3, 1fr); grid-template-rows:repeat(3, 20px); border:1px solid #333;">
+                `<div style="display:grid; grid-template-columns:repeat(3, 30px); grid-template-rows:repeat(3, 20px); border:1px solid #333; margin: 0 auto 8px;">
                 <div style="border:0.5px solid #333; background:#0d173c;"></div><div style="border:0.5px solid #333; background:#00a651;"></div><div style="border:0.5px solid #333; background:#fff;"></div>
                 <div style="border:0.5px solid #333; background:#00a651;"></div><div style="border:0.5px solid #333; background:#fff;"></div><div style="border:0.5px solid #333; background:#fff;"></div>
                 <div style="border:0.5px solid #333; background:#fff;"></div><div style="border:0.5px solid #333; background:#00a651;"></div><div style="border:0.5px solid #333; background:#0d173c;"></div>
             </div>`,
-                `<div style="display:grid; grid-template-columns:repeat(3, 1fr); grid-template-rows:repeat(3, 20px); border:1px solid #333;">
+                `<div style="display:grid; grid-template-columns:repeat(3, 30px); grid-template-rows:repeat(3, 20px); border:1px solid #333; margin: 0 auto 8px;">
                 <div style="border:0.5px solid #333; background:#0d173c;"></div><div style="border:0.5px solid #333; background:#fff;"></div><div style="border:0.5px solid #333; background:#fff;"></div>
                 <div style="border:0.5px solid #333; background:#fff;"></div><div style="border:0.5px solid #333; background:#00a651;"></div><div style="border:0.5px solid #333; background:#0d173c;"></div>
                 <div style="border:0.5px solid #333; background:#fff;"></div><div style="border:0.5px solid #333; background:#0d173c;"></div><div style="border:0.5px solid #333; background:#00a651;"></div>
             </div>`,
-                `<div style="display:grid; grid-template-columns:repeat(3, 1fr); grid-template-rows:repeat(3, 20px); border:1px solid #333;">
+                `<div style="display:grid; grid-template-columns:repeat(3, 30px); grid-template-rows:repeat(3, 20px); border:1px solid #333; margin: 0 auto 8px;">
                 <div style="border:0.5px solid #333; background:#00a651;"></div><div style="border:0.5px solid #333; background:#0d173c;"></div><div style="border:0.5px solid #333; background:#fff;"></div>
                 <div style="border:0.5px solid #333; background:#0d173c;"></div><div style="border:0.5px solid #333; background:#fff;"></div><div style="border:0.5px solid #333; background:#fff;"></div>
                 <div style="border:0.5px solid #333; background:#fff;"></div><div style="border:0.5px solid #333; background:#00a651;"></div><div style="border:0.5px solid #333; background:#0d173c;"></div>
             </div>`,
-                `<div style="display:grid; grid-template-columns:repeat(3, 1fr); grid-template-rows:repeat(3, 20px); border:1px solid #333;">
+                `<div style="display:grid; grid-template-columns:repeat(3, 30px); grid-template-rows:repeat(3, 20px); border:1px solid #333; margin: 0 auto 8px;">
                 <div style="border:0.5px solid #333; background:#fff;"></div><div style="border:0.5px solid #333; background:#fff;"></div><div style="border:0.5px solid #333; background:#fff;"></div>
                 <div style="border:0.5px solid #333; background:#0d173c;"></div><div style="border:0.5px solid #333; background:#00a651;"></div><div style="border:0.5px solid #333; background:#0d173c;"></div>
                 <div style="border:0.5px solid #333; background:#fff;"></div><div style="border:0.5px solid #333; background:#0d173c;"></div><div style="border:0.5px solid #333; background:#00a651;"></div>
@@ -821,7 +821,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 '🧠 Psychometric Test',
                 'You have already completed this assessment.',
                 [{ label: '← Application', href: '/' },
-                { label: 'Technical Assessment', href: '/assessment/skillset' },
+                { label: 'Technical Test', href: '/assessment/skillset' },
                 { label: 'Confirmation', href: '/confirmation' }]
             );
             intro.classList.add('active');
@@ -1022,12 +1022,18 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function selectAnswer(chosen) {
-        if (answers[currentIdx] !== null) return;
+        // Allow changing answers
         answers[currentIdx] = chosen;
         localStorage.setItem('tf_iq_answers', JSON.stringify(answers));
 
         var q = QUESTIONS[currentIdx];
         var opts = document.getElementById('q-options').querySelectorAll('.mcq-option');
+
+        // Clear previous selection visually
+        opts.forEach(function (o) {
+            o.classList.remove('selected');
+        });
+
         revealAnswer(opts, chosen, q.answer, q.exp);
         updateNumGrid();
         updateNav();
@@ -1035,7 +1041,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function revealAnswer(opts, chosen, correct, exp) {
         opts.forEach(function (o, i) {
-            o.disabled = true;
+            // Removed disabling to allow re-selection
             o.classList.add('revealed');
             if (i === chosen) {
                 o.classList.add('selected');
@@ -1101,7 +1107,7 @@ document.addEventListener('DOMContentLoaded', function () {
             intro.innerHTML = buildCompletedBanner(
                 'Psychometric Test',
                 'You have already completed this assessment.',
-                [{ label: 'Technical Assessment →', href: '/skillset_assessment.html' }]
+                [{ label: 'Technical Test →', href: '/skillset_assessment.html' }]
             );
             intro.classList.add('active');
             intro.style.display = '';

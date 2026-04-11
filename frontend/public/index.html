@@ -32,18 +32,18 @@
         <div>
             <strong>⚠ Application already submitted</strong>&ensp;
             An application from <strong id="duplicate-email"></strong> already exists in our system.
-            If you believe this is an error, please contact <a href="mailto:Admin@quantsingularity.in"
-                >Admin@quantsingularity.in</a>.
+            If you believe this is an error, please contact <a
+                href="mailto:Admin@quantsingularity.in">Admin@quantsingularity.in</a>.
         </div>
-        <button onclick="document.getElementById('duplicate-banner').style.display='none'"
-            >✕</button>
+        <button onclick="document.getElementById('duplicate-banner').style.display='none'">✕</button>
     </div>
-    <div  id="banner-spacer"></div>
+    <div id="banner-spacer"></div>
 
     <div class="container full-screen">
         <div class="wizard-inner">
             <header>
-                <div class="brand-container"><img src="/static/images/singularity_logo.jpg" class="brand-logo-small" alt="Logo"><span class="brand-text">SINGULΛRITY</span></div>
+                <div class="brand-container"><img src="/static/images/singularity_logo.jpg" class="brand-logo-small"
+                        alt="Logo"><span class="brand-text">SINGULΛRITY</span></div>
             </header>
 
             <div class="wizard-layout">
@@ -63,15 +63,15 @@
                         </div>
                         <div class="step-item" data-step="4">
                             <div class="step-number">4</div>
-                            <div class="step-title">Eligibility</div>
+                            <div class="step-title">Availability</div>
                         </div>
                         <div class="step-item" data-step="5">
                             <div class="step-number">5</div>
-                            <div class="step-title">Motivation</div>
+                            <div class="step-title">Skill Mapping</div>
                         </div>
                         <div class="step-item" data-step="6">
                             <div class="step-number">6</div>
-                            <div class="step-title">Skills & Source</div>
+                            <div class="step-title">Motivation</div>
                         </div>
                         <div class="step-item" data-step="7">
                             <div class="step-number">7</div>
@@ -80,7 +80,7 @@
                     </div>
 
                     <!-- New Candidate / Reset Button -->
-                    <div >
+                    <div>
                         <button id="reset-session-btn" style="
                             width: 100%;
                             padding: 12px;
@@ -96,12 +96,10 @@
                             justify-content: center;
                             gap: 8px;
                             transition: all 0.2s;
-                        " 
-                            >
+                        ">
                             🔄 New Registration / Reset
                         </button>
-                        <p
-                            >
+                        <p>
                             Clears all saved data and starts a fresh application.
                         </p>
                     </div>
@@ -110,17 +108,17 @@
                     <div class="sidebar-section-label">Assessment</div>
                     <div class="sidebar-assessment-items">
                         <a href="iq_assessment.html" class="assessment-item step-item">
-                            <div class="step-number" >IQ
+                            <div class="step-number">IQ
                             </div>
                             <div class="step-title">Psychometric Test</div>
                         </a>
                         <a href="skillset_assessment.html" class="assessment-item step-item">
-                            <div class="step-number" >SK
+                            <div class="step-number">💻
                             </div>
-                            <div class="step-title">Technical Assessment</div>
+                            <div class="step-title">Technical Test</div>
                         </a>
                         <a href="games.html" class="assessment-item step-item">
-                            <div class="step-number" >🎮
+                            <div class="step-number">🎮
                             </div>
                             <div class="step-title">Games</div>
                         </a>
@@ -233,7 +231,7 @@
                         </div>
 
                         <div class="wizard-card" data-step="4">
-                            <h2>Eligibility & Availability</h2>
+                            <h2>Availability</h2>
                             <label>Preferred Work Type <span class="required">*</span></label>
                             <select id="work_type" name="work_type" required>
                                 <option value="">Select...</option>
@@ -256,34 +254,23 @@
                         </div>
 
                         <div class="wizard-card" data-step="5">
-                            <h2>Motivation</h2>
-                            <label>Why are you interested in working with us? <span class="required">*</span> <span
-                                    class="help-icon"
-                                    title="Tell us what attracts you to our company and role.">ⓘ</span></label>
-                            <textarea id="interest" name="interest" required></textarea>
-                            <label>What problems do you enjoy solving? <span class="help-icon"
-                                    title="Describe the types of challenges you find engaging.">ⓘ</span></label>
-                            <textarea id="problems" name="problems"></textarea>
-                        </div>
-
-                        <div class="wizard-card" data-step="6">
-                            <h2>Skills &amp; Source</h2>
-                            <p class="step-hint"
-                                >
-                                <strong >Important:</strong> For every skill you select, you
+                            <h2>Skill Mapping</h2>
+                            <p class="step-hint">
+                                <strong>Important:</strong> For every skill you select, you
                                 <strong>must</strong> choose your experience level from the dropdown.
                             </p>
 
                             <label>Primary Area of Interest <span class="required">*</span> <span class="help-icon"
                                     title="Choose the area that best matches your expertise.">ⓘ</span></label>
                             <select id="area" name="area" required>
+                                <option value="">Select...</option>
                                 <option value="database">Database / Backend Systems</option>
                                 <option value="ml">Financial Machine Learning</option>
                                 <option value="ai">AI / LLM Systems</option>
                             </select>
 
                             <!-- ── Database / Backend ── -->
-                            <div id="specialized-section-database" class="specialized-section" >
+                            <div id="specialized-section-database" class="specialized-section">
                                 <h3>🗄️ Database / Backend Systems</h3>
 
                                 <span class="field-group-label">Databases worked with <span class="multi-hint">(select
@@ -426,7 +413,7 @@
                             </div>
 
                             <!-- ── Financial ML ── -->
-                            <div id="specialized-section-ml" class="specialized-section" >
+                            <div id="specialized-section-ml" class="specialized-section">
                                 <h3>🤖 Financial Machine Learning</h3>
 
                                 <span class="field-group-label">Libraries / Tools <span class="multi-hint">(select all
@@ -571,7 +558,7 @@
                             </div>
 
                             <!-- ── AI / LLM ── -->
-                            <div id="specialized-section-ai" class="specialized-section" >
+                            <div id="specialized-section-ai" class="specialized-section">
                                 <h3>✨ AI / LLM Systems</h3>
 
                                 <span class="field-group-label">Tools / Frameworks <span class="multi-hint">(select all
@@ -768,25 +755,40 @@
                             </select>
                         </div>
 
+                        <div class="wizard-card" data-step="6">
+                            <h2>Motivation</h2>
+                            <label>Why are you interested in working with us? <span class="required">*</span> <span
+                                    class="help-icon"
+                                    title="Tell us what attracts you to our company and role.">ⓘ</span></label>
+                            <textarea id="interest" name="interest" required></textarea>
+                            <label>What problems do you enjoy solving? <span class="help-icon"
+                                    title="Describe the types of challenges you find engaging.">ⓘ</span></label>
+                            <textarea id="problems" name="problems"></textarea>
+                        </div>
+
                         <div class="wizard-card" data-step="7">
                             <h2>Review Your Application</h2>
                             <p>Please confirm your responses below before submitting.</p>
-                            <ul id="review-content"
-                                >
+                            <ul id="review-content">
                             </ul>
                         </div>
 
-                        <div class="wizard-actions">
-                            <button type="button" id="save-btn" class="save-btn">Save Progress</button>
-                            <div class="nav-buttons">
-                                <button type="button" id="prev-btn" class="nav-btn prev-btn" >←
-                                    Previous</button>
+                        <div class="wizard-actions"
+                            style="display: flex !important; justify-content: space-between !important; align-items: center !important; gap: 12px !important; margin-top: 24px !important; padding-top: 20px !important; border-top: 1px solid rgba(255, 255, 255, 0.05) !important;">
+                            <div class="action-left" style="flex: 1; text-align: left;">
+                                <button type="button" id="save-btn" class="save-btn">Save Progress</button>
+                            </div>
+                            <div id="submit-container" class="submit-container"
+                                style="flex: 1; text-align: center; display: none;">
+                                <button type="submit" class="submit-btn"
+                                    style="width: auto !important; min-width: 180px !important; color: #ffffff !important; font-weight: 700 !important; background: rgba(255, 255, 255, 0.1) !important; padding: 12px 28px !important; border-radius: 12px !important; border: 1px solid rgba(255, 255, 255, 0.2) !important;">Submit
+                                    Application</button>
+                            </div>
+                            <div class="nav-buttons"
+                                style="flex: 1; text-align: right; display: flex; justify-content: flex-end; gap: 12px;">
+                                <button type="button" id="prev-btn" class="nav-btn prev-btn">Previous</button>
                                 <button type="button" id="next-btn" class="nav-btn">Next</button>
                             </div>
-                        </div>
-
-                        <div class="submit-container" >
-                            <button type="submit" class="submit-btn">Submit Application</button>
                         </div>
                     </form>
                 </div>

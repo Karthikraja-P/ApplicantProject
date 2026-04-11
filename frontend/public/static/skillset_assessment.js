@@ -567,7 +567,7 @@ var finishTime = null;
     var track = document.getElementById('screen-track');
     if (track) {
       track.innerHTML = buildCompletedBanner(
-        '⚡ Technical Assessment',
+        '💻 Technical Test',
         'You have already completed this assessment.',
         [{ label: 'Games Assessment →', href: '/games.html' }]
       );
@@ -617,6 +617,7 @@ var finishTime = null;
       showScreen('screen-question');
       renderQuestion(0);
       startTimer();
+      setupButtonListeners();
     }, 50);
     return;
   }
@@ -726,6 +727,36 @@ function startAssessment() {
   renderQuestion();
   showScreen('screen-question');
   startTimer();
+  setupButtonListeners();
+}
+
+function setupButtonListeners() {
+  var next = document.getElementById('sk-next-btn');
+  var prev = document.getElementById('sk-prev-btn');
+  var finish = document.getElementById('sk-finish-btn');
+
+  if (next) {
+    next.onclick = null; // Clear old inline
+    next.onclick = function (e) {
+      e.preventDefault();
+      console.log('Next clicked. Current:', currentIdx);
+      skNav(1);
+    };
+  }
+  if (prev) {
+    prev.onclick = null;
+    prev.onclick = function (e) {
+      e.preventDefault();
+      skNav(-1);
+    };
+  }
+  if (finish) {
+    finish.onclick = null;
+    finish.onclick = function (e) {
+      e.preventDefault();
+      showResults();
+    };
+  }
 }
 
 function renderQuestion() {
@@ -766,11 +797,20 @@ function selectAnswer(optIdx) {
 
 function skNav(dir) {
   var next = currentIdx + dir;
+  console.log('skNav attempt:', dir, 'Next target:', next, 'Total:', currentQs.length);
   if (next >= 0 && next < currentQs.length) {
     currentIdx = next;
     renderQuestion();
+  } else {
+    console.warn('skNav blocked: out of bounds');
   }
 }
+window.skNav = skNav;
+window.startAssessment = startAssessment;
+window.selectAnswer = selectAnswer;
+window.jumpTo = jumpTo;
+window.showResults = showResults;
+window.retryAssessment = retryAssessment;
 
 function renderNumberGrid() {
   var html = '';
@@ -896,7 +936,7 @@ function showResults() {
       window.apiSubmitAssessment(cache.email, 'skillset', resData);
     }
   } catch (e) {
-    console.error('Failed to persist Skillset results:', e);
+    console.error('Failed to persist Technical Test results:', e);
   }
 
   showScreen('screen-results');

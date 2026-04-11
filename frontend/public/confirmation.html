@@ -240,7 +240,7 @@
                 container.innerHTML += '<div class="score-card"><div class="no-score-note">IQ assessment not completed.</div></div>';
             }
 
-            // Skillset card
+            // Technical Test card
             if (skillset) {
                 var catRows = '';
                 if (skillset.categories) {
@@ -251,14 +251,14 @@
                 }
                 container.innerHTML += '<div class="score-card">' +
                     '<div class="score-card-header">' +
-                    '  <div class="score-card-title">Technical Assessment — ' + skillset.track + '</div>' +
+                    '  <div class="score-card-title">Technical Test — ' + skillset.track + '</div>' +
                     '  <div class="score-card-badge ' + badgeClass(skillset.pct) + '">' + skillset.tier + '</div>' +
                     '</div>' +
                     '<div class="score-main">' + skillset.pct + '%</div>' +
                     '<div class="score-sub">' + skillset.correct + ' / ' + skillset.total + ' correct</div>' +
                     '<div class="score-row">' + catRows + '</div></div>';
             } else {
-                container.innerHTML += '<div class="score-card"><div class="no-score-note">Skillset assessment not completed.</div></div>';
+                container.innerHTML += '<div class="score-card"><div class="no-score-note">Technical Test assessment not completed.</div></div>';
             }
 
             // Games card

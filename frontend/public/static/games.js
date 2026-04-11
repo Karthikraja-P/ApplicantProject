@@ -468,7 +468,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (!iq || !skillset || !games) {
             var missing = [];
             if (!iq) missing.push('Psychometric Test');
-            if (!skillset) missing.push('Technical Assessment');
+            if (!skillset) missing.push('Technical Test');
             if (!games) missing.push('Games Assessment');
             status.style.color = '#ff6b6b';
             status.textContent = 'Please complete: ' + missing.join(', ') + ' before submitting.';

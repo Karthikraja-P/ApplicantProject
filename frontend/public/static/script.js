@@ -32,8 +32,8 @@ document.addEventListener('DOMContentLoaded', function () {
         full_name: 1, email: 1, location_country: 1, location: 1, linkedin: 1,
         current_role: 2, current_company: 2, experience: 2, degree: 2, field: 2, university: 2,
         work_type: 4, start_date: 4, work_preference: 4,
-        interest: 5,
-        area: 6, source: 6
+        area: 5, source: 5,
+        interest: 6
     };
 
     const countryPhoneDigits = {
@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (currentStep === totalSteps) {
             fillReviewCard();
             nextBtn.style.display = 'none';
-            submitContainer.style.display = 'block';
+            submitContainer.style.display = 'flex';
             updateSubmitBtn();
         } else {
             nextBtn.style.display = 'inline-block';
@@ -199,8 +199,8 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
 
-        // Specialized check for Step 6: Skill Checkboxes + Experience Dropdowns
-        if (stepNum === 6) {
+        // Specialized check for Step 5: Skill Checkboxes + Experience Dropdowns
+        if (stepNum === 5) {
             const checkedSkills = card.querySelectorAll('.wizard-checkbox input[type="checkbox"]:checked');
             checkedSkills.forEach(cb => {
                 const label = cb.closest('label');
@@ -276,26 +276,26 @@ document.addEventListener('DOMContentLoaded', function () {
                 ['GitHub', [val('github') || '—', false]],
                 ['Website', [val('website') || '—', false]],
             ]],
-            ['Eligibility & Availability', 4, [
+            ['Availability', 4, [
                 ['Work Type', rv('work_type', true)],
                 ['Start Date', rv('start_date', true)],
                 ['Work Preference', rv('work_preference', true)],
                 ['Constraints', [val('constraints') || '—', false]],
             ]],
-            ['Motivation', 5, [
-                ['Interest', rv('interest', true)],
-                ['Problems Enjoyed', [val('problems') || '—', false]],
-            ]],
-            ['Skills & Source', 6, [
+            ['Skill Mapping', 5, [
                 ['Primary Area', rv('area', true)],
                 ['General Skills', [checks('skills') || '—', false]],
                 ['Heard From', rv('source', true)],
+            ]],
+            ['Motivation', 6, [
+                ['Interest', rv('interest', true)],
+                ['Problems Enjoyed', [val('problems') || '—', false]],
             ]],
         ];
 
         // Specialized skill section
         if (area === 'database') {
-            sections.push(['Database / Backend Details', 6, [
+            sections.push(['Database / Backend Details', 5, [
                 ['Databases', [checks('db_databases') || '—', false]],
                 ['Query Languages', [checks('db_query_tools') || '—', false]],
                 ['Backend Languages', [checks('db_backend_langs') || '—', false]],

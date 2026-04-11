@@ -413,25 +413,25 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>
         </div>`,
             customOptsHtml: [
-                `<div style="display:grid; grid-template-columns:repeat(3, 30px); grid-template-rows:repeat(3, 20px); border:1px solid #333; margin: 0 auto 8px;">
-                <div style="border:0.5px solid #333; background:#0d173c;"></div><div style="border:0.5px solid #333; background:#00a651;"></div><div style="border:0.5px solid #333; background:#fff;"></div>
-                <div style="border:0.5px solid #333; background:#00a651;"></div><div style="border:0.5px solid #333; background:#fff;"></div><div style="border:0.5px solid #333; background:#fff;"></div>
-                <div style="border:0.5px solid #333; background:#fff;"></div><div style="border:0.5px solid #333; background:#00a651;"></div><div style="border:0.5px solid #333; background:#0d173c;"></div>
+                `<div style="display:grid; grid-template-columns:repeat(3, 40px); grid-template-rows:repeat(3, 40px); border:2px solid #333; background:#f0f4f8; padding:4px; border-radius:4px; margin: 0 auto 8px;">
+                <div style="border:1px solid #333; background:#0d173c;"></div><div style="border:1px solid #333; background:#00a651;"></div><div style="border:1px solid #333; background:#fff;"></div>
+                <div style="border:1px solid #333; background:#00a651;"></div><div style="border:1px solid #333; background:#fff;"></div><div style="border:1px solid #333; background:#fff;"></div>
+                <div style="border:1px solid #333; background:#fff;"></div><div style="border:1px solid #333; background:#00a651;"></div><div style="border:1px solid #333; background:#0d173c;"></div>
             </div>`,
-                `<div style="display:grid; grid-template-columns:repeat(3, 30px); grid-template-rows:repeat(3, 20px); border:1px solid #333; margin: 0 auto 8px;">
-                <div style="border:0.5px solid #333; background:#0d173c;"></div><div style="border:0.5px solid #333; background:#fff;"></div><div style="border:0.5px solid #333; background:#fff;"></div>
-                <div style="border:0.5px solid #333; background:#fff;"></div><div style="border:0.5px solid #333; background:#00a651;"></div><div style="border:0.5px solid #333; background:#0d173c;"></div>
-                <div style="border:0.5px solid #333; background:#fff;"></div><div style="border:0.5px solid #333; background:#0d173c;"></div><div style="border:0.5px solid #333; background:#00a651;"></div>
+                `<div style="display:grid; grid-template-columns:repeat(3, 40px); grid-template-rows:repeat(3, 40px); border:2px solid #333; background:#f0f4f8; padding:4px; border-radius:4px; margin: 0 auto 8px;">
+                <div style="border:1px solid #333; background:#0d173c;"></div><div style="border:1px solid #333; background:#fff;"></div><div style="border:1px solid #333; background:#fff;"></div>
+                <div style="border:1px solid #333; background:#fff;"></div><div style="border:1px solid #333; background:#00a651;"></div><div style="border:1px solid #333; background:#0d173c;"></div>
+                <div style="border:1px solid #333; background:#fff;"></div><div style="border:1px solid #333; background:#0d173c;"></div><div style="border:1px solid #333; background:#00a651;"></div>
             </div>`,
-                `<div style="display:grid; grid-template-columns:repeat(3, 30px); grid-template-rows:repeat(3, 20px); border:1px solid #333; margin: 0 auto 8px;">
-                <div style="border:0.5px solid #333; background:#00a651;"></div><div style="border:0.5px solid #333; background:#0d173c;"></div><div style="border:0.5px solid #333; background:#fff;"></div>
-                <div style="border:0.5px solid #333; background:#0d173c;"></div><div style="border:0.5px solid #333; background:#fff;"></div><div style="border:0.5px solid #333; background:#fff;"></div>
-                <div style="border:0.5px solid #333; background:#fff;"></div><div style="border:0.5px solid #333; background:#00a651;"></div><div style="border:0.5px solid #333; background:#0d173c;"></div>
+                `<div style="display:grid; grid-template-columns:repeat(3, 40px); grid-template-rows:repeat(3, 40px); border:2px solid #333; background:#f0f4f8; padding:4px; border-radius:4px; margin: 0 auto 8px;">
+                <div style="border:1px solid #333; background:#00a651;"></div><div style="border:1px solid #333; background:#0d173c;"></div><div style="border:1px solid #333; background:#fff;"></div>
+                <div style="border:1px solid #333; background:#0d173c;"></div><div style="border:1px solid #333; background:#fff;"></div><div style="border:1px solid #333; background:#fff;"></div>
+                <div style="border:1px solid #333; background:#fff;"></div><div style="border:1px solid #333; background:#00a651;"></div><div style="border:1px solid #333; background:#0d173c;"></div>
             </div>`,
-                `<div style="display:grid; grid-template-columns:repeat(3, 30px); grid-template-rows:repeat(3, 20px); border:1px solid #333; margin: 0 auto 8px;">
-                <div style="border:0.5px solid #333; background:#fff;"></div><div style="border:0.5px solid #333; background:#fff;"></div><div style="border:0.5px solid #333; background:#fff;"></div>
-                <div style="border:0.5px solid #333; background:#0d173c;"></div><div style="border:0.5px solid #333; background:#00a651;"></div><div style="border:0.5px solid #333; background:#0d173c;"></div>
-                <div style="border:0.5px solid #333; background:#fff;"></div><div style="border:0.5px solid #333; background:#0d173c;"></div><div style="border:0.5px solid #333; background:#00a651;"></div>
+                `<div style="display:grid; grid-template-columns:repeat(3, 40px); grid-template-rows:repeat(3, 40px); border:2px solid #333; background:#f0f4f8; padding:4px; border-radius:4px; margin: 0 auto 8px;">
+                <div style="border:1px solid #333; background:#fff;"></div><div style="border:1px solid #333; background:#fff;"></div><div style="border:1px solid #333; background:#fff;"></div>
+                <div style="border:1px solid #333; background:#0d173c;"></div><div style="border:1px solid #333; background:#00a651;"></div><div style="border:1px solid #333; background:#0d173c;"></div>
+                <div style="border:1px solid #333; background:#fff;"></div><div style="border:1px solid #333; background:#0d173c;"></div><div style="border:1px solid #333; background:#00a651;"></div>
             </div>`
             ],
             answer: 0, time: 90, exp: 'The two sections complement each other to form a complete pattern where each color appears once per row and column.'
@@ -1148,39 +1148,34 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-    function goTo(idx) { currentIdx = idx; renderQuestion(idx); }
+    function setupNavEvents() {
+        if (prevBtn) prevBtn.addEventListener('click', function () { if (currentIdx > 0) goTo(currentIdx - 1); });
+        if (nextBtn) nextBtn.addEventListener('click', function () { if (currentIdx < QUESTIONS.length - 1) goTo(currentIdx + 1); });
+        if (finishBtn) finishBtn.addEventListener('click', showResults);
+        if (startBtn) startBtn.addEventListener('click', function () {
+            // Lock this round
+            localStorage.setItem('current_assessment_active', 'iq');
+            localStorage.setItem('tf_assessment_stage', '1');
+            localStorage.setItem('iq_start_time', Date.now().toString());
+            window.isTestActive = true;
+            // Warn before leaving
+            window.onbeforeunload = function () {
+                if (window.isTestActive) return "Assessment in progress. Your changes will be lost if you leave.";
+            };
 
-    prevBtn.addEventListener('click', function () { if (currentIdx > 0) goTo(currentIdx - 1); });
-    nextBtn.addEventListener('click', function () { if (currentIdx < QUESTIONS.length - 1) goTo(currentIdx + 1); });
-    finishBtn.addEventListener('click', showResults);
-    // Restore saved answers if any
-    var savedAnswers = localStorage.getItem('tf_iq_answers');
-    if (savedAnswers) {
-        try {
-            var arr = JSON.parse(savedAnswers);
-            if (Array.isArray(arr)) answers = arr;
-        } catch (_) { }
+            // Re-apply global sidebar lock (will disable all links since current_assessment_active is set)
+            if (window.applySidebarLock) window.applySidebarLock();
+
+            showScreen('screen-question');
+            renderQuestion(0);
+            startTime = Date.now();
+            startSectionTimer(); // single 10-min timer for the whole section
+        });
     }
 
-    startBtn.addEventListener('click', function () {
-        // Lock this round
-        localStorage.setItem('current_assessment_active', 'iq');
-        localStorage.setItem('tf_assessment_stage', '1');
-        localStorage.setItem('iq_start_time', Date.now().toString());
-        window.isTestActive = true;
-        // Warn before leaving
-        window.onbeforeunload = function () {
-            if (window.isTestActive) return "Assessment in progress. Your changes will be lost if you leave.";
-        };
+    setupNavEvents();
 
-        // Re-apply global sidebar lock (will disable all links since current_assessment_active is set)
-        if (window.applySidebarLock) window.applySidebarLock();
-
-        showScreen('screen-question');
-        renderQuestion(0);
-        startTime = Date.now();
-        startSectionTimer(); // single 10-min timer for the whole section
-    });
+    function goTo(idx) { currentIdx = idx; renderQuestion(idx); }
 
     // ─── Results ───────────────────────────────────────────────────────────────
     function showResults() {

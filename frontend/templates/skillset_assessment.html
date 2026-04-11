@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Singularity</title>
-    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="/static/styles.css?v=1775607446">
     <style>
         .track-cards {
             display: flex;
@@ -13,30 +14,54 @@
             flex-wrap: wrap;
             margin: 28px 0;
         }
+
         .track-card {
             flex: 1 1 220px;
             max-width: 260px;
-            background: rgba(0,212,255,0.06);
-            border: 2px solid rgba(0,212,255,0.18);
+            background: rgba(0, 212, 255, 0.06);
+            border: 2px solid rgba(0, 212, 255, 0.18);
             border-radius: 14px;
             padding: 28px 22px;
             cursor: pointer;
             text-align: center;
             transition: border-color 0.2s, background 0.2s, transform 0.15s;
         }
+
         .track-card:hover {
             border-color: #00d4ff;
-            background: rgba(0,212,255,0.13);
+            background: rgba(0, 212, 255, 0.13);
             transform: translateY(-3px);
         }
+
         .track-card.selected {
             border-color: #00ff88;
-            background: rgba(0,255,136,0.1);
+            background: rgba(0, 255, 136, 0.1);
         }
-        .track-icon { font-size: 2.4rem; margin-bottom: 12px; }
-        .track-name { font-size: 1.1rem; font-weight: 700; color: #c6e8ff; margin-bottom: 6px; }
-        .track-desc { font-size: 0.78rem; color: #5a7ca0; line-height: 1.5; }
-        .track-meta { font-size: 0.75rem; color: #00d4ff; margin-top: 10px; font-weight: 600; }
+
+        .track-icon {
+            font-size: 2.4rem;
+            margin-bottom: 12px;
+        }
+
+        .track-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #c6e8ff;
+            margin-bottom: 6px;
+        }
+
+        .track-desc {
+            font-size: 0.78rem;
+            color: #5a7ca0;
+            line-height: 1.5;
+        }
+
+        .track-meta {
+            font-size: 0.75rem;
+            color: #00d4ff;
+            margin-top: 10px;
+            font-weight: 600;
+        }
 
         .cat-badge-sk {
             display: inline-block;
@@ -47,273 +72,438 @@
             letter-spacing: 0.04em;
             margin-bottom: 10px;
         }
-        .cat-badge-ml  { background: rgba(0,212,255,0.12); color: #00d4ff; border: 1px solid rgba(0,212,255,0.3); }
-        .cat-badge-db  { background: rgba(0,255,136,0.10); color: #00ff88; border: 1px solid rgba(0,255,136,0.3); }
 
-        .sk-options { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+        .cat-badge-ml {
+            background: rgba(0, 212, 255, 0.12);
+            color: #00d4ff;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+
+        .cat-badge-db {
+            background: rgba(0, 255, 136, 0.10);
+            color: #00ff88;
+            border: 1px solid rgba(0, 255, 136, 0.3);
+        }
+
+        .sk-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
         .sk-option {
-            display: flex; align-items: flex-start; gap: 12px;
-            background: rgba(0,212,255,0.05);
-            border: 1.5px solid rgba(0,212,255,0.15);
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            background: rgba(0, 212, 255, 0.05);
+            border: 1.5px solid rgba(0, 212, 255, 0.15);
             border-radius: 10px;
             padding: 13px 16px;
             cursor: pointer;
             transition: border-color 0.15s, background 0.15s;
             text-align: left;
         }
-        .sk-option:hover  { border-color: #00d4ff; background: rgba(0,212,255,0.10); }
-        .sk-option.chosen { border-color: #00ff88; background: rgba(0,255,136,0.10); }
-        .sk-option.wrong  { border-color: #ff6b6b; background: rgba(255,107,107,0.10); }
-        .sk-opt-letter {
-            min-width: 26px; height: 26px;
-            border-radius: 50%;
-            background: rgba(0,212,255,0.12);
-            border: 1.5px solid rgba(0,212,255,0.3);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 0.78rem; font-weight: 700; color: #00d4ff;
-            flex-shrink: 0; margin-top: 1px;
+
+        .sk-option:hover {
+            border-color: #00d4ff;
+            background: rgba(0, 212, 255, 0.10);
         }
-        .sk-opt-text { font-size: 0.87rem; color: #c2d7f2; line-height: 1.5; }
+
+        .sk-option.chosen {
+            border-color: #00ff88;
+            background: rgba(0, 255, 136, 0.10);
+        }
+
+        .sk-option.wrong {
+            border-color: #ff6b6b;
+            background: rgba(255, 107, 107, 0.10);
+        }
+
+        .sk-opt-letter {
+            min-width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: rgba(0, 212, 255, 0.12);
+            border: 1.5px solid rgba(0, 212, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: #00d4ff;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .sk-opt-text {
+            font-size: 0.87rem;
+            color: #c2d7f2;
+            line-height: 1.5;
+        }
 
         .sk-overall-box {
-            display: flex; gap: 0; flex-wrap: wrap;
-            background: rgba(0,212,255,0.06);
-            border: 1px solid rgba(0,212,255,0.18);
-            border-radius: 12px; overflow: hidden; margin-bottom: 22px;
+            display: flex;
+            gap: 0;
+            flex-wrap: wrap;
+            background: rgba(0, 212, 255, 0.06);
+            border: 1px solid rgba(0, 212, 255, 0.18);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 22px;
         }
-        .sk-overall-box > div {
+
+        .sk-overall-box>div {
             flex: 1 1 120px;
             padding: 18px 20px;
-            border-right: 1px solid rgba(0,212,255,0.12);
+            border-right: 1px solid rgba(0, 212, 255, 0.12);
         }
-        .sk-overall-box > div:last-child { border-right: none; }
-        .sk-overall-label { font-size: 0.72rem; color: #5a7ca0; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 4px; }
-        .sk-overall-score { font-size: 2rem; font-weight: 800; color: #c6e8ff; }
-        .sk-overall-tier  { font-size: 1.1rem; font-weight: 700; }
+
+        .sk-overall-box>div:last-child {
+            border-right: none;
+        }
+
+        .sk-overall-label {
+            font-size: 0.72rem;
+            color: #5a7ca0;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .sk-overall-score {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #c6e8ff;
+        }
+
+        .sk-overall-tier {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
 
         .pass-threshold {
-            display: flex; gap: 8px; flex-wrap: wrap; margin: 14px 0;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin: 14px 0;
         }
+
         .pass-pill {
             flex: 1 1 100px;
-            text-align: center; border-radius: 8px; padding: 10px 8px;
+            text-align: center;
+            border-radius: 8px;
+            padding: 10px 8px;
         }
-        .pass-pct  { font-size: 1rem; font-weight: 700; color: #1a1a1a; }
-        .pass-lbl  { font-size: 0.72rem; margin-top: 3px; font-weight: 600; }
+
+        .pass-pct {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .pass-lbl {
+            font-size: 0.72rem;
+            margin-top: 3px;
+            font-weight: 600;
+        }
 
         .cat-summary-row {
-            display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 18px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 18px;
         }
+
         .cat-summary-card {
             flex: 1 1 140px;
-            background: rgba(0,212,255,0.06);
-            border: 1px solid rgba(0,212,255,0.18);
-            border-radius: 8px; padding: 10px 14px; min-width: 130px;
+            background: rgba(0, 212, 255, 0.06);
+            border: 1px solid rgba(0, 212, 255, 0.18);
+            border-radius: 8px;
+            padding: 10px 14px;
+            min-width: 130px;
         }
-        .cat-summary-card .cat-name { font-size: 0.78rem; color: #5a9fc8; font-weight: 600; }
-        .cat-summary-card .cat-count { font-size: 1.3rem; font-weight: 800; color: #c6e8ff; }
+
+        .cat-summary-card .cat-name {
+            font-size: 0.78rem;
+            color: #5a9fc8;
+            font-weight: 600;
+        }
+
+        .cat-summary-card .cat-count {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #c6e8ff;
+        }
+
         .res-cat-row {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 10px 14px; border-radius: 8px;
-            background: rgba(0,212,255,0.05);
-            border: 1px solid rgba(0,212,255,0.12);
-            margin-bottom: 8px; gap: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 14px;
+            border-radius: 8px;
+            background: rgba(0, 212, 255, 0.05);
+            border: 1px solid rgba(0, 212, 255, 0.12);
+            margin-bottom: 8px;
+            gap: 8px;
         }
-        .res-cat-name  { font-size: 0.85rem; color: #aac4e8; flex: 1; }
-        .res-cat-score { font-size: 0.95rem; font-weight: 700; color: #00ff88; }
-        .res-cat-score.low { color: #ff6b6b; }
-        .res-cat-score.mid { color: #ffcc44; }
+
+        .res-cat-name {
+            font-size: 0.85rem;
+            color: #aac4e8;
+            flex: 1;
+        }
+
+        .res-cat-score {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #00ff88;
+        }
+
+        .res-cat-score.low {
+            color: #ff6b6b;
+        }
+
+        .res-cat-score.mid {
+            color: #ffcc44;
+        }
     </style>
 </head>
+
 <body>
-<div class="container full-screen">
-    <div class="wizard-inner">
-        <header>
-            <h1>Singularity</h1>
-        </header>
+    <div class="container full-screen">
+        <div class="wizard-inner">
+            <header>
+                <div class="brand-container"><img src="/static/images/singularity_logo.jpg" class="brand-logo-small"
+                        alt="Logo"><span class="brand-text">SINGULΛRITY</span></div>
+            </header>
 
-        <div class="wizard-layout">
+            <div class="wizard-layout">
 
-            <!-- Sidebar -->
-            <div class="sidebar">
-                <div class="sidebar-steps">
-                    <a href="/" class="step-item" style="text-decoration:none;">
-                        <div class="step-number" style="font-size:1rem;">←</div>
-                        <div class="step-title">Application</div>
-                    </a>
-                </div>
-                <div class="sidebar-divider"></div>
-                <div class="sidebar-section-label">Assessment</div>
-                <div class="sidebar-assessment-items">
-                    <a href="/assessment/iq" class="assessment-item step-item">
-                        <div class="step-number" style="font-size:0.65rem;font-weight:800;">IQ</div>
-                        <div class="step-title">General IQ</div>
-                    </a>
-                    <a href="/assessment/skillset" class="assessment-item step-item active">
-                        <div class="step-number" style="font-size:0.65rem;font-weight:800;">💻</div>
-                        <div class="step-title">Technical Test</div>
-                    </a>
-                    <a href="/games" class="assessment-item step-item">
-                        <div class="step-number" style="font-size:0.65rem;font-weight:800;">🎮</div>
-                        <div class="step-title">Games</div>
-                    </a>
-                </div>
-                <div class="sidebar-decoration">
-                    <img src="/static/sidebar-decoration.svg" alt="">
-                </div>
-            </div>
-
-            <!-- Main content -->
-            <div class="main-content">
-
-                <!-- ── Track Selection ── -->
-                <div id="screen-track" class="psych-screen active">
-                    <h2 style="color:#c6e8ff;margin:0 0 6px;">Technical Test Assessment</h2>
-                    <p style="color:#5a7ca0;font-size:0.85rem;margin:0 0 10px;">
-                        Select the track that matches your primary area of expertise.
-                    </p>
-                    <div class="track-cards">
-                        <div class="track-card" id="track-ml" onclick="selectTrack('ml')">
-                            <div class="track-icon">🤖</div>
-                            <div class="track-name">Financial ML</div>
-                            <div class="track-desc">ML Foundations, Financial Machine Learning, model evaluation, backtesting, and signal construction.</div>
-                            <div class="track-meta">50 questions · 30 min</div>
-                        </div>
-                        <div class="track-card" id="track-db" onclick="selectTrack('db')">
-                            <div class="track-icon">🗄️</div>
-                            <div class="track-name">Database Engineering</div>
-                            <div class="track-desc">Database design, schema patterns, query optimisation, ACID, and production DB architecture.</div>
-                            <div class="track-meta">50 questions · 30 min</div>
-                        </div>
-                    </div>
-                    <div style="text-align:center;">
-                        <button id="track-start-btn" class="nav-btn" disabled
-                            style="background:linear-gradient(135deg,#00d4ff,#00ff88);color:#000;min-width:160px;font-size:1rem;opacity:0.4;"
-                            onclick="goToIntro()">
-                            Continue →
-                        </button>
-                    </div>
-                </div>
-
-                <!-- ── Intro ── -->
-                <div id="screen-intro" class="psych-screen">
-                    <h2 id="intro-title" style="color:#c6e8ff;margin:0 0 6px;"></h2>
-                    <p id="intro-subtitle" style="color:#5a7ca0;font-size:0.82rem;margin:0 0 16px;"></p>
-
-                    <div class="cat-summary-row" id="intro-cats"></div>
-
-                    <div class="pass-threshold">
-                        <div class="pass-pill" style="background:#e1f5ee;">
-                            <div class="pass-pct">≥ 80%</div>
-                            <div class="pass-lbl" style="color:#085041;">Strong pass</div>
-                        </div>
-                        <div class="pass-pill" style="background:#faeeda;">
-                            <div class="pass-pct">60 – 79%</div>
-                            <div class="pass-lbl" style="color:#633806;">Borderline</div>
-                        </div>
-                        <div class="pass-pill" style="background:#fcebeb;">
-                            <div class="pass-pct">&lt; 60%</div>
-                            <div class="pass-lbl" style="color:#a32d2d;">Does not meet bar</div>
-                        </div>
-                    </div>
-
-                    <div class="psych-tips">
-                        <strong>Tips</strong>
-                        <ul>
-                            <li>Read each question carefully — options are deliberately close</li>
-                            <li>You can navigate back to review previous answers</li>
-                            <li>A single 30-minute timer covers all 50 questions</li>
-                            <li>You may skip questions and return to them</li>
-                        </ul>
-                    </div>
-
-                    <div style="display:flex;gap:12px;margin-top:22px;">
-                        <button class="nav-btn prev-btn" onclick="showScreen('screen-track')">← Change Track</button>
-                        <button class="nav-btn"
-                            style="background:linear-gradient(135deg,#00d4ff,#00ff88);color:#000;min-width:160px;font-size:1rem;"
-                            onclick="startAssessment()">
-                            Start Assessment
-                        </button>
-                    </div>
-                </div>
-
-                <!-- ── Question ── -->
-                <div id="screen-question" class="psych-screen">
-                    <div class="psych-module-header">
-                        <div>
-                            <div class="psych-question-num" id="sk-q-num">Question 1 of 50</div>
-                            <div id="sk-q-cat-badge" class="cat-badge-sk cat-badge-ml" style="margin-top:4px;"></div>
-                        </div>
-                        <div class="psych-timer-block">
-                            <span class="psych-timer-number" id="sk-timer-num" style="font-size:1.5rem;letter-spacing:0.04em;">30:00</span>
-                            <span class="psych-timer-label">remaining</span>
-                        </div>
-                    </div>
-                    <div class="timer-bar-wrap">
-                        <div class="timer-bar" id="sk-timer-bar"></div>
-                    </div>
-
-                    <div class="wizard-card active" style="margin-bottom:12px;">
-                        <h3 id="sk-q-title" style="color:#c6e8ff;margin:0 0 18px;font-size:0.97rem;font-weight:600;line-height:1.6;"></h3>
-                        <div id="sk-q-options" class="sk-options"></div>
-                    </div>
-
-                    <div class="psych-q-nav">
-                        <button id="sk-prev-btn" class="nav-btn prev-btn" style="display:none;" onclick="skNav(-1)">← Prev</button>
-                        <div class="q-number-grid" id="sk-number-grid"></div>
-                        <button id="sk-next-btn" class="nav-btn" onclick="skNav(1)">Next →</button>
-                    </div>
-                    <div style="display:flex;justify-content:flex-end;margin-top:10px;">
-                        <button id="sk-finish-btn" class="nav-btn q-finish-btn"
-                                style="display:none;background:linear-gradient(135deg,#00d4ff,#00ff88);color:#000;"
-                                onclick="showResults()">
-                            View Results →
-                        </button>
-                    </div>
-                </div>
-
-                <!-- ── Results ── -->
-                <div id="screen-results" class="psych-screen">
-                    <h2 style="color:#c6e8ff;margin:0 0 18px;">Assessment Results</h2>
-
-                    <div class="sk-overall-box">
-                        <div>
-                            <div class="sk-overall-label">Score</div>
-                            <div class="sk-overall-score" id="sk-res-score">—</div>
-                        </div>
-                        <div>
-                            <div class="sk-overall-label">Correct</div>
-                            <div class="sk-overall-tier" id="sk-res-correct" style="color:#00d4ff;font-size:1.6rem;font-weight:800;">—</div>
-                        </div>
-                        <div>
-                            <div class="sk-overall-label">Rating</div>
-                            <div class="sk-overall-tier" id="sk-res-tier">—</div>
-                        </div>
-                    </div>
-
-                    <div id="sk-res-by-category" style="margin-bottom:22px;"></div>
-
-                    <div style="display:flex;gap:12px;flex-wrap:wrap;">
-                        <button class="nav-btn prev-btn" onclick="showScreen('screen-track')">← Change Track</button>
-                        <button class="nav-btn"
-                                style="background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.3);color:#00d4ff;"
-                                onclick="retryAssessment()">
-                            Retry
-                        </button>
-                        <a href="/games" style="text-decoration:none;">
-                            <button class="nav-btn"
-                                    style="background:linear-gradient(135deg,#00d4ff,#00ff88);color:#000;">
-                                Next: Games →
-                            </button>
+                <!-- Sidebar -->
+                <div class="sidebar">
+                    <div class="sidebar-steps">
+                        <a href="index.html" class="step-item" style="text-decoration:none;">
+                            <div class="step-number" style="font-size:1rem;">←</div>
+                            <div class="step-title">Application</div>
                         </a>
                     </div>
+                    <div class="sidebar-divider"></div>
+                    <div class="sidebar-section-label">Assessment</div>
+                    <div class="sidebar-assessment-items">
+                        <a href="iq_assessment.html" class="assessment-item step-item">
+                            <div class="step-number" style="font-size:0.65rem;font-weight:800;">IQ</div>
+                            <div class="step-title">Psychometric Test</div>
+                        </a>
+                        <a href="skillset_assessment.html" class="assessment-item step-item active">
+                            <div class="step-number" style="font-size:0.65rem;font-weight:800;">💻</div>
+                            <div class="step-title">Technical Test</div>
+                        </a>
+                        <a href="games.html" class="assessment-item step-item">
+                            <div class="step-number" style="font-size:0.65rem;font-weight:800;">🎮</div>
+                            <div class="step-title">Games</div>
+                        </a>
+                    </div>
+
+                    <!-- Reset / Start New Application -->
+                    <div>
+                        <button id="reset-session-btn" style="
+                            width: 100%;
+                            padding: 12px;
+                            background: rgba(0, 212, 255, 0.05);
+                            border: 1px solid rgba(0, 212, 255, 0.2);
+                            color: #72dbff;
+                            border-radius: 8px;
+                            cursor: pointer;
+                            font-size: 0.82rem;
+                            font-weight: 600;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            gap: 8px;
+                            transition: all 0.2s;
+                        ">
+                            🔄 New Application
+                        </button>
+                        <script>
+                            document.getElementById('reset-session-btn').onclick = function () {
+                                if (confirm('This will clear all your progress and application data. Continue?')) {
+                                    localStorage.clear();
+                                    location.href = '/index.html';
+                                }
+                            };
+                        </script>
+                    </div>
+
+                    <div class="sidebar-decoration">
+                        <img src="/static/sidebar-decoration.svg" alt="">
+                    </div>
                 </div>
 
-            </div><!-- /main-content -->
-        </div><!-- /wizard-layout -->
+                <!-- Main content -->
+                <div class="main-content">
+
+                    <!-- ── Track Selection ── -->
+                    <div id="screen-track" class="psych-screen active">
+                        <h2 style="color:#c6e8ff;margin:0 0 6px;">Technical Test</h2>
+                        <p style="color:#5a7ca0;font-size:0.85rem;margin:0 0 10px;">
+                            Select the track that matches your primary area of expertise.
+                        </p>
+                        <div class="track-cards">
+                            <div class="track-card" id="track-ml" onclick="selectTrack('ml')">
+                                <div class="track-icon">🤖</div>
+                                <div class="track-name">Financial ML</div>
+                                <div class="track-desc">ML Foundations, Financial Machine Learning, model evaluation,
+                                    backtesting, and signal construction.</div>
+                                <div class="track-meta">50 questions · 30 min</div>
+                            </div>
+                            <div class="track-card" id="track-db" onclick="selectTrack('db')">
+                                <div class="track-icon">🗄️</div>
+                                <div class="track-name">Database Engineering</div>
+                                <div class="track-desc">Database design, schema patterns, query optimisation, ACID, and
+                                    production DB architecture.</div>
+                                <div class="track-meta">50 questions · 30 min</div>
+                            </div>
+                        </div>
+                        <div style="text-align:center;">
+                            <button id="track-start-btn" class="nav-btn" disabled
+                                style="background:linear-gradient(135deg,#00d4ff,#00ff88);color:#ffffff;min-width:160px;font-size:1.1rem;font-weight:800;text-shadow:0 1px 3px rgba(0,0,0,0.5);opacity:0.6;text-transform:uppercase;"
+                                onclick="goToIntro()">
+                                Continue →
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- ── Intro ── -->
+                    <div id="screen-intro" class="psych-screen">
+                        <h2 id="intro-title" style="color:#c6e8ff;margin:0 0 6px;"></h2>
+                        <p id="intro-subtitle" style="color:#5a7ca0;font-size:0.82rem;margin:0 0 16px;"></p>
+
+                        <div class="cat-summary-row" id="intro-cats"></div>
+
+                        <div class="pass-threshold">
+                            <div class="pass-pill" style="background:#e1f5ee;">
+                                <div class="pass-pct">≥ 80%</div>
+                                <div class="pass-lbl" style="color:#085041;">Strong pass</div>
+                            </div>
+                            <div class="pass-pill" style="background:#faeeda;">
+                                <div class="pass-pct">60 – 79%</div>
+                                <div class="pass-lbl" style="color:#633806;">Borderline</div>
+                            </div>
+                            <div class="pass-pill" style="background:#fcebeb;">
+                                <div class="pass-pct">&lt; 60%</div>
+                                <div class="pass-lbl" style="color:#a32d2d;">Does not meet bar</div>
+                            </div>
+                        </div>
+
+                        <div class="psych-tips">
+                            <strong>Tips</strong>
+                            <ul>
+                                <li>Read each question carefully — options are deliberately close</li>
+                                <li>You can navigate back to review previous answers</li>
+                                <li>A single 30-minute timer covers all 50 questions</li>
+                                <li>You may skip questions and return to them</li>
+                            </ul>
+                        </div>
+
+                        <div style="display:flex;gap:12px;margin-top:22px;">
+                            <button class="nav-btn prev-btn" onclick="showScreen('screen-track')">← Change
+                                Track</button>
+                            <button class="nav-btn"
+                                style="background:linear-gradient(135deg,#00d4ff,#00ff88);color:#ffffff;min-width:160px;font-size:1rem;"
+                                onclick="startAssessment()">
+                                Start Assessment
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- ── Question ── -->
+                    <div id="screen-question" class="psych-screen">
+                        <div class="psych-module-header">
+                            <div>
+                                <div class="psych-question-num" id="sk-q-num">Question 1 of 50</div>
+                                <div id="sk-q-cat-badge" class="cat-badge-sk cat-badge-ml" style="margin-top:4px;">
+                                </div>
+                            </div>
+                            <div class="psych-timer-block">
+                                <span class="psych-timer-number" id="sk-timer-num"
+                                    style="font-size:1.5rem;letter-spacing:0.04em;">30:00</span>
+                                <span class="psych-timer-label">remaining</span>
+                            </div>
+                        </div>
+                        <div class="timer-bar-wrap">
+                            <div class="timer-bar" id="sk-timer-bar"></div>
+                        </div>
+
+                        <div class="wizard-card active" style="margin-bottom:12px;">
+                            <h3 id="sk-q-title"
+                                style="color:#c6e8ff;margin:0 0 18px;font-size:0.97rem;font-weight:600;line-height:1.6;">
+                            </h3>
+                            <div id="sk-q-options" class="sk-options"></div>
+                        </div>
+
+                        <div class="psych-q-nav">
+                            <button id="sk-prev-btn" class="nav-btn prev-btn" style="display:none;"
+                                onclick="skNav(-1)">← Prev</button>
+                            <div class="q-number-grid" id="sk-number-grid"></div>
+                            <button id="sk-next-btn" class="nav-btn" onclick="skNav(1)">Next →</button>
+                        </div>
+                        <div style="display:flex;justify-content:flex-end;margin-top:10px;">
+                            <button id="sk-finish-btn" class="nav-btn q-finish-btn"
+                                style="display:none;background:linear-gradient(135deg,#00d4ff,#00ff88);color:#000;"
+                                onclick="showResults()">
+                                View Results →
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- ── Results ── -->
+                    <div id="screen-results" class="psych-screen">
+                        <h2 style="color:#c6e8ff;margin:0 0 18px;">Assessment Results</h2>
+
+                        <div class="sk-overall-box">
+                            <div>
+                                <div class="sk-overall-label">Score</div>
+                                <div class="sk-overall-score" id="sk-res-score">—</div>
+                            </div>
+                            <div>
+                                <div class="sk-overall-label">Correct</div>
+                                <div class="sk-overall-tier" id="sk-res-correct"
+                                    style="color:#00d4ff;font-size:1.6rem;font-weight:800;">—</div>
+                            </div>
+                            <div>
+                                <div class="sk-overall-label">Rating</div>
+                                <div class="sk-overall-tier" id="sk-res-tier">—</div>
+                            </div>
+                        </div>
+
+                        <div id="sk-res-by-category" style="margin-bottom:22px;"></div>
+
+                        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+                            <button class="nav-btn prev-btn" onclick="showScreen('screen-track')">← Change
+                                Track</button>
+                            <button class="nav-btn"
+                                style="background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.3);color:#00d4ff;"
+                                onclick="retryAssessment()">
+                                Retry
+                            </button>
+                            <a href="games.html" style="text-decoration:none;">
+                                <button class="nav-btn"
+                                    style="background:linear-gradient(135deg,#00d4ff,#00ff88);color:#000;">
+                                    Next: Games →
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+
+                </div><!-- /main-content -->
+            </div><!-- /wizard-layout -->
+        </div>
     </div>
-</div>
-<script src="/static/assessment_lock.js"></script>
-<script src="/static/skillset_assessment.js"></script>
+    <script src="/static/assessment_lock.js?v=1775596569"></script>
+    <script src="/static/api_utils.js?v=1775596569"></script>
+    <script src="/static/skillset_assessment.js?v=1775596569"></script>
 </body>
+
 </html>

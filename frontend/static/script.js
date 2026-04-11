@@ -414,7 +414,7 @@ document.addEventListener('DOMContentLoaded', function () {
     saveBtn.addEventListener('click', function () {
         saveFormToCache();
         const msg = document.createElement('div');
-        msg.style.cssText = 'position:fixed;top:20px;right:20px;background:linear-gradient(135deg,#00d4ff,#00ff88);color:#000;padding:12px 20px;border-radius:8px;font-weight:bold;z-index:9999;';
+        msg.style.cssText = 'position:fixed;top:20px;right:20px;background:linear-gradient(135deg,#00d4ff,#00ff88);color:#ffffff;padding:12px 20px;border-radius:8px;font-weight:bold;z-index:9999;';
         msg.textContent = '✓ Progress saved!';
         document.body.appendChild(msg);
         setTimeout(() => msg.remove(), 2500);
@@ -744,7 +744,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <span style="color:#7aa8c4;font-size:0.82rem;">${bannerSubtext}</span>
             </div>
             <button type="button" id="new-candidate-btn"
-                style="background:linear-gradient(135deg,#00d4ff,#00ff88);color:#000;
+                style="background:linear-gradient(135deg,#00d4ff,#00ff88);color:#ffffff;
                        border:none;border-radius:8px;padding:8px 16px;
                        font-size:0.82rem;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0;">
                 New Candidate &#x2192;

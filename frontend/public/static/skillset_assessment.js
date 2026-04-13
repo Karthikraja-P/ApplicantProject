@@ -523,8 +523,8 @@ var currentQs = [];
 var currentIdx = 0;
 var answers = [];     // index → chosen option index (or null)
 var timerInterval = null;
-var timeLeft = 30 * 60; // 30 minutes
-var totalTime = 30 * 60;
+var timeLeft = 10 * 60; // 10 minutes
+var totalTime = 10 * 60;
 var startTime = null;
 var finishTime = null;
 

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,42 +12,50 @@
             margin: 0 auto;
             padding: 0 16px;
         }
+
         .confirm-hero {
             text-align: center;
             padding: 32px 0 24px;
         }
+
         .confirm-icon {
             font-size: 3rem;
             margin-bottom: 12px;
         }
+
         .confirm-hero h2 {
             color: #00ff88;
             font-size: 1.6rem;
             margin: 0 0 8px;
         }
+
         .confirm-hero p {
             color: #5a7ca0;
             font-size: 0.9rem;
             margin: 0;
         }
+
         .score-grid {
             display: flex;
             flex-direction: column;
             gap: 12px;
             margin: 24px 0;
         }
+
         .score-card {
-            background: rgba(0,212,255,0.06);
-            border: 1px solid rgba(0,212,255,0.18);
+            background: rgba(0, 212, 255, 0.06);
+            border: 1px solid rgba(0, 212, 255, 0.18);
             border-radius: 12px;
             padding: 16px 20px;
         }
+
         .score-card-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 8px;
         }
+
         .score-card-title {
             font-size: 0.85rem;
             font-weight: 700;
@@ -54,60 +63,80 @@
             text-transform: uppercase;
             letter-spacing: 0.06em;
         }
+
         .score-card-badge {
             font-size: 0.78rem;
             font-weight: 700;
             padding: 3px 10px;
             border-radius: 20px;
-            background: rgba(0,255,136,0.12);
+            background: rgba(0, 255, 136, 0.12);
             color: #00ff88;
-            border: 1px solid rgba(0,255,136,0.3);
+            border: 1px solid rgba(0, 255, 136, 0.3);
         }
-        .score-card-badge.mid  { background: rgba(255,204,68,0.12); color: #ffcc44; border-color: rgba(255,204,68,0.3); }
-        .score-card-badge.low  { background: rgba(255,107,107,0.12); color: #ff6b6b; border-color: rgba(255,107,107,0.3); }
+
+        .score-card-badge.mid {
+            background: rgba(255, 204, 68, 0.12);
+            color: #ffcc44;
+            border-color: rgba(255, 204, 68, 0.3);
+        }
+
+        .score-card-badge.low {
+            background: rgba(255, 107, 107, 0.12);
+            color: #ff6b6b;
+            border-color: rgba(255, 107, 107, 0.3);
+        }
+
         .score-main {
             font-size: 2rem;
             font-weight: 800;
             color: #c6e8ff;
             line-height: 1;
         }
+
         .score-sub {
             font-size: 0.8rem;
             color: #5a7ca0;
             margin-top: 4px;
         }
+
         .score-row {
             display: flex;
             gap: 24px;
             margin-top: 10px;
             flex-wrap: wrap;
         }
+
         .score-stat {
             font-size: 0.78rem;
             color: #7a9fc8;
         }
+
         .score-stat span {
             color: #aac4e8;
             font-weight: 600;
         }
+
         .next-steps {
-            background: rgba(0,212,255,0.04);
-            border: 1px solid rgba(0,212,255,0.12);
+            background: rgba(0, 212, 255, 0.04);
+            border: 1px solid rgba(0, 212, 255, 0.12);
             border-radius: 10px;
             padding: 16px 20px;
             margin-bottom: 24px;
         }
+
         .next-steps h3 {
             color: #c6e8ff;
             font-size: 0.9rem;
             margin: 0 0 10px;
         }
+
         .next-steps li {
             color: #7a9fc8;
             font-size: 0.82rem;
             margin-bottom: 6px;
             line-height: 1.5;
         }
+
         .no-score-note {
             color: #3a5a7a;
             font-size: 0.78rem;
@@ -115,131 +144,135 @@
         }
     </style>
 </head>
+
 <body>
-<div class="container full-screen">
-    <div class="wizard-inner">
-        <header>
-            <h1>Singularity</h1>
-        </header>
-        <div class="wizard-layout">
-            <div class="sidebar">
-                <div class="sidebar-steps">
-                    <a href="/" class="step-item" style="text-decoration:none;">
-                        <div class="step-number" style="font-size:1rem;">←</div>
-                        <div class="step-title">Application</div>
-                    </a>
-                </div>
-            </div>
-
-            <div class="main-content">
-                <div class="confirm-box">
-                    <div class="confirm-hero">
-                        <div class="confirm-icon">✅</div>
-                        <h2>Application Submitted!</h2>
-                        <p>Thank you for completing all assessments. Our team will review your results and be in touch within 3–5 business days.</p>
-                    </div>
-
-                    <div class="score-grid" id="score-summary"></div>
-
-                    <div class="next-steps">
-                        <h3>What happens next?</h3>
-                        <ul>
-                            <li>Your CV, application, and all assessment scores have been saved.</li>
-                            <li>If shortlisted, you will be invited to an <strong>Architecture Implementation</strong> round.</li>
-                            <li>Please check your email for updates.</li>
-                        </ul>
-                    </div>
-
-                    <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
-                        <a href="/" style="text-decoration:none;">
-                            <button class="nav-btn prev-btn">← Back to Home</button>
+    <div class="container full-screen">
+        <div class="wizard-inner">
+            <header>
+                <h1>Singularity</h1>
+            </header>
+            <div class="wizard-layout">
+                <div class="sidebar">
+                    <div class="sidebar-steps">
+                        <a href="/" class="step-item" style="text-decoration:none;">
+                            <div class="step-number" style="font-size:1rem;">←</div>
+                            <div class="step-title">Application</div>
                         </a>
-                        <button class="nav-btn"
-                            style="background:linear-gradient(135deg,#00d4ff,#00ff88);color:#000;font-weight:700;"
-                            onclick="startNewCandidate()">
-                            New Candidate →
-                        </button>
+                    </div>
+                </div>
+
+                <div class="main-content">
+                    <div class="confirm-box">
+                        <div class="confirm-hero">
+                            <div class="confirm-icon">✅</div>
+                            <h2>Application Submitted!</h2>
+                            <p>Thank you for completing all assessments. Our team will review your results and be in
+                                touch within 3–5 business days.</p>
+                        </div>
+
+                        <div class="score-grid" id="score-summary"></div>
+
+                        <div class="next-steps">
+                            <h3>What happens next?</h3>
+                            <ul>
+                                <li>Your CV, application, and all assessment scores have been saved.</li>
+                                <li>If shortlisted, you will be invited to an <strong>Architecture
+                                        Implementation</strong> round.</li>
+                                <li>Please check your email for updates.</li>
+                            </ul>
+                        </div>
+
+                        <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+                            <a href="/" style="text-decoration:none;">
+                                <button class="nav-btn prev-btn">← Back to Home</button>
+                            </a>
+                            <button class="nav-btn"
+                                style="background:linear-gradient(135deg,#00d4ff,#00ff88);color:#ffffff;text-shadow:0 1px 3px rgba(0,0,0,0.3);font-weight:700;"
+                                onclick="startNewCandidate()">
+                                New Candidate →
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<script>
-function startNewCandidate() {
-    var keys = [
-        'formCache', 'formCacheTimestamp', 'applicationSubmitted',
-        'iq_completed', 'sk_completed', 'games_completed', 'assessmentCompleted',
-        'tf_iq', 'tf_skillset', 'tf_games'
-    ];
-    keys.forEach(function(k) { localStorage.removeItem(k); });
-    localStorage.setItem('new_candidate', 'true');
-    window.location.href = '/';
-}
-
-(function () {
-    var iq       = JSON.parse(localStorage.getItem('tf_iq')       || 'null');
-    var skillset = JSON.parse(localStorage.getItem('tf_skillset') || 'null');
-    var games    = JSON.parse(localStorage.getItem('tf_games')    || 'null');
-    var container = document.getElementById('score-summary');
-
-    function badgeClass(pct) {
-        return pct >= 75 ? '' : pct >= 50 ? 'mid' : 'low';
-    }
-
-    // IQ card
-    if (iq) {
-        container.innerHTML += '<div class="score-card">' +
-            '<div class="score-card-header">' +
-            '  <div class="score-card-title">General IQ</div>' +
-            '  <div class="score-card-badge ' + badgeClass(iq.pct) + '">' + iq.tier + '</div>' +
-            '</div>' +
-            '<div class="score-main">' + iq.pct + '%</div>' +
-            '<div class="score-sub">' + iq.score + ' / ' + iq.total + ' correct</div>' +
-            '<div class="score-row">' +
-            '  <div class="score-stat">Percentile: <span>' + iq.percentile + '</span></div>' +
-            '</div></div>';
-    } else {
-        container.innerHTML += '<div class="score-card"><div class="no-score-note">IQ assessment not completed.</div></div>';
-    }
-
-    // Technical Test card
-    if (skillset) {
-        var catRows = '';
-        if (skillset.categories) {
-            Object.entries(skillset.categories).forEach(function(e) {
-                var cp = Math.round(e[1].correct / e[1].total * 100);
-                catRows += '<div class="score-stat">' + e[0] + ': <span>' + e[1].correct + '/' + e[1].total + ' (' + cp + '%)</span></div>';
-            });
+    <script>
+        function startNewCandidate() {
+            var keys = [
+                'formCache', 'formCacheTimestamp', 'applicationSubmitted',
+                'iq_completed', 'sk_completed', 'games_completed', 'assessmentCompleted',
+                'tf_iq', 'tf_skillset', 'tf_games'
+            ];
+            keys.forEach(function (k) { localStorage.removeItem(k); });
+            localStorage.setItem('new_candidate', 'true');
+            window.location.href = '/';
         }
-        container.innerHTML += '<div class="score-card">' +
-            '<div class="score-card-header">' +
-            '  <div class="score-card-title">Technical Test — ' + skillset.track + '</div>' +
-            '  <div class="score-card-badge ' + badgeClass(skillset.pct) + '">' + skillset.tier + '</div>' +
-            '</div>' +
-            '<div class="score-main">' + skillset.pct + '%</div>' +
-            '<div class="score-sub">' + skillset.correct + ' / ' + skillset.total + ' correct</div>' +
-            '<div class="score-row">' + catRows + '</div></div>';
-    } else {
-        container.innerHTML += '<div class="score-card"><div class="no-score-note">Technical Test assessment not completed.</div></div>';
-    }
 
-    // Games card
-    if (games) {
-        container.innerHTML += '<div class="score-card">' +
-            '<div class="score-card-header">' +
-            '  <div class="score-card-title">Games Assessment</div>' +
-            '</div>' +
-            '<div class="score-row">' +
-            '  <div class="score-stat">Risk (BART): <span>' + games.bart.profile + '</span></div>' +
-            '  <div class="score-stat">Decision (IGT): <span>' + games.igt.profile + '</span></div>' +
-            '  <div class="score-stat">Effort (H/E): <span>' + games.he.profile + '</span></div>' +
-            '</div></div>';
-    } else {
-        container.innerHTML += '<div class="score-card"><div class="no-score-note">Games assessment not completed.</div></div>';
-    }
-})();
-</script>
+        (function () {
+            var iq = JSON.parse(localStorage.getItem('tf_iq') || 'null');
+            var skillset = JSON.parse(localStorage.getItem('tf_skillset') || 'null');
+            var games = JSON.parse(localStorage.getItem('tf_games') || 'null');
+            var container = document.getElementById('score-summary');
+
+            function badgeClass(pct) {
+                return pct >= 75 ? '' : pct >= 50 ? 'mid' : 'low';
+            }
+
+            // IQ card
+            if (iq) {
+                container.innerHTML += '<div class="score-card">' +
+                    '<div class="score-card-header">' +
+                    '  <div class="score-card-title">General IQ</div>' +
+                    '  <div class="score-card-badge ' + badgeClass(iq.pct) + '">' + iq.tier + '</div>' +
+                    '</div>' +
+                    '<div class="score-main">' + iq.pct + '%</div>' +
+                    '<div class="score-sub">' + iq.score + ' / ' + iq.total + ' correct</div>' +
+                    '<div class="score-row">' +
+                    '  <div class="score-stat">Percentile: <span>' + iq.percentile + '</span></div>' +
+                    '</div></div>';
+            } else {
+                container.innerHTML += '<div class="score-card"><div class="no-score-note">IQ assessment not completed.</div></div>';
+            }
+
+            // Technical Test card
+            if (skillset) {
+                var catRows = '';
+                if (skillset.categories) {
+                    Object.entries(skillset.categories).forEach(function (e) {
+                        var cp = Math.round(e[1].correct / e[1].total * 100);
+                        catRows += '<div class="score-stat">' + e[0] + ': <span>' + e[1].correct + '/' + e[1].total + ' (' + cp + '%)</span></div>';
+                    });
+                }
+                container.innerHTML += '<div class="score-card">' +
+                    '<div class="score-card-header">' +
+                    '  <div class="score-card-title">Technical Test — ' + skillset.track + '</div>' +
+                    '  <div class="score-card-badge ' + badgeClass(skillset.pct) + '">' + skillset.tier + '</div>' +
+                    '</div>' +
+                    '<div class="score-main">' + skillset.pct + '%</div>' +
+                    '<div class="score-sub">' + skillset.correct + ' / ' + skillset.total + ' correct</div>' +
+                    '<div class="score-row">' + catRows + '</div></div>';
+            } else {
+                container.innerHTML += '<div class="score-card"><div class="no-score-note">Technical Test assessment not completed.</div></div>';
+            }
+
+            // Games card
+            if (games) {
+                container.innerHTML += '<div class="score-card">' +
+                    '<div class="score-card-header">' +
+                    '  <div class="score-card-title">Games Assessment</div>' +
+                    '</div>' +
+                    '<div class="score-row">' +
+                    '  <div class="score-stat">Risk (BART): <span>' + games.bart.profile + '</span></div>' +
+                    '  <div class="score-stat">Decision (IGT): <span>' + games.igt.profile + '</span></div>' +
+                    '  <div class="score-stat">Effort (H/E): <span>' + games.he.profile + '</span></div>' +
+                    '</div></div>';
+            } else {
+                container.innerHTML += '<div class="score-card"><div class="no-score-note">Games assessment not completed.</div></div>';
+            }
+        })();
+    </script>
 </body>
+
 </html>

@@ -1,8 +1,10 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, session, jsonify
+from flask import Flask, render_template, request, redirect, url_for, flash, session, jsonify, Response
 import os
 import json
 import sqlite3
 import boto3
+import csv
+import io
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
 from datetime import datetime
@@ -11,7 +13,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = Flask(__name__, template_folder='frontend/templates', static_folder='frontend/static')
-app.secret_key = 'your_secret_key_here'
+app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'default_secret_key_123')
+ADMIN_USER = os.environ.get('ADMIN_USER', 'admin')
+ADMIN_PASS = os.environ.get('ADMIN_PASS', 'admin123')
 
 UPLOAD_FOLDER = 'uploads'
 DB_PATH = 'applications.db'
@@ -97,7 +101,16 @@ def init_db():
             ai_langs        TEXT,
             ai_experience   TEXT,
             ai_deployed     TEXT,
-            ai_desc         TEXT
+            ai_desc         TEXT,
+            iq_score        TEXT,
+            iq_total        TEXT,
+            iq_pct          TEXT,
+            sk_track        TEXT,
+            sk_pct          TEXT,
+            game_bart_profile TEXT,
+            game_he_profile  TEXT,
+            game_igt_profile TEXT,
+            scores_updated_at TEXT
         )
     ''')
     conn.commit()
@@ -106,7 +119,40 @@ def init_db():
 init_db()
 
 
-# ─── Helpers ──────────────────────────────────────────────────────────────────
+# ─── Auth Decorator ───────────────────────────────────────────────────────────
+
+from functools import wraps
+
+def admin_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not session.get('admin_logged_in'):
+            return redirect(url_for('login', next=request.url))
+        return f(*args, **kwargs)
+    return decorated_function
+
+# ─── Security Helpers ──────────────────────────────────────────────────────────
+
+LOGIN_ATTEMPTS = {} # {ip: {'count': N, 'lockout_until': datetime}}
+
+def check_rate_limit(ip):
+    now = datetime.now()
+    if ip in LOGIN_ATTEMPTS:
+        if LOGIN_ATTEMPTS[ip]['lockout_until'] and now < LOGIN_ATTEMPTS[ip]['lockout_until']:
+            return False, LOGIN_ATTEMPTS[ip]['lockout_until']
+    return True, None
+
+def record_login_attempt(ip, success):
+    now = datetime.now()
+    if ip not in LOGIN_ATTEMPTS:
+        LOGIN_ATTEMPTS[ip] = {'count': 0, 'lockout_until': None}
+        
+    if success:
+        LOGIN_ATTEMPTS[ip] = {'count': 0, 'lockout_until': None}
+    else:
+        LOGIN_ATTEMPTS[ip]['count'] += 1
+        if LOGIN_ATTEMPTS[ip]['count'] >= 5:
+            LOGIN_ATTEMPTS[ip]['lockout_until'] = now + timedelta(minutes=15)
 
 def multilist(key):
     """Return comma-joined list of multi-select checkboxes."""
@@ -198,6 +244,37 @@ def index():
     error = request.args.get('error')
     email = request.args.get('email', '')
     return render_template('index.html', error=error, prefill_email=email)
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    ip = request.remote_addr
+    allowed, lockout_time = check_rate_limit(ip)
+    
+    if not allowed:
+        flash(f'Too many failed attempts. Locked out until {lockout_time.strftime("%H:%M:%S")}', 'error')
+        return render_template('admin_login.html')
+
+    if request.method == 'POST':
+        user = request.form.get('username')
+        pw = request.form.get('password')
+        if user == ADMIN_USER and pw == ADMIN_PASS:
+            session['admin_logged_in'] = True
+            record_login_attempt(ip, True)
+            flash('Logged in successfully!', 'success')
+            next_url = request.args.get('next') or url_for('admin_applications')
+            return redirect(next_url)
+        else:
+            record_login_attempt(ip, False)
+            flash('Invalid credentials.', 'error')
+    return render_template('admin_login.html')
+
+
+@app.route('/logout')
+def logout():
+    session.pop('admin_logged_in', None)
+    flash('Logged out.', 'info')
+    return redirect(url_for('login'))
 
 
 @app.route('/submit', methods=['POST'])
@@ -313,40 +390,166 @@ def submit():
 
 # ─── Admin: view all submissions ───────────────────────────────────────────────
 
+@app.route('/admin')
+@admin_required
+def admin_root():
+    return redirect(url_for('admin_applications'))
+
+
 @app.route('/admin/applications')
+@admin_required
 def admin_applications():
+    # Get filters from query params
+    area_filter = request.args.get('area')
+    degree_filter = request.args.get('degree')
+    pref_filter = request.args.get('preference')
+    work_type_filter = request.args.get('work_type')
+    score_filter = request.args.get('score')
+    location_filter = request.args.get('location_filter')
+    exp_filter = request.args.get('experience_filter')
+    date_filter = request.args.get('date_filter')
+    search_query = request.args.get('search')
+
+    query = 'SELECT * FROM applications WHERE 1=1'
+    params = []
+
+    if area_filter:
+        query += ' AND area = ?'
+        params.append(area_filter)
+    if degree_filter:
+        query += ' AND degree = ?'
+        params.append(degree_filter)
+    if pref_filter:
+        query += ' AND work_preference = ?'
+        params.append(pref_filter)
+    if work_type_filter:
+        query += ' AND work_type = ?'
+        params.append(work_type_filter)
+    if score_filter:
+        query += ' AND iq_score = ?'
+        params.append(score_filter)
+    if location_filter:
+        query += ' AND (location = ? OR location_country = ?)'
+        params.extend([location_filter, location_filter])
+    if exp_filter:
+        query += ' AND experience = ?'
+        params.append(exp_filter)
+    if date_filter:
+        query += ' AND DATE(submitted_at) = ?'
+        params.append(date_filter)
+    if search_query:
+        query += ' AND (full_name LIKE ? OR email LIKE ?)'
+        params.extend([f'%{search_query}%', f'%{search_query}%'])
+
+    query += ' ORDER BY id DESC'
+
     conn = get_db()
-    rows = conn.execute(
-        'SELECT id, submitted_at, full_name, email, area, experience, location_country FROM applications ORDER BY id DESC'
-    ).fetchall()
+    
+    # Dynamic Filter Options
+    options = {
+        'area': [r[0] for r in conn.execute('SELECT DISTINCT area FROM applications WHERE area IS NOT NULL AND area != ""').fetchall()],
+        'degree': [r[0] for r in conn.execute('SELECT DISTINCT degree FROM applications WHERE degree IS NOT NULL AND degree != ""').fetchall()],
+        'work_type': [r[0] for r in conn.execute('SELECT DISTINCT work_type FROM applications WHERE work_type IS NOT NULL AND work_type != ""').fetchall()],
+        'score': [r[0] for r in conn.execute('SELECT DISTINCT iq_score FROM applications WHERE iq_score IS NOT NULL AND iq_score != ""').fetchall()],
+        'location': [r[0] for r in conn.execute('SELECT DISTINCT location FROM applications WHERE location IS NOT NULL AND location != ""').fetchall()],
+        'experience': [r[0] for r in conn.execute('SELECT DISTINCT experience FROM applications WHERE experience IS NOT NULL AND experience != ""').fetchall()],
+        'dates': [r[0] for r in conn.execute('SELECT DISTINCT DATE(submitted_at) FROM applications WHERE submitted_at IS NOT NULL').fetchall()],
+    }
+
+    rows = conn.execute(query, params).fetchall()
     conn.close()
 
-    rows_html = ''.join(
-        f"<tr>"
-        f"<td>{r['id']}</td>"
-        f"<td>{r['submitted_at'][:19]}</td>"
-        f"<td>{r['full_name'] or '—'}</td>"
-        f"<td>{r['email'] or '—'}</td>"
-        f"<td>{r['area'] or '—'}</td>"
-        f"<td>{r['experience'] or '—'}</td>"
-        f"<td>{r['location_country'] or '—'}</td>"
-        f"<td><a href='/admin/applications/{r['id']}'>View</a></td>"
-        f"</tr>"
-        for r in rows
-    )
+    apps = [dict(r) for r in rows]
+    return render_template('admin_dashboard.html', applications=apps, filters={
+        'area': area_filter,
+        'degree': degree_filter,
+        'preference': pref_filter,
+        'work_type': work_type_filter,
+        'score': score_filter,
+        'location_filter': location_filter,
+        'experience_filter': exp_filter,
+        'date_filter': date_filter,
+        'search': search_query
+    }, options=options)
 
-    return f"""<!DOCTYPE html><html><head><title>Applications</title>
-    <style>body{{font-family:monospace;padding:24px;background:#0d1b2e;color:#c2d7f2}}
-    table{{border-collapse:collapse;width:100%}}th,td{{border:1px solid #2a3f60;padding:8px 12px;text-align:left}}
-    th{{background:#1a2f4e;color:#00d4ff}}tr:nth-child(even){{background:#111e30}}
-    a{{color:#00d4ff}}</style></head><body>
-    <h2>Submitted Applications ({len(rows)})</h2>
-    <table><tr><th>#</th><th>Submitted</th><th>Name</th><th>Email</th><th>Area</th><th>Exp.</th><th>Country</th><th></th></tr>
-    {rows_html if rows_html else '<tr><td colspan=8>No submissions yet.</td></tr>'}
-    </table></body></html>"""
+
+@app.route('/admin/export')
+@admin_required
+def admin_export_csv():
+    # Reuse filtering logic from admin_applications
+    area_filter = request.args.get('area')
+    degree_filter = request.args.get('degree')
+    pref_filter = request.args.get('preference')
+    work_type_filter = request.args.get('work_type')
+    score_filter = request.args.get('score')
+    location_filter = request.args.get('location_filter')
+    exp_filter = request.args.get('experience_filter')
+    date_filter = request.args.get('date_filter')
+    search_query = request.args.get('search')
+
+    query = 'SELECT * FROM applications WHERE 1=1'
+    params = []
+
+    if area_filter:
+        query += ' AND area = ?'
+        params.append(area_filter)
+    if degree_filter:
+        query += ' AND degree = ?'
+        params.append(degree_filter)
+    if pref_filter:
+        query += ' AND work_preference = ?'
+        params.append(pref_filter)
+    if work_type_filter:
+        query += ' AND work_type = ?'
+        params.append(work_type_filter)
+    if score_filter:
+        query += ' AND iq_score = ?'
+        params.append(score_filter)
+    if location_filter:
+        query += ' AND (location = ? OR location_country = ?)'
+        params.extend([location_filter, location_filter])
+    if exp_filter:
+        query += ' AND experience = ?'
+        params.append(exp_filter)
+    if date_filter:
+        query += ' AND DATE(submitted_at) = ?'
+        params.append(date_filter)
+    if search_query:
+        query += ' AND (full_name LIKE ? OR email LIKE ?)'
+        params.extend([f'%{search_query}%', f'%{search_query}%'])
+
+    query += ' ORDER BY id DESC'
+
+    conn = get_db()
+    rows = conn.execute(query, params).fetchall()
+    conn.close()
+
+    if not rows:
+        return "No data to export", 400
+
+    # Create CSV in memory
+    output = io.StringIO()
+    writer = csv.writer(output)
+    
+    # Header
+    keys = rows[0].keys()
+    writer.writerow(keys)
+    
+    # Rows
+    for row in rows:
+        writer.writerow([row[k] for k in keys])
+    
+    # Response
+    output.seek(0)
+    return Response(
+        output.getvalue(),
+        mimetype="text/csv",
+        headers={"Content-disposition": "attachment; filename=applicants_export.csv"}
+    )
 
 
 @app.route('/admin/applications/<int:app_id>')
+@admin_required
 def admin_application_detail(app_id):
     conn = get_db()
     row = conn.execute('SELECT * FROM applications WHERE id = ?', (app_id,)).fetchone()
@@ -354,18 +557,7 @@ def admin_application_detail(app_id):
     if not row:
         return 'Not found', 404
 
-    fields_html = ''.join(
-        f"<tr><td><strong>{k}</strong></td><td>{row[k] or '—'}</td></tr>"
-        for k in row.keys()
-    )
-    return f"""<!DOCTYPE html><html><head><title>Application #{app_id}</title>
-    <style>body{{font-family:monospace;padding:24px;background:#0d1b2e;color:#c2d7f2}}
-    table{{border-collapse:collapse;width:100%}}td{{border:1px solid #2a3f60;padding:8px 12px}}
-    tr:nth-child(even){{background:#111e30}}td:first-child{{color:#00d4ff;width:200px}}
-    a{{color:#00d4ff}}</style></head><body>
-    <a href="/admin/applications">← Back</a>
-    <h2>Application #{app_id}</h2>
-    <table>{fields_html}</table></body></html>"""
+    return render_template('admin_detail.html', app=dict(row))
 
 
 # ─── Remaining routes (unchanged) ─────────────────────────────────────────────
@@ -483,6 +675,30 @@ def submit_final():
             print(f"[DynamoDB ERROR] {e.response['Error']['Code']}: {e.response['Error']['Message']}")
         except Exception as e:
             print(f"[DynamoDB ERROR] {e}")
+
+    # ── Update SQLite: Mirror scores for filtering ───────────────────────────
+    if email:
+        try:
+            conn = get_db()
+            conn.execute('''
+                UPDATE applications 
+                SET iq_score = ?, iq_total = ?, iq_pct = ?, 
+                    sk_track = ?, sk_pct = ?, 
+                    game_bart_profile = ?, game_he_profile = ?, game_igt_profile = ?,
+                    scores_updated_at = ?
+                WHERE email = ?
+            ''', (
+                score_attrs.get('iq_score'), score_attrs.get('iq_total'), score_attrs.get('iq_pct'),
+                score_attrs.get('sk_track'), score_attrs.get('sk_pct'),
+                score_attrs.get('game_bart_profile'), score_attrs.get('game_he_profile'), score_attrs.get('game_igt_profile'),
+                score_attrs.get('scores_updated_at'),
+                email
+            ))
+            conn.commit()
+            conn.close()
+            print(f"[SQLite] Full score mirroring completed for {email}")
+        except Exception as e:
+            print(f"[SQLite mirroring ERROR] {e}")
 
     # ── Local JSON backup ───────────────────────────────────────────────────────
     if not os.path.exists('saved_applications'):

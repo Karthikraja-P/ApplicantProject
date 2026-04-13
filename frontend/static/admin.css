@@ -1,0 +1,225 @@
+/* 
+   Admin Side Isolation Styles 
+   This file is strictly for the admin dashboard to prevent style leakage.
+*/
+
+:root {
+    --admin-bg: #000000;
+    --admin-card: rgba(13, 27, 42, 0.7);
+    --admin-accent: #00d4ff;
+    --admin-success: #00ff88;
+    --admin-error: #ff6b6b;
+    --admin-text: #c2d7f2;
+    --admin-text-dim: #5a7ca0;
+}
+
+body.admin-body {
+    background-color: var(--admin-bg);
+    margin: 0;
+    padding: 0;
+    font-family: "SF Pro Display", sans-serif;
+    color: var(--admin-text);
+}
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background: rgba(13, 27, 42, 0.9);
+    border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+    backdrop-filter: blur(15px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.admin-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.admin-logo img {
+    width: 40px;
+    border-radius: 50%;
+}
+
+.admin-logo span {
+    font-size: 1.2rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    color: #fff;
+}
+
+.admin-nav a {
+    color: var(--admin-text-dim);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-left: 24px;
+    transition: color 0.2s;
+}
+
+.admin-nav a:hover {
+    color: var(--admin-accent);
+}
+
+.logout-link {
+    color: var(--admin-error) !important;
+}
+
+/* Dashboard Layout */
+.dashboard-container {
+    padding: 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: block;
+}
+
+/* Inline Table Filters */
+.filter-row td {
+    background: rgba(13, 27, 42, 0.4);
+    padding: 8px 12px;
+}
+
+.filter-row select,
+.filter-row input {
+    width: 100%;
+    padding: 8px 10px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 212, 255, 0.1);
+    border-radius: 6px;
+    color: #fff;
+    font-size: 0.8rem;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.filter-row select:focus,
+.filter-row input:focus {
+    border-color: var(--admin-accent);
+    box-shadow: 0 0 8px rgba(0, 212, 255, 0.2);
+}
+
+.filter-row select option {
+    background: #0d1b2a;
+    color: #fff;
+}
+
+.clear-link:hover {
+    color: #fff !important;
+}
+
+/* Stats */
+.stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.stat-card {
+    background: rgba(0, 212, 255, 0.05);
+    border: 1px solid rgba(0, 212, 255, 0.15);
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.stat-card .label {
+    color: var(--admin-text-dim);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
+
+.stat-card .value {
+    color: #c6e8ff;
+    font-size: 2rem;
+    font-weight: 800;
+    margin-top: 5px;
+}
+
+/* Tables */
+.table-container {
+    background: var(--admin-card);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background: rgba(26, 47, 78, 0.8);
+    color: var(--admin-accent);
+    text-align: left;
+    padding: 16px 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+td {
+    padding: 16px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    color: var(--admin-text);
+    font-size: 0.9rem;
+}
+
+tr:hover td {
+    background: rgba(0, 212, 255, 0.03);
+}
+
+.view-link {
+    color: var(--admin-accent);
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.view-link:hover {
+    text-decoration: underline;
+}
+
+/* Detail View Custom */
+.detail-card {
+    background: var(--admin-card);
+    border: 1px solid rgba(0, 212, 255, 0.2);
+    border-radius: 20px;
+    padding: 40px;
+}
+
+.detail-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 24px;
+    margin-bottom: 32px;
+}
+
+.detail-header h2 {
+    color: #fff;
+    margin: 0;
+}
+
+.data-section h3 {
+    color: var(--admin-accent);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+    padding-bottom: 8px;
+    margin-bottom: 16px;
+}
+
+.field-row {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 20px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.field-label {
+    color: var(--admin-text-dim);
+    font-weight: 600;
+}

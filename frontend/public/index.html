@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Singularity</title>
-    <link rel="stylesheet" href="/static/styles.css?v=1776112495">
+    <link rel="stylesheet" href="/static/styles.css?v=1776113670">
     <script>
         (function () {
             var stage = parseInt(localStorage.getItem('tf_assessment_stage') || '0');
@@ -54,7 +54,7 @@
                 <div class="sidebar">
                     <div class="sidebar-steps">
                         <div class="step-item active" data-step="1">
-                            <div class="step-number" style="font-size:0.65rem;font-weight:800;">🧠</div>
+                            <div class="step-number">1</div>
                             <div class="step-title">Personal Info</div>
                         </div>
                         <div class="step-item" data-step="2">
@@ -1145,6 +1145,25 @@
 
     <script src="/static/api_utils.js?v=1775596569"></script>
     <script src="/static/script.js?v=1775596569"></script>
+    <script>
+        // Set minimum date for start_date to today
+        document.addEventListener('DOMContentLoaded', function () {
+            const startDateInput = document.getElementById('start_date');
+            if (startDateInput) {
+                const today = new Date().toISOString().split('T')[0];
+                startDateInput.setAttribute('min', today);
+
+                // Open picker when clicking anywhere on the input (not just the icon)
+                startDateInput.addEventListener('click', function () {
+                    try {
+                        this.showPicker();
+                    } catch (e) {
+                        // Fallback for older browsers
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>

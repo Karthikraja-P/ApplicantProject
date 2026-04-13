@@ -252,22 +252,22 @@ def login():
     allowed, lockout_time = check_rate_limit(ip)
     
     if not allowed:
-        flash(f'Too many failed attempts. Locked out until {lockout_time.strftime("%H:%M:%S")}', 'error')
-        return render_template('admin_login.html')
+        return jsonify({'error': f'Locked out until {lockout_time.strftime("%H:%M:%S")}'}), 429
 
     if request.method == 'POST':
-        user = request.form.get('username')
-        pw = request.form.get('password')
+        user = (request.form.get('username') or '').strip()
+        pw = (request.form.get('password') or '').strip()
         if user == ADMIN_USER and pw == ADMIN_PASS:
             session['admin_logged_in'] = True
             record_login_attempt(ip, True)
-            flash('Logged in successfully!', 'success')
-            next_url = request.args.get('next') or url_for('admin_applications')
+            next_url = request.args.get('next') or '/admin.html'
             return redirect(next_url)
         else:
             record_login_attempt(ip, False)
-            flash('Invalid credentials.', 'error')
-    return render_template('admin_login.html')
+            return jsonify({'error': 'Invalid credentials'}), 401
+    
+    # GET request: redirect to the static login page
+    return redirect('/admin_login.html')
 
 
 @app.route('/logout')
@@ -458,6 +458,24 @@ def admin_applications():
     conn.close()
 
     apps = [dict(r) for r in rows]
+    # Return JSON for serverless frontend if requested
+    if request.args.get('json'):
+        return jsonify({
+            'applications': apps,
+            'options': options,
+            'filters': {
+                'area': area_filter,
+                'degree': degree_filter,
+                'preference': pref_filter,
+                'work_type': work_type_filter,
+                'score': score_filter,
+                'location_filter': location_filter,
+                'experience_filter': exp_filter,
+                'date_filter': date_filter,
+                'search': search_query
+            }
+        })
+
     return render_template('admin_dashboard.html', applications=apps, filters={
         'area': area_filter,
         'degree': degree_filter,
@@ -554,6 +572,9 @@ def admin_application_detail(app_id):
     conn.close()
     if not row:
         return 'Not found', 404
+    
+    if request.args.get('json'):
+        return jsonify({'app': dict(row)})
 
     return render_template('admin_detail.html', app=dict(row))
 

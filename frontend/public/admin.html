@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultimate Admin Dashboard — Singularity</title>
+    <link rel="stylesheet" href="/static/admin.css">
+    <style>
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            color: #00d4ff;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body class="admin-body">
+    <div id="loading" class="loading-overlay">Loading Data...</div>
+
+    <header class="admin-header">
+        <div class="admin-logo">
+            <img src="/static/images/singularity_logo.jpg" alt="Logo">
+            <span>ADMIN PΛNEL</span>
+        </div>
+        <nav class="admin-nav">
+            <a href="/admin.html">Applications</a>
+            <a href="/logout" class="logout-link">Logout</a>
+        </nav>
+    </header>
+
+    <main class="dashboard-container" style="display: block; padding-top: 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+            <h2 style="color:#fff; margin: 0;">Ultimate Applicant Database</h2>
+            <div class="stats-row" style="margin: 0; display: flex; gap: 20px; align-items: center;">
+                <div class="stat-card" style="padding: 10px 20px;">
+                    <div class="label">Total Applications</div>
+                    <div id="stat-total" class="value" style="font-size: 1.5rem;">0</div>
+                </div>
+                <button type="button" onclick="exportCSV()" class="export-btn"
+                    style="padding: 12px 24px; background: var(--admin-accent); color: #000; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="7 10 12 15 17 10" />
+                        <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                    Download CSV
+                </button>
+            </div>
+        </div>
+
+        <form id="filter-form">
+            <div class="table-container" style="overflow-x: auto;">
+                <table style="min-width: 3500px;">
+                    <thead>
+                        <tr class="header-row">
+                            <th>#</th>
+                            <th>Submitted</th>
+                            <th>Name / Email</th>
+                            <th>Phone / Source</th>
+                            <th>Links</th>
+                            <th>Location</th>
+                            <th>Area</th>
+                            <th>Role / Company</th>
+                            <th>Education</th>
+                            <th>Experience</th>
+                            <th>Work Type / Pref</th>
+                            <th>Start Date</th>
+                            <th>IQ Score</th>
+                            <th>Tech Score</th>
+                            <th>Games (B/H/I)</th>
+                            <th>Interest Blurb</th>
+                            <th>Action</th>
+                        </tr>
+                        <tr class="filter-row">
+                            <td style="text-align: center; color: #5a7ca0; font-size: 0.8rem;">#</td>
+                            <td>
+                                <select name="date_filter" id="f-date" style="width: 100%;">
+                                    <option value="">All Dates</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="search" id="f-search" placeholder="Search...">
+                            </td>
+                            <td colspan="2"></td>
+                            <td>
+                                <select name="location_filter" id="f-location" style="width: 100%;">
+                                    <option value="">All Locations</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="area" id="f-area" style="width: 100%;">
+                                    <option value="">All Areas</option>
+                                </select>
+                            </td>
+                            <td colspan="10"></td>
+                        </tr>
+                    </thead>
+                    <tbody id="data-body">
+                        <!-- Rows will be injected here -->
+                    </tbody>
+                </table>
+            </div>
+        </form>
+    </main>
+
+    <script src="/static/admin_logic.js"></script>
+</body>
+
+</html>

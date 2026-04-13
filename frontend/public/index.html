@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Singularity</title>
-    <link rel="stylesheet" href="/static/styles.css?v=1775607446">
+    <link rel="stylesheet" href="/static/styles.css?v=1776112495">
     <script>
         (function () {
             var stage = parseInt(localStorage.getItem('tf_assessment_stage') || '0');
@@ -23,6 +23,10 @@
 </head>
 
 <body>
+    <div class="shooting-star star-1"></div>
+    <div class="shooting-star star-2"></div>
+    <div class="shooting-star star-3"></div>
+    <div class="shooting-star star-4"></div>
     <div id="duplicate-banner" style="
         position:fixed;top:0;left:0;right:0;z-index:9999;
         background:linear-gradient(135deg,#7b1e1e,#a83232);
@@ -216,14 +220,12 @@
 
                         <div class="wizard-card" data-step="3">
                             <h2>CV & Portfolio</h2>
-                            <label>Upload CV (PDF only) <span class="required">*</span> <span class="help-icon"
-                                    title="Upload your resume in PDF format (max 10MB).">ⓘ</span></label>
+                            <label>Upload CV (PDF only) <span class="required">*</span></label>
                             <input type="file" id="cv" name="cv" accept=".pdf" required>
                             <label>Portfolio URL <span class="help-icon"
                                     title="Link to your portfolio or project showcase.">ⓘ</span></label>
                             <input type="url" id="portfolio" name="portfolio" placeholder="https://yourportfolio.com">
-                            <label>GitHub URL <span class="help-icon"
-                                    title="Link to your GitHub profile.">ⓘ</span></label>
+                            <label>GitHub URL</label>
                             <input type="url" id="github" name="github" placeholder="https://github.com/yourprofile">
                             <label>Website / Blog <span class="help-icon"
                                     title="Link to your personal website or blog.">ⓘ</span></label>

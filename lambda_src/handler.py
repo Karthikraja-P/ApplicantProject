@@ -14,10 +14,15 @@ import boto3
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
 from datetime import datetime
+import csv
+import io
 
 DYNAMO_TABLE = os.environ.get('DYNAMODB_TABLE', 'applicant-submissions-dev')
 CV_BUCKET    = os.environ.get('CV_BUCKET', '')
 AWS_REGION   = os.environ.get('AWS_REGION', 'ap-south-1')
+ADMIN_USER   = os.environ.get('ADMIN_USER', 'admin')
+ADMIN_PASS   = os.environ.get('ADMIN_PASS', 'admin123')
+AUTH_COOKIE  = "admin_session=authenticated; Path=/; HttpOnly; SameSite=Lax"
 
 dynamodb = boto3.resource('dynamodb', region_name=AWS_REGION)
 s3       = boto3.client('s3', region_name=AWS_REGION)
@@ -68,6 +73,27 @@ def multilist_from(data, key):
 def strip_empty(d):
     """Remove keys with empty/None values — DynamoDB rejects empty strings."""
     return {k: v for k, v in d.items() if v is not None and v != '' and v != 'None'}
+
+
+def check_auth(event):
+    cookie = (event.get('headers') or {}).get('cookie', '')
+    return "admin_session=authenticated" in cookie
+
+
+# ── Route: POST /login ─────────────────────────────────────────────────────────
+
+def handle_login(event):
+    data = parse_body(event)
+    user = (data.get('username') or '').strip()
+    pw   = (data.get('password') or '').strip()
+
+    if user == ADMIN_USER and pw == ADMIN_PASS:
+        return resp(200, {'status': 'success'}, headers={'Set-Cookie': AUTH_COOKIE})
+    return resp(401, {'status': 'error', 'message': 'Invalid credentials'})
+
+
+def handle_logout(event):
+    return resp(200, {'status': 'success'}, headers={'Set-Cookie': 'admin_session=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT'})
 
 
 # ── Route: POST /submit ────────────────────────────────────────────────────────
@@ -300,6 +326,9 @@ def handle_submit_final(event):
 # ── Route: GET /admin/applications ─────────────────────────────────────────────
 
 def handle_admin_list(event):
+    qs = event.get('queryStringParameters') or {}
+    is_json = qs.get('json') == '1'
+
     try:
         result = table.query(
             IndexName='submission-type-index',
@@ -308,6 +337,38 @@ def handle_admin_list(event):
             Limit=200,
         )
         items = result.get('Items', [])
+        
+        # Mapping for frontend consistency
+        all_dates = set()
+        all_locations = set()
+        all_areas = set()
+
+        for item in items:
+            item['id'] = f"{item['email']}__{item['submission_type#timestamp']}"
+            item['tech_score'] = item.get('sk_correct', '0')
+            item['game_balloon'] = item.get('game_bart_pumps_avg', '0')
+            item['game_height'] = item.get('game_he_hard_pct', '0')
+            item['game_iq'] = item.get('game_igt_late_good_pct', '0')
+            if item.get('submitted_at'): all_dates.add(item['submitted_at'][:10])
+            if item.get('location_country'): all_locations.add(item['location_country'])
+            if item.get('area'): all_areas.add(item['area'])
+
+        if is_json:
+            return resp(200, {
+                'applications': items,
+                'options': {
+                    'dates': sorted(list(all_dates), reverse=True),
+                    'location': sorted(list(all_locations)),
+                    'area': sorted(list(all_areas))
+                },
+                'filters': {
+                    'date_filter': qs.get('date_filter', ''),
+                    'location_filter': qs.get('location_filter', ''),
+                    'area': qs.get('area', ''),
+                    'search': qs.get('search', '')
+                }
+            })
+
     except ClientError as e:
         print(f"[DynamoDB ERROR] {e}")
         return resp(500, {'status': 'error', 'message': 'Failed to fetch applications'})
@@ -348,14 +409,17 @@ def handle_admin_list(event):
 
 
 def handle_admin_detail(event):
-    path_params = event.get('pathParameters') or {}
-    record_id   = path_params.get('id', '')
-    # id format: email__sortkey (URL-encoded)
+    qs = event.get('queryStringParameters') or {}
+    record_id = qs.get('id', '')
+    if not record_id:
+        # Check path parameter if not in QS
+        path_params = event.get('pathParameters') or {}
+        record_id   = path_params.get('id', '')
+
     from urllib.parse import unquote
     record_id = unquote(record_id)
-
     if '__' not in record_id:
-        return resp(400, {'status': 'error', 'message': 'Invalid id format'})
+        return resp(400, {'status': 'error', 'message': f'Invalid id format: {record_id}'})
 
     email, sort_key = record_id.split('__', 1)
 
@@ -372,6 +436,15 @@ def handle_admin_detail(event):
     if not item:
         return resp(404, {'status': 'error', 'message': 'Not found'})
 
+    item['id'] = record_id
+    item['tech_score'] = item.get('sk_correct', '0')
+    item['game_balloon'] = item.get('game_bart_pumps_avg', '0')
+    item['game_height'] = item.get('game_he_hard_pct', '0')
+    item['game_iq'] = item.get('game_igt_late_good_pct', '0')
+
+    if qs.get('json') == '1':
+        return resp(200, {'app': item})
+
     rows = ''.join(
         f"<tr><td><strong>{k}</strong></td><td>{item[k]}</td></tr>"
         for k in sorted(item.keys())
@@ -386,7 +459,7 @@ def handle_admin_detail(event):
       td:first-child{{color:#00d4ff;width:220px}}
       a{{color:#00d4ff}}
     </style></head><body>
-    <a href="/admin/applications">← Back</a>
+    <a href="/admin.html">← Back</a>
     <h2>Application — {item.get('full_name','Unknown')}</h2>
     <table>{rows}</table></body></html>"""
 
@@ -395,6 +468,76 @@ def handle_admin_detail(event):
         'headers': {'Content-Type': 'text/html', 'Access-Control-Allow-Origin': '*'},
         'body': html,
     }
+
+
+def handle_admin_export(event):
+    try:
+        result = table.query(
+            IndexName='submission-type-index',
+            KeyConditionExpression=Key('submission_type').eq('application'),
+            ScanIndexForward=False,
+            Limit=500,
+        )
+        items = result.get('Items', [])
+    except ClientError as e:
+        print(f"[DynamoDB ERROR] {e}")
+        return resp(500, {'status': 'error', 'message': 'Failed to fetch applications'})
+
+    if not items:
+        return resp(400, {'status': 'error', 'message': 'No data to export'})
+
+    output = io.StringIO()
+    writer = csv.writer(output)
+    
+    # Get all keys from all items to ensure complete CSV
+    all_keys = set()
+    for item in items: all_keys.update(item.keys())
+    keys = sorted(list(all_keys))
+    
+    writer.writerow(keys)
+    for item in items:
+        writer.writerow([item.get(k, '') for k in keys])
+    
+    return {
+        'statusCode': 200,
+        'headers': {
+            'Content-Type': 'text/csv',
+            'Content-Disposition': 'attachment; filename=applicants_export.csv',
+            'Access-Control-Allow-Origin': '*'
+        },
+        'body': output.getvalue()
+    }
+
+
+def handle_cv_view(event):
+    """Generate a presigned URL to view a CV and redirect."""
+    # We need the path to extract the key
+    path = event.get('rawPath', '')
+    
+    # Strip stage prefix again if present
+    stage = (event.get('requestContext', {}).get('stage') or '').strip('/')
+    if stage and path.startswith(f'/{stage}'):
+        path = path[len(f'/{stage}'):]
+
+    cv_key = path.replace('/admin/cv/', '', 1)
+    
+    if not cv_key or not CV_BUCKET:
+        return resp(404, {'status': 'error', 'message': f'CV key not found in path: {path}'})
+
+    try:
+        url = s3.generate_presigned_url(
+            'get_object',
+            Params={'Bucket': CV_BUCKET, 'Key': cv_key},
+            ExpiresIn=300
+        )
+        return {
+            'statusCode': 302,
+            'headers': {'Location': url},
+            'body': ''
+        }
+    except Exception as e:
+        print(f"[S3 ERROR] {e}")
+        return resp(500, {'status': 'error', 'message': 'Failed to generate CV link'})
 
 
 # ── Router ─────────────────────────────────────────────────────────────────────
@@ -424,10 +567,31 @@ def lambda_handler(event, context):
     if path == '/submit-final' and method == 'POST':
         return handle_submit_final(event)
 
+    if path == '/login' and method == 'POST':
+        return handle_login(event)
+
+    if path == '/logout':
+        return handle_logout(event)
+
     if path == '/admin/applications' and method == 'GET':
+        if not check_auth(event): return resp(401, {'status': 'unauthorized'})
         return handle_admin_list(event)
 
     if path.startswith('/admin/applications/') and method == 'GET':
+        if not check_auth(event): return resp(401, {'status': 'unauthorized'})
         return handle_admin_detail(event)
+    
+    # Static alias
+    if path == '/admin/application' and method == 'GET':
+        if not check_auth(event): return resp(401, {'status': 'unauthorized'})
+        return handle_admin_detail(event)
+
+    if path == '/admin/export/csv' and method == 'GET':
+        if not check_auth(event): return resp(401, {'status': 'unauthorized'})
+        return handle_admin_export(event)
+
+    if path.startswith('/admin/cv/') and method == 'GET':
+        if not check_auth(event): return resp(401, {'status': 'unauthorized'})
+        return handle_cv_view(event)
 
     return resp(404, {'status': 'error', 'message': f'Route not found: {method} {path}'})

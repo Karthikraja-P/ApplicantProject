@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consolidated Application Detail — Singularity</title>
+    <link rel="stylesheet" href="/static/admin.css">
+    <style>
+        .data-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 900px) {
+            .data-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .score-pill {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 700;
+            margin-top: 5px;
+        }
+
+        .score-iq {
+            background: rgba(0, 212, 255, 0.2);
+            color: #00d4ff;
+            border: 1px solid rgba(0, 212, 255, 0.4);
+        }
+
+        .score-tech {
+            background: rgba(0, 255, 136, 0.2);
+            color: #00ff88;
+            border: 1px solid rgba(0, 255, 136, 0.4);
+        }
+
+        .loading-detail {
+            color: #00d4ff;
+            text-align: center;
+            padding: 50px;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+
+<body class="admin-body">
+    <header class="admin-header">
+        <div class="admin-logo">
+            <img src="/static/images/singularity_logo.jpg" alt="Logo">
+            <span>ADMIN PΛNEL</span>
+        </div>
+        <nav class="admin-nav">
+            <a href="/admin.html">Applications</a>
+            <a href="/logout" class="logout-link">Logout</a>
+        </nav>
+    </header>
+
+    <div class="dashboard-container" style="display: block; padding: 40px; max-width: 1200px; margin: 0 auto;">
+        <a href="/admin.html" class="view-link" style="display: inline-block; margin-bottom: 20px;">← Back to
+            Dashboard</a>
+
+        <div id="detail-root">
+            <div class="loading-detail">Loading applicant details...</div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get('id');
+            if (!id) {
+                document.getElementById('detail-root').innerHTML = '<div style="color:red">No ID provided.</div>';
+                return;
+            }
+
+            try {
+                const response = await fetch(`/admin/application/${id}?json=1`);
+                if (response.status === 401) { window.location.href = '/admin_login.html'; return; }
+                const data = await response.json();
+                renderDetail(data.app);
+            } catch (err) {
+                document.getElementById('detail-root').innerHTML = '<div style="color:red">Failed to load data.</div>';
+            }
+        });
+
+        function renderDetail(app) {
+            const root = document.getElementById('detail-root');
+            const sub = app.submitted_at || '';
+            const displayDate = sub.replace('T', ' ').substring(0, 19);
+
+            root.innerHTML = `
+                <div class="detail-card" style="background: rgba(13, 27, 42, 0.8); border: 1px solid rgba(0, 212, 255, 0.3); border-radius: 20px; padding: 40px;">
+                    <div class="detail-header" style="border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 20px; margin-bottom: 30px;">
+                        <h2 style="color:#fff; margin: 0;">${app.full_name || 'Applicant Detail'}</h2>
+                        <p style="color: #5a7ca0; margin: 8px 0 0 0;">ID: #${app.id} • Submitted: ${displayDate} • Source: ${app.source || 'Direct'}</p>
+                    </div>
+
+                    <div class="data-grid">
+                        <div class="data-section">
+                            <h3>Personal & Contact</h3>
+                            <div class="field-row"><div class="field-label">Full Name</div><div class="field-value">${app.full_name || ''}</div></div>
+                            <div class="field-row"><div class="field-label">Email</div><div class="field-value">${app.email || ''}</div></div>
+                            <div class="field-row"><div class="field-label">Phone</div><div class="field-value">${app.country_code || ''} ${app.phone || ''}</div></div>
+                            <div class="field-row"><div class="field-label">Location</div><div class="field-value">${app.location || ''}, ${app.location_country || ''}</div></div>
+                        </div>
+
+                        <div class="data-section">
+                            <h3>Professional Links</h3>
+                            <div class="field-row"><div class="field-label">LinkedIn</div><div class="field-value">${app.linkedin ? `<a href="${app.linkedin}" target="_blank">View Profile</a>` : 'N/A'}</div></div>
+                            <div class="field-row"><div class="field-label">GitHub</div><div class="field-value">${app.github ? `<a href="${app.github}" target="_blank">View GitHub</a>` : 'N/A'}</div></div>
+                            <div class="field-row"><div class="field-label">Portfolio</div><div class="field-value">${app.portfolio ? `<a href="${app.portfolio}" target="_blank">View Portfolio</a>` : 'N/A'}</div></div>
+                            <div class="field-row"><div class="field-label">Website</div><div class="field-value">${app.website ? `<a href="${app.website}" target="_blank">View Website</a>` : 'N/A'}</div></div>
+                            <div class="field-row"><div class="field-label">CV / Resume</div><div class="field-value">${app.cv_key ? `<a href="/admin/cv/${app.cv_key}" target="_blank" style="color:#00ff88; font-weight:bold;">View CV 📄</a>` : 'N/A'}</div></div>
+                        </div>
+
+                        <div class="data-section">
+                            <h3>Assessment Scores</h3>
+                            <div class="field-row"><div class="field-label">IQ Score</div><div class="field-value"><span class="score-pill score-iq">${app.iq_score || '0'}</span></div></div>
+                            <div class="field-row"><div class="field-label">Technical Score</div><div class="field-value"><span class="score-pill score-tech">${app.tech_score || '0'}</span></div></div>
+                            <div class="field-row"><div class="field-label">Games Stats</div><div class="field-value" style="color:#8ab4f8">B: ${app.game_balloon || '0'} | H: ${app.game_height || '0'} | I: ${app.game_iq || '0'}</div></div>
+                        </div>
+
+                        <div class="data-section">
+                            <h3>Role & Availability</h3>
+                            <div class="field-row"><div class="field-label">Area / Path</div><div class="field-value" style="text-transform: uppercase; font-weight: bold; color: var(--admin-accent);">${app.area || ''}</div></div>
+                            <div class="field-row"><div class="field-label">Role / Company</div><div class="field-value">${app.current_role || ''} at ${app.current_company || ''} (${app.experience || '0'} yrs)</div></div>
+                            <div class="field-row"><div class="field-label">Type / Preference</div><div class="field-value">${app.work_type || ''} (${app.work_preference || ''})</div></div>
+                            <div class="field-row"><div class="field-label">Start Date</div><div class="field-value">${app.start_date || ''}</div></div>
+                        </div>
+
+                        <div class="data-section full-width">
+                            <h3>Interests & Problems</h3>
+                            <p style="color: #aac4e8; line-height: 1.6;">${app.interest || 'No interest statement provided.'}</p>
+                            <p style="color: #aac4e8; line-height: 1.6;">${app.problems || 'No problem description provided.'}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+    </script>
+</body>
+
+</html>

@@ -10,11 +10,11 @@
  * @param {Array}  links      - Array of { label, href } navigation links
  */
 function buildCompletedBanner(title, message, links) {
-    var linkHtml = links.map(function(l) {
+    var linkHtml = links.map(function (l) {
         return '<a href="' + l.href + '" style="text-decoration:none;">'
-             + '<button class="nav-btn" style="background:rgba(0,212,255,0.1);'
-             + 'border:1px solid rgba(0,212,255,0.3);color:#00d4ff;">'
-             + l.label + '</button></a>';
+            + '<button class="nav-btn" style="background:rgba(0,212,255,0.1);'
+            + 'border:1px solid rgba(0,212,255,0.3);color:#00d4ff;">'
+            + l.label + '</button></a>';
     }).join('');
 
     return '<div class="wizard-card active" style="text-align:center;padding:40px 32px;">'

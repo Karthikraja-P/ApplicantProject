@@ -44,12 +44,6 @@
             border: 1px solid rgba(255, 107, 107, 0.3);
         }
 
-        .flash-msg.success {
-            background: rgba(0, 255, 136, 0.15);
-            color: #00ff88;
-            border: 1px solid rgba(0, 255, 136, 0.3);
-        }
-
         .form-group {
             margin-bottom: 20px;
         }
@@ -103,17 +97,9 @@
             <h2>Admin Access</h2>
         </div>
 
-        {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-        <div class="flash-messages">
-            {% for category, message in messages %}
-            <div class="flash-msg {{ category }}">{{ message }}</div>
-            {% endfor %}
-        </div>
-        {% endif %}
-        {% endwith %}
+        <div id="status-container"></div>
 
-        <form method="POST">
+        <form id="login-form">
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" id="username" name="username" required autocomplete="username">
@@ -125,6 +111,31 @@
             <button type="submit" class="login-btn">Login to Dashboard</button>
         </form>
     </div>
+
+    <script>
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const statusBox = document.getElementById('status-container');
+
+            try {
+                const response = await fetch('/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(Object.fromEntries(formData))
+                });
+
+                if (response.ok) {
+                    window.location.href = '/admin.html';
+                } else {
+                    const err = await response.json();
+                    statusBox.innerHTML = `<div class="flash-msg error">${err.message || 'Invalid credentials.'}</div>`;
+                }
+            } catch (err) {
+                statusBox.innerHTML = '<div class="flash-msg error">Connection failed.</div>';
+            }
+        });
+    </script>
 </body>
 
 </html>

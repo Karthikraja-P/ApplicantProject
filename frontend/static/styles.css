@@ -79,15 +79,16 @@ body::before {
 }
 
 .wizard-inner {
-    width: min(1200px, 100%);
+    width: 100%;
+    max-width: 1400px;
     margin: 0 auto;
-    background: var(--bg-card);
-    backdrop-filter: blur(20px) saturate(1.4);
-    -webkit-backdrop-filter: blur(20px) saturate(1.4);
-    border: 1px solid var(--border-subtle);
-    border-radius: 24px;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-    padding: 32px;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    padding: 20px;
 }
 
 .wizard-layout {
@@ -270,10 +271,10 @@ header p {
 }
 
 .wizard-card {
-    background: rgba(15, 23, 42, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 20px;
-    padding: 24px;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 20px 0;
     margin-bottom: 24px;
     opacity: 0;
     transform: translateY(16px);
@@ -335,9 +336,9 @@ header p {
 .wizard-card select,
 .wizard-card textarea {
     width: 100%;
-    border: 1px solid #2f3f5f;
+    border: 1px solid rgba(255, 255, 255, 0.1);
     color: #eef2ff;
-    background: rgba(8, 13, 22, 0.86);
+    background: rgba(255, 255, 255, 0.05);
     border-radius: 10px;
     padding: 12px;
     font-size: 1rem;
@@ -1614,4 +1615,74 @@ header p {
     font-size: 0.65rem;
     font-weight: 800;
     letter-spacing: 0.02em;
+}
+
+/* ── Shooting Stars Animation ── */
+@keyframes shooting-star {
+    0% {
+        transform: rotate(135deg) translateX(0);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    20% {
+        transform: rotate(135deg) translateX(-400px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: rotate(135deg) translateX(-400px);
+        opacity: 0;
+    }
+}
+
+.shooting-star {
+    position: fixed;
+    width: 150px;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.8), transparent);
+    opacity: 0;
+    pointer-events: none;
+    z-index: -1;
+    animation: shooting-star 8s linear infinite;
+}
+
+.shooting-star::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 2px;
+    height: 2px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 8px 3px #fff;
+}
+
+.star-1 {
+    top: 10%;
+    left: 80%;
+    animation-delay: 0s;
+}
+
+.star-2 {
+    top: 30%;
+    left: 95%;
+    animation-delay: 2s;
+}
+
+.star-3 {
+    top: 50%;
+    left: 75%;
+    animation-delay: 4s;
+}
+
+.star-4 {
+    top: 70%;
+    left: 90%;
+    animation-delay: 6s;
 }

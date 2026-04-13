@@ -813,7 +813,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (confirm('This will permanently clear all your progress and current application data. Are you sure?')) {
                 localStorage.clear();
                 localStorage.setItem('new_candidate', 'true');
-                window.location.href = '/index.html';
+                window.location.href = '/';
             }
         });
     }

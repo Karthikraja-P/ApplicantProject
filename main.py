@@ -368,14 +368,12 @@ def submit():
     try:
         table = get_dynamo_table()
         table.put_item(Item=item)
-        print(f"[DynamoDB] Saved: {email} -> {DYNAMO_TABLE}")
-    except ClientError as e:
-        print(f"[DynamoDB ERROR] {e.response['Error']['Code']}: {e.response['Error']['Message']}")
-        # Fallback: save to SQLite so no data is lost
-        _save_to_sqlite(item, submitted_at)
+        print(f"[DynamoDB] Saved: {email}")
     except Exception as e:
         print(f"[DynamoDB ERROR] {e}")
-        _save_to_sqlite(item, submitted_at)
+
+    # ── ALWAYS Save to SQLite (Admin Dashboard) ──────────────────────────────────
+    _save_to_sqlite(item, submitted_at)
 
     area = request.form.get('area')
     if area == 'database':

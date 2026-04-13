@@ -452,7 +452,7 @@ document.addEventListener('DOMContentLoaded', function () {
             title: 'Ralph likes 25 but not 24; he likes 400 but not 300; he likes 144 but not 145. Which does he like?',
             source: 'Fluid Reasoning',
             opts: ['10', '50', '124', '200', '1600'],
-            answer: 4, time: 90, exp: 'Ralph only likes perfect squares. 1600 = 40x40.'
+            answer: 5, time: 90, exp: 'Ralph only likes perfect squares. 1600 = 40x40.'
         },
         {
             title: 'How many four-sided figures appear in the diagram below?',
@@ -466,7 +466,7 @@ document.addEventListener('DOMContentLoaded', function () {
             source: 'Spatial Reasoning',
             customHtml: '<div style="position:relative;width:180px;height:180px;margin:20px auto;background:#fff;border-radius:4px;"><svg width="180" height="180" viewBox="0 0 180 180" stroke="#142e56" stroke-width="2" fill="none"><line x1="20" y1="55" x2="20" y2="125"/><line x1="55" y1="20" x2="55" y2="160"/><line x1="90" y1="55" x2="90" y2="125"/><line x1="125" y1="20" x2="125" y2="160"/><line x1="160" y1="20" x2="160" y2="125"/><line x1="55" y1="20" x2="160" y2="20"/><line x1="20" y1="55" x2="160" y2="55"/><line x1="55" y1="90" x2="125" y2="90"/><line x1="20" y1="125" x2="160" y2="125"/><line x1="55" y1="160" x2="125" y2="160"/></svg></div>',
             opts: ['8', '10', '11', '14', '17'],
-            answer: 2, time: 90, exp: 'By counting all small, medium, and large squares systematically (including the 2x2 and its sub-sections), there are 11 in total.'
+            answer: 4, time: 90, exp: 'By counting all small, medium, and large squares systematically (including the 2x2 and its sub-sections), there are 11 in total.'
         },
         {
             title: 'Select the missing matrix:',
@@ -558,7 +558,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div><div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div><div style="width:100\%;height:100\%;border:0.5px solid #142e56;background:#fff;box-sizing:border-box;"></div>
             </div>`
             ],
-            answer: 1, time: 90, exp: 'Each row focuses on a column (Left, Center, Right) and builds the pattern up to 3 blocks.'
+            answer: 3, time: 90, exp: 'Each row focuses on a column (Left, Center, Right) and builds the pattern up to 3 blocks.'
         },
 
         {
@@ -610,7 +610,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Option F: Down-Up-Down (Adjacent)
                 '<div style="width:60px;height:60px;border:1px solid #142e56;display:flex;align-items:center;justify-content:center;gap:2px;background:#fff;font-size:22px;color:#142e56;"><span>↓</span><span>↑</span><span>↓</span></div>'
             ],
-            answer: 3, time: 90, exp: 'Each row uses the same direction set (L/D/R, D/R/L, R/L/?). Third row needs Down arrows x3.'
+            answer: 1, time: 90, exp: 'Each row uses the same direction set (L/D/R, D/R/L, R/L/?). Third row needs Down arrows x3.'
         },
 
 
@@ -683,7 +683,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 '<div style="display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);border:1px solid #142e56;background:#fff;box-sizing:border-box;"><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;">🌙</div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div></div>',
                 '<div style="display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);border:1px solid #142e56;background:#fff;box-sizing:border-box;"><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f59e0b;">★</div><div style="border:0.5px solid #d1d5db;"></div><div style="border:0.5px solid #d1d5db;"></div></div>'
             ],
-            answer: 0, time: 90, exp: 'Star moves top→bottom→middle across each outer column (col 3: [0][2]→[2][2]→[1][2]). Moon moves right→centre→left along each row (col 3: none→[0][1]→[0][0]).'
+            answer: 3, time: 90, exp: 'Star moves top→bottom→middle across each outer column (col 3: [0][2]→[2][2]→[1][2]). Moon moves right→centre→left along each row (col 3: none→[0][1]→[0][0]).'
         }
         ,
         {
@@ -705,7 +705,7 @@ document.addEventListener('DOMContentLoaded', function () {
             source: 'Quantitative Reasoning',
             imgUrl: '/static/images/iq/q38.jpg',
             opts: ['28', '25', '26', '23', '24', '22'],
-            answer: 4, time: 90, exp: 'Each adjacent slice increases by 3: 12, 15, 18, 21, 24.'
+            answer: 3, time: 90, exp: 'Each adjacent slice increases by 3: 12, 15, 18, 21, 24.'
         },
         {
             title: 'Find the missing number for the bottom hexagon set.',

@@ -299,26 +299,29 @@ document.addEventListener('DOMContentLoaded', function () {
                 ['Databases', [checks('db_databases') || '—', false]],
                 ['Query Languages', [checks('db_query_tools') || '—', false]],
                 ['Backend Languages', [checks('db_backend_langs') || '—', false]],
-                ['Experience Level', [val('db_experience') || '—', false]],
-                ['Designed/Optimized DB?', [val('db_optimized') || '—', false]],
+                ['Real-time Market Data', [rv('db_realtime_data', true)]],
+                ['High-Volume (>1M event)', [rv('db_high_volume', true)]],
+                ['Latency-Impacted Systems', [rv('db_latency_impact', true)]],
                 ['Description', [val('db_desc') || '—', false]],
             ]]);
         } else if (area === 'ml') {
-            sections.push(['Financial ML Details', 6, [
+            sections.push(['Financial ML Details', 5, [
                 ['Libraries / Tools', [checks('ml_libs') || '—', false]],
                 ['Financial Data Exp.', [checks('ml_fin_data') || '—', false]],
                 ['ML Concepts', [checks('ml_concepts') || '—', false]],
-                ['Experience Level', [val('ml_experience') || '—', false]],
-                ['Built ML on Fin. Data?', [val('ml_built') || '—', false]],
+                ['Options-specific Data?', [rv('ml_options_data', true)]],
+                ['Walk-forward Validation?', [rv('ml_walkforward', true)]],
+                ['Raw Feature Engineering?', [rv('ml_raw_features', true)]],
                 ['Description', [val('ml_desc') || '—', false]],
             ]]);
         } else if (area === 'ai') {
-            sections.push(['AI / LLM Details', 6, [
+            sections.push(['AI / LLM Details', 5, [
                 ['Tools / Frameworks', [checks('ai_tools') || '—', false]],
                 ['Areas of Experience', [checks('ai_areas') || '—', false]],
                 ['Languages', [checks('ai_langs') || '—', false]],
-                ['Experience Level', [val('ai_experience') || '—', false]],
-                ['Deployed AI App?', [val('ai_deployed') || '—', false]],
+                ['Production LLM/SLM?', [rv('ai_deployed_production', true)]],
+                ['Fine-tuning/Structured Opt?', [rv('ai_finetune_systematic', true)]],
+                ['Programmatic Integration?', [rv('ai_programmatic_integration', true)]],
                 ['Description', [val('ai_desc') || '—', false]],
             ]]);
         }

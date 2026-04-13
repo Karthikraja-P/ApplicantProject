@@ -342,9 +342,11 @@ header p {
     padding: 12px;
     font-size: 1rem;
     margin-bottom: 12px;
+    height: 48px;
 }
 
 .wizard-card textarea {
+    height: auto;
     min-height: 100px;
 }
 

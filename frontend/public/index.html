@@ -190,8 +190,6 @@
                             <label>City <span class="required">*</span></label>
                             <input type="text" id="location" name="location" placeholder="Enter your city" required
                                 autocomplete="off">
-                            <label>LinkedIn URL <span class="required">*</span> <span class="help-icon"
-                                    title="Provide your LinkedIn profile URL for professional background check.">ⓘ</span></label>
                             <input type="url" id="linkedin" name="linkedin" required>
                         </div>
 
@@ -211,8 +209,6 @@
                             </select>
                             <label>Degree <span class="required">*</span></label>
                             <input type="text" id="degree" name="degree" required>
-                            <label>Field of Study <span class="required">*</span> <span class="help-icon"
-                                    title="Your major or area of specialization.">ⓘ</span></label>
                             <input type="text" id="field" name="field" required>
                             <label>University <span class="required">*</span></label>
                             <input type="text" id="university" name="university" required>
@@ -222,13 +218,9 @@
                             <h2>CV & Portfolio</h2>
                             <label>Upload CV (PDF only) <span class="required">*</span></label>
                             <input type="file" id="cv" name="cv" accept=".pdf" required>
-                            <label>Portfolio URL <span class="help-icon"
-                                    title="Link to your portfolio or project showcase.">ⓘ</span></label>
                             <input type="url" id="portfolio" name="portfolio" placeholder="https://yourportfolio.com">
                             <label>GitHub URL</label>
                             <input type="url" id="github" name="github" placeholder="https://github.com/yourprofile">
-                            <label>Website / Blog <span class="help-icon"
-                                    title="Link to your personal website or blog.">ⓘ</span></label>
                             <input type="url" id="website" name="website" placeholder="https://yourwebsite.com">
                         </div>
 
@@ -250,8 +242,6 @@
                                 <option value="on-site">On-site</option>
                                 <option value="hybrid">Hybrid</option>
                             </select>
-                            <label>Any Constraints or Additional Notes <span class="help-icon"
-                                    title="Any limitations or additional information about your availability.">ⓘ</span></label>
                             <textarea id="constraints" name="constraints"></textarea>
                         </div>
 
@@ -262,8 +252,7 @@
                                 <strong>must</strong> choose your experience level from the dropdown.
                             </p>
 
-                            <label>Primary Area of Interest <span class="required">*</span> <span class="help-icon"
-                                    title="Choose the area that best matches your expertise.">ⓘ</span></label>
+                            <label>Primary Area of Interest <span class="required">*</span></label>
                             <select id="area" name="area" required>
                                 <option value="">Select...</option>
                                 <option value="database">Database / Backend Systems</option>
@@ -487,24 +476,21 @@
                                 <div class="field-row">
                                     <div style="flex: 1;">
                                         <label>Experience building or managing real-time market data ingestion systems?
-                                            <span class="help-icon"
-                                                title="Ingesting live price, volume, and L2 order flow data from global financial exchanges.">ⓘ</span></label>
-                                        <select name="db_realtime_data" required>
-                                            <option value="">Select...</option>
-                                            <option value="Professional/Internship">Yes, in a professional/internship
-                                                setting</option>
-                                            <option value="Personal Project">Yes, in a personal project</option>
-                                            <option value="Familiar-No Hands-on">Familiar with the concept but no
-                                                hands-on experience</option>
-                                            <option value="No Experience">No experience</option>
-                                        </select>
+                                            <select name="db_realtime_data" required>
+                                                <option value="">Select...</option>
+                                                <option value="Professional/Internship">Yes, in a
+                                                    professional/internship
+                                                    setting</option>
+                                                <option value="Personal Project">Yes, in a personal project</option>
+                                                <option value="Familiar-No Hands-on">Familiar with the concept but no
+                                                    hands-on experience</option>
+                                                <option value="No Experience">No experience</option>
+                                            </select>
                                     </div>
                                 </div>
                                 <div class="field-row">
                                     <div style="flex: 1;">
-                                        <label>Scale of data pipelines you have engineered (peak throughput)? <span
-                                                class="help-icon"
-                                                title="Processing high-frequency quote and trade updates continuously at scale.">ⓘ</span></label>
+                                        <label>Scale of data pipelines you have engineered (peak throughput)?</label>
                                         <select name="db_high_volume" required>
                                             <option value="">Select...</option>
                                             <option value="Professionally">Yes, professionally</option>
@@ -518,8 +504,7 @@
                                 <div class="field-row">
                                     <div style="flex: 1;">
                                         <label>Experience with latency-critical systems where delays directly impact
-                                            PnL/outcomes? <span class="help-icon"
-                                                title="In trading infrastructure, delays of even milliseconds matter.">ⓘ</span></label>
+                                            PnL/outcomes?</label>
                                         <select name="db_latency_impact" required>
                                             <option value="">Select...</option>
                                             <option value="Professionally">Yes, professionally</option>
@@ -737,8 +722,7 @@
                                 <div class="field-row">
                                     <div style="flex: 1;">
                                         <label>Direct experience engineering features from options-specific data
-                                            (Greeks, IV)? <span class="help-icon"
-                                                title="Our core focus is on derivatives markets. Handling Greeks or IV surfaces is a significant advantage.">ⓘ</span></label>
+                                            (Greeks, IV)?</label>
                                         <select name="ml_options_data" required>
                                             <option value="">Select...</option>
                                             <option value="Professionally">Yes, professionally</option>
@@ -753,8 +737,7 @@
                                 <div class="field-row">
                                     <div style="flex: 1;">
                                         <label>Proficiency in applying walk-forward or combinatorial purge-and-embargo
-                                            validation? <span class="help-icon"
-                                                title="Addressing time-dependence and lookahead bias in financial time-series.">ⓘ</span></label>
+                                            validation?</label>
                                         <select name="ml_walkforward" required>
                                             <option value="">Select...</option>
                                             <option value="Implemented Rigorously">Yes, I've implemented this rigorously
@@ -769,8 +752,7 @@
                                 <div class="field-row">
                                     <div style="flex: 1;">
                                         <label>Experience constructing alpha-generating features from raw L2 order book
-                                            or trade tick data? <span class="help-icon"
-                                                title="Feature engineering from raw market data is a core skill in quant data pipelines.">ⓘ</span></label>
+                                            or trade tick data?</label>
                                         <select name="ml_raw_features" required>
                                             <option value="">Select...</option>
                                             <option value="Extensively">Yes, extensively in a professional or research
@@ -957,8 +939,7 @@
                                 <div class="field-row">
                                     <div style="flex: 1;">
                                         <label>Experience deploying LLMs or SLMs within production-grade backend
-                                            infrastructure? <span class="help-icon"
-                                                title="We are looking for candidates who have moved beyond prototypes to real backend services.">ⓘ</span></label>
+                                            infrastructure?</label>
                                         <select name="ai_deployed_production" required>
                                             <option value="">Select...</option>
                                             <option value="Professional">Yes, in a professional setting</option>
@@ -973,8 +954,7 @@
                                 <div class="field-row">
                                     <div style="flex: 1;">
                                         <label>Worked on domain-specific fine-tuning or advanced prompt engineering for
-                                            structured tasks? <span class="help-icon"
-                                                title="Producing precise, schema-validated (JSON/Pydantic) outputs for programmatic consumption.">ⓘ</span></label>
+                                            structured tasks?</label>
                                         <select name="ai_finetune_systematic" required>
                                             <option value="">Select...</option>
                                             <option value="Domain Fine-tuning">Yes, fine-tuning on domain-specific data
@@ -991,8 +971,7 @@
                                 <div class="field-row">
                                     <div style="flex: 1;">
                                         <label>Experience integrating LLM outputs into automated pipelines via Pydantic
-                                            or JSON schema validation? <span class="help-icon"
-                                                title="Outputs must be machine-readable — consumed by engines, not humans.">ⓘ</span></label>
+                                            or JSON schema validation?</label>
                                         <select name="ai_programmatic_integration" required>
                                             <option value="">Select...</option>
                                             <option value="Built Integration">Yes, I've built this kind of integration
@@ -1016,8 +995,6 @@
 
                             <p class="section-sub-heading">General Skills &amp; Discovery</p>
 
-                            <label>Additional Skills <span class="help-icon"
-                                    title="Select all that apply to your skill set.">ⓘ</span></label>
                             <div class="wizard-checkbox">
                                 <label><input type="checkbox" name="skills" value="python"> Python <select
                                         name="exp_General_Python" class="pill-select">
@@ -1091,8 +1068,7 @@
                                     </select></label>
                             </div>
 
-                            <label>Where did you hear about us? <span class="required">*</span> <span class="help-icon"
-                                    title="How did you learn about this opportunity?">ⓘ</span></label>
+                            <label>Where did you hear about us? <span class="required">*</span></label>
                             <select id="source" name="source" required>
                                 <option value="">Select...</option>
                                 <option value="linkedin">LinkedIn</option>
@@ -1104,12 +1080,8 @@
 
                         <div class="wizard-card" data-step="6">
                             <h2>Motivation</h2>
-                            <label>Why are you interested in working with us? <span class="required">*</span> <span
-                                    class="help-icon"
-                                    title="Tell us what attracts you to our company and role.">ⓘ</span></label>
+                            <label>Why are you interested in working with us? <span class="required">*</span></label>
                             <textarea id="interest" name="interest" required></textarea>
-                            <label>What problems do you enjoy solving? <span class="help-icon"
-                                    title="Describe the types of challenges you find engaging.">ⓘ</span></label>
                             <textarea id="problems" name="problems"></textarea>
                         </div>
 

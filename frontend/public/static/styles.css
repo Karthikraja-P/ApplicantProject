@@ -518,6 +518,7 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
 .wizard-checkbox label {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 7px;
     font-size: 0.86rem;
     font-weight: 500;
@@ -525,11 +526,13 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
     background: rgba(9, 14, 26, 0.85);
     border: 1.5px solid rgba(52, 102, 162, 0.35);
     border-radius: 999px;
-    padding: 6px 14px;
+    padding: 8px 14px;
     cursor: pointer;
     transition: background 0.18s, border-color 0.18s, color 0.18s;
     user-select: none;
-    line-height: 1.2;
+    line-height: normal;
+    text-align: center;
+    min-height: 38px;
 }
 
 .wizard-checkbox label:hover {
@@ -564,27 +567,13 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
 }
 
 /* checkmark indicator shown inside pill when checked */
+/* checkmark indicator removed as per user request */
 .wizard-checkbox label::before {
-    content: '';
-    display: inline-block;
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    border: 1.5px solid rgba(52, 102, 162, 0.5);
-    background: rgba(9, 14, 26, 0.6);
-    flex-shrink: 0;
-    transition: background 0.15s, border-color 0.15s;
-    position: relative;
+    display: none;
 }
 
-.wizard-checkbox label:has(input[type="checkbox"]:checked)::before,
-.wizard-checkbox label.pill-checked::before {
-    background: var(--gradient-brand);
-    border-color: transparent;
-    box-shadow: 0 0 10px rgba(48, 128, 255, 0.2);
-}
-
-.pill-select {
+.pill-select,
+.pill-input {
     display: none;
     background: rgba(30, 41, 59, 0.8);
     border: 1px solid var(--border-subtle);
@@ -600,13 +589,23 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
     transition: all 0.2s;
 }
 
-.pill-select:hover {
+.pill-input {
+    cursor: text;
+    width: 120px !important;
+    background: rgba(15, 23, 42, 0.9);
+}
+
+.pill-select:hover,
+.pill-input:focus {
     border-color: var(--primary);
     background: rgba(30, 41, 59, 1);
+    outline: none;
 }
 
 .wizard-checkbox label:has(input:checked) .pill-select,
-.wizard-checkbox label.pill-checked .pill-select {
+.wizard-checkbox label.pill-checked .pill-select,
+.wizard-checkbox label:has(input:checked) .pill-input,
+.wizard-checkbox label.pill-checked .pill-input {
     display: inline-block;
 }
 

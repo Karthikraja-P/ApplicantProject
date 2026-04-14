@@ -101,11 +101,8 @@
                             gap: 8px;
                             transition: all 0.2s;
                         ">
-                            🔄 New Registration / Reset
+                            New Registration / Reset
                         </button>
-                        <p>
-                            Clears all saved data and starts a fresh application.
-                        </p>
                     </div>
 
                     <div class="sidebar-divider"></div>
@@ -360,14 +357,9 @@
                                             <option value="Advanced">Advanced</option>
                                             <option value="Expert">Expert</option>
                                         </select></label>
-                                    <label><input type="checkbox" name="db_databases" value="Other"> Other <select
-                                            name="exp_DB_Other" class="pill-select">
-                                            <option value="" disabled selected>Select...</option>
-                                            <option value="Beginner">Beginner</option>
-                                            <option value="Intermediate">Intermediate</option>
-                                            <option value="Advanced">Advanced</option>
-                                            <option value="Expert">Expert</option>
-                                        </select></label>
+                                    <label><input type="checkbox" name="db_databases" value="Other"> Other <input
+                                            type="text" name="other_db_name" class="pill-input"
+                                            placeholder="Specify..."></label>
                                 </div>
 
                                 <span class="field-group-label">Query Languages / Tools <span class="multi-hint">(select
@@ -467,35 +459,31 @@
                                             <option value="Advanced">Advanced</option>
                                             <option value="Expert">Expert</option>
                                         </select></label>
-                                    <label><input type="checkbox" name="db_backend_langs" value="Other"> Other <select
-                                            name="exp_BE_Other" class="pill-select">
-                                            <option value="" disabled selected>Select...</option>
-                                            <option value="Beginner">Beginner</option>
-                                            <option value="Intermediate">Intermediate</option>
-                                            <option value="Advanced">Advanced</option>
-                                            <option value="Expert">Expert</option>
-                                        </select></label>
+                                    <label><input type="checkbox" name="db_backend_langs" value="Other"> Other <input
+                                            type="text" name="other_be_lang" class="pill-input"
+                                            placeholder="Specify..."></label>
                                 </div>
 
 
                                 <div class="field-row">
                                     <div style="flex: 1;">
-                                        <label>Experience building or managing real-time market data ingestion systems?
-                                            <select name="db_realtime_data" required>
-                                                <option value="">Select...</option>
-                                                <option value="Professional/Internship">Yes, in a
-                                                    professional/internship
-                                                    setting</option>
-                                                <option value="Personal Project">Yes, in a personal project</option>
-                                                <option value="Familiar-No Hands-on">Familiar with the concept but no
-                                                    hands-on experience</option>
-                                                <option value="No Experience">No experience</option>
-                                            </select>
+                                        <label>Have you worked with real-time market data feeds? <span
+                                                class="multi-hint">(price, volume, and order flow data)</span></label>
+                                        <select name="db_realtime_data" required>
+                                            <option value="">Select...</option>
+                                            <option value="Professional/Internship">Yes, in a professional/internship
+                                                setting</option>
+                                            <option value="Personal Project">Yes, in a personal project</option>
+                                            <option value="Familiar-No Hands-on">Familiar with the concept but no
+                                                hands-on experience</option>
+                                            <option value="No Experience">No experience</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="field-row">
                                     <div style="flex: 1;">
-                                        <label>Scale of data pipelines you have engineered (peak throughput)?</label>
+                                        <label>Have you built or maintained data pipelines handling more than 1 million
+                                            events per day?</label>
                                         <select name="db_high_volume" required>
                                             <option value="">Select...</option>
                                             <option value="Professionally">Yes, professionally</option>
@@ -508,8 +496,8 @@
                                 </div>
                                 <div class="field-row">
                                     <div style="flex: 1;">
-                                        <label>Experience with latency-critical systems where delays directly impact
-                                            PnL/outcomes?</label>
+                                        <label>Have you designed or worked with a system where data latency directly
+                                            impacted outcomes?</label>
                                         <select name="db_latency_impact" required>
                                             <option value="">Select...</option>
                                             <option value="Professionally">Yes, professionally</option>
@@ -598,14 +586,8 @@
                                             <option value="Advanced">Advanced</option>
                                             <option value="Expert">Expert</option>
                                         </select></label>
-                                    <label><input type="checkbox" name="ml_libs" value="Other"> Other <select
-                                            name="exp_ML_Other" class="pill-select">
-                                            <option value="" disabled selected>Select...</option>
-                                            <option value="Beginner">Beginner</option>
-                                            <option value="Intermediate">Intermediate</option>
-                                            <option value="Advanced">Advanced</option>
-                                            <option value="Expert">Expert</option>
-                                        </select></label>
+                                    <label><input type="checkbox" name="ml_libs" value="Other"> Other <input type="text"
+                                            name="other_ml_tool" class="pill-input" placeholder="Specify..."></label>
                                 </div>
 
                                 <span class="field-group-label">Financial Data Experience <span
@@ -726,8 +708,8 @@
 
                                 <div class="field-row">
                                     <div style="flex: 1;">
-                                        <label>Direct experience engineering features from options-specific data
-                                            (Greeks, IV)?</label>
+                                        <label>Have you worked with options-specific data such as Greeks, implied
+                                            volatility surfaces, or options chain data?</label>
                                         <select name="ml_options_data" required>
                                             <option value="">Select...</option>
                                             <option value="Professionally">Yes, professionally</option>
@@ -741,8 +723,8 @@
                                 </div>
                                 <div class="field-row">
                                     <div style="flex: 1;">
-                                        <label>Proficiency in applying walk-forward or combinatorial purge-and-embargo
-                                            validation?</label>
+                                        <label>Have you applied walk-forward validation or out-of-sample testing in a
+                                            financial ML or backtesting context?</label>
                                         <select name="ml_walkforward" required>
                                             <option value="">Select...</option>
                                             <option value="Implemented Rigorously">Yes, I've implemented this rigorously
@@ -756,8 +738,8 @@
                                 </div>
                                 <div class="field-row">
                                     <div style="flex: 1;">
-                                        <label>Experience constructing alpha-generating features from raw L2 order book
-                                            or trade tick data?</label>
+                                        <label>Have you engineered features from raw OHLCV or tick data for use in a
+                                            predictive model or trading signal?</label>
                                         <select name="ml_raw_features" required>
                                             <option value="">Select...</option>
                                             <option value="Extensively">Yes, extensively in a professional or research
@@ -839,14 +821,9 @@
                                             <option value="Advanced">Advanced</option>
                                             <option value="Expert">Expert</option>
                                         </select></label>
-                                    <label><input type="checkbox" name="ai_tools" value="Other"> Other <select
-                                            name="exp_AI_Other_Tool" class="pill-select">
-                                            <option value="" disabled selected>Select...</option>
-                                            <option value="Beginner">Beginner</option>
-                                            <option value="Intermediate">Intermediate</option>
-                                            <option value="Advanced">Advanced</option>
-                                            <option value="Expert">Expert</option>
-                                        </select></label>
+                                    <label><input type="checkbox" name="ai_tools" value="Other"> Other <input
+                                            type="text" name="other_ai_tool" class="pill-input"
+                                            placeholder="Specify..."></label>
                                 </div>
 
                                 <span class="field-group-label">Areas of Experience <span class="multi-hint">(select all
@@ -943,8 +920,8 @@
 
                                 <div class="field-row">
                                     <div style="flex: 1;">
-                                        <label>Experience deploying LLMs or SLMs within production-grade backend
-                                            infrastructure?</label>
+                                        <label>Have you deployed an LLM or small language model (SLM) in a production
+                                            backend system — not a demo or UI prototype?</label>
                                         <select name="ai_deployed_production" required>
                                             <option value="">Select...</option>
                                             <option value="Professional">Yes, in a professional setting</option>
@@ -958,8 +935,8 @@
                                 </div>
                                 <div class="field-row">
                                     <div style="flex: 1;">
-                                        <label>Worked on domain-specific fine-tuning or advanced prompt engineering for
-                                            structured tasks?</label>
+                                        <label>Have you worked on fine-tuning a model or systematically optimizing
+                                            prompts for a structured, domain-specific task?</label>
                                         <select name="ai_finetune_systematic" required>
                                             <option value="">Select...</option>
                                             <option value="Domain Fine-tuning">Yes, fine-tuning on domain-specific data
@@ -975,15 +952,15 @@
                                 </div>
                                 <div class="field-row">
                                     <div style="flex: 1;">
-                                        <label>Experience integrating LLM outputs into automated pipelines via Pydantic
-                                            or JSON schema validation?</label>
+                                        <label>Have you integrated an AI or LLM component into a larger system where its
+                                            output was consumed programmatically by a downstream process?</label>
                                         <select name="ai_programmatic_integration" required>
                                             <option value="">Select...</option>
                                             <option value="Built Integration">Yes, I've built this kind of integration
                                             </option>
                                             <option value="Basic Level">Yes, at a basic level</option>
                                             <option value="Standalone Only">I've built standalone AI tools but not
-                                                integrated them</option>
+                                                integrated them into larger systems</option>
                                             <option value="No Experience">No experience</option>
                                         </select>
                                     </div>
@@ -998,90 +975,7 @@
                             <!-- ── General Skills + Source ── -->
                             <div class="section-divider"></div>
 
-                            <p class="section-sub-heading">General Skills &amp; Discovery</p>
 
-                            <div class="wizard-checkbox">
-                                <label><input type="checkbox" name="skills" value="python"> Python <select
-                                        name="exp_General_Python" class="pill-select">
-                                        <option value="" disabled selected>Select...</option>
-                                        <option value="Beginner">Beginner</option>
-                                        <option value="Intermediate">Intermediate</option>
-                                        <option value="Advanced">Advanced</option>
-                                        <option value="Expert">Expert</option>
-                                    </select></label>
-                                <label><input type="checkbox" name="skills" value="sql"> SQL <select
-                                        name="exp_General_SQL" class="pill-select">
-                                        <option value="" disabled selected>Select...</option>
-                                        <option value="Beginner">Beginner</option>
-                                        <option value="Intermediate">Intermediate</option>
-                                        <option value="Advanced">Advanced</option>
-                                        <option value="Expert">Expert</option>
-                                    </select></label>
-                                <label><input type="checkbox" name="skills" value="cpp"> C++ <select
-                                        name="exp_General_CPP" class="pill-select">
-                                        <option value="" disabled selected>Select...</option>
-                                        <option value="Beginner">Beginner</option>
-                                        <option value="Intermediate">Intermediate</option>
-                                        <option value="Advanced">Advanced</option>
-                                        <option value="Expert">Expert</option>
-                                    </select></label>
-                                <label><input type="checkbox" name="skills" value="streaming"> Real-time Streaming
-                                    <select name="exp_General_Streaming" class="pill-select">
-                                        <option value="" disabled selected>Select...</option>
-                                        <option value="Beginner">Beginner</option>
-                                        <option value="Intermediate">Intermediate</option>
-                                        <option value="Advanced">Advanced</option>
-                                        <option value="Expert">Expert</option>
-                                    </select></label>
-                                <label><input type="checkbox" name="skills" value="tick-data"> Tick Data Handling
-                                    <select name="exp_General_Tick" class="pill-select">
-                                        <option value="" disabled selected>Select...</option>
-                                        <option value="Beginner">Beginner</option>
-                                        <option value="Intermediate">Intermediate</option>
-                                        <option value="Advanced">Advanced</option>
-                                        <option value="Expert">Expert</option>
-                                    </select></label>
-                                <label><input type="checkbox" name="skills" value="cloud"> Cloud Infra (AWS/GCP) <select
-                                        name="exp_General_Cloud" class="pill-select">
-                                        <option value="" disabled selected>Select...</option>
-                                        <option value="Beginner">Beginner</option>
-                                        <option value="Intermediate">Intermediate</option>
-                                        <option value="Advanced">Advanced</option>
-                                        <option value="Expert">Expert</option>
-                                    </select></label>
-                                <label><input type="checkbox" name="skills" value="data-eng"> Data Engineering <select
-                                        name="exp_General_DataEng" class="pill-select">
-                                        <option value="" disabled selected>Select...</option>
-                                        <option value="Beginner">Beginner</option>
-                                        <option value="Intermediate">Intermediate</option>
-                                        <option value="Advanced">Advanced</option>
-                                        <option value="Expert">Expert</option>
-                                    </select></label>
-                                <label><input type="checkbox" name="skills" value="ml"> Machine Learning <select
-                                        name="exp_General_ML" class="pill-select">
-                                        <option value="" disabled selected>Select...</option>
-                                        <option value="Beginner">Beginner</option>
-                                        <option value="Intermediate">Intermediate</option>
-                                        <option value="Advanced">Advanced</option>
-                                        <option value="Expert">Expert</option>
-                                    </select></label>
-                                <label><input type="checkbox" name="skills" value="apis"> REST/WebSocket APIs <select
-                                        name="exp_General_APIs" class="pill-select">
-                                        <option value="" disabled selected>Select...</option>
-                                        <option value="Beginner">Beginner</option>
-                                        <option value="Intermediate">Intermediate</option>
-                                        <option value="Advanced">Advanced</option>
-                                        <option value="Expert">Expert</option>
-                                    </select></label>
-                                <label><input type="checkbox" name="skills" value="other"> Other <select
-                                        name="exp_General_Other" class="pill-select">
-                                        <option value="" disabled selected>Select...</option>
-                                        <option value="Beginner">Beginner</option>
-                                        <option value="Intermediate">Intermediate</option>
-                                        <option value="Advanced">Advanced</option>
-                                        <option value="Expert">Expert</option>
-                                    </select></label>
-                            </div>
 
                             <label>Where did you hear about us? <span class="required">*</span></label>
                             <select id="source" name="source" required>

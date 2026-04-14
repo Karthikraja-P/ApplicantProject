@@ -851,14 +851,16 @@ document.addEventListener('DOMContentLoaded', function () {
     var numGrid = document.getElementById('q-number-grid');
 
     function showScreen(id) {
-        screens.forEach(function (el) {
-            el.classList.remove('active');
-            el.style.display = 'none';
+        document.querySelectorAll('.psych-screen').forEach(function (s) {
+            s.classList.remove('active');
+            s.style.display = 'none';
         });
-        var target = document.getElementById(id);
-        target.classList.add('active');
-        target.style.display = 'block'; // Or flex, let's use block depending on CSS, or just empty string. Actually empty string is best.
-        target.style.display = '';
+        var el = document.getElementById(id);
+        if (el) {
+            el.classList.add('active');
+            el.style.display = 'block';
+            window.scrollTo(0, 0);
+        }
     }
 
     // ─── Section timer (10 minutes for whole IQ section) ───────────────────────

@@ -512,7 +512,7 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    margin-bottom: 14px;
+    margin-bottom: 25px;
 }
 
 .wizard-checkbox label {
@@ -631,6 +631,11 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
     margin-left: 4px;
 }
 
+.specialized-section label:not(.pill-select label) {
+    margin-top: 30px;
+    display: block;
+}
+
 /* ── Specialized sub-section (DB / ML / AI) ──────────────────────────────── */
 .specialized-section {
     margin-top: 20px;
@@ -667,6 +672,7 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 0 20px;
+    margin-bottom: 24px;
 }
 
 @media (max-width: 640px) {
@@ -1619,9 +1625,6 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
     margin: 0 0 12px 14px;
 }
 
-.assessment-item.step-item {
-    /* Styles are now inherited from .step-item */
-}
 
 .assessment-item.step-item .step-number {
     font-size: 0.65rem;

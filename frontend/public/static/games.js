@@ -112,8 +112,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var screens = document.querySelectorAll('.psych-screen');
     function showScreen(id) {
-        screens.forEach(function (el) { el.classList.remove('active'); });
-        document.getElementById(id).classList.add('active');
+        screens.forEach(function (el) {
+            el.classList.remove('active');
+            el.style.display = 'none';
+        });
+        var target = document.getElementById(id);
+        if (target) {
+            target.classList.add('active');
+            target.style.display = 'block';
+            window.scrollTo(0, 0);
+        }
     }
 
     function fmtTime(secs) {

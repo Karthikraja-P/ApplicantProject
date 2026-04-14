@@ -664,9 +664,14 @@ function prepSessionQuestions(source) {
 function showScreen(id) {
   document.querySelectorAll('.psych-screen').forEach(function (s) {
     s.classList.remove('active');
+    s.style.display = 'none';
   });
   var el = document.getElementById(id);
-  if (el) el.classList.add('active');
+  if (el) {
+    el.classList.add('active');
+    el.style.display = 'block';
+    window.scrollTo(0, 0);
+  }
 }
 
 // ─── Track selection ──────────────────────────────────────────────────────────

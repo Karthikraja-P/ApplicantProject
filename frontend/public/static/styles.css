@@ -699,54 +699,124 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
 @media (max-width: 900px) {
     .wizard-inner {
         padding: 18px;
+        margin: 10px;
     }
 
     .wizard-layout {
         flex-direction: column;
+        gap: 24px;
     }
 
     .sidebar {
         width: 100%;
-        margin-bottom: 20px;
+        margin-bottom: 0px;
+        padding: 16px !important;
+        background: rgba(15, 23, 42, 0.4) !important;
     }
 
     .sidebar-steps {
         flex-direction: row;
         overflow-x: auto;
-        padding-bottom: 8px;
+        padding-bottom: 12px;
+        justify-content: flex-start;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
     }
 
     .step-item {
         flex-shrink: 0;
-        min-width: 120px;
+        min-width: 140px;
+        padding: 12px !important;
+    }
+
+    .sidebar-divider {
+        display: none;
+    }
+
+    .sidebar-section-label {
+        display: none;
+    }
+
+    header {
+        margin-bottom: 25px !important;
+    }
+
+    .brand-logo-small {
+        width: 40px;
+        height: 40px;
+    }
+
+    .brand-container h2 {
+        font-size: 1.4rem !important;
     }
 
     .nav-btn,
     .save-btn,
     .submit-btn {
         width: 100%;
+        padding: 14px !important;
+        font-size: 1rem !important;
     }
 
     .wizard-actions {
-        flex-direction: column;
-        justify-content: center;
-        gap: 16px;
-        margin-bottom: 24px;
+        flex-direction: column-reverse;
+        /* Put primary buttons on top */
+        gap: 12px;
+        padding-top: 16px !important;
+    }
+
+    .action-left,
+    .nav-buttons {
+        width: 100% !important;
+        text-align: center !important;
     }
 
     .nav-buttons {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-        width: 100%;
+        flex-direction: row !important;
     }
 
-    .phone-input {
-        flex-direction: column;
+    .nav-buttons button {
+        flex: 1;
     }
 
-    .phone-input select {
-        width: 100%;
+    #reset-session-btn {
+        margin-top: 15px;
+        font-size: 0.75rem;
+    }
+
+    /* Psychometric Mobile */
+    .psych-module-header {
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center;
+        gap: 8px !important;
+    }
+
+    .psych-timer-block {
+        text-align: center !important;
+    }
+
+    .psych-timer-number {
+        font-size: 1.8rem !important;
+    }
+
+    .arith-question {
+        font-size: 2.22rem !important;
+        margin: 16px 0 !important;
+    }
+
+    .mcq-question {
+        padding: 18px !important;
+        font-size: 0.95rem !important;
+    }
+
+    .mcq-option {
+        padding: 12px 14px !important;
+        font-size: 0.9rem !important;
+    }
+
+    .q-source-badge {
+        font-size: 0.65rem !important;
     }
 }
 

@@ -1,5 +1,5 @@
 {
-    "ETag": "E23ZP02F085DFQ",
+    "ETag": "E1VC38T7YXB528",
     "DistributionConfig": {
         "CallerReference": "c5a07447-a2fd-3b15-75ab-a4ab141b6f96",
         "Aliases": {
@@ -114,140 +114,8 @@
             "MaxTTL": 31536000
         },
         "CacheBehaviors": {
-            "Quantity": 6,
+            "Quantity": 8,
             "Items": [
-                {
-                    "PathPattern": "/login",
-                    "TargetOriginId": "ApiOrigin",
-                    "TrustedSigners": {
-                        "Enabled": false,
-                        "Quantity": 0
-                    },
-                    "TrustedKeyGroups": {
-                        "Enabled": false,
-                        "Quantity": 0
-                    },
-                    "ViewerProtocolPolicy": "redirect-to-https",
-                    "AllowedMethods": {
-                        "Quantity": 7,
-                        "Items": [
-                            "HEAD",
-                            "DELETE",
-                            "POST",
-                            "GET",
-                            "OPTIONS",
-                            "PUT",
-                            "PATCH"
-                        ],
-                        "CachedMethods": {
-                            "Quantity": 2,
-                            "Items": [
-                                "HEAD",
-                                "GET"
-                            ]
-                        }
-                    },
-                    "SmoothStreaming": false,
-                    "Compress": false,
-                    "LambdaFunctionAssociations": {
-                        "Quantity": 0
-                    },
-                    "FunctionAssociations": {
-                        "Quantity": 0
-                    },
-                    "FieldLevelEncryptionId": "",
-                    "GrpcConfig": {
-                        "Enabled": false
-                    },
-                    "ForwardedValues": {
-                        "QueryString": true,
-                        "Cookies": {
-                            "Forward": "all"
-                        },
-                        "Headers": {
-                            "Quantity": 5,
-                            "Items": [
-                                "Origin",
-                                "Access-Control-Request-Headers",
-                                "Access-Control-Request-Method",
-                                "X-Admin-Pass",
-                                "Content-Type"
-                            ]
-                        },
-                        "QueryStringCacheKeys": {
-                            "Quantity": 0
-                        }
-                    },
-                    "MinTTL": 0,
-                    "DefaultTTL": 0,
-                    "MaxTTL": 0
-                },
-                {
-                    "PathPattern": "/admin/*",
-                    "TargetOriginId": "ApiOrigin",
-                    "TrustedSigners": {
-                        "Enabled": false,
-                        "Quantity": 0
-                    },
-                    "TrustedKeyGroups": {
-                        "Enabled": false,
-                        "Quantity": 0
-                    },
-                    "ViewerProtocolPolicy": "redirect-to-https",
-                    "AllowedMethods": {
-                        "Quantity": 7,
-                        "Items": [
-                            "HEAD",
-                            "DELETE",
-                            "POST",
-                            "GET",
-                            "OPTIONS",
-                            "PUT",
-                            "PATCH"
-                        ],
-                        "CachedMethods": {
-                            "Quantity": 2,
-                            "Items": [
-                                "HEAD",
-                                "GET"
-                            ]
-                        }
-                    },
-                    "SmoothStreaming": false,
-                    "Compress": false,
-                    "LambdaFunctionAssociations": {
-                        "Quantity": 0
-                    },
-                    "FunctionAssociations": {
-                        "Quantity": 0
-                    },
-                    "FieldLevelEncryptionId": "",
-                    "GrpcConfig": {
-                        "Enabled": false
-                    },
-                    "ForwardedValues": {
-                        "QueryString": true,
-                        "Cookies": {
-                            "Forward": "all"
-                        },
-                        "Headers": {
-                            "Quantity": 5,
-                            "Items": [
-                                "Origin",
-                                "Access-Control-Request-Headers",
-                                "Access-Control-Request-Method",
-                                "X-Admin-Pass",
-                                "Content-Type"
-                            ]
-                        },
-                        "QueryStringCacheKeys": {
-                            "Quantity": 0
-                        }
-                    },
-                    "MinTTL": 0,
-                    "DefaultTTL": 0,
-                    "MaxTTL": 0
-                },
                 {
                     "PathPattern": "/submit",
                     "TargetOriginId": "ApiOrigin",
@@ -300,8 +168,8 @@
                             "Quantity": 3,
                             "Items": [
                                 "Origin",
-                                "Access-Control-Request-Headers",
-                                "Access-Control-Request-Method"
+                                "Access-Control-Request-Method",
+                                "Access-Control-Request-Headers"
                             ]
                         },
                         "QueryStringCacheKeys": {
@@ -364,8 +232,8 @@
                             "Quantity": 3,
                             "Items": [
                                 "Origin",
-                                "Access-Control-Request-Headers",
-                                "Access-Control-Request-Method"
+                                "Access-Control-Request-Method",
+                                "Access-Control-Request-Headers"
                             ]
                         },
                         "QueryStringCacheKeys": {
@@ -428,8 +296,8 @@
                             "Quantity": 3,
                             "Items": [
                                 "Origin",
-                                "Access-Control-Request-Headers",
-                                "Access-Control-Request-Method"
+                                "Access-Control-Request-Method",
+                                "Access-Control-Request-Headers"
                             ]
                         },
                         "QueryStringCacheKeys": {
@@ -494,6 +362,262 @@
                     "MinTTL": 3600,
                     "DefaultTTL": 86400,
                     "MaxTTL": 31536000
+                },
+                {
+                    "PathPattern": "/admin",
+                    "TargetOriginId": "ApiOrigin",
+                    "TrustedSigners": {
+                        "Enabled": false,
+                        "Quantity": 0
+                    },
+                    "TrustedKeyGroups": {
+                        "Enabled": false,
+                        "Quantity": 0
+                    },
+                    "ViewerProtocolPolicy": "redirect-to-https",
+                    "AllowedMethods": {
+                        "Quantity": 7,
+                        "Items": [
+                            "HEAD",
+                            "DELETE",
+                            "POST",
+                            "GET",
+                            "OPTIONS",
+                            "PUT",
+                            "PATCH"
+                        ],
+                        "CachedMethods": {
+                            "Quantity": 2,
+                            "Items": [
+                                "HEAD",
+                                "GET"
+                            ]
+                        }
+                    },
+                    "SmoothStreaming": false,
+                    "Compress": false,
+                    "LambdaFunctionAssociations": {
+                        "Quantity": 0
+                    },
+                    "FunctionAssociations": {
+                        "Quantity": 0
+                    },
+                    "FieldLevelEncryptionId": "",
+                    "GrpcConfig": {
+                        "Enabled": false
+                    },
+                    "ForwardedValues": {
+                        "QueryString": true,
+                        "Cookies": {
+                            "Forward": "all"
+                        },
+                        "Headers": {
+                            "Quantity": 3,
+                            "Items": [
+                                "Origin",
+                                "Access-Control-Request-Method",
+                                "Access-Control-Request-Headers"
+                            ]
+                        },
+                        "QueryStringCacheKeys": {
+                            "Quantity": 0
+                        }
+                    },
+                    "MinTTL": 0,
+                    "DefaultTTL": 0,
+                    "MaxTTL": 0
+                },
+                {
+                    "PathPattern": "/admin/*",
+                    "TargetOriginId": "ApiOrigin",
+                    "TrustedSigners": {
+                        "Enabled": false,
+                        "Quantity": 0
+                    },
+                    "TrustedKeyGroups": {
+                        "Enabled": false,
+                        "Quantity": 0
+                    },
+                    "ViewerProtocolPolicy": "redirect-to-https",
+                    "AllowedMethods": {
+                        "Quantity": 7,
+                        "Items": [
+                            "HEAD",
+                            "DELETE",
+                            "POST",
+                            "GET",
+                            "OPTIONS",
+                            "PUT",
+                            "PATCH"
+                        ],
+                        "CachedMethods": {
+                            "Quantity": 2,
+                            "Items": [
+                                "HEAD",
+                                "GET"
+                            ]
+                        }
+                    },
+                    "SmoothStreaming": false,
+                    "Compress": false,
+                    "LambdaFunctionAssociations": {
+                        "Quantity": 0
+                    },
+                    "FunctionAssociations": {
+                        "Quantity": 0
+                    },
+                    "FieldLevelEncryptionId": "",
+                    "GrpcConfig": {
+                        "Enabled": false
+                    },
+                    "ForwardedValues": {
+                        "QueryString": true,
+                        "Cookies": {
+                            "Forward": "all"
+                        },
+                        "Headers": {
+                            "Quantity": 3,
+                            "Items": [
+                                "Origin",
+                                "Access-Control-Request-Method",
+                                "Access-Control-Request-Headers"
+                            ]
+                        },
+                        "QueryStringCacheKeys": {
+                            "Quantity": 0
+                        }
+                    },
+                    "MinTTL": 0,
+                    "DefaultTTL": 0,
+                    "MaxTTL": 0
+                },
+                {
+                    "PathPattern": "/login",
+                    "TargetOriginId": "ApiOrigin",
+                    "TrustedSigners": {
+                        "Enabled": false,
+                        "Quantity": 0
+                    },
+                    "TrustedKeyGroups": {
+                        "Enabled": false,
+                        "Quantity": 0
+                    },
+                    "ViewerProtocolPolicy": "redirect-to-https",
+                    "AllowedMethods": {
+                        "Quantity": 7,
+                        "Items": [
+                            "HEAD",
+                            "DELETE",
+                            "POST",
+                            "GET",
+                            "OPTIONS",
+                            "PUT",
+                            "PATCH"
+                        ],
+                        "CachedMethods": {
+                            "Quantity": 2,
+                            "Items": [
+                                "HEAD",
+                                "GET"
+                            ]
+                        }
+                    },
+                    "SmoothStreaming": false,
+                    "Compress": false,
+                    "LambdaFunctionAssociations": {
+                        "Quantity": 0
+                    },
+                    "FunctionAssociations": {
+                        "Quantity": 0
+                    },
+                    "FieldLevelEncryptionId": "",
+                    "GrpcConfig": {
+                        "Enabled": false
+                    },
+                    "ForwardedValues": {
+                        "QueryString": true,
+                        "Cookies": {
+                            "Forward": "all"
+                        },
+                        "Headers": {
+                            "Quantity": 3,
+                            "Items": [
+                                "Origin",
+                                "Access-Control-Request-Method",
+                                "Access-Control-Request-Headers"
+                            ]
+                        },
+                        "QueryStringCacheKeys": {
+                            "Quantity": 0
+                        }
+                    },
+                    "MinTTL": 0,
+                    "DefaultTTL": 0,
+                    "MaxTTL": 0
+                },
+                {
+                    "PathPattern": "/logout",
+                    "TargetOriginId": "ApiOrigin",
+                    "TrustedSigners": {
+                        "Enabled": false,
+                        "Quantity": 0
+                    },
+                    "TrustedKeyGroups": {
+                        "Enabled": false,
+                        "Quantity": 0
+                    },
+                    "ViewerProtocolPolicy": "redirect-to-https",
+                    "AllowedMethods": {
+                        "Quantity": 7,
+                        "Items": [
+                            "HEAD",
+                            "DELETE",
+                            "POST",
+                            "GET",
+                            "OPTIONS",
+                            "PUT",
+                            "PATCH"
+                        ],
+                        "CachedMethods": {
+                            "Quantity": 2,
+                            "Items": [
+                                "HEAD",
+                                "GET"
+                            ]
+                        }
+                    },
+                    "SmoothStreaming": false,
+                    "Compress": false,
+                    "LambdaFunctionAssociations": {
+                        "Quantity": 0
+                    },
+                    "FunctionAssociations": {
+                        "Quantity": 0
+                    },
+                    "FieldLevelEncryptionId": "",
+                    "GrpcConfig": {
+                        "Enabled": false
+                    },
+                    "ForwardedValues": {
+                        "QueryString": true,
+                        "Cookies": {
+                            "Forward": "all"
+                        },
+                        "Headers": {
+                            "Quantity": 3,
+                            "Items": [
+                                "Origin",
+                                "Access-Control-Request-Method",
+                                "Access-Control-Request-Headers"
+                            ]
+                        },
+                        "QueryStringCacheKeys": {
+                            "Quantity": 0
+                        }
+                    },
+                    "MinTTL": 0,
+                    "DefaultTTL": 0,
+                    "MaxTTL": 0
                 }
             ]
         },

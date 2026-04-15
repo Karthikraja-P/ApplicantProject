@@ -116,16 +116,20 @@
         document.getElementById('login-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
             const statusBox = document.getElementById('status-container');
 
             try {
-                const response = await fetch('/login', {
+                // Using window.API_BASE_URL if it exists
+                const apiBase = window.API_BASE_URL || '';
+                const response = await fetch(`${apiBase}/login`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(Object.fromEntries(formData))
+                    body: JSON.stringify(data)
                 });
 
                 if (response.ok) {
+                    localStorage.setItem('tf_admin_pass', data.password);
                     window.location.href = '/admin.html';
                 } else {
                     const err = await response.json();

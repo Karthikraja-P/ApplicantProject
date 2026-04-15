@@ -11,7 +11,9 @@
     --text-main: #f8fafc;
     --text-muted: #94a3b8;
     --font-main: "SF Pro Display", "Helvetica Neue", -apple-system, BlinkMacSystemFont, sans-serif;
-    --gradient-brand: linear-gradient(135deg, var(--secondary), var(--primary), var(--accent));
+    --gradient-brand: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+    --gradient-next: linear-gradient(135deg, #00d4ff, #00ff88);
+    --gradient-prev: rgba(255, 255, 255, 0.05);
 }
 
 * {
@@ -144,6 +146,12 @@ body::before {
     border-color: rgba(234, 179, 8, 0.4);
     color: #ffffff;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+.sidebar .assessment-item.active {
+    background: rgba(0, 212, 255, 0.1) !important;
+    border-color: rgba(0, 212, 255, 0.3) !important;
+    color: #ffffff !important;
 }
 
 .step-number {
@@ -433,6 +441,19 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
     color: #ffffff;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
     font-weight: 700;
+}
+
+.btn-primary {
+    background: var(--gradient-next) !important;
+    color: #ffffff !important;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
+    border: none !important;
+}
+
+.btn-secondary {
+    background: var(--gradient-prev);
+    border: 1px solid var(--border-subtle);
+    color: #ffffff;
 }
 
 #next-btn,
@@ -1769,4 +1790,145 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
     top: 70%;
     left: 90%;
     animation-delay: 6s;
+}
+
+/* Mobile */
+@media (max-width: 1024px) {
+    .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 12px 20px;
+    }
+
+    .sidebar-section-label,
+    .sidebar-decoration,
+    .sidebar-divider {
+        display: none !important;
+    }
+
+    .sidebar-steps,
+    .sidebar-assessment-items {
+        display: flex !important;
+        flex-direction: row !important;
+        overflow-x: auto;
+        gap: 8px;
+        padding-bottom: 8px;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    .step-item {
+        flex: 0 0 auto;
+        padding: 8px 12px;
+        margin-bottom: 0 !important;
+    }
+
+    .step-title {
+        display: none !important;
+    }
+
+    .step-number {
+        margin-right: 0 !important;
+    }
+
+    .wizard-layout {
+        flex-direction: column;
+    }
+
+    .main-content {
+        padding: 24px 20px;
+    }
+}
+
+@media (max-width: 640px) {
+    .wizard-actions {
+        flex-direction: column-reverse;
+        align-items: stretch !important;
+    }
+
+    .nav-btn,
+    .submit-btn,
+    .save-btn {
+        width: 100%;
+        margin: 4px 0;
+    }
+
+    .field-row {
+        flex-direction: column;
+        gap: 0;
+    }
+}
+
+/* ── Admin Dashboard Enhancements ── */
+.admin-filters-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    background: rgba(13, 27, 42, 0.6);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    margin-bottom: 24px;
+    align-items: flex-end;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.filter-group label {
+    font-size: 0.75rem;
+    color: #5a7ca0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+.filter-group input,
+.filter-group select {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid #2a3f60;
+    border-radius: 6px;
+    color: #fff;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+}
+
+.filter-group input:focus,
+.filter-group select:focus {
+    border-color: #00d4ff;
+    outline: none;
+}
+
+.main-search {
+    flex: 1;
+    min-width: 250px;
+}
+
+.btn-clear {
+    background: rgba(255, 107, 107, 0.1);
+    color: #ff6b6b;
+    border: 1px solid rgba(255, 107, 107, 0.3);
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-clear:hover {
+    background: rgba(255, 107, 107, 0.2);
+}
+
+.header-row th {
+    cursor: pointer;
+    user-select: none;
+}
+
+.header-row th:hover {
+    color: #00d4ff;
+    background: rgba(0, 212, 255, 0.05);
 }

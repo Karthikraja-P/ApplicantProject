@@ -60,7 +60,8 @@
         </div>
         <nav class="admin-nav">
             <a href="/admin.html">Applications</a>
-            <a href="/logout" class="logout-link">Logout</a>
+            <a href="#" class="logout-link"
+                onclick="localStorage.removeItem('tf_admin_pass');window.location.href='/admin_login.html';return false;">Logout</a>
         </nav>
     </header>
 
@@ -77,13 +78,18 @@
         document.addEventListener('DOMContentLoaded', async () => {
             const urlParams = new URLSearchParams(window.location.search);
             const id = urlParams.get('id');
+            const adminPass = localStorage.getItem('tf_admin_pass') || '';
+            const apiBase = window.API_BASE_URL || '';
+
             if (!id) {
                 document.getElementById('detail-root').innerHTML = '<div style="color:red">No ID provided.</div>';
                 return;
             }
 
             try {
-                const response = await fetch(`/admin/application/${id}?json=1`);
+                const response = await fetch(`${apiBase}/admin/application/${id}?json=1`, {
+                    headers: { 'X-Admin-Pass': adminPass }
+                });
                 if (response.status === 401) { window.location.href = '/admin_login.html'; return; }
                 const data = await response.json();
                 renderDetail(data.app);

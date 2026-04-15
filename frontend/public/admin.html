@@ -35,84 +35,134 @@
         </div>
         <nav class="admin-nav">
             <a href="/admin.html">Applications</a>
-            <a href="/logout" class="logout-link">Logout</a>
+            <a href="#" class="logout-link"
+                onclick="localStorage.removeItem('tf_admin_pass');window.location.href='/admin_login.html';return false;">Logout</a>
         </nav>
     </header>
 
-    <main class="dashboard-container" style="display: block; padding-top: 20px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
-            <h2 style="color:#fff; margin: 0;">Ultimate Applicant Database</h2>
-            <div class="stats-row" style="margin: 0; display: flex; gap: 20px; align-items: center;">
-                <div class="stat-card" style="padding: 10px 20px;">
-                    <div class="label">Total Applications</div>
-                    <div id="stat-total" class="value" style="font-size: 1.5rem;">0</div>
-                </div>
+    <main class="dashboard-container" style="display: block; padding: 40px;">
+        <div
+            style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 30px; flex-wrap: wrap; gap: 20px;">
+            <div>
+                <h1 style="color:#fff; margin: 0 0 8px 0; font-size: 2.2rem; font-weight: 800; letter-spacing: -0.5px;">
+                    Applicant Database</h1>
+                <p style="color: #5a7ca0; margin: 0; font-size: 0.95rem;">Manage and review talent applications in
+                    real-time.</p>
+            </div>
+            <div style="display:flex; gap:12px; align-items:center;">
                 <button type="button" onclick="exportCSV()" class="export-btn"
-                    style="padding: 12px 24px; background: var(--admin-accent); color: #000; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px;">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
+                    style="padding:10px 20px; background:#00ff88; color:#000; border:none; border-radius:10px; font-weight:700; cursor:pointer; display:flex; align-items:center; gap:8px;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.5">
                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                         <polyline points="7 10 12 15 17 10" />
                         <line x1="12" y1="15" x2="12" y2="3" />
                     </svg>
-                    Download CSV
+                    Export CSV
                 </button>
             </div>
         </div>
 
-        <form id="filter-form">
-            <div class="table-container" style="overflow-x: auto;">
-                <table style="min-width: 3500px;">
-                    <thead>
-                        <tr class="header-row">
-                            <th>#</th>
-                            <th>Submitted</th>
-                            <th>Name / Email</th>
-                            <th>Phone / Source</th>
-                            <th>Links</th>
-                            <th>Location</th>
-                            <th>Area</th>
-                            <th>Role / Company</th>
-                            <th>Education</th>
-                            <th>Experience</th>
-                            <th>Work Type / Pref</th>
-                            <th>Start Date</th>
-                            <th>IQ Score</th>
-                            <th>Tech Score</th>
-                            <th>Games (B/H/I)</th>
-                            <th>Interest Blurb</th>
-                            <th>Action</th>
-                        </tr>
-                        <tr class="filter-row">
-                            <td style="text-align: center; color: #5a7ca0; font-size: 0.8rem;">#</td>
-                            <td>
-                                <select name="date_filter" id="f-date" style="width: 100%;">
-                                    <option value="">All Dates</option>
-                                </select>
-                            </td>
-                            <td>
-                                <input type="text" name="search" id="f-search" placeholder="Search...">
-                            </td>
-                            <td colspan="2"></td>
-                            <td>
-                                <select name="location_filter" id="f-location" style="width: 100%;">
-                                    <option value="">All Locations</option>
-                                </select>
-                            </td>
-                            <td>
-                                <select name="area" id="f-area" style="width: 100%;">
-                                    <option value="">All Areas</option>
-                                </select>
-                            </td>
-                            <td colspan="10"></td>
-                        </tr>
-                    </thead>
-                    <tbody id="data-body">
-                        <!-- Rows will be injected here -->
-                    </tbody>
-                </table>
+        <div class="admin-stats-grid">
+            <div class="stat-card">
+                <div class="label"
+                    style="color: #5a7ca0; font-size: 0.75rem; text-transform: uppercase; font-weight: 700; margin-bottom: 12px;">
+                    Total Applicants</div>
+                <div id="stat-total" class="value" style="font-size: 2.2rem; font-weight: 800; color: #fff;">0</div>
             </div>
-        </form>
+            <div class="stat-card">
+                <div class="label"
+                    style="color: #5a7ca0; font-size: 0.75rem; text-transform: uppercase; font-weight: 700; margin-bottom: 12px;">
+                    Average IQ Score</div>
+                <div id="stat-avg-iq" class="value" style="font-size: 2.2rem; font-weight: 800; color: #00d4ff;">—</div>
+            </div>
+            <div class="stat-card">
+                <div class="label"
+                    style="color: #5a7ca0; font-size: 0.75rem; text-transform: uppercase; font-weight: 700; margin-bottom: 12px;">
+                    Average Tech Score</div>
+                <div id="stat-avg-tech" class="value" style="font-size: 2.2rem; font-weight: 800; color: #00ff88;">—
+                </div>
+            </div>
+        </div>
+
+        <div class="admin-filters-bar">
+            <div class="filter-group main-search">
+                <label>Global Search</label>
+                <input type="text" id="f-search" placeholder="Search names, emails, skills...">
+            </div>
+            <div class="filter-group">
+                <label>Track / Area</label>
+                <select id="f-area">
+                    <option value="">All Areas</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Date</label>
+                <select id="f-date">
+                    <option value="">All Dates</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Location</label>
+                <select id="f-location">
+                    <option value="">All Locations</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Exp</label>
+                <select id="f-experience">
+                    <option value="">Any</option>
+                    <option value="0-1">0–1y</option>
+                    <option value="1-3">1–3y</option>
+                    <option value="3-5">3–5y</option>
+                    <option value="5+">5+y</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Min IQ</label>
+                <input type="number" id="f-min-iq" placeholder="0" min="0" max="200" style="width: 70px;">
+            </div>
+            <div class="filter-group action-group">
+                <button type="button" class="btn-clear" onclick="resetFilters()">Clear</button>
+            </div>
+        </div>
+
+        <div class="table-container" style="overflow-x: auto;">
+            <table style="min-width: 3500px;" id="applicants-table">
+                <thead>
+                    <tr class="header-row">
+                        <th onclick="setSort('idx')"># ↕</th>
+                        <th onclick="setSort('submitted_at')">Submitted ↕</th>
+                        <th onclick="setSort('full_name')">Name / Email ↕</th>
+                        <th>Phone / Source</th>
+                        <th>Links</th>
+                        <th onclick="setSort('location')">Location ↕</th>
+                        <th onclick="setSort('area')">Area ↕</th>
+                        <th>Role / Company</th>
+                        <th>Education</th>
+                        <th onclick="setSort('experience')">Exp ↕</th>
+                        <th>Work Type / Pref</th>
+                        <th>Start Date</th>
+                        <th onclick="setSort('iq_score')">IQ ↕</th>
+                        <th onclick="setSort('tech_score')">Tech ↕</th>
+                        <th>Games (B/H/I)</th>
+                        <th>Interest</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="data-body">
+                    <tr>
+                        <td colspan="17" style="text-align: center; padding: 100px; color: #5a7ca0;">
+                            <div id="loading"
+                                style="display: flex; flex-direction: column; align-items: center; gap: 16px;">
+                                <div class="loader"></div>
+                                <p>Loading application data...</p>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </main>
 
     <script src="/static/admin_logic.js"></script>

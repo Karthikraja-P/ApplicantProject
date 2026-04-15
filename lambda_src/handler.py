@@ -35,7 +35,7 @@ def resp(status, body, headers=None):
     h = {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Headers': 'Content-Type,X-Admin-Pass',
         'Access-Control-Allow-Methods': 'GET,POST,OPTIONS',
     }
     if headers:
@@ -48,14 +48,20 @@ def resp(status, body, headers=None):
 
 
 def parse_body(event):
-    ct = (event.get('headers') or {}).get('content-type', '')
+    headers = event.get('headers') or {}
+    # Case-insensitive header lookup
+    ct = next((v for k, v in headers.items() if k.lower() == 'content-type'), '')
+    
     body = event.get('body') or ''
     if isinstance(body, str) and event.get('isBase64Encoded'):
         import base64
         body = base64.b64decode(body).decode('utf-8')
 
-    if 'application/json' in ct:
-        return json.loads(body) if body else {}
+    if 'application/json' in ct.lower():
+        try:
+            return json.loads(body) if body else {}
+        except:
+            pass
 
     # form-urlencoded
     from urllib.parse import parse_qs
@@ -76,8 +82,17 @@ def strip_empty(d):
 
 
 def check_auth(event):
-    cookie = (event.get('headers') or {}).get('cookie', '')
-    return "admin_session=authenticated" in cookie
+    headers = event.get('headers') or {}
+    cookie = headers.get('cookie', '')
+    auth_header = headers.get('x-admin-pass', '') or headers.get('X-Admin-Pass', '')
+    
+    # Support both cookie and direct header for flexibility
+    if "admin_session=authenticated" in cookie:
+        return True
+    if auth_header == ADMIN_PASS:
+        return True
+        
+    return False
 
 
 # ── Route: POST /login ─────────────────────────────────────────────────────────
@@ -136,6 +151,7 @@ def handle_submit(event):
         'country_code':     data.get('country_code', ''),
         'phone':            data.get('phone', ''),
         'location_country': data.get('location_country', ''),
+        'other_country':    data.get('other_country', ''),
         'location':         data.get('location', ''),
         'linkedin':         data.get('linkedin', ''),
         'current_role':     data.get('current_role', ''),
@@ -157,6 +173,7 @@ def handle_submit(event):
         'area':             data.get('area', ''),
         'skills':           multilist_from(data, 'skills'),
         'source':           data.get('source', ''),
+        'other_source':     data.get('other_source', ''),
         # DB specialization
         'db_databases':     multilist_from(data, 'db_databases'),
         'db_query_tools':   multilist_from(data, 'db_query_tools'),
@@ -580,10 +597,22 @@ def lambda_handler(event, context):
     if path.startswith('/admin/applications/') and method == 'GET':
         if not check_auth(event): return resp(401, {'status': 'unauthorized'})
         return handle_admin_detail(event)
-    
-    # Static alias
-    if path == '/admin/application' and method == 'GET':
+
+    # Singular alias + QS-based id lookup
+    if path in ('/admin/application', '/admin/application/') and method == 'GET':
         if not check_auth(event): return resp(401, {'status': 'unauthorized'})
+        return handle_admin_detail(event)
+
+    # Path-based singular: /admin/application/{id}
+    if path.startswith('/admin/application/') and method == 'GET':
+        if not check_auth(event): return resp(401, {'status': 'unauthorized'})
+        # Move path segment into QS param for handle_admin_detail
+        seg = path[len('/admin/application/'):]
+        if seg:
+            event = dict(event)
+            qs = dict(event.get('queryStringParameters') or {})
+            qs['id'] = seg
+            event['queryStringParameters'] = qs
         return handle_admin_detail(event)
 
     if path == '/admin/export/csv' and method == 'GET':

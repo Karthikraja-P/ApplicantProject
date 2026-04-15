@@ -60,9 +60,35 @@ document.addEventListener('DOMContentLoaded', function () {
         if (sectionML) sectionML.style.display = (val === 'ml') ? 'block' : 'none';
         if (sectionAI) sectionAI.style.display = (val === 'ai') ? 'block' : 'none';
     }
+
+    const otherCountryInput = document.getElementById('other_country');
+    function updateOtherCountry() {
+        if (!locationCountrySelect || !otherCountryInput) return;
+        otherCountryInput.style.display = (locationCountrySelect.value === 'Other') ? 'block' : 'none';
+        if (locationCountrySelect.value === 'Other') otherCountryInput.setAttribute('required', 'required');
+        else otherCountryInput.removeAttribute('required');
+    }
+
+    const sourceSelect = document.getElementById('source');
+    const otherSourceInput = document.getElementById('other_source');
+    function updateOtherSource() {
+        if (!sourceSelect || !otherSourceInput) return;
+        otherSourceInput.style.display = (sourceSelect.value === 'other') ? 'block' : 'none';
+        if (sourceSelect.value === 'other') otherSourceInput.setAttribute('required', 'required');
+        else otherSourceInput.removeAttribute('required');
+    }
+
     if (areaSelect) {
         areaSelect.addEventListener('change', updateSpecializedSection);
         setTimeout(updateSpecializedSection, 200);
+    }
+    if (locationCountrySelect) {
+        locationCountrySelect.addEventListener('change', updateOtherCountry);
+        setTimeout(updateOtherCountry, 200);
+    }
+    if (sourceSelect) {
+        sourceSelect.addEventListener('change', updateOtherSource);
+        setTimeout(updateOtherSource, 200);
     }
 
     function updatePhoneFormat() {
@@ -258,7 +284,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 ['Full Name', rv('full_name', true)],
                 ['Email', rv('email', true)],
                 ['Phone', [fullPhone || '—', false]],
-                ['Country', rv('location_country', true)],
+                ['Country', [val('location_country') === 'Other' ? (val('other_country') || 'Other (unspecified)') : (val('location_country') || '—'), !!(val('location_country') === 'Other' && !val('other_country')) || !val('location_country')]],
                 ['City', rv('location', true)],
                 ['LinkedIn', rv('linkedin', true)],
             ]],
@@ -285,7 +311,7 @@ document.addEventListener('DOMContentLoaded', function () {
             ['Skill Mapping', 5, [
                 ['Primary Area', rv('area', true)],
                 ['General Skills', [checks('skills') || '—', false]],
-                ['Heard From', rv('source', true)],
+                ['Heard From', [val('source') === 'other' ? (val('other_source') || 'Other (unspecified)') : (val('source') || '—'), !!(val('source') === 'other' && !val('other_source')) || !val('source')]],
             ]],
             ['Motivation', 6, [
                 ['Interest', rv('interest', true)],

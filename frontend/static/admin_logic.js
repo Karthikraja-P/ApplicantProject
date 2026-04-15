@@ -21,9 +21,14 @@ async function loadData() {
     };
 
     const qs = new URLSearchParams(filters).toString();
+    const adminPass = localStorage.getItem('tf_admin_pass') || '';
+    const apiBase = window.API_BASE_URL || '';
 
     try {
-        const response = await fetch(`/admin/applications?${qs}`);
+        const response = await fetch(`${apiBase}/admin/applications?${qs}`, {
+            headers: { 'X-Admin-Pass': adminPass }
+        });
+
         if (response.status === 401) {
             window.location.href = '/admin_login.html';
             return;
@@ -104,8 +109,37 @@ function renderTable(apps) {
     `).join('');
 }
 
-function exportCSV() {
-    window.location.href = '/admin/export/csv' + window.location.search;
+async function exportCSV() {
+    const adminPass = localStorage.getItem('tf_admin_pass') || '';
+    const apiBase = window.API_BASE_URL || '';
+    const filters = {
+        date_filter: document.getElementById('f-date').value,
+        location_filter: document.getElementById('f-location').value,
+        area: document.getElementById('f-area').value,
+        search: document.getElementById('f-search').value
+    };
+    const qs = new URLSearchParams(filters).toString();
+
+    try {
+        const response = await fetch(`${apiBase}/admin/export/csv?${qs}`, {
+            headers: { 'X-Admin-Pass': adminPass }
+        });
+        if (response.status === 401) {
+            alert('Unauthorized. Please login again.');
+            return;
+        }
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `applicants_export_${new Date().toISOString().split('T')[0]}.csv`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+    } catch (err) {
+        console.error('Export failed:', err);
+        alert('Export failed.');
+    }
 }
 
 function debounce(func, wait) {

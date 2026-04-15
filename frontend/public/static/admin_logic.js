@@ -109,7 +109,7 @@ function applyFilters() {
 
         if (searchVal) {
             const hay = [app.full_name, app.email, app.current_role, app.current_company,
-            app.skills, app.interest, app.location, app.university].join(' ').toLowerCase();
+            app.skills, app.interest, app.location, app.university, app.area].join(' ').toLowerCase();
             if (!hay.includes(searchVal)) return false;
         }
         return true;
@@ -165,45 +165,45 @@ function renderTable(apps) {
     body.innerHTML = apps.map((app) => `
         <tr>
             <td style="text-align:center;color:#5a7ca0;">${app.idx}</td>
-            <td style="font-size:0.82rem;color:#8ab4f8;">${(app.submitted_at || '').replace('T', '<br>').substring(0, 22)}</td>
+            <td style="font-size:0.95rem;color:#8ab4f8;">${(app.submitted_at || '').replace('T', '<br>').substring(0, 22)}</td>
             <td>
-                <div style="font-weight:700;color:#fff;">${esc(app.full_name)}</div>
-                <div style="font-size:0.82rem;color:#5a7ca0;">${esc(app.email)}</div>
+                <div style="font-weight:700;color:#fff;font-size:1.1rem;">${esc(app.full_name)}</div>
+                <div style="font-size:0.95rem;color:#5a7ca0;">${esc(app.email)}</div>
             </td>
             <td>
-                <div style="color:#00d4ff;font-size:0.85rem;">${esc(app.country_code)} ${esc(app.phone)}</div>
-                <div style="font-size:0.78rem;color:#5a7ca0;">${esc(app.source || 'Direct')}</div>
+                <div style="color:#00d4ff;font-size:0.95rem;">${esc(app.country_code)} ${esc(app.phone)}</div>
+                <div style="font-size:0.85rem;color:#5a7ca0;">${esc(app.source || 'Direct')}</div>
             </td>
             <td>
                 <div style="display:flex;gap:8px;flex-wrap:wrap;">
-                    ${app.linkedin ? `<a href="${app.linkedin}"  target="_blank" title="LinkedIn"  style="font-size:1.1rem;text-decoration:none;">🔗</a>` : ''}
-                    ${app.github ? `<a href="${app.github}"    target="_blank" title="GitHub"    style="font-size:1.1rem;text-decoration:none;">🐙</a>` : ''}
-                    ${app.portfolio ? `<a href="${app.portfolio}" target="_blank" title="Portfolio" style="font-size:1.1rem;text-decoration:none;">💼</a>` : ''}
-                    ${app.website ? `<a href="${app.website}"   target="_blank" title="Website"   style="font-size:1.1rem;text-decoration:none;">🌐</a>` : ''}
-                    ${app.cv_key ? `<a href="/admin/cv/${app.cv_key}" target="_blank" title="View CV" style="font-size:1.1rem;text-decoration:none;">📄</a>` : ''}
+                    ${app.linkedin ? `<a href="${app.linkedin}"  target="_blank" title="LinkedIn"  style="font-size:1.2rem;text-decoration:none;">🔗</a>` : ''}
+                    ${app.github ? `<a href="${app.github}"    target="_blank" title="GitHub"    style="font-size:1.2rem;text-decoration:none;">🐙</a>` : ''}
+                    ${app.portfolio ? `<a href="${app.portfolio}" target="_blank" title="Portfolio" style="font-size:1.2rem;text-decoration:none;">💼</a>` : ''}
+                    ${app.website ? `<a href="${app.website}"   target="_blank" title="Website"   style="font-size:1.2rem;text-decoration:none;">🌐</a>` : ''}
+                    ${app.cv_key ? `<a href="/admin/cv/${app.cv_key}" target="_blank" title="View CV" style="font-size:1.2rem;text-decoration:none;">📄</a>` : ''}
                 </div>
             </td>
-            <td style="font-size:0.85rem;">${esc(app.location)}<br><span style="color:#5a7ca0;">${esc(app.location_country)}</span></td>
-            <td><span style="background:rgba(0,212,255,0.1);color:#00d4ff;padding:2px 8px;border-radius:4px;font-weight:600;font-size:0.78rem;text-transform:uppercase;">${esc(app.area)}</span></td>
-            <td style="font-size:0.85rem;">${esc(app.current_role)}<br><span style="color:#5a7ca0;">${esc(app.current_company)}</span></td>
-            <td style="font-size:0.85rem;">${esc(app.degree)}<br><span style="color:#5a7ca0;">${esc(app.field)}</span></td>
-            <td style="text-align:center;">${esc(app.experience || '0')}y</td>
-            <td style="font-size:0.85rem;">${esc(app.work_type)}<br><span style="color:#5a7ca0;">${esc(app.work_preference)}</span></td>
-            <td style="font-size:0.85rem;color:#aac4e8;">${esc(app.start_date)}</td>
+            <td style="font-size:0.95rem;">${esc(app.location)}<br><span style="color:#5a7ca0;">${esc(app.location_country)}</span></td>
+            <td><span style="background:rgba(0,212,255,0.1);color:#00d4ff;padding:4px 10px;border-radius:4px;font-weight:600;font-size:0.85rem;text-transform:uppercase;">${esc(app.area)}</span></td>
+            <td style="font-size:0.95rem;">${esc(app.current_role)}<br><span style="color:#5a7ca0;">${esc(app.current_company)}</span></td>
+            <td style="font-size:0.95rem;">${esc(app.degree)}<br><span style="color:#5a7ca0;">${esc(app.field)}</span></td>
+            <td style="text-align:center;font-size:1rem;">${esc(app.experience || '0')}y</td>
+            <td style="font-size:0.95rem;">${esc(app.work_type)}<br><span style="color:#5a7ca0;">${esc(app.work_preference)}</span></td>
+            <td style="font-size:0.95rem;color:#aac4e8;">${esc(app.start_date)}</td>
             <td style="text-align:center;">
                 ${scoreChip(app.iq_score, app.iq_pct, '#00d4ff')}
             </td>
             <td style="text-align:center;">
                 ${scoreChip(app.tech_score, app.sk_pct, '#00ff88')}
             </td>
-            <td style="font-size:0.8rem;color:#8ab4f8;text-align:center;line-height:1.6;">
+            <td style="font-size:0.9rem;color:#8ab4f8;text-align:center;line-height:1.6;">
                 🎈${app.game_balloon || '—'}<br>🃏${app.game_iq || '—'}
             </td>
-            <td style="max-width:180px;">
-                <div style="font-size:0.78rem;color:#aac4e8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="${esc(app.interest)}">${esc(app.interest) || '<span style="color:#2a3f60">—</span>'}</div>
+            <td style="max-width:200px;">
+                <div style="font-size:0.85rem;color:#aac4e8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="${esc(app.interest)}">${esc(app.interest) || '<span style="color:#2a3f60">—</span>'}</div>
             </td>
             <td>
-                <a href="/admin_detail.html?id=${encodeURIComponent(app.id)}" style="color:#00ff88;text-decoration:none;font-weight:600;font-size:0.85rem;white-space:nowrap;">View →</a>
+                <a href="/admin_detail.html?id=${encodeURIComponent(app.id)}" style="color:#00ff88;text-decoration:none;font-weight:600;font-size:0.95rem;white-space:nowrap;">View →</a>
             </td>
         </tr>
     `).join('');

@@ -177,6 +177,7 @@ def handle_submit(event):
         # DB specialization
         'db_databases':     multilist_from(data, 'db_databases'),
         'db_query_tools':   multilist_from(data, 'db_query_tools'),
+        'other_query_tool': data.get('other_query_tool', ''),
         'db_backend_langs': multilist_from(data, 'db_backend_langs'),
         'db_experience':    data.get('db_experience', ''),
         'db_optimized':     data.get('db_optimized', ''),
@@ -184,7 +185,9 @@ def handle_submit(event):
         # ML specialization
         'ml_libs':          multilist_from(data, 'ml_libs'),
         'ml_fin_data':      multilist_from(data, 'ml_fin_data'),
+        'other_ml_fin_data': data.get('other_ml_fin_data', ''),
         'ml_concepts':      multilist_from(data, 'ml_concepts'),
+        'other_ml_concept': data.get('other_ml_concept', ''),
         'ml_experience':    data.get('ml_experience', ''),
         'ml_built':         data.get('ml_built', ''),
         'ml_desc':          data.get('ml_desc', ''),

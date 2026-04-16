@@ -194,6 +194,7 @@ def handle_submit(event):
         # AI specialization
         'ai_tools':         multilist_from(data, 'ai_tools'),
         'ai_areas':         multilist_from(data, 'ai_areas'),
+        'other_ai_area':    data.get('other_ai_area', ''),
         'ai_langs':         multilist_from(data, 'ai_langs'),
         'ai_experience':    data.get('ai_experience', ''),
         'ai_deployed':      data.get('ai_deployed', ''),

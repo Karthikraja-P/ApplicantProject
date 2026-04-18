@@ -82,14 +82,25 @@ def strip_empty(d):
 
 
 def check_auth(event):
-    headers = event.get('headers') or {}
-    cookie = headers.get('cookie', '')
-    auth_header = headers.get('x-admin-pass', '') or headers.get('X-Admin-Pass', '')
+    # Support both REST API (headers['cookie']) and HTTP API (event['cookies'])
+    h = {k.lower(): v for k, v in (event.get('headers') or {}).items()}
+    cookie_header = h.get('cookie', '')
     
-    # Support both cookie and direct header for flexibility
-    if "admin_session=authenticated" in cookie:
+    # event['cookies'] is a list in HTTP API payload 2.0
+    v2_cookies = event.get('cookies') or []
+    v2_cookie_str = "; ".join(v2_cookies)
+    
+    full_cookie_context = f"{cookie_header}; {v2_cookie_str}"
+    
+    # Support direct header or query parameter for Excel/CSV links
+    qs = event.get('queryStringParameters') or {}
+    auth_header = h.get('x-admin-pass', '')
+    pass_param = qs.get('pass', '')
+    
+    # Support both cookie and direct header/param for flexibility
+    if "admin_session=authenticated" in full_cookie_context:
         return True
-    if auth_header == ADMIN_PASS:
+    if auth_header == ADMIN_PASS or pass_param == ADMIN_PASS:
         return True
         
     return False
@@ -544,7 +555,8 @@ CSV_FIELD_MAPPING = {
     'ai_langs': 'AI: Languages',
     'ai_experience': 'AI: Experience Category',
     'ai_deployed': 'AI: Deployed Models',
-    'ai_desc': 'AI: Project Description'
+    'ai_desc': 'AI: Project Description',
+    'cv_key': 'CV Download link'
 }
 
 def handle_admin_export(event):
@@ -600,6 +612,11 @@ def handle_admin_export(event):
     headers = [CSV_FIELD_MAPPING.get(k, k) for k in final_keys]
     writer.writerow(headers)
     
+    # Base URL for links
+    headers_req = event.get('headers') or {}
+    host = headers_req.get('host') or headers_req.get('Host') or 'ddlcgice0qu4d.cloudfront.net'
+    base_url = f"https://{host}"
+
     # Write Rows
     for item in items:
         row = []
@@ -608,6 +625,9 @@ def handle_admin_export(event):
             # Clean up T in timestamps for better CSV readability
             if k == 'submitted_at' and isinstance(val, str):
                 val = val.replace('T', ' ')[:19]
+            # Convert CV key to downloadable URL with fallback auth
+            if k == 'cv_key' and val:
+                val = f"{base_url}/admin/cv/{val}?pass={ADMIN_PASS}"
             row.append(val)
         writer.writerow(row)
     
@@ -627,7 +647,8 @@ def handle_admin_export(event):
 def handle_cv_view(event):
     """Generate a presigned URL to view a CV and redirect."""
     # Robust path detection for both HTTP API (v2) and REST API (v1)
-    path = event.get('rawPath') or event.get('path') or ''
+    raw_path = event.get('rawPath') or event.get('path') or ''
+    path = raw_path.strip()
     
     # Strip stage prefix (e.g. /dev/submit → /submit)
     stage = (event.get('requestContext', {}).get('stage') or '').strip('/')
@@ -660,12 +681,24 @@ def handle_cv_view(event):
         }
     except Exception as e:
         print(f"[S3 ERROR] {e}")
-        return resp(500, {'status': 'error', 'message': 'Failed to generate CV link'})
+        return resp(500, {'status': 'error', 'message': f'Failed to generate CV link: {str(e)}'})
 
 
 # ── Router ─────────────────────────────────────────────────────────────────────
 
 def lambda_handler(event, context):
+    try:
+        return _lambda_handler(event, context)
+    except Exception as e:
+        import traceback
+        print(f"[FATAL ERROR] {e}\n{traceback.format_exc()}")
+        return resp(500, {
+            'status': 'error',
+            'message': str(e),
+            'traceback': traceback.format_exc()
+        })
+
+def _lambda_handler(event, context):
     # Support both HTTP API (v2) and REST API (v1)
     method = event.get('httpMethod') or event.get('requestContext', {}).get('http', {}).get('method', '').upper()
     
@@ -689,24 +722,22 @@ def lambda_handler(event, context):
     target = path.lower().strip('/')
     if not target: target = 'root'
 
-    print(f"[{method}] {path} (target: {target})")
-
     if method == 'OPTIONS':
         return resp(200, {})
 
-    if path == '/submit' and method == 'POST':
+    if target == 'submit' and method == 'POST':
         return handle_submit(event)
 
-    if path == '/get-upload-url' and method == 'POST':
+    if target == 'get-upload-url' and method == 'POST':
         return handle_get_upload_url(event)
 
-    if path == '/submit-final' and method == 'POST':
+    if target == 'submit-final' and method == 'POST':
         return handle_submit_final(event)
 
-    if path == '/login' and method == 'POST':
+    if target == 'login' and method == 'POST':
         return handle_login(event)
 
-    if path == '/logout':
+    if target == 'logout':
         return handle_logout(event)
 
     # ── Admin Routes ─────────────────────────────────────────────────────────
@@ -742,6 +773,5 @@ def lambda_handler(event, context):
         return handle_cv_view(event)
 
     # Log for CloudWatch
-    print(f"DEBUG: Final target='{target}', method='{method}', path='{path}'")
     err_msg = f"Route not found: {method} {target}"
     return resp(404, {'status': 'error', 'message': err_msg})

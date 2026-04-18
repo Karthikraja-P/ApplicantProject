@@ -1,0 +1,32 @@
+<svg width="270" height="270" xmlns="http://www.w3.org/2000/svg"><foreignObject width="100%" height="100%"><div xmlns="http://www.w3.org/1999/xhtml" style="color:black; font-family:sans-serif;">
+        <div style="display:grid;grid-template-columns:60px 60px 60px;border:2px solid #142e56;width:max-content;margin:20px auto;background:#fff;">
+            <!-- R1C1: 1 Left -->
+            <div style="width:60px;height:60px;border:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:22px;color:#142e56;">←</div>
+            <!-- R1C2: 1 Down -->
+            <div style="width:60px;height:60px;border:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:22px;color:#142e56;">↓</div>
+            <!-- R1C3: 1 Right -->
+            <div style="width:60px;height:60px;border:1px solid #142e56;display:flex;align-items:center;justify-content:center;font-size:22px;color:#142e56;">→</div>
+            
+            <!-- R2C1: 2 Down (Adjacent) -->
+            <div style="width:60px;height:60px;border:1px solid #142e56;display:flex;align-items:center;justify-content:center;gap:4px;font-size:22px;color:#142e56;">
+                <span>↓</span><span>↓</span>
+            </div>
+            <!-- R2C2: 2 Right (Stacked) -->
+            <div style="width:60px;height:60px;border:1px solid #142e56;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:0.8;font-size:22px;color:#142e56;">
+                <span>→</span><span>→</span>
+            </div>
+            <!-- R2C3: 2 Left (Stacked) -->
+            <div style="width:60px;height:60px;border:1px solid #142e56;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:0.8;font-size:22px;color:#142e56;">
+                <span>←</span><span>←</span>
+            </div>
+
+            <!-- R3C1: 3 Right (Stacked) -->
+            <div style="width:60px;height:60px;border:1px solid #142e56;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:0.75;font-size:22px;color:#142e56;">
+                <span>→</span><span>→</span><span>→</span>
+            </div>
+            <!-- R3C2: 3 Left (Stacked) -->
+            <div style="width:60px;height:60px;border:1px solid #142e56;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:0.75;font-size:22px;color:#142e56;">
+                <span>←</span><span>←</span><span>←</span>
+            </div>
+            <div style="width:60px;height:60px;background:#142e56;display:flex;align-items:center;justify-content:center;color:#f59e0b;font-size:32px;font-weight:bold;">?</div>
+        </div></div></foreignObject></svg>

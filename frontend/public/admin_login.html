@@ -122,6 +122,10 @@
             try {
                 // Using window.API_BASE_URL if it exists
                 const apiBase = window.API_BASE_URL || '';
+                if (!apiBase && window.location.hostname === 'localhost') {
+                    console.warn('Running on localhost without API_BASE_URL. Requests may fail if not proxied.');
+                }
+
                 const response = await fetch(`${apiBase}/login`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -129,14 +133,31 @@
                 });
 
                 if (response.ok) {
+                    statusBox.innerHTML = '<div class="flash-msg" style="background:rgba(0,255,136,0.1);color:#00ff88;border:1px solid rgba(0,255,136,0.3);">Login successful! Redirecting...</div>';
                     localStorage.setItem('tf_admin_pass', data.password);
-                    window.location.href = '/admin.html';
+                    setTimeout(() => {
+                        window.location.href = '/admin.html';
+                    }, 800);
                 } else {
-                    const err = await response.json();
-                    statusBox.innerHTML = `<div class="flash-msg error">${err.message || 'Invalid credentials.'}</div>`;
+                    let msg = 'Invalid credentials.';
+                    try {
+                        const err = await response.json();
+                        msg = err.message || msg;
+                    } catch (e) { }
+
+                    if (response.status === 401) {
+                        statusBox.innerHTML = `<div class="flash-msg error"><strong>Access Denied:</strong> ${msg}</div>`;
+                    } else {
+                        statusBox.innerHTML = `<div class="flash-msg error"><strong>Server Error (${response.status}):</strong> Please try again later.</div>`;
+                    }
                 }
             } catch (err) {
-                statusBox.innerHTML = '<div class="flash-msg error">Connection failed.</div>';
+                console.error('Login connection error:', err);
+                statusBox.innerHTML = `
+                    <div class="flash-msg error">
+                        <strong>Connection Failed</strong><br>
+                        <span style="font-size:0.8rem;opacity:0.8;">The login API could not be reached. If you are testing locally, ensure the backend is running and API_BASE_URL is set.</span>
+                    </div>`;
             }
         });
     </script>

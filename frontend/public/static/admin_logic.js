@@ -222,26 +222,72 @@ function esc(v) {
 }
 
 async function exportCSV() {
+    const btn = document.querySelector('.export-btn');
+    const originalContent = btn.innerHTML;
     const adminPass = localStorage.getItem('tf_admin_pass') || '';
     const apiBase = window.API_BASE_URL || '';
 
     try {
-        const response = await fetch(`${apiBase}/admin/export/csv`, {
+        btn.disabled = true;
+        btn.innerHTML = `
+            <svg class="spinner" width="18" height="18" viewBox="0 0 50 50" style="animation: spin 1s linear infinite;">
+                <circle cx="25" cy="25" r="20" fill="none" stroke="currentColor" stroke-width="5" stroke-dasharray="80, 200" stroke-dashoffset="0"></circle>
+            </svg>
+            Exporting...`;
+
+        const response = await fetch(`${apiBase}/admin/applications/export?_cb=${Date.now()}`, {
             headers: { 'X-Admin-Pass': adminPass }
         });
-        if (response.status === 401) { alert('Session expired. Please login again.'); window.location.href = '/admin_login.html'; return; }
+
+        if (response.status === 401) {
+            alert('Session expired. Please login again.');
+            window.location.href = '/admin_login.html';
+            return;
+        }
+
+        const ct = response.headers.get('Content-Type') || '';
+        if (!response.ok || ct.includes('text/html')) {
+            const errBody = await response.text();
+            console.error('Export error response:', errBody);
+            throw new Error(`Invalid response from server (${response.status} ${ct}). Likely a route configuration issue.`);
+        }
+
         const blob = await response.blob();
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `applicants_${new Date().toISOString().split('T')[0]}.csv`;
+        const dateStr = new Date().toISOString().split('T')[0];
+        a.download = `applicants_full_export_${dateStr}.csv`;
         document.body.appendChild(a);
         a.click();
         a.remove();
+
+        // Brief success state
+        btn.style.background = '#00ff88';
+        btn.innerHTML = '✓ Exported';
+        setTimeout(() => {
+            btn.disabled = false;
+            btn.innerHTML = originalContent;
+            btn.style.background = '';
+        }, 2000);
+
     } catch (err) {
         console.error('Export failed:', err);
-        alert('Export failed.');
+        alert('Export failed. Check console for details.');
+        btn.disabled = false;
+        btn.innerHTML = originalContent;
     }
+}
+
+// Add CSS for the spinner if not already present
+if (!document.getElementById('admin-logic-styles')) {
+    const style = document.createElement('style');
+    style.id = 'admin-logic-styles';
+    style.textContent = `
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        .export-btn:disabled { opacity: 0.7; cursor: not-allowed; }
+    `;
+    document.head.appendChild(style);
 }
 
 function debounce(func, wait) {

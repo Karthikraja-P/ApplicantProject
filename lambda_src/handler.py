@@ -491,40 +491,134 @@ def handle_admin_detail(event):
     }
 
 
+# Field mapping for CSV exports (Internal Key -> User Friendly Header)
+CSV_FIELD_MAPPING = {
+    'submitted_at': 'Submission Date',
+    'full_name': 'Full Name',
+    'email': 'Email',
+    'phone': 'Phone',
+    'location': 'City',
+    'location_country': 'Country',
+    'area': 'Track/Area',
+    'current_role': 'Current Role',
+    'current_company': 'Current Company',
+    'experience': 'Years of Exp',
+    'degree': 'Degree',
+    'field': 'Field of Study',
+    'university': 'University',
+    'iq_score': 'IQ Score',
+    'sk_correct': 'Tech Score (Correct)',
+    'sk_pct': 'Tech Accuracy (%)',
+    'game_bart_pumps_avg': 'BART Avg Pumps (Balloon)',
+    'game_igt_late_good_pct': 'IGT Good Pct (IQ/Behavioral)',
+    'game_he_hard_pct': 'HE Hard Pct (Height)',
+    'skills': 'Skills',
+    'source': 'Source',
+    'interest': 'Interest/Motivation',
+    'linkedin': 'LinkedIn',
+    'github': 'GitHub',
+    'portfolio': 'Portfolio',
+    'website': 'Website',
+    'work_type': 'Work Type',
+    'work_preference': 'Work Preference',
+    'start_date': 'Start Date',
+    'constraints': 'Constraints',
+    'problems': 'Solving Style/Extra Info',
+    # DB Specialization
+    'db_databases': 'DB: Databases',
+    'db_query_tools': 'DB: Query Tools',
+    'db_backend_langs': 'DB: Backend Langs',
+    'db_experience': 'DB: Experience Category',
+    'db_optimized': 'DB: Optimization Exp',
+    'db_desc': 'DB: Project Description',
+    # ML Specialization
+    'ml_libs': 'ML: Libraries',
+    'ml_fin_data': 'ML: Financial Data Exp',
+    'ml_concepts': 'ML: Concepts',
+    'ml_experience': 'ML: Experience Category',
+    'ml_built': 'ML: Models Built',
+    'ml_desc': 'ML: Project Description',
+    # AI Specialization
+    'ai_tools': 'AI: Tools',
+    'ai_areas': 'AI: Areas',
+    'ai_langs': 'AI: Languages',
+    'ai_experience': 'AI: Experience Category',
+    'ai_deployed': 'AI: Deployed Models',
+    'ai_desc': 'AI: Project Description'
+}
+
 def handle_admin_export(event):
+    items = []
+    last_key = None
+    
     try:
-        result = table.query(
-            IndexName='submission-type-index',
-            KeyConditionExpression=Key('submission_type').eq('application'),
-            ScanIndexForward=False,
-            Limit=500,
-        )
-        items = result.get('Items', [])
+        # Fetch ALL records using pagination (LastEvaluatedKey)
+        while True:
+            query_params = {
+                'IndexName': 'submission-type-index',
+                'KeyConditionExpression': Key('submission_type').eq('application'),
+                'ScanIndexForward': False,
+            }
+            if last_key:
+                query_params['ExclusiveStartKey'] = last_key
+                
+            result = table.query(**query_params)
+            items.extend(result.get('Items', []))
+            
+            last_key = result.get('LastEvaluatedKey')
+            if not last_key:
+                break
+                
+            # Safety break to avoid infinite loops in case of unexpected DynamoDB behavior
+            if len(items) > 10000:
+                print("[Admin Export] Safety limit of 10k records reached.")
+                break
+                
     except ClientError as e:
         print(f"[DynamoDB ERROR] {e}")
-        return resp(500, {'status': 'error', 'message': 'Failed to fetch applications'})
+        return resp(500, {'status': 'error', 'message': f'Failed to fetch applications for export: {str(e)}'})
 
     if not items:
         return resp(400, {'status': 'error', 'message': 'No data to export'})
 
     output = io.StringIO()
+    # Add UTF-8 BOM for Excel
+    output.write('\ufeff')
     writer = csv.writer(output)
     
-    # Get all keys from all items to ensure complete CSV
+    # Determine columns based on mapping + any extra fields found in the data
+    mapped_keys = list(CSV_FIELD_MAPPING.keys())
     all_keys = set()
-    for item in items: all_keys.update(item.keys())
-    keys = sorted(list(all_keys))
-    
-    writer.writerow(keys)
     for item in items:
-        writer.writerow([item.get(k, '') for k in keys])
+        all_keys.update(item.keys())
+    
+    # Sort columns: mapped first in their defined order, then any leftovers
+    extra_keys = sorted(list(all_keys - set(mapped_keys)))
+    final_keys = mapped_keys + extra_keys
+    
+    # Write Header with user-friendly names where available
+    headers = [CSV_FIELD_MAPPING.get(k, k) for k in final_keys]
+    writer.writerow(headers)
+    
+    # Write Rows
+    for item in items:
+        row = []
+        for k in final_keys:
+            val = item.get(k, '')
+            # Clean up T in timestamps for better CSV readability
+            if k == 'submitted_at' and isinstance(val, str):
+                val = val.replace('T', ' ')[:19]
+            row.append(val)
+        writer.writerow(row)
     
     return {
         'statusCode': 200,
         'headers': {
-            'Content-Type': 'text/csv',
-            'Content-Disposition': 'attachment; filename=applicants_export.csv',
-            'Access-Control-Allow-Origin': '*'
+            'Content-Type': 'text/csv; charset=utf-8',
+            'Content-Disposition': 'attachment; filename=applicants_full_export.csv',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Headers': 'Content-Type,X-Admin-Pass,Authorization',
+            'Access-Control-Allow-Methods': 'GET,POST,OPTIONS',
         },
         'body': output.getvalue()
     }
@@ -532,13 +626,21 @@ def handle_admin_export(event):
 
 def handle_cv_view(event):
     """Generate a presigned URL to view a CV and redirect."""
-    # We need the path to extract the key
-    path = event.get('rawPath', '')
+    # Robust path detection for both HTTP API (v2) and REST API (v1)
+    path = event.get('rawPath') or event.get('path') or ''
     
-    # Strip stage prefix again if present
+    # Strip stage prefix (e.g. /dev/submit → /submit)
     stage = (event.get('requestContext', {}).get('stage') or '').strip('/')
-    if stage and path.startswith(f'/{stage}'):
-        path = path[len(f'/{stage}'):]
+    if stage and stage != '$default':
+        if path.startswith(f'/{stage}'):
+            path = path[len(f'/{stage}'):]
+    
+    # Normalize path: remove trailing slash for easier matching
+    if path.endswith('/') and len(path) > 1:
+        path = path[:-1]
+    
+    if not path:
+        path = '/'
 
     cv_key = path.replace('/admin/cv/', '', 1)
     
@@ -564,17 +666,30 @@ def handle_cv_view(event):
 # ── Router ─────────────────────────────────────────────────────────────────────
 
 def lambda_handler(event, context):
-    method = event.get('requestContext', {}).get('http', {}).get('method', '').upper()
-    path   = event.get('rawPath', '')
-
+    # Support both HTTP API (v2) and REST API (v1)
+    method = event.get('httpMethod') or event.get('requestContext', {}).get('http', {}).get('method', '').upper()
+    
+    # Robust path detection
+    path = event.get('rawPath') or event.get('path') or ''
+    
     # Strip stage prefix (e.g. /dev/submit → /submit)
     stage = (event.get('requestContext', {}).get('stage') or '').strip('/')
-    if stage and path.startswith(f'/{stage}'):
-        path = path[len(f'/{stage}'):]
+    if stage and stage != '$default':
+        if path.startswith(f'/{stage}'):
+            path = path[len(f'/{stage}'):]
+
+    # Normalize path: remove trailing slash for easier matching
+    if path.endswith('/') and len(path) > 1:
+        path = path[:-1]
+
     if not path:
         path = '/'
 
-    print(f"[{method}] {path}")
+    # Normalize for routing
+    target = path.lower().strip('/')
+    if not target: target = 'root'
+
+    print(f"[{method}] {path} (target: {target})")
 
     if method == 'OPTIONS':
         return resp(200, {})
@@ -594,37 +709,39 @@ def lambda_handler(event, context):
     if path == '/logout':
         return handle_logout(event)
 
-    if path == '/admin/applications' and method == 'GET':
+    # ── Admin Routes ─────────────────────────────────────────────────────────
+
+    if target == 'admin/applications/export' or target == 'admin/export/csv' or target == 'admin/export':
+        if not check_auth(event): return resp(401, {'status': 'unauthorized'})
+        return handle_admin_export(event)
+
+    if target == 'admin/applications':
         if not check_auth(event): return resp(401, {'status': 'unauthorized'})
         return handle_admin_list(event)
 
-    if path.startswith('/admin/applications/') and method == 'GET':
+    if target.startswith('admin/applications/') or target.startswith('admin/application'):
         if not check_auth(event): return resp(401, {'status': 'unauthorized'})
-        return handle_admin_detail(event)
-
-    # Singular alias + QS-based id lookup
-    if path in ('/admin/application', '/admin/application/') and method == 'GET':
-        if not check_auth(event): return resp(401, {'status': 'unauthorized'})
-        return handle_admin_detail(event)
-
-    # Path-based singular: /admin/application/{id}
-    if path.startswith('/admin/application/') and method == 'GET':
-        if not check_auth(event): return resp(401, {'status': 'unauthorized'})
-        # Move path segment into QS param for handle_admin_detail
-        seg = path[len('/admin/application/'):]
+        
+        # Handle /admin/applications/{id} or /admin/application/{id}
+        seg = ''
+        if '/admin/applications/' in path:
+            seg = path.split('/admin/applications/')[1].strip('/')
+        elif '/admin/application/' in path:
+            seg = path.split('/admin/application/')[1].strip('/')
+        
         if seg:
             event = dict(event)
             qs = dict(event.get('queryStringParameters') or {})
             qs['id'] = seg
             event['queryStringParameters'] = qs
+            
         return handle_admin_detail(event)
 
-    if path == '/admin/export/csv' and method == 'GET':
-        if not check_auth(event): return resp(401, {'status': 'unauthorized'})
-        return handle_admin_export(event)
-
-    if path.startswith('/admin/cv/') and method == 'GET':
+    if target.startswith('admin/cv/'):
         if not check_auth(event): return resp(401, {'status': 'unauthorized'})
         return handle_cv_view(event)
 
-    return resp(404, {'status': 'error', 'message': f'Route not found: {method} {path}'})
+    # Log for CloudWatch
+    print(f"DEBUG: Final target='{target}', method='{method}', path='{path}'")
+    err_msg = f"Route not found: {method} {target}"
+    return resp(404, {'status': 'error', 'message': err_msg})

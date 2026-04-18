@@ -82,9 +82,9 @@ def strip_empty(d):
 
 
 def check_auth(event):
-    headers = {k.lower(): v for k, v in (event.get('headers') or {}).items()}
+    headers = event.get('headers') or {}
     cookie = headers.get('cookie', '')
-    auth_header = headers.get('x-admin-pass', '')
+    auth_header = headers.get('x-admin-pass', '') or headers.get('X-Admin-Pass', '')
     
     # Support both cookie and direct header for flexibility
     if "admin_session=authenticated" in cookie:
@@ -497,108 +497,48 @@ def handle_admin_export(event):
             IndexName='submission-type-index',
             KeyConditionExpression=Key('submission_type').eq('application'),
             ScanIndexForward=False,
-            Limit=1000,
+            Limit=500,
         )
         items = result.get('Items', [])
-        
-        if not items:
-            return resp(400, {'status': 'error', 'message': 'No data to export'})
+    except ClientError as e:
+        print(f"[DynamoDB ERROR] {e}")
+        return resp(500, {'status': 'error', 'message': 'Failed to fetch applications'})
 
-        output = io.StringIO()
-        writer = csv.writer(output)
-        
-        # 1. Define Primary Aligned Columns (from Admin Table)
-        # Structure: (CSV Header, DynamoDB Key)
-        primary_cols = [
-            ('#', None),
-            ('Submitted At', 'submitted_at'),
-            ('Full Name', 'full_name'),
-            ('Email', 'email'),
-            ('Track/Area', 'area'),
-            ('Experience (Yrs)', 'experience'),
-            ('Country', 'location_country'),
-            ('Location Detail', 'location'),
-            ('Phone', 'phone'),
-            ('Source', 'source'),
-            ('IQ Score', 'iq_score'),
-            ('IQ Pct', 'iq_pct'),
-            ('Tech Score', 'sk_correct'),
-            ('Tech Pct', 'sk_pct'),
-            ('Game (BART)', 'game_bart_pumps_avg'),
-            ('Game (IGT)', 'game_igt_late_good_pct'),
-            ('Game (HE)', 'game_he_hard_pct'),
-            ('LinkedIn', 'linkedin'),
-            ('GitHub', 'github'),
-            ('Portfolio', 'portfolio'),
-            ('CV Key', 'cv_key')
-        ]
-        
-        # 2. Identify ALL other keys in the database to ensure "all data" is exported
-        all_keys_in_db = set()
-        for item in items:
-            all_keys_in_db.update(item.keys())
-        
-        primary_db_keys = {c[1] for c in primary_cols if c[1]}
-        extra_keys = sorted([k for k in all_keys_in_db if k not in primary_db_keys])
-        
-        # 3. Write Headers
-        writer.writerow([c[0] for c in primary_cols] + extra_keys)
+    if not items:
+        return resp(400, {'status': 'error', 'message': 'No data to export'})
 
-        # 4. Write Data
-        for i, item in enumerate(items):
-            row = []
-            # Add Primary columns
-            for label, key in primary_cols:
-                if label == '#':
-                    row.append(i + 1)
-                elif key == 'phone':
-                    row.append(f"{item.get('country_code', '')} {item.get('phone', '')}".strip())
-                else:
-                    row.append(item.get(key, ''))
-            
-            # Add Extra columns
-            for key in extra_keys:
-                val = item.get(key, '')
-                # If it's a complex type (list/dict), JSON stringify it for CSV
-                if isinstance(val, (list, dict)):
-                    row.append(json.dumps(val))
-                else:
-                    row.append(val)
-            
-            writer.writerow(row)
-        
-        now_str = datetime.utcnow().strftime("%Y-%m-%d_%H-%M")
-        return {
-            'statusCode': 200,
-            'headers': {
-                'Content-Type': 'text/csv',
-                'Content-Disposition': f'attachment; filename=applicants_VERIFIED_FIX_{now_str}.csv',
-                'Cache-Control': 'no-store, max-age=0',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Headers': 'Content-Type,X-Admin-Pass',
-                'Access-Control-Allow-Methods': 'GET,POST,OPTIONS'
-            },
-            'body': output.getvalue()
-        }
-    except Exception as e:
-        print(f"[Export Error] {e}")
-        return resp(500, {'status': 'error', 'message': f'Internal Export Error: {str(e)}'})
+    output = io.StringIO()
+    writer = csv.writer(output)
+    
+    # Get all keys from all items to ensure complete CSV
+    all_keys = set()
+    for item in items: all_keys.update(item.keys())
+    keys = sorted(list(all_keys))
+    
+    writer.writerow(keys)
+    for item in items:
+        writer.writerow([item.get(k, '') for k in keys])
+    
+    return {
+        'statusCode': 200,
+        'headers': {
+            'Content-Type': 'text/csv',
+            'Content-Disposition': 'attachment; filename=applicants_export.csv',
+            'Access-Control-Allow-Origin': '*'
+        },
+        'body': output.getvalue()
+    }
 
 
 def handle_cv_view(event):
     """Generate a presigned URL to view a CV and redirect."""
-    # Use universal path lookup
-    raw_path = event.get('rawPath') or event.get('path') or ''
-    path = raw_path.strip()
-
-    # Strip stage prefix
+    # We need the path to extract the key
+    path = event.get('rawPath', '')
+    
+    # Strip stage prefix again if present
     stage = (event.get('requestContext', {}).get('stage') or '').strip('/')
     if stage and path.startswith(f'/{stage}'):
-        if len(path) == len(f"/{stage}") or path[len(f"/{stage}")] == '/':
-            path = path[len(f'/{stage}'):]
-    
-    # Normalize
-    path = '/' + path.strip('/')
+        path = path[len(f'/{stage}'):]
 
     cv_key = path.replace('/admin/cv/', '', 1)
     
@@ -624,83 +564,67 @@ def handle_cv_view(event):
 # ── Router ─────────────────────────────────────────────────────────────────────
 
 def lambda_handler(event, context):
-    # Support both Payload 1.0 (REST API) and 2.0 (HTTP API)
-    method = (event.get('requestContext', {}).get('http', {}).get('method') or \
-              event.get('httpMethod') or '').upper()
-    
-    # Path lookup (rawPath for 2.0, path for 1.0)
-    raw_path = event.get('rawPath') or event.get('path') or ''
-    path = raw_path.strip()
+    method = event.get('requestContext', {}).get('http', {}).get('method', '').upper()
+    path   = event.get('rawPath', '')
 
-    # Stage Extraction
+    # Strip stage prefix (e.g. /dev/submit → /submit)
     stage = (event.get('requestContext', {}).get('stage') or '').strip('/')
-    
-    # Robust Stage Strip
     if stage and path.startswith(f'/{stage}'):
-        if len(path) == len(f"/{stage}") or path[len(f"/{stage}")] == '/':
-            path = path[len(f'/{stage}'):]
+        path = path[len(f'/{stage}'):]
+    if not path:
+        path = '/'
 
-    # COMPREHENSIVE NORMALIZATION for routing
-    # This 'target' is used for exact matches, ignoring slashes and case
-    target = path.lower().strip('/')
-    if not target: target = 'root'
-
-    print(f"[{method}] target={target} (path={path}, raw={raw_path}, stage={stage})")
+    print(f"[{method}] {path}")
 
     if method == 'OPTIONS':
         return resp(200, {})
 
-    # Authentication guard for admin routes
-    is_admin_route = target.startswith('admin/') or target == 'admin'
-    if is_admin_route:
-        if not check_auth(event):
-            return resp(401, {'status': 'error', 'message': 'Unauthorized'})
-
-    # ── ROUTING TABLE ─────────────────────────────────────────────────────────
-
-    if target == 'submit' and method == 'POST':
+    if path == '/submit' and method == 'POST':
         return handle_submit(event)
 
-    if target == 'get-upload-url' and method == 'POST':
+    if path == '/get-upload-url' and method == 'POST':
         return handle_get_upload_url(event)
 
-    if target == 'submit-final' and method == 'POST':
+    if path == '/submit-final' and method == 'POST':
         return handle_submit_final(event)
 
-    if target == 'login' and method == 'POST':
+    if path == '/login' and method == 'POST':
         return handle_login(event)
 
-    if target == 'logout':
+    if path == '/logout':
         return handle_logout(event)
 
-    if target == 'admin/applications' and method == 'GET':
+    if path == '/admin/applications' and method == 'GET':
+        if not check_auth(event): return resp(401, {'status': 'unauthorized'})
         return handle_admin_list(event)
 
-    if target in ('admin/export/csv', 'admin/export', 'admin/exportcsv') and method == 'GET':
+    if path.startswith('/admin/applications/') and method == 'GET':
+        if not check_auth(event): return resp(401, {'status': 'unauthorized'})
+        return handle_admin_detail(event)
+
+    # Singular alias + QS-based id lookup
+    if path in ('/admin/application', '/admin/application/') and method == 'GET':
+        if not check_auth(event): return resp(401, {'status': 'unauthorized'})
+        return handle_admin_detail(event)
+
+    # Path-based singular: /admin/application/{id}
+    if path.startswith('/admin/application/') and method == 'GET':
+        if not check_auth(event): return resp(401, {'status': 'unauthorized'})
+        # Move path segment into QS param for handle_admin_detail
+        seg = path[len('/admin/application/'):]
+        if seg:
+            event = dict(event)
+            qs = dict(event.get('queryStringParameters') or {})
+            qs['id'] = seg
+            event['queryStringParameters'] = qs
+        return handle_admin_detail(event)
+
+    if path == '/admin/export/csv' and method == 'GET':
+        if not check_auth(event): return resp(401, {'status': 'unauthorized'})
         return handle_admin_export(event)
 
-    if target.startswith('admin/applications/') and method == 'GET':
-        return handle_admin_detail(event)
-
-    # Singular alias + path-based or QS-based id lookup
-    if target.startswith('admin/application') and method == 'GET':
-        # /admin/application/{id} or /admin/application?id=...
-        if target.startswith('admin/application/'):
-            seg = path.split('/admin/application/')[1].strip('/')
-            if seg: 
-                # Inject into event for handle_admin_detail
-                event = dict(event)
-                qs = dict(event.get('queryStringParameters') or {})
-                qs['id'] = seg
-                event['queryStringParameters'] = qs
-        return handle_admin_detail(event)
-
-    if target.startswith('admin/cv/') and method == 'GET':
+    if path.startswith('/admin/cv/') and method == 'GET':
+        if not check_auth(event): return resp(401, {'status': 'unauthorized'})
         return handle_cv_view(event)
 
-    # ── FALLBACK ──────────────────────────────────────────────────────────────
-    return resp(404, {
-        'status': 'error', 
-        'message': f'Route not found: {method} {target}',
-        'debug': {'method': method, 'target': target, 'path': path, 'stage': stage}
-    })
+    return resp(404, {'status': 'error', 'message': f'Route not found: {method} {path}'})

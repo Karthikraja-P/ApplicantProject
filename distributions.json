@@ -1,0 +1,26 @@
+[
+    {
+        "Id": "E122LOCLC0PWTA",
+        "Aliases": null,
+        "Origins": [
+            "pitchdesk-frontend-app-test.s3-website-ap-southeast-1.amazonaws.com-mja10hmisd6"
+        ]
+    },
+    {
+        "Id": "ESIZT6AFWPWIB",
+        "Aliases": [
+            "www.digiblaz.com"
+        ],
+        "Origins": [
+            "front-end-domin-test.s3.ap-southeast-1.amazonaws.com-mk2l6t3j7k7"
+        ]
+    },
+    {
+        "Id": "E159VE7BL4OWMW",
+        "Aliases": null,
+        "Origins": [
+            "S3Origin",
+            "ApiOrigin"
+        ]
+    }
+]

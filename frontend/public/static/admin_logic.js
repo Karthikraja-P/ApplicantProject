@@ -226,28 +226,21 @@ async function exportCSV() {
     const apiBase = window.API_BASE_URL || '';
 
     try {
-        const response = await fetch(`${apiBase}/admin/export/csv?_cb=${Date.now()}`, {
+        const response = await fetch(`${apiBase}/admin/export/csv`, {
             headers: { 'X-Admin-Pass': adminPass }
         });
         if (response.status === 401) { alert('Session expired. Please login again.'); window.location.href = '/admin_login.html'; return; }
-        if (!response.ok) {
-            const errText = await response.text();
-            alert(`Export failed with status ${response.status}. Please check console for details.`);
-            console.error('Export Error Body:', errText);
-            return;
-        }
         const blob = await response.blob();
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        const nowStr = new Date().toISOString().replace(/T/, '_').replace(/\..+/, '').replace(/:/g, '-');
-        a.download = `applicants_TEST_FIX_V4_${nowStr}.csv`;
+        a.download = `applicants_${new Date().toISOString().split('T')[0]}.csv`;
         document.body.appendChild(a);
         a.click();
         a.remove();
     } catch (err) {
         console.error('Export failed:', err);
-        alert('Export failed completely. Check console.');
+        alert('Export failed.');
     }
 }
 

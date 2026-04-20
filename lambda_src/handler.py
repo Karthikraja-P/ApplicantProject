@@ -692,6 +692,11 @@ def handle_cv_view(event):
         )
         print(f"[CV View] HTML Redirect to: {url[:60]}...")
         
+        # Support for JSON response to facilitate cleaner bulk downloads
+        qs = event.get('queryStringParameters') or {}
+        if qs.get('json') == '1':
+            return resp(200, {'status': 'success', 'url': url})
+
         # Using HTML Meta-refresh to bypass infrastructure header stripping
         html = f"""<!DOCTYPE html>
 <html>

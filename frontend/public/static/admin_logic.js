@@ -160,15 +160,15 @@ async function loadData() {
         applyFilters();
     } catch (err) {
         console.warn('Backend unavailable. Using dummy data for local testing.', err);
-        
+
         // Use dummy data as fallback
         _allApps = DUMMY_DATA.map((a, i) => ({ ...a, idx: i + 1 }));
-        
+
         // Generate mock dates for the filter
         const mockOptions = {
             dates: [...new Set(DUMMY_DATA.map(a => a.submitted_at.split('T')[0]))].sort().reverse()
         };
-        
+
         populateFilterOptions(mockOptions);
         applyFilters();
     } finally {
@@ -266,7 +266,7 @@ function renderTable(apps) {
                     ${safeUrl(app.github) ? `<a href="${safeUrl(app.github)}"    target="_blank" rel="noopener noreferrer" title="GitHub"    style="font-size:1.2rem;text-decoration:none;">🐙</a>` : ''}
                     ${safeUrl(app.portfolio) ? `<a href="${safeUrl(app.portfolio)}" target="_blank" rel="noopener noreferrer" title="Portfolio" style="font-size:1.2rem;text-decoration:none;">💼</a>` : ''}
                     ${safeUrl(app.website) ? `<a href="${safeUrl(app.website)}"   target="_blank" rel="noopener noreferrer" title="Website"   style="font-size:1.2rem;text-decoration:none;">🌐</a>` : ''}
-                    ${app.cv_key ? `<a href="${['1','2','3'].includes(app.id) ? '/static/mock_cv.html' : `/admin/cv/${esc(app.cv_key)}`}" target="_blank" rel="noopener noreferrer" title="View CV" style="font-size:1.2rem;text-decoration:none;">📄</a>` : ''}
+                    ${app.cv_key ? `<a href="${['1', '2', '3'].includes(app.id) ? '/static/mock_cv.html' : `/admin/cv/${esc(app.cv_key)}`}" target="_blank" rel="noopener noreferrer" title="View CV" style="font-size:1.2rem;text-decoration:none;">📄</a>` : ''}
                 </div>
             </td>
             <td style="font-size:0.95rem;">${esc(app.location)}<br><span style="color:#5a7ca0;">${esc(app.location_country)}</span></td>
@@ -332,7 +332,7 @@ async function downloadAllCVs() {
 
         const fetchPromises = appsWithCV.map(async (app) => {
             const fileName = `${app.full_name.replace(/\s+/g, '_')}_CV.pdf`;
-            
+
             // Local dummy data fallback
             if (['1', '2', '3'].includes(app.id)) {
                 zip.file(`${app.full_name.replace(/\s+/g, '_')}_MOCK_CV.txt`, `Mock CV content for ${app.full_name}.\nArea: ${app.area}\nEmail: ${app.email}`);
@@ -340,28 +340,16 @@ async function downloadAllCVs() {
             }
 
             try {
-                const url = `${apiBase}/admin/cv/${app.cv_key}`;
-                const response = await fetch(url);
+                const url = `${apiBase}/admin/cv/${app.cv_key}?json=1`;
+                const response = await fetch(url, { credentials: 'include' });
                 if (!response.ok) throw new Error('Fetch failed');
-                
-                const contentType = response.headers.get('content-type') || '';
-                let blob;
 
-                if (contentType.includes('text/html')) {
-                    // Backend uses HTML meta-refresh to redirect to S3
-                    const htmlText = await response.text();
-                    const urlMatch = htmlText.match(/url=(.*?)"/);
-                    if (urlMatch && urlMatch[1]) {
-                        const s3Url = urlMatch[1].replace(/&amp;/g, '&');
-                        const s3Resp = await fetch(s3Url);
-                        if (!s3Resp.ok) throw new Error('S3 Fetch failed');
-                        blob = await s3Resp.blob();
-                    } else {
-                        throw new Error('Could not find redirect URL in HTML');
-                    }
-                } else {
-                    blob = await response.blob();
-                }
+                const data = await response.json();
+                if (!data.url) throw new Error('No redirect URL found');
+
+                const s3Resp = await fetch(data.url);
+                if (!s3Resp.ok) throw new Error('S3 Fetch failed');
+                const blob = await s3Resp.blob();
 
                 zip.file(fileName, blob);
             } catch (err) {
@@ -437,7 +425,7 @@ async function exportCSV() {
         _filteredApps.forEach(app => {
             const row = keys.map(k => {
                 let val = app[k] || '';
-                
+
                 // Format CV Link
                 if (k === 'cv_key' && val) {
                     // Local fallback for dummy data
@@ -460,7 +448,7 @@ async function exportCSV() {
         const url = URL.createObjectURL(blob);
         const link = document.createElement("a");
         const dateStr = new Date().toISOString().split('T')[0];
-        
+
         link.setAttribute("href", url);
         link.setAttribute("download", `applicants_export_${dateStr}.csv`);
         link.style.visibility = 'hidden';

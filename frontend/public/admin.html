@@ -23,6 +23,12 @@
             font-weight: bold;
         }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <!-- Flatpickr for premium calendar experience -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/dark.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 </head>
 
 <body class="admin-body">
@@ -60,6 +66,16 @@
                     </svg>
                     Export CSV
                 </button>
+                <button type="button" onclick="downloadAllCVs()" class="cv-bulk-btn"
+                    style="padding:10px 20px; background:#00d4ff; color:#000; border:none; border-radius:10px; font-weight:700; cursor:pointer; display:flex; align-items:center; gap:8px;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.5">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="7 10 12 15 17 10" />
+                        <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                    Download CVs
+                </button>
             </div>
         </div>
 
@@ -86,41 +102,13 @@
         </div>
 
         <div class="admin-filters-bar">
-            <div class="filter-group main-search">
-                <label>Global Search</label>
-                <input type="text" id="f-search" placeholder="Search names, emails, skills...">
+            <div class="filter-group">
+                <label>From Date</label>
+                <input type="text" id="f-date-from" placeholder="Select Date..">
             </div>
             <div class="filter-group">
-                <label>Track / Area</label>
-                <select id="f-area">
-                    <option value="">All Areas</option>
-                </select>
-            </div>
-            <div class="filter-group">
-                <label>Date</label>
-                <select id="f-date">
-                    <option value="">All Dates</option>
-                </select>
-            </div>
-            <div class="filter-group">
-                <label>Location</label>
-                <select id="f-location">
-                    <option value="">All Locations</option>
-                </select>
-            </div>
-            <div class="filter-group">
-                <label>Exp</label>
-                <select id="f-experience">
-                    <option value="">Any</option>
-                    <option value="0-1">0–1y</option>
-                    <option value="1-3">1–3y</option>
-                    <option value="3-5">3–5y</option>
-                    <option value="5+">5+y</option>
-                </select>
-            </div>
-            <div class="filter-group">
-                <label>Min IQ</label>
-                <input type="number" id="f-min-iq" placeholder="0" min="0" max="200" style="width: 70px;">
+                <label>To Date</label>
+                <input type="text" id="f-date-to" placeholder="Select Date..">
             </div>
             <div class="filter-group action-group">
                 <button type="button" class="btn-clear" onclick="resetFilters()">Clear</button>

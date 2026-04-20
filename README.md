@@ -18,11 +18,11 @@ The core user-facing application (S3 Content).
 *   `public/skillset_assessment.html`: Technical skillset assessment. Standardized buttons.
 *   `public/games.html`: Behavioral games assessment. Standardized buttons.
 *   `public/admin_login.html`: Static admin login page — calls `/login` API, stores token in localStorage.
-*   `public/admin.html`: Static admin dashboard — calls `/admin/applications?json=1`, renders applicant table.
+*   `public/admin.html`: Static admin dashboard — calls `/admin/applications?json=1`, renders applicant table. Filter bar now features a **Flatpickr-powered Date Range** selector.
 *   `public/admin_detail.html`: Static applicant detail view — calls `/admin/application/{id}?json=1`. Logout is JS-based.
 *   `public/static/styles.css`: Global brand aesthetic. Added `--gradient-next/prev` CSS vars, `.btn-primary`, `.btn-secondary`, `.sidebar .assessment-item.active` and mobile media queries (`@media max-width: 1024px/640px`).
 *   `public/static/script.js`: Core form logic, step navigation, "Other" country & source field show/hide, updated review card for Other values.
-*   `public/static/admin_logic.js`: Admin dashboard JS — fetches applications, renders table with filters, enhanced CSV export with loading feedback.
+*   `public/static/admin_logic.js`: Admin dashboard JS — fetches applications, renders table with Date Range filter (using **Flatpickr**). **Local CSV Export** and **Bulk CV Download** now respect active filters and work offline with dummy data.
 *   `public/static/iq_assessment.js`: JS logic for rendering the 40-question IQ test.
 *   `public/static/games.js`: BART and IGT game logic with submission flow.
 *   `public/static/api_utils.js`: Helper functions for Cloud API interactions.

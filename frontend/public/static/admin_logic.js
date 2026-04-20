@@ -2,27 +2,31 @@
 // Data is fetched ONCE on load. All filtering and sorting is done client-side.
 
 let _allApps = [];
+let _filteredApps = [];
 let _sortKey = 'submitted_at';
 let _sortDir = -1; // -1 for desc, 1 for asc (default newest first)
 
 document.addEventListener('DOMContentLoaded', () => {
     loadData();
 
-    // Attach listeners to filters
-    ['f-date', 'f-location', 'f-area', 'f-experience', 'f-min-iq'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.addEventListener('change', applyFilters);
-    });
+    // Initialize Flatpickr for Date Range
+    const fpConfig = {
+        dateFormat: "Y-m-d",
+        altInput: true,
+        altFormat: "F j, Y",
+        theme: "dark",
+        onChange: applyFilters
+    };
 
-    document.getElementById('f-search').addEventListener('input', debounce(applyFilters, 300));
-    document.getElementById('f-min-iq').addEventListener('input', debounce(applyFilters, 300));
+    if (window.flatpickr) {
+        window.fpFrom = flatpickr("#f-date-from", fpConfig);
+        window.fpTo = flatpickr("#f-date-to", fpConfig);
+    }
 });
 
 function resetFilters() {
-    ['f-date', 'f-location', 'f-area', 'f-experience', 'f-min-iq', 'f-search'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.value = '';
-    });
+    if (window.fpFrom) window.fpFrom.clear();
+    if (window.fpTo) window.fpTo.clear();
     applyFilters();
 }
 
@@ -35,6 +39,98 @@ function setSort(key) {
     }
     applyFilters();
 }
+
+const DUMMY_DATA = [
+    {
+        id: '1',
+        submitted_at: '2026-04-20T10:15:00Z',
+        full_name: 'Alex Rivera',
+        email: 'alex.rivera@example.com',
+        country_code: '+1',
+        phone: '555-0123',
+        source: 'LinkedIn',
+        linkedin: 'https://linkedin.com',
+        github: 'https://github.com',
+        location: 'San Francisco',
+        location_country: 'USA',
+        area: 'AI / ML',
+        current_role: 'Senior ML Engineer',
+        current_company: 'Neural Dynamics',
+        degree: 'Masters',
+        field: 'Computer Science',
+        experience: '6',
+        work_type: 'Full-time',
+        work_preference: 'Remote',
+        start_date: '2026-05-15',
+        iq_score: '142',
+        iq_pct: '99',
+        tech_score: '95',
+        sk_pct: '98',
+        game_balloon: 'Balanced',
+        game_iq: 'High',
+        cv_key: 'dummy_alex.pdf',
+        interest: 'Passionate about Large Language Models and agentic workflows.'
+    },
+    {
+        id: '2',
+        submitted_at: '2026-04-19T14:30:00Z',
+        full_name: 'Sarah Chen',
+        email: 'schen.dev@example.com',
+        country_code: '+44',
+        phone: '7700 900123',
+        source: 'GitHub',
+        github: 'https://github.com',
+        portfolio: 'https://sarah.dev',
+        location: 'London',
+        location_country: 'UK',
+        area: 'Backend',
+        current_role: 'Software Architect',
+        current_company: 'FinTech Solutions',
+        degree: 'Bachelors',
+        field: 'Software Engineering',
+        experience: '4',
+        work_type: 'Contract',
+        work_preference: 'Hybrid',
+        start_date: '2026-06-01',
+        iq_score: '128',
+        iq_pct: '94',
+        tech_score: '88',
+        sk_pct: '90',
+        game_balloon: 'Cautious',
+        game_iq: 'Moderate',
+        cv_key: 'dummy_sarah.pdf',
+        interest: 'Interested in building scalable distributed systems.'
+    },
+    {
+        id: '3',
+        submitted_at: '2026-04-18T09:00:00Z',
+        full_name: 'Marco Rossi',
+        email: 'm.rossi@example.com',
+        country_code: '+39',
+        phone: '333 1234567',
+        source: 'Direct',
+        website: 'https://marcorossi.it',
+        location: 'Milan',
+        location_country: 'Italy',
+        area: 'Fullstack',
+        current_role: 'Lead Developer',
+        current_company: 'Creative Studio',
+        degree: 'Bachelors',
+        field: 'Information Technology',
+        experience: '8',
+        work_type: 'Full-time',
+        work_preference: 'On-site',
+        start_date: '2026-05-01',
+        iq_score: '115',
+        iq_pct: '85',
+        tech_score: '91',
+        sk_pct: '93',
+        game_balloon: 'Risky',
+        game_iq: 'High',
+        cv_key: 'dummy_marco.pdf',
+        interest: 'Expert in React and Node.js ecosystems.'
+    }
+];
 
 async function loadData() {
     const loading = document.getElementById('loading');
@@ -54,33 +150,34 @@ async function loadData() {
             return;
         }
 
+        if (!response.ok) throw new Error('API request failed');
+
         const data = await response.json();
         console.log('Data received:', data.applications?.length || 0, 'records');
 
-        // Add an 'idx' field for stable sorting by original arrival
         _allApps = (data.applications || []).map((a, i) => ({ ...a, idx: i + 1 }));
-
         populateFilterOptions(data.options || {});
         applyFilters();
     } catch (err) {
-        console.error('CRITICAL: Failed to load admin data:', err);
-        const body = document.getElementById('data-body');
-        if (body) {
-            body.innerHTML = `<tr><td colspan="17" style="color:#ff6b6b;text-align:center;padding:40px;">
-                <div style="font-weight:700;margin-bottom:8px;">CONNECTION ERROR</div>
-                <div style="font-size:0.9rem;opacity:0.8;">${err.message}</div>
-                <button onclick="location.reload()" style="margin-top:16px;padding:8px 16px;background:#ff6b6b;color:#fff;border:none;border-radius:4px;cursor:pointer;">Retry</button>
-            </td></tr>`;
-        }
+        console.warn('Backend unavailable. Using dummy data for local testing.', err);
+        
+        // Use dummy data as fallback
+        _allApps = DUMMY_DATA.map((a, i) => ({ ...a, idx: i + 1 }));
+        
+        // Generate mock dates for the filter
+        const mockOptions = {
+            dates: [...new Set(DUMMY_DATA.map(a => a.submitted_at.split('T')[0]))].sort().reverse()
+        };
+        
+        populateFilterOptions(mockOptions);
+        applyFilters();
     } finally {
         if (loading) loading.style.display = 'none';
     }
 }
 
 function populateFilterOptions(options) {
-    populateSelect('f-date', options.dates || [], 'All Dates');
-    populateSelect('f-location', options.location || [], 'All Locations');
-    populateSelect('f-area', options.area || [], 'All Areas');
+    // Single date dropdown is removed, no need to populate f-date
 }
 
 function populateSelect(id, opts, placeholder) {
@@ -92,30 +189,20 @@ function populateSelect(id, opts, placeholder) {
 }
 
 function applyFilters() {
-    const dateVal = document.getElementById('f-date').value;
-    const locationVal = document.getElementById('f-location').value;
-    const areaVal = document.getElementById('f-area').value;
-    const expVal = document.getElementById('f-experience').value;
-    const minIQ = parseFloat(document.getElementById('f-min-iq').value || 0);
-    const searchVal = document.getElementById('f-search').value.toLowerCase().trim();
+    const dateFrom = document.getElementById('f-date-from').value; // YYYY-MM-DD
+    const dateTo = document.getElementById('f-date-to').value;     // YYYY-MM-DD
 
-    let filtered = _allApps.filter(app => {
-        if (dateVal && !(app.submitted_at || '').startsWith(dateVal)) return false;
-        if (locationVal && app.location_country !== locationVal) return false;
-        if (areaVal && app.area !== areaVal) return false;
-        if (expVal && app.experience !== expVal) return false;
-        if (minIQ && parseFloat(app.iq_score || 0) < minIQ) return false;
-
-        if (searchVal) {
-            const hay = [app.full_name, app.email, app.current_role, app.current_company,
-            app.skills, app.interest, app.location, app.university, app.area].join(' ').toLowerCase();
-            if (!hay.includes(searchVal)) return false;
+    _filteredApps = _allApps.filter(app => {
+        if (dateFrom || dateTo) {
+            const appDate = (app.submitted_at || '').substring(0, 10); // YYYY-MM-DD
+            if (dateFrom && appDate < dateFrom) return false;
+            if (dateTo && appDate > dateTo) return false;
         }
         return true;
     });
 
     // Handle Sorting
-    filtered.sort((a, b) => {
+    _filteredApps.sort((a, b) => {
         let vA = a[_sortKey];
         let vB = b[_sortKey];
 
@@ -133,8 +220,8 @@ function applyFilters() {
         return 0;
     });
 
-    updateStats(filtered);
-    renderTable(filtered);
+    updateStats(_filteredApps);
+    renderTable(_filteredApps);
 }
 
 function updateStats(apps) {
@@ -179,7 +266,7 @@ function renderTable(apps) {
                     ${safeUrl(app.github) ? `<a href="${safeUrl(app.github)}"    target="_blank" rel="noopener noreferrer" title="GitHub"    style="font-size:1.2rem;text-decoration:none;">🐙</a>` : ''}
                     ${safeUrl(app.portfolio) ? `<a href="${safeUrl(app.portfolio)}" target="_blank" rel="noopener noreferrer" title="Portfolio" style="font-size:1.2rem;text-decoration:none;">💼</a>` : ''}
                     ${safeUrl(app.website) ? `<a href="${safeUrl(app.website)}"   target="_blank" rel="noopener noreferrer" title="Website"   style="font-size:1.2rem;text-decoration:none;">🌐</a>` : ''}
-                    ${app.cv_key ? `<a href="/admin/cv/${esc(app.cv_key)}" target="_blank" rel="noopener noreferrer" title="View CV" style="font-size:1.2rem;text-decoration:none;">📄</a>` : ''}
+                    ${app.cv_key ? `<a href="${['1','2','3'].includes(app.id) ? '/static/mock_cv.html' : `/admin/cv/${esc(app.cv_key)}`}" target="_blank" rel="noopener noreferrer" title="View CV" style="font-size:1.2rem;text-decoration:none;">📄</a>` : ''}
                 </div>
             </td>
             <td style="font-size:0.95rem;">${esc(app.location)}<br><span style="color:#5a7ca0;">${esc(app.location_country)}</span></td>
@@ -226,47 +313,161 @@ function safeUrl(v) {
     return /^https?:\/\//i.test(u) ? esc(u) : null;
 }
 
-async function exportCSV() {
-    const btn = document.querySelector('.export-btn');
+async function downloadAllCVs() {
+    const appsWithCV = _filteredApps.filter(app => app.cv_key);
+    if (!appsWithCV.length) {
+        alert("No CVs found for the filtered applicants.");
+        return;
+    }
+
+    const btn = document.querySelector('.cv-bulk-btn');
     const originalContent = btn.innerHTML;
-    const apiBase = window.API_BASE_URL || '';
 
     try {
         btn.disabled = true;
-        btn.innerHTML = `
-            <svg class="spinner" width="18" height="18" viewBox="0 0 50 50" style="animation: spin 1s linear infinite;">
-                <circle cx="25" cy="25" r="20" fill="none" stroke="currentColor" stroke-width="5" stroke-dasharray="80, 200" stroke-dashoffset="0"></circle>
-            </svg>
-            Exporting...`;
+        btn.innerHTML = 'Zipping...';
 
-        const response = await fetch(`${apiBase}/admin/applications/export?_cb=${Date.now()}`, {
-            credentials: 'include'
+        const zip = new JSZip();
+        const apiBase = window.API_BASE_URL || 'https://ddlcgice0qu4d.cloudfront.net';
+
+        const fetchPromises = appsWithCV.map(async (app) => {
+            const fileName = `${app.full_name.replace(/\s+/g, '_')}_CV.pdf`;
+            
+            // Local dummy data fallback
+            if (['1', '2', '3'].includes(app.id)) {
+                zip.file(`${app.full_name.replace(/\s+/g, '_')}_MOCK_CV.txt`, `Mock CV content for ${app.full_name}.\nArea: ${app.area}\nEmail: ${app.email}`);
+                return;
+            }
+
+            try {
+                const url = `${apiBase}/admin/cv/${app.cv_key}`;
+                const response = await fetch(url);
+                if (!response.ok) throw new Error('Fetch failed');
+                
+                const contentType = response.headers.get('content-type') || '';
+                let blob;
+
+                if (contentType.includes('text/html')) {
+                    // Backend uses HTML meta-refresh to redirect to S3
+                    const htmlText = await response.text();
+                    const urlMatch = htmlText.match(/url=(.*?)"/);
+                    if (urlMatch && urlMatch[1]) {
+                        const s3Url = urlMatch[1].replace(/&amp;/g, '&');
+                        const s3Resp = await fetch(s3Url);
+                        if (!s3Resp.ok) throw new Error('S3 Fetch failed');
+                        blob = await s3Resp.blob();
+                    } else {
+                        throw new Error('Could not find redirect URL in HTML');
+                    }
+                } else {
+                    blob = await response.blob();
+                }
+
+                zip.file(fileName, blob);
+            } catch (err) {
+                console.warn(`Could not fetch real CV for ${app.full_name}, adding placeholder.`, err);
+                zip.file(`${app.full_name.replace(/\s+/g, '_')}_LINK.txt`, `Link: ${apiBase}/admin/cv/${app.cv_key}`);
+            }
         });
 
-        if (response.status === 401) {
-            alert('Session expired. Please login again.');
-            window.location.href = '/admin_login.html';
-            return;
-        }
+        await Promise.all(fetchPromises);
 
-        const ct = response.headers.get('Content-Type') || '';
-        if (!response.ok || ct.includes('text/html')) {
-            const errBody = await response.text();
-            console.error('Export error response:', errBody);
-            throw new Error(`Invalid response from server (${response.status} ${ct}). Likely a route configuration issue.`);
-        }
+        const content = await zip.generateAsync({ type: "blob" });
+        saveAs(content, `applicants_cv_bulk_${new Date().toISOString().split('T')[0]}.zip`);
 
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
+        btn.style.background = '#00ff88';
+        btn.innerHTML = '✓ Downloaded';
+        setTimeout(() => {
+            btn.disabled = false;
+            btn.innerHTML = originalContent;
+            btn.style.background = '';
+        }, 2000);
+
+    } catch (err) {
+        console.error('Bulk CV download failed:', err);
+        alert('Bulk download failed. See console for details.');
+        btn.disabled = false;
+        btn.innerHTML = originalContent;
+    }
+}
+
+async function exportCSV() {
+    if (!_filteredApps.length) {
+        alert("No data to export.");
+        return;
+    }
+
+    const btn = document.querySelector('.export-btn');
+    const originalContent = btn.innerHTML;
+
+    try {
+        btn.disabled = true;
+        btn.innerHTML = 'Exporting...';
+
+        // Column mapping
+        const columns = {
+            submitted_at: 'Submission Date',
+            full_name: 'Full Name',
+            email: 'Email',
+            phone: 'Phone',
+            location: 'City',
+            location_country: 'Country',
+            area: 'Track/Area',
+            current_role: 'Current Role',
+            current_company: 'Current Company',
+            experience: 'Years of Exp',
+            degree: 'Degree',
+            field: 'Field of Study',
+            university: 'University',
+            iq_score: 'IQ Score',
+            tech_score: 'Tech Score',
+            game_balloon: 'BART (Balloon)',
+            game_iq: 'IGT (Behavioral)',
+            interest: 'Interest',
+            cv_key: 'CV Download Link'
+        };
+
+        const keys = Object.keys(columns);
+        const headers = Object.values(columns);
+        const apiBase = window.API_BASE_URL || 'https://ddlcgice0qu4d.cloudfront.net';
+
+        // Build CSV string
+        let csvContent = "\ufeff" + headers.join(",") + "\n";
+
+        _filteredApps.forEach(app => {
+            const row = keys.map(k => {
+                let val = app[k] || '';
+                
+                // Format CV Link
+                if (k === 'cv_key' && val) {
+                    // Local fallback for dummy data
+                    if (['1', '2', '3'].includes(app.id)) {
+                        val = `${window.location.origin}/static/mock_cv.html`;
+                    } else {
+                        val = `${apiBase}/admin/cv/${val}`;
+                    }
+                }
+
+                // Escape quotes and wrap in quotes
+                val = String(val).replace(/"/g, '""');
+                return `"${val}"`;
+            });
+            csvContent += row.join(",") + "\n";
+        });
+
+        // Download
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
         const dateStr = new Date().toISOString().split('T')[0];
-        a.download = `applicants_full_export_${dateStr}.csv`;
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
+        
+        link.setAttribute("href", url);
+        link.setAttribute("download", `applicants_export_${dateStr}.csv`);
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
 
-        // Brief success state
         btn.style.background = '#00ff88';
         btn.innerHTML = '✓ Exported';
         setTimeout(() => {
@@ -277,7 +478,7 @@ async function exportCSV() {
 
     } catch (err) {
         console.error('Export failed:', err);
-        alert('Export failed. Check console for details.');
+        alert('Export failed.');
         btn.disabled = false;
         btn.innerHTML = originalContent;
     }

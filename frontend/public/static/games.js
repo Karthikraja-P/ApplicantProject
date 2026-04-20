@@ -26,12 +26,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // ─── Stage-Based Locking ──────────────────────────────────────────────────
     var _stage = parseInt(localStorage.getItem('tf_assessment_stage') || '0');
-    if (_stage < 3) {
-        window.location.href = '/skillset_assessment.html';
+    if (_stage < 2) {
+        window.location.href = '/iq_assessment.html';
         return;
     }
 
-    if (_stage >= 4) {
+    if (_stage >= 3) {
         var intro = document.getElementById('screen-games-intro');
         if (intro) {
             intro.innerHTML = buildCompletedBanner(
@@ -184,8 +184,6 @@ document.addEventListener('DOMContentLoaded', function () {
             localStorage.setItem('tf_game_start_time', startTime.toString());
             bart.balloon = 0; bart.pumps = 0; bart.roundEarnings = 0;
             bart.totalBanked = 0; bart.adjustedPumps = []; bart.explodedCount = 0; bart.done = false;
-        } else {
-            // Restore from localStorage if needed (implemented in next step if user has mid-round saves)
         }
 
         // Warn before leaving
@@ -194,8 +192,6 @@ document.addEventListener('DOMContentLoaded', function () {
         // Re-apply global sidebar lock
         if (window.applySidebarLock) window.applySidebarLock();
 
-        bart.balloon = 0; bart.pumps = 0; bart.roundEarnings = 0;
-        bart.totalBanked = 0; bart.adjustedPumps = []; bart.explodedCount = 0; bart.done = false;
         showScreen('screen-bart');
         renderBART();
         document.getElementById('bart-pump-btn').disabled = false;
@@ -278,8 +274,12 @@ document.addEventListener('DOMContentLoaded', function () {
     //  GAME 2 — Iowa Gambling Task
     // ══════════════════════════════════════════════════════════════════════════
 
-    function startIGT() {
-        igt.trial = 0; igt.balance = IGT_START; igt.deckChoices = []; igt.done = false;
+    function startIGT(isResume) {
+        localStorage.setItem('current_assessment_active', 'games');
+        localStorage.setItem('tf_game_step', 'igt');
+        if (!isResume) {
+            igt.trial = 0; igt.balance = IGT_START; igt.deckChoices = []; igt.done = false;
+        }
         showScreen('screen-igt');
         enableDecks(true);
         document.getElementById('igt-next-btn').style.display = 'none';
@@ -352,7 +352,7 @@ document.addEventListener('DOMContentLoaded', function () {
         window.isTestActive = false;
         window.onbeforeunload = null;
         finishTime = Date.now();
-        localStorage.setItem('tf_assessment_stage', '4'); // Final stage
+        localStorage.setItem('tf_assessment_stage', '3'); // Final stage
         localStorage.removeItem('current_assessment_active');
         // Re-enable sidebar
         document.querySelectorAll('.sidebar a').forEach(a => {
@@ -473,10 +473,9 @@ document.addEventListener('DOMContentLoaded', function () {
         var games = JSON.parse(localStorage.getItem('tf_games') || 'null');
         var formData = JSON.parse(localStorage.getItem('formCache') || 'null');
 
-        if (!iq || !skillset || !games) {
+        if (!iq || !games) {
             var missing = [];
             if (!iq) missing.push('Psychometric Test');
-            if (!skillset) missing.push('Technical Test');
             if (!games) missing.push('Games Assessment');
             status.style.color = '#ff6b6b';
             status.textContent = 'Please complete: ' + missing.join(', ') + ' before submitting.';
@@ -494,7 +493,7 @@ document.addEventListener('DOMContentLoaded', function () {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 applicant: { email: formData.email },
-                scores: { iq: iq, skillset: skillset, games: games }
+                scores: { iq: iq, games: games }
             })
         })
             .then(function (r) {

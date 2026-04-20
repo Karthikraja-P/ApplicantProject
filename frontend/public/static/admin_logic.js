@@ -40,13 +40,12 @@ async function loadData() {
     const loading = document.getElementById('loading');
     if (loading) loading.style.display = 'flex';
 
-    const adminPass = localStorage.getItem('tf_admin_pass') || '';
     const apiBase = window.API_BASE_URL || '';
 
     try {
         console.log('Fetching admin data...');
         const response = await fetch(`${apiBase}/admin/applications?json=1`, {
-            headers: { 'X-Admin-Pass': adminPass }
+            credentials: 'include'
         });
 
         if (response.status === 401) {
@@ -176,11 +175,11 @@ function renderTable(apps) {
             </td>
             <td>
                 <div style="display:flex;gap:8px;flex-wrap:wrap;">
-                    ${app.linkedin ? `<a href="${app.linkedin}"  target="_blank" title="LinkedIn"  style="font-size:1.2rem;text-decoration:none;">🔗</a>` : ''}
-                    ${app.github ? `<a href="${app.github}"    target="_blank" title="GitHub"    style="font-size:1.2rem;text-decoration:none;">🐙</a>` : ''}
-                    ${app.portfolio ? `<a href="${app.portfolio}" target="_blank" title="Portfolio" style="font-size:1.2rem;text-decoration:none;">💼</a>` : ''}
-                    ${app.website ? `<a href="${app.website}"   target="_blank" title="Website"   style="font-size:1.2rem;text-decoration:none;">🌐</a>` : ''}
-                    ${app.cv_key ? `<a href="/admin/cv/${app.cv_key}" target="_blank" title="View CV" style="font-size:1.2rem;text-decoration:none;">📄</a>` : ''}
+                    ${safeUrl(app.linkedin) ? `<a href="${safeUrl(app.linkedin)}"  target="_blank" rel="noopener noreferrer" title="LinkedIn"  style="font-size:1.2rem;text-decoration:none;">🔗</a>` : ''}
+                    ${safeUrl(app.github) ? `<a href="${safeUrl(app.github)}"    target="_blank" rel="noopener noreferrer" title="GitHub"    style="font-size:1.2rem;text-decoration:none;">🐙</a>` : ''}
+                    ${safeUrl(app.portfolio) ? `<a href="${safeUrl(app.portfolio)}" target="_blank" rel="noopener noreferrer" title="Portfolio" style="font-size:1.2rem;text-decoration:none;">💼</a>` : ''}
+                    ${safeUrl(app.website) ? `<a href="${safeUrl(app.website)}"   target="_blank" rel="noopener noreferrer" title="Website"   style="font-size:1.2rem;text-decoration:none;">🌐</a>` : ''}
+                    ${app.cv_key ? `<a href="/admin/cv/${esc(app.cv_key)}" target="_blank" rel="noopener noreferrer" title="View CV" style="font-size:1.2rem;text-decoration:none;">📄</a>` : ''}
                 </div>
             </td>
             <td style="font-size:0.95rem;">${esc(app.location)}<br><span style="color:#5a7ca0;">${esc(app.location_country)}</span></td>
@@ -221,10 +220,15 @@ function esc(v) {
     return String(v).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
+function safeUrl(v) {
+    if (!v) return null;
+    var u = String(v).trim();
+    return /^https?:\/\//i.test(u) ? esc(u) : null;
+}
+
 async function exportCSV() {
     const btn = document.querySelector('.export-btn');
     const originalContent = btn.innerHTML;
-    const adminPass = localStorage.getItem('tf_admin_pass') || '';
     const apiBase = window.API_BASE_URL || '';
 
     try {
@@ -236,7 +240,7 @@ async function exportCSV() {
             Exporting...`;
 
         const response = await fetch(`${apiBase}/admin/applications/export?_cb=${Date.now()}`, {
-            headers: { 'X-Admin-Pass': adminPass }
+            credentials: 'include'
         });
 
         if (response.status === 401) {

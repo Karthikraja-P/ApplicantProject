@@ -10,6 +10,7 @@ Endpoints:
 
 import json
 import os
+import html as html_lib
 import boto3
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
@@ -22,7 +23,14 @@ CV_BUCKET    = os.environ.get('CV_BUCKET', '')
 AWS_REGION   = os.environ.get('AWS_REGION', 'ap-south-1')
 ADMIN_USER   = os.environ.get('ADMIN_USER', 'admin')
 ADMIN_PASS   = os.environ.get('ADMIN_PASS', 'admin123')
-AUTH_COOKIE  = "admin_session=authenticated; Path=/; HttpOnly; SameSite=Lax"
+AUTH_COOKIE  = "admin_session=authenticated; Path=/; HttpOnly; Secure; SameSite=Lax"
+
+def html_esc(value):
+    """Escape user-supplied values before inserting into HTML responses."""
+    if value is None:
+        return '—'
+    return html_lib.escape(str(value), quote=True)
+
 
 dynamodb = boto3.resource('dynamodb', region_name=AWS_REGION)
 s3       = boto3.client('s3', region_name=AWS_REGION)
@@ -376,12 +384,21 @@ def handle_admin_list(event):
         all_areas = set()
 
         for item in items:
-            item['id'] = f"{item['email']}__{item['submission_type#timestamp']}"
-            item['tech_score'] = item.get('sk_correct', '0')
-            item['game_balloon'] = item.get('game_bart_pumps_avg', '0')
-            item['game_height'] = item.get('game_he_hard_pct', '0')
-            item['game_iq'] = item.get('game_igt_late_good_pct', '0')
-            if item.get('submitted_at'): all_dates.add(item['submitted_at'][:10])
+            # Safe ID generation
+            email_key = item.get('email', 'unknown')
+            ts_key = item.get('submission_type#timestamp', 'unknown')
+            item['id'] = f"{email_key}__{ts_key}"
+            
+            # Mapping for frontend consistency with safe defaults
+            item['tech_score'] = str(item.get('sk_correct', '0'))
+            item['game_balloon'] = str(item.get('game_bart_pumps_avg', '0'))
+            item['game_height'] = str(item.get('game_he_hard_pct', '0'))
+            item['game_iq'] = str(item.get('game_igt_late_good_pct', '0'))
+            
+            s_at = item.get('submitted_at')
+            if s_at and isinstance(s_at, str) and len(s_at) >= 10:
+                all_dates.add(s_at[:10])
+            
             if item.get('location_country'): all_locations.add(item['location_country'])
             if item.get('area'): all_areas.add(item['area'])
 
@@ -408,12 +425,12 @@ def handle_admin_list(event):
     rows = ''.join(
         f"<tr>"
         f"<td>{i+1}</td>"
-        f"<td>{item.get('submitted_at','')[:19]}</td>"
-        f"<td>{item.get('full_name','—')}</td>"
-        f"<td>{item.get('email','—')}</td>"
-        f"<td>{item.get('area','—')}</td>"
-        f"<td>{item.get('experience','—')}</td>"
-        f"<td>{item.get('location_country','—')}</td>"
+        f"<td>{html_esc(item.get('submitted_at',''))[:19]}</td>"
+        f"<td>{html_esc(item.get('full_name'))}</td>"
+        f"<td>{html_esc(item.get('email'))}</td>"
+        f"<td>{html_esc(item.get('area'))}</td>"
+        f"<td>{html_esc(item.get('experience'))}</td>"
+        f"<td>{html_esc(item.get('location_country'))}</td>"
         f"</tr>"
         for i, item in enumerate(items)
     )
@@ -469,19 +486,19 @@ def handle_admin_detail(event):
         return resp(404, {'status': 'error', 'message': 'Not found'})
 
     item['id'] = record_id
-    item['tech_score'] = item.get('sk_correct', '0')
-    item['game_balloon'] = item.get('game_bart_pumps_avg', '0')
-    item['game_height'] = item.get('game_he_hard_pct', '0')
-    item['game_iq'] = item.get('game_igt_late_good_pct', '0')
+    item['tech_score'] = str(item.get('sk_correct', '0'))
+    item['game_balloon'] = str(item.get('game_bart_pumps_avg', '0'))
+    item['game_height'] = str(item.get('game_he_hard_pct', '0'))
+    item['game_iq'] = str(item.get('game_igt_late_good_pct', '0'))
 
     if qs.get('json') == '1':
         return resp(200, {'app': item})
 
     rows = ''.join(
-        f"<tr><td><strong>{k}</strong></td><td>{item[k]}</td></tr>"
+        f"<tr><td><strong>{html_esc(k)}</strong></td><td>{html_esc(item[k])}</td></tr>"
         for k in sorted(item.keys())
     )
-    html = f"""<!DOCTYPE html><html><head><title>Application — {item.get('full_name','')}</title>
+    html = f"""<!DOCTYPE html><html><head><title>Application — {html_esc(item.get('full_name',''))}</title>
     <style>
       body{{font-family:monospace;padding:24px;background:#0d1b2e;color:#c2d7f2}}
       h2{{color:#00d4ff}}
@@ -492,7 +509,7 @@ def handle_admin_detail(event):
       a{{color:#00d4ff}}
     </style></head><body>
     <a href="/admin.html">← Back</a>
-    <h2>Application — {item.get('full_name','Unknown')}</h2>
+    <h2>Application — {html_esc(item.get('full_name','Unknown'))}</h2>
     <table>{rows}</table></body></html>"""
 
     return {
@@ -612,10 +629,8 @@ def handle_admin_export(event):
     headers = [CSV_FIELD_MAPPING.get(k, k) for k in final_keys]
     writer.writerow(headers)
     
-    # Base URL for links
-    headers_req = event.get('headers') or {}
-    host = headers_req.get('host') or headers_req.get('Host') or 'ddlcgice0qu4d.cloudfront.net'
-    base_url = f"https://{host}"
+    # Use the hardcoded CloudFront domain for reliability in exports
+    base_url = "https://ddlcgice0qu4d.cloudfront.net"
 
     # Write Rows
     for item in items:
@@ -625,8 +640,9 @@ def handle_admin_export(event):
             # Clean up T in timestamps for better CSV readability
             if k == 'submitted_at' and isinstance(val, str):
                 val = val.replace('T', ' ')[:19]
-            # Convert CV key to downloadable URL with fallback auth
+            # Convert CV key to downloadable URL with fallback auth for Excel/Sheets
             if k == 'cv_key' and val:
+                # Adding ?pass= fallback ensures the link works in external apps like Excel
                 val = f"{base_url}/admin/cv/{val}?pass={ADMIN_PASS}"
             row.append(val)
         writer.writerow(row)
@@ -674,10 +690,35 @@ def handle_cv_view(event):
             Params={'Bucket': CV_BUCKET, 'Key': cv_key},
             ExpiresIn=300
         )
+        print(f"[CV View] HTML Redirect to: {url[:60]}...")
+        
+        # Using HTML Meta-refresh to bypass infrastructure header stripping
+        html = f"""<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="0;url={url}">
+    <title>Redirecting to CV...</title>
+    <style>
+        body {{ font-family: sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; background: #0d1b2e; color: #fff; margin: 0; }}
+        .box {{ text-align: center; padding: 20px; border: 1px solid #00d4ff; border-radius: 12px; }}
+        a {{ color: #00d4ff; text-decoration: none; font-weight: bold; }}
+    </style>
+</head>
+<body>
+    <div class="box">
+        <p>Redirecting to CV...</p>
+        <p style="font-size: 0.9rem; opacity: 0.7;">If not redirected, <a href="{url}">click here to download</a>.</p>
+    </div>
+</body>
+</html>"""
         return {
-            'statusCode': 302,
-            'headers': {'Location': url},
-            'body': ''
+            'statusCode': 200,
+            'headers': {
+                'Content-Type': 'text/html',
+                'Access-Control-Allow-Origin': '*'
+            },
+            'body': html
         }
     except Exception as e:
         print(f"[S3 ERROR] {e}")
@@ -694,13 +735,16 @@ def lambda_handler(event, context):
         print(f"[FATAL ERROR] {e}\n{traceback.format_exc()}")
         return resp(500, {
             'status': 'error',
-            'message': str(e),
+            'message': f"Fatal Handler Exception: {str(e)}",
             'traceback': traceback.format_exc()
         })
 
 def _lambda_handler(event, context):
+    path = event.get('rawPath') or event.get('path') or '/'
+    method = (event.get('httpMethod') or event.get('requestContext', {}).get('http', {}).get('method', '')).upper()
+    print(f"[ENTRY] {method} {path}")
+    
     # Support both HTTP API (v2) and REST API (v1)
-    method = event.get('httpMethod') or event.get('requestContext', {}).get('http', {}).get('method', '').upper()
     
     # Robust path detection
     path = event.get('rawPath') or event.get('path') or ''

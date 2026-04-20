@@ -4,9 +4,8 @@ document.addEventListener('DOMContentLoaded', function () {
     if (_stage >= 1) {
         const routes = {
             1: '/iq_assessment.html',
-            2: '/skillset_assessment.html',
-            3: '/games.html',
-            4: '/confirmation.html'
+            2: '/games.html',
+            3: '/confirmation.html'
         };
         const next = routes[_stage] || '/confirmation.html';
         window.location.href = next;
@@ -785,7 +784,9 @@ document.addEventListener('DOMContentLoaded', function () {
             var keys = [
                 'formCache', 'formCacheTimestamp', 'applicationSubmitted',
                 'iq_completed', 'sk_completed', 'games_completed', 'assessmentCompleted',
-                'tf_iq', 'tf_skillset', 'tf_games'
+                'tf_iq', 'tf_skillset', 'tf_games',
+                'tf_assessment_stage', 'submissionTime',
+                'current_assessment_active', 'tf_game_step', 'tf_game_start_time'
             ];
             keys.forEach(function (k) { localStorage.removeItem(k); });
             localStorage.setItem('new_candidate', 'true');

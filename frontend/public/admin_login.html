@@ -134,7 +134,6 @@
 
                 if (response.ok) {
                     statusBox.innerHTML = '<div class="flash-msg" style="background:rgba(0,255,136,0.1);color:#00ff88;border:1px solid rgba(0,255,136,0.3);">Login successful! Redirecting...</div>';
-                    localStorage.setItem('tf_admin_pass', data.password);
                     setTimeout(() => {
                         window.location.href = '/admin.html';
                     }, 800);

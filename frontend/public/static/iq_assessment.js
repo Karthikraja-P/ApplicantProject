@@ -821,8 +821,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 '🧠 Psychometric Test',
                 'You have already completed this assessment.',
                 [{ label: '← Application', href: '/' },
-                { label: 'Technical Test', href: '/assessment/skillset' },
-                { label: 'Confirmation', href: '/confirmation' }]
+                { label: 'Games Assessment', href: '/games.html' },
+                { label: 'Confirmation', href: '/confirmation.html' }]
             );
             intro.classList.add('active');
             intro.style.display = '';
@@ -1109,7 +1109,7 @@ document.addEventListener('DOMContentLoaded', function () {
             intro.innerHTML = buildCompletedBanner(
                 'Psychometric Test',
                 'You have already completed this assessment.',
-                [{ label: 'Technical Test →', href: '/skillset_assessment.html' }]
+                [{ label: 'Games Assessment →', href: '/games.html' }]
             );
             intro.classList.add('active');
             intro.style.display = '';

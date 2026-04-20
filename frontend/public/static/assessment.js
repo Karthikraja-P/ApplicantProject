@@ -1217,12 +1217,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 correct:  answers[i] === q.answer
             };
         });
-        fetch('/assessment/submit', {
-            method:  'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body:    JSON.stringify({ timingLog: payload })
-        }).catch(function () {});
-
         showScreen('screen-results');
     }
 

@@ -380,11 +380,6 @@ async function downloadAllCVs() {
 }
 
 async function exportCSV() {
-    if (!_filteredApps.length) {
-        alert("No data to export.");
-        return;
-    }
-
     const btn = document.querySelector('.export-btn');
     const originalContent = btn.innerHTML;
 
@@ -392,76 +387,13 @@ async function exportCSV() {
         btn.disabled = true;
         btn.innerHTML = 'Exporting...';
 
-        // Column mapping
-        const columns = {
-            submitted_at: 'Submission Date',
-            full_name: 'Full Name',
-            email: 'Email',
-            phone: 'Phone',
-            location: 'City',
-            location_country: 'Country',
-            area: 'Track/Area',
-            current_role: 'Current Role',
-            current_company: 'Current Company',
-            experience: 'Years of Exp',
-            degree: 'Degree',
-            field: 'Field of Study',
-            university: 'University',
-            iq_score: 'IQ Score',
-            tech_score: 'Tech Score',
-            game_balloon: 'BART (Balloon)',
-            game_iq: 'IGT (Behavioral)',
-            interest: 'Interest',
-            cv_key: 'CV Download Link'
-        };
-
-        const keys = Object.keys(columns);
-        const headers = Object.values(columns);
         const apiBase = window.API_BASE_URL || 'https://ddlcgice0qu4d.cloudfront.net';
+        // Redirect to the robust backend export endpoint
+        window.location.href = `${apiBase}/admin/export?pass=${localStorage.getItem('tf_admin_pass') || ''}`;
 
-        // Build CSV string
-        let csvContent = "\ufeff" + headers.join(",") + "\n";
-
-        _filteredApps.forEach(app => {
-            const row = keys.map(k => {
-                let val = app[k] || '';
-
-                // Format CV Link
-                if (k === 'cv_key' && val) {
-                    // Local fallback for dummy data
-                    if (['1', '2', '3'].includes(app.id)) {
-                        val = `${window.location.origin}/static/mock_cv.html`;
-                    } else {
-                        val = `${apiBase}/admin/cv/${val}`;
-                    }
-                }
-
-                // Escape quotes and wrap in quotes
-                val = String(val).replace(/"/g, '""');
-                return `"${val}"`;
-            });
-            csvContent += row.join(",") + "\n";
-        });
-
-        // Download
-        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        const dateStr = new Date().toISOString().split('T')[0];
-
-        link.setAttribute("href", url);
-        link.setAttribute("download", `applicants_export_${dateStr}.csv`);
-        link.style.visibility = 'hidden';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-
-        btn.style.background = '#00ff88';
-        btn.innerHTML = '✓ Exported';
         setTimeout(() => {
             btn.disabled = false;
             btn.innerHTML = originalContent;
-            btn.style.background = '';
         }, 2000);
 
     } catch (err) {

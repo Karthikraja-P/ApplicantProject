@@ -195,30 +195,42 @@ def handle_submit(event):
         'other_source':     data.get('other_source', ''),
         # DB specialization
         'db_databases':     multilist_from(data, 'db_databases'),
+        'other_db_name':    data.get('other_db_name', ''),
         'db_query_tools':   multilist_from(data, 'db_query_tools'),
         'other_query_tool': data.get('other_query_tool', ''),
         'db_backend_langs': multilist_from(data, 'db_backend_langs'),
-        'db_experience':    data.get('db_experience', ''),
-        'db_optimized':     data.get('db_optimized', ''),
+        'other_be_lang':    data.get('other_be_lang', ''),
+        'db_realtime_data': data.get('db_realtime_data', ''),
+        'db_high_volume':   data.get('db_high_volume', ''),
+        'db_latency_impact': data.get('db_latency_impact', ''),
         'db_desc':          data.get('db_desc', ''),
         # ML specialization
         'ml_libs':          multilist_from(data, 'ml_libs'),
+        'other_ml_tool':    data.get('other_ml_tool', ''),
         'ml_fin_data':      multilist_from(data, 'ml_fin_data'),
         'other_ml_fin_data': data.get('other_ml_fin_data', ''),
         'ml_concepts':      multilist_from(data, 'ml_concepts'),
         'other_ml_concept': data.get('other_ml_concept', ''),
-        'ml_experience':    data.get('ml_experience', ''),
-        'ml_built':         data.get('ml_built', ''),
+        'ml_options_data':  data.get('ml_options_data', ''),
+        'ml_walkforward':   data.get('ml_walkforward', ''),
+        'ml_raw_features':  data.get('ml_raw_features', ''),
         'ml_desc':          data.get('ml_desc', ''),
         # AI specialization
         'ai_tools':         multilist_from(data, 'ai_tools'),
+        'other_ai_tool':    data.get('other_ai_tool', ''),
         'ai_areas':         multilist_from(data, 'ai_areas'),
         'other_ai_area':    data.get('other_ai_area', ''),
         'ai_langs':         multilist_from(data, 'ai_langs'),
-        'ai_experience':    data.get('ai_experience', ''),
-        'ai_deployed':      data.get('ai_deployed', ''),
+        'ai_deployed_production': data.get('ai_deployed_production', ''),
+        'ai_finetune_systematic': data.get('ai_finetune_systematic', ''),
+        'ai_programmatic_integration': data.get('ai_programmatic_integration', ''),
         'ai_desc':          data.get('ai_desc', ''),
     }
+
+    # Dynamic Skill Levels (exp_*)
+    for k, v in data.items():
+        if k.startswith('exp_') and v:
+            item[k] = v
 
     item = strip_empty(item)
 
@@ -310,8 +322,12 @@ def handle_submit_final(event):
         'sk_responses':           json.dumps(skillset.get('responses', [])),
         'game_bart_profile':      str((games.get('bart') or {}).get('profile', '')),
         'game_bart_pumps_avg':    str((games.get('bart') or {}).get('avg_pumps', '')),
+        'game_bart_exploded':     str((games.get('bart') or {}).get('exploded', '')),
+        'game_bart_banked':       str((games.get('bart') or {}).get('banked', '')),
         'game_bart_responses':    json.dumps((games.get('bart') or {}).get('responses', [])),
         'game_igt_profile':       str((games.get('igt') or {}).get('profile', '')),
+        'game_igt_balance':       str((games.get('igt') or {}).get('balance', '')),
+        'game_igt_trials':        str((games.get('igt') or {}).get('trials', '')),
         'game_igt_late_good_pct': str((games.get('igt') or {}).get('good_pct', '')),
         'game_igt_responses':     json.dumps((games.get('igt') or {}).get('responses', [])),
         'game_he_profile':        str((games.get('he') or {}).get('profile', '')),
@@ -537,8 +553,12 @@ CSV_FIELD_MAPPING = {
     'iq_score': 'IQ Score',
     'sk_correct': 'Tech Score (Correct)',
     'sk_pct': 'Tech Accuracy (%)',
-    'game_bart_pumps_avg': 'BART Avg Pumps (Balloon)',
-    'game_igt_late_good_pct': 'IGT Good Pct (IQ/Behavioral)',
+    'game_bart_pumps_avg': 'Balloon Game: Avg Pumps',
+    'game_bart_exploded': 'Balloon Game: Exploded Count',
+    'game_bart_banked': 'Balloon Game: Total Banked',
+    'game_igt_late_good_pct': 'Card Game: Good Deck Pct',
+    'game_igt_balance': 'Card Game: Final Balance',
+    'game_igt_trials': 'Card Game: Total Trials',
     'game_he_hard_pct': 'HE Hard Pct (Height)',
     'skills': 'Skills',
     'source': 'Source',
@@ -554,24 +574,35 @@ CSV_FIELD_MAPPING = {
     'problems': 'Solving Style/Extra Info',
     # DB Specialization
     'db_databases': 'DB: Databases',
+    'other_db_name': 'DB: Other Database',
     'db_query_tools': 'DB: Query Tools',
+    'other_query_tool': 'DB: Other Query Tool',
     'db_backend_langs': 'DB: Backend Langs',
-    'db_experience': 'DB: Experience Category',
-    'db_optimized': 'DB: Optimization Exp',
+    'other_be_lang': 'DB: Other Backend Lang',
+    'db_realtime_data': 'DB: Real-time Data Exp',
+    'db_high_volume': 'DB: High Volume Exp',
+    'db_latency_impact': 'DB: Latency Impact Exp',
     'db_desc': 'DB: Project Description',
     # ML Specialization
     'ml_libs': 'ML: Libraries',
+    'other_ml_tool': 'ML: Other Tool',
     'ml_fin_data': 'ML: Financial Data Exp',
+    'other_ml_fin_data': 'ML: Other Data Exp',
     'ml_concepts': 'ML: Concepts',
-    'ml_experience': 'ML: Experience Category',
-    'ml_built': 'ML: Models Built',
+    'other_ml_concept': 'ML: Other Concept',
+    'ml_options_data': 'ML: Options Data Exp',
+    'ml_walkforward': 'ML: Walk-forward Exp',
+    'ml_raw_features': 'ML: Raw Feature Exp',
     'ml_desc': 'ML: Project Description',
     # AI Specialization
     'ai_tools': 'AI: Tools',
+    'other_ai_tool': 'AI: Other Tool',
     'ai_areas': 'AI: Areas',
+    'other_ai_area': 'AI: Other Area',
     'ai_langs': 'AI: Languages',
-    'ai_experience': 'AI: Experience Category',
-    'ai_deployed': 'AI: Deployed Models',
+    'ai_deployed_production': 'AI: Deployed in Production',
+    'ai_finetune_systematic': 'AI: Fine-tuning/Systematic Opt',
+    'ai_programmatic_integration': 'AI: Programmatic Integration',
     'ai_desc': 'AI: Project Description',
     'cv_key': 'CV Download link'
 }
@@ -621,22 +652,45 @@ def handle_admin_export(event):
     for item in items:
         all_keys.update(item.keys())
     
-    # Sort columns: mapped first in their defined order, then any leftovers
-    extra_keys = sorted(list(all_keys - set(mapped_keys)))
+    # EXCLUDE internal technical keys from "extra" columns to keep CSV clean
+    EXCLUDE_KEYS = {
+        'submission_type', 'submission_type#timestamp', 'iq_responses', 'sk_responses', 
+        'game_bart_responses', 'game_igt_responses', 'game_he_responses', 
+        'game_bart_profile', 'game_igt_profile', 'game_he_profile', 
+        'scores_updated_at', 'iq_responses_json', 'sk_responses_json'
+    }
+    
+    # Sort columns: mapped first in their defined order, then relevant leftovers
+    extra_keys = sorted([k for k in (all_keys - set(mapped_keys)) if k not in EXCLUDE_KEYS])
     final_keys = mapped_keys + extra_keys
     
     # Write Header with user-friendly names where available
     headers = [CSV_FIELD_MAPPING.get(k, k) for k in final_keys]
+
     writer.writerow(headers)
     
     # Use the hardcoded CloudFront domain for reliability in exports
     base_url = "https://ddlcgice0qu4d.cloudfront.net"
+
+    # Legacy key fallbacks to handle older records with inconsistent mapping
+    LEGACY_FALLBACKS = {
+        'game_bart_banked': ['game_igt_late_good_pct'],
+    }
 
     # Write Rows
     for item in items:
         row = []
         for k in final_keys:
             val = item.get(k, '')
+            
+            # Apply legacy fallback if primary key is empty
+            if not val and k in LEGACY_FALLBACKS:
+                for fallback_key in LEGACY_FALLBACKS[k]:
+                    fallback_val = item.get(fallback_key, '')
+                    if fallback_val:
+                        val = fallback_val
+                        break
+
             # Clean up T in timestamps for better CSV readability
             if k == 'submitted_at' and isinstance(val, str):
                 val = val.replace('T', ' ')[:19]
@@ -646,6 +700,7 @@ def handle_admin_export(event):
                 val = f"{base_url}/admin/cv/{val}?pass={ADMIN_PASS}"
             row.append(val)
         writer.writerow(row)
+
     
     return {
         'statusCode': 200,

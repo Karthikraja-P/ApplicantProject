@@ -30,7 +30,18 @@ def add_dummy():
         "area": "ai",
         "interest": "I love rocks and AI",
         "problems": "No problems, just rocks",
-        "source": "Cave Talk"
+        "source": "Cave Talk",
+        # Added missing fields
+        "db_realtime_data": "Professionally",
+        "db_high_volume": "Professionally",
+        "db_latency_impact": "Professionally",
+        "ai_deployed_production": "Professional",
+        "ai_finetune_systematic": "Both",
+        "ai_programmatic_integration": "Built Integration",
+        # Added skill levels
+        "exp_Python": "Expert",
+        "exp_PostgreSQL": "Advanced",
+        "exp_AI_Hosted": "Expert"
     }
 
     resp = requests.post(f"{API_BASE}/submit", json=app_data)
@@ -63,9 +74,8 @@ def add_dummy():
                 "responses": [1, 1, 1]
             },
             "games": {
-                "bart": {"profile": "Moderate Risk", "avg_pumps": 25.5, "responses": []},
-                "igt": {"profile": "Cautious", "good_pct": 75, "responses": []},
-                "he": {"profile": "Hard Worker", "hard_pct": 80, "responses": []},
+                "bart": {"profile": "Moderate Risk", "avg_pumps": 7.5, "exploded": 3, "banked": 4.50, "responses": [7, 8, 6]},
+                "igt": {"profile": "Cautious", "good_pct": 75, "balance": 2450, "trials": 40, "responses": [2, 3, 2]},
                 "time_taken": 450
             }
         }

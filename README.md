@@ -29,7 +29,7 @@ The core user-facing application (S3 Content).
 
 ### 📂 `/lambda_src`
 The server-side logic (Lambda Code).
-*   `handler.py`: Unified entry point for all API routes. Routes: `POST /submit` (+ `other_country`, `other_source`), `POST /get-upload-url`, `POST /submit-final`, `POST /login`, `GET /admin/applications?json=1`, `GET /admin/application/{id}?json=1`, `GET /admin/export/csv` (Enhanced: full pagination + field mapping), `GET /admin/cv/{key}`.
+*   `handler.py`: Unified entry point for all API routes. Routes: `POST /submit` (Enhanced: now captures all specialized fields and skill levels), `POST /get-upload-url`, `POST /submit-final`, `POST /login`, `GET /admin/applications?json=1`, `GET /admin/application/{id}?json=1`, `GET /admin/export/csv` (Enhanced: full pagination + exhaustive field mapping), `GET /admin/cv/{key}`.
 
 ### 📂 `/scripts`
 Maintenance and testing tools.
